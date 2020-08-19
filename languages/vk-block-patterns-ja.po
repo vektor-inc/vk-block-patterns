@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: VK Block Patterns\n"
-"POT-Creation-Date: 2020-08-19 13:18+0900\n"
-"PO-Revision-Date: 2020-08-19 13:18+0900\n"
+"POT-Creation-Date: 2020-08-19 13:29+0900\n"
+"PO-Revision-Date: 2020-08-19 13:29+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -39,7 +39,7 @@ msgid "https://lightning.nagoya/"
 msgstr "https://lightning.nagoya/"
 
 #. Description of the plugin/theme
-msgid "You can make and register your original custom block patterns"
+msgid "You can make and register your original custom block patterns."
 msgstr "オリジナルのカスタムブロックパターンを作って登録できます。"
 
 #. Author of the plugin/theme
