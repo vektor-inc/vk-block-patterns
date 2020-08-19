@@ -65,14 +65,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				return;
 			}
 
-			// Register Block Pattern Category.
-			register_block_pattern_category(
-				'vk-block-patterns',
-				array(
-					'label' => $vbp_prefix . 'Block Patterns',
-				)
-			);
-
 			// New sub query.
 			$the_query = new \WP_Query(
 				array(
