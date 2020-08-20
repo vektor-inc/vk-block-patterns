@@ -24,7 +24,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		 * Register Post Type for Block Patterns
 		 */
 		public static function register_post_type() {
-
+			global $vbp_prefix;
 			register_post_type(
 				'vk-block-patterns',
 				array(
@@ -44,6 +44,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		 * Register Block Patterns
 		 */
 		public static function register_block_patterns() {
+
+			global $vbp_prefix;
 
 			if ( ! is_admin() ) {
 				return;
