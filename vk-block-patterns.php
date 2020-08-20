@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: VK Block Patterns
- * Plugin URI: https://lightning.nagoya/
+ * Plugin URI: https://github.com/vektor-inc/vk-block-patterns
  * Description: You can make and register your original custom block patterns.
  * Version: 1.0.0
  * Author:  Vektor,Inc.
- * Author URI: https://lightning.nagoya/
+ * Author URI: https://vektor-inc.co.jp
  * Text Domain: vk-block-patterns
  * License: GPL 2.0 or Later
  *
