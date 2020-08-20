@@ -79,7 +79,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				$the_query->the_post();
 				$parts = get_post();
 				$terms = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
-				if ( $terms ) {
+				if ( ! empty( $terms ) ) {
+
 					// Register Block Pattern Category.
 					register_block_pattern_category(
 						'vk-block-pattern-' . $terms[0]->term_id,
@@ -87,6 +88,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 							'label' => $terms[0]->name,
 						)
 					);
+
+					// Register Block Pattern.
 					register_block_pattern(
 						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
 						array(
@@ -95,6 +98,27 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 							'categories' => array( 'vk-block-pattern-' . $terms[0]->term_id ),
 						)
 					);
+
+				} else {
+
+					// Register Block Pattern Category.
+					register_block_pattern_category(
+						'vk-block-patterns',
+						array(
+							'label' => $vbp_prefix . 'Block Patterns',
+						)
+					);
+
+					// Register Block Pattern.
+					register_block_pattern(
+						'loos-cbp/pattern-' . esc_attr( get_the_ID() ),
+						array(
+							'title'      => esc_html( get_the_title() ),
+							'content'    => $parts->post_content,
+							'categories' => array( 'vk-block-patterns' ),
+						)
+					);
+
 				}
 			}
 
