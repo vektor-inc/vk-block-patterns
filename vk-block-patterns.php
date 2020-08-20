@@ -1,13 +1,12 @@
 <?php
 /**
  * Plugin Name: VK Block Patterns
- * Plugin URI: https://lightning.nagoya/
+ * Plugin URI: https://github.com/vektor-inc/vk-block-patterns
  * Description: You can make and register your original custom block patterns.
  * Version: 1.0.0
  * Author:  Vektor,Inc.
- * Author URI: https://lightning.nagoya/
+ * Author URI: https://vektor-inc.co.jp
  * Text Domain: vk-block-patterns
- * Domain Path: /languages
  * License: GPL 2.0 or Later
  *
  * @package VK Block Patterns
@@ -40,10 +39,6 @@ $vbp_prefix = apply_filters( 'vbp_prefix', 'VK ' );
  * Plugin Loaded
  */
 function vbp_plugin_loaded() {
-
-	// Load translation file.
-	$locale = apply_filters( 'plugin_locale', determine_locale(), 'vk-block-patterns' );
-	load_textdomain( 'vk-block-patterns', VBP_PATH . 'languages/vk-block-patterns-' . $locale . '.mo' );
 
 	// Load Main File.
 	require_once VBP_PATH . '/inc/vk-block-patterns/vk-block-patterns-config.php';

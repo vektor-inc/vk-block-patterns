@@ -5,6 +5,10 @@
  * @package VK Block Patterns
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 
 	/**
