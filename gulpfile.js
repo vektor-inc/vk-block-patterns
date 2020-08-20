@@ -1,6 +1,6 @@
 const gulp = require('gulp')
 
-gulp.task('copy_dist', function (done) {
+gulp.task('dist', function (done) {
 	const files = gulp.src(
 	  [
 		'./**/*.php',
