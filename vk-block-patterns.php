@@ -41,10 +41,6 @@ $vbp_prefix = apply_filters( 'vbp_prefix', 'VK ' );
  */
 function vbp_plugin_loaded() {
 
-	// Load translation file.
-	$locale = apply_filters( 'plugin_locale', determine_locale(), 'vk-block-patterns' );
-	load_textdomain( 'vk-block-patterns', VBP_PATH . 'languages/vk-block-patterns-' . $locale . '.mo' );
-
 	// Load Main File.
 	require_once VBP_PATH . '/inc/vk-block-patterns/vk-block-patterns-config.php';
 }
