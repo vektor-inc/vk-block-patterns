@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: VK Block Patterns\n"
-"POT-Creation-Date: 2020-08-19 11:48+0900\n"
-"PO-Revision-Date: 2020-08-19 11:49+0900\n"
+"POT-Creation-Date: 2020-08-19 13:29+0900\n"
+"PO-Revision-Date: 2020-08-19 13:29+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -21,9 +21,13 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: inc/vk-block-patterns/package/class-vk-block-patterns.php:31
+#: inc/vk-block-patterns/package/class-vk-block-patterns.php:33
 msgid "Block Patterns"
 msgstr "ブロックパターン"
+
+#: inc/vk-block-patterns/package/class-vk-block-patterns.php:48
+msgid "Category"
+msgstr "カテゴリー"
 
 #. Plugin Name of the plugin/theme
 msgid "VK Block Patterns"
@@ -35,9 +39,12 @@ msgid "https://lightning.nagoya/"
 msgstr "https://lightning.nagoya/"
 
 #. Description of the plugin/theme
-msgid "You can make and register your original custom block patterns"
+msgid "You can make and register your original custom block patterns."
 msgstr "オリジナルのカスタムブロックパターンを作って登録できます。"
 
 #. Author of the plugin/theme
 msgid "Vektor,Inc."
 msgstr "Vektor,Inc."
+
+#~ msgid "Block Patterns Category"
+#~ msgstr "ブロックパターンカテゴリー"

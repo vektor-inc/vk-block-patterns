@@ -25,6 +25,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		 */
 		public static function register_post_type() {
 
+			global $vbp_prefix;
+
 			register_post_type(
 				'vk-block-patterns',
 				array(
@@ -38,6 +40,20 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					'supports'     => array( 'title', 'editor' ),
 				)
 			);
+
+			register_taxonomy(
+				'vk-block-patterns-category',
+				'vk-block-patterns',
+				array(
+					'label'             => __( 'Category', 'vk-block-patterns' ),
+					'public'            => false,
+					'show_ui'           => true,
+					'show_admin_column' => true,
+					'show_in_rest'      => true,
+					'hierarchical'      => true,
+					'sort'              => true,
+				)
+			);
 		}
 
 		/**
@@ -45,17 +61,11 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		 */
 		public static function register_block_patterns() {
 
+			global $vbp_prefix;
+
 			if ( ! is_admin() ) {
 				return;
 			}
-
-			// Register Block Pattern Category.
-			register_block_pattern_category(
-				'vk-block-patterns',
-				array(
-					'label' => $vbp_prefix . 'Block Patterns',
-				)
-			);
 
 			// New sub query.
 			$the_query = new \WP_Query(
@@ -70,15 +80,48 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
 				$parts = get_post();
+				$terms = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
+				if ( ! empty( $terms ) ) {
 
-				register_block_pattern(
-					'loos-cbp/pattern-' . esc_attr( get_the_ID() ),
-					array(
-						'title'      => esc_html( get_the_title() ),
-						'content'    => $parts->post_content,
-						'categories' => array( 'vk-block-patterns' ),
-					)
-				);
+					// Register Block Pattern Category.
+					register_block_pattern_category(
+						'vk-block-pattern-' . $terms[0]->term_id,
+						array(
+							'label' => $terms[0]->name,
+						)
+					);
+
+					// Register Block Pattern.
+					register_block_pattern(
+						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+						array(
+							'title'      => esc_html( get_the_title() ),
+							'content'    => $parts->post_content,
+							'categories' => array( 'vk-block-pattern-' . $terms[0]->term_id ),
+						)
+					);
+
+				} else {
+
+					// Register Block Pattern Category.
+					register_block_pattern_category(
+						'vk-block-patterns',
+						array(
+							'label' => $vbp_prefix . 'Block Patterns',
+						)
+					);
+
+					// Register Block Pattern.
+					register_block_pattern(
+						'loos-cbp/pattern-' . esc_attr( get_the_ID() ),
+						array(
+							'title'      => esc_html( get_the_title() ),
+							'content'    => $parts->post_content,
+							'categories' => array( 'vk-block-patterns' ),
+						)
+					);
+
+				}
 			}
 
 			wp_reset_postdata();
