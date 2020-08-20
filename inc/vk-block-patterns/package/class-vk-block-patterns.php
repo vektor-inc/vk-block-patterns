@@ -61,6 +61,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		 */
 		public static function register_block_patterns() {
 
+			global $vbp_prefix;
+
 			if ( ! is_admin() ) {
 				return;
 			}
