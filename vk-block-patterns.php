@@ -7,7 +7,6 @@
  * Author:  Vektor,Inc.
  * Author URI: https://lightning.nagoya/
  * Text Domain: vk-block-patterns
- * Domain Path: /languages
  * License: GPL 2.0 or Later
  *
  * @package VK Block Patterns
