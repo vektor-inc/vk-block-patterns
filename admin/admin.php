@@ -37,7 +37,7 @@ function vbp_setting_menu() {
 	global $vbp_prefix;
 	$custom_page = add_options_page(
 		$vbp_prefix . __( 'Block Patterns setting', 'vk-block-patterns' ), // Name of page.
-		$vbp_prefix . _x( 'Blocks Patterns', 'label in admin menu', 'vk-block-patterns' ),  // Label in menu.
+		$vbp_prefix . _x( 'Block Patterns', 'label in admin menu', 'vk-block-patterns' ),  // Label in menu.
 		'edit_theme_options',               // Capability required　このメニューページを閲覧・使用するために最低限必要なユーザーレベルまたはユーザーの種類と権限.
 		'vk_block_patterns_options',               // ユニークなこのサブメニューページの識別子.
 		'vbp_setting_page'         // メニューページのコンテンツを出力する関数.
