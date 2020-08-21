@@ -55,7 +55,7 @@ function vbp_setting_page() {
 	global $vbp_prefix;
 	$get_page_title = $vbp_prefix . __( 'Block Patterns Setting', 'vk-block-patterns' );
 
-	$get_logo_html = '<img src="' . plugin_dir_url( __FILE__ ) . '/images/vk-blocks-logo_ol.svg" alt="VK Blocks" />';
+	$get_logo_html = '<img src="' . plugin_dir_url( __FILE__ ) . '/images/vk-block-patterns-logo_ol.svg" alt="VK Block Patterns" />';
 	$get_logo_html = apply_filters( 'vbp_logo_html', $get_logo_html );
 
 	$get_menu_html  = '<li><a href="#role-setting">' . __( 'Role Setting', 'vk-block-patterns' ) . '</a></li>';
