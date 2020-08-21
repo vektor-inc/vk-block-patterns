@@ -41,7 +41,11 @@ $vbp_prefix = apply_filters( 'vbp_prefix', 'VK ' );
 function vbp_plugin_loaded() {
 
 	// Load Main File.
-	require_once VBP_PATH . '/inc/vk-block-patterns/vk-block-patterns-config.php';
+	require_once VBP_PATH . 'inc/vk-block-patterns/vk-block-patterns-config.php';
+	// Load VKAdmin.
+	require_once VBP_PATH . 'inc/vk-admin/vk-admin-config.php';
+	// Load Admin Options.
+	require_once VBP_PATH . 'admin/admin.php';
 }
 add_action( 'plugins_loaded', 'vbp_plugin_loaded' );
 

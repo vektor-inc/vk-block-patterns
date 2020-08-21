@@ -22,15 +22,14 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		public function __construct() {
 			add_action( 'init', array( __CLASS__, 'register_block_patterns' ), 20 );
 			add_action( 'init', array( __CLASS__, 'register_post_type' ), 11 );
+			add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
 		}
 
 		/**
 		 * Register Post Type for Block Patterns
 		 */
 		public static function register_post_type() {
-
 			global $vbp_prefix;
-
 			register_post_type(
 				'vk-block-patterns',
 				array(
@@ -38,6 +37,10 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					'public'       => false,
 					'show_ui'      => true,
 					'show_in_menu' => true,
+					'capabilities' => array(
+						'edit_posts' => 'create_vk_block_patterns',
+					),
+					'map_meta_cap' => true,
 					'has_archive'  => false,
 					'menu_icon'    => 'dashicons-screenoptions',
 					'show_in_rest' => true,
@@ -58,6 +61,37 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					'sort'              => true,
 				)
 			);
+		}
+
+		/**
+		 * Role Setting
+		 */
+		public static function admin_init() {
+
+			global $wp_roles;
+			$vbp_options = get_option( 'vk_block_patterns_options' );
+
+			if ( isset( $vbp_options['role'] ) && 'contributor' === $vbp_options['role'] ) {
+				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'editor', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'author', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'contributor', 'create_vk_block_patterns' );
+			} elseif ( isset( $vbp_options['role'] ) && 'author' === $vbp_options['role'] ) {
+				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'editor', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'author', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'contributor', 'create_vk_block_patterns' );
+			} elseif ( isset( $vbp_options['role'] ) && 'editor' === $vbp_options['role'] ) {
+				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'editor', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'author', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'contributor', 'create_vk_block_patterns' );
+			} else {
+				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'editor', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'author', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'contributor', 'create_vk_block_patterns' );
+			}
 		}
 
 		/**
@@ -129,8 +163,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			}
 
 			wp_reset_postdata();
-
 		}
+
 	}
 	new VK_Block_Patterns();
 }
