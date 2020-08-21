@@ -2,9 +2,9 @@
 Contributors: vektor-inc,kurudrive,rickaddison7634
 Donate link:
 Tags: Guternberg, Block Pattern
-Requires at least: 5.5.0
-Tested up to: 5.5.0
-Stable tag: 0.0.0
+Requires at least: 5.5
+Tested up to: 5.5
+Stable tag: 0.0.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
