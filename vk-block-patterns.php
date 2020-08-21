@@ -49,3 +49,10 @@ function vbp_plugin_loaded() {
 }
 add_action( 'plugins_loaded', 'vbp_plugin_loaded' );
 
+// Add a link to this plugin's settings page
+function vbp_set_plugin_meta( $links ) {
+	$settings_link = '<a href="options-general.php?page=vk_block_patterns_options">' . __( 'Setting', 'vk-block-patterns' ) . '</a>';
+	array_unshift( $links, $settings_link );
+	return $links;
+}
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vbp_set_plugin_meta', 10, 1 );
