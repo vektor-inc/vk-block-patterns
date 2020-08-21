@@ -22,6 +22,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		public function __construct() {
 			add_action( 'init', array( __CLASS__, 'register_block_patterns' ), 20 );
 			add_action( 'init', array( __CLASS__, 'register_post_type' ), 11 );
+			add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
 		}
 
 		/**
@@ -36,12 +37,61 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					'public'       => false,
 					'show_ui'      => true,
 					'show_in_menu' => true,
+					'capabilities' => array(
+						'edit_posts' => 'create_vk_block_patterns',
+					),
+					'map_meta_cap' => true,
 					'has_archive'  => false,
 					'menu_icon'    => 'dashicons-screenoptions',
 					'show_in_rest' => true,
 					'supports'     => array( 'title', 'editor' ),
 				)
 			);
+
+			register_taxonomy(
+				'vk-block-patterns-category',
+				'vk-block-patterns',
+				array(
+					'label'             => __( 'Category', 'vk-block-patterns' ),
+					'public'            => false,
+					'show_ui'           => true,
+					'show_admin_column' => true,
+					'show_in_rest'      => true,
+					'hierarchical'      => true,
+					'sort'              => true,
+				)
+			);
+		}
+
+		/**
+		 * Role Setting
+		 */
+		public static function admin_init() {
+
+			global $wp_roles;
+			$vbp_options = get_option( 'vk_block_patterns_options' );
+
+			if ( 'contributor' === $vbp_options['role'] ) {
+				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'editor', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'author', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'contributor', 'create_vk_block_patterns' );
+			} elseif ( 'author' === $vbp_options['role'] ) {
+				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'editor', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'author', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'contributor', 'create_vk_block_patterns' );
+			} elseif ( 'editor' === $vbp_options['role'] ) {
+				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
+				$wp_roles->add_cap( 'editor', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'author', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'contributor', 'create_vk_block_patterns' );
+			} else {
+				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'editor', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'author', 'create_vk_block_patterns' );
+				$wp_roles->remove_cap( 'contributor', 'create_vk_block_patterns' );
+			}
 		}
 
 		/**
@@ -54,14 +104,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			if ( ! is_admin() ) {
 				return;
 			}
-
-			// Register Block Pattern Category.
-			register_block_pattern_category(
-				'vk-block-patterns',
-				array(
-					'label' => $vbp_prefix . 'Block Patterns',
-				)
-			);
 
 			// New sub query.
 			$the_query = new \WP_Query(
@@ -76,20 +118,53 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
 				$parts = get_post();
+				$terms = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
+				if ( ! empty( $terms ) ) {
 
-				register_block_pattern(
-					'loos-cbp/pattern-' . esc_attr( get_the_ID() ),
-					array(
-						'title'      => esc_html( get_the_title() ),
-						'content'    => $parts->post_content,
-						'categories' => array( 'vk-block-patterns' ),
-					)
-				);
+					// Register Block Pattern Category.
+					register_block_pattern_category(
+						'vk-block-pattern-' . $terms[0]->term_id,
+						array(
+							'label' => $terms[0]->name,
+						)
+					);
+
+					// Register Block Pattern.
+					register_block_pattern(
+						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+						array(
+							'title'      => esc_html( get_the_title() ),
+							'content'    => $parts->post_content,
+							'categories' => array( 'vk-block-pattern-' . $terms[0]->term_id ),
+						)
+					);
+
+				} else {
+
+					// Register Block Pattern Category.
+					register_block_pattern_category(
+						'vk-block-patterns',
+						array(
+							'label' => $vbp_prefix . 'Block Patterns',
+						)
+					);
+
+					// Register Block Pattern.
+					register_block_pattern(
+						'loos-cbp/pattern-' . esc_attr( get_the_ID() ),
+						array(
+							'title'      => esc_html( get_the_title() ),
+							'content'    => $parts->post_content,
+							'categories' => array( 'vk-block-patterns' ),
+						)
+					);
+
+				}
 			}
 
 			wp_reset_postdata();
-
 		}
+
 	}
 	new VK_Block_Patterns();
 }
