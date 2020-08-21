@@ -71,17 +71,17 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			global $wp_roles;
 			$vbp_options = get_option( 'vk_block_patterns_options' );
 
-			if ( 'contributor' === $vbp_options['role'] ) {
+			if ( isset( $vbp_options['role'] ) && 'contributor' === $vbp_options['role'] ) {
 				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
 				$wp_roles->add_cap( 'editor', 'create_vk_block_patterns' );
 				$wp_roles->add_cap( 'author', 'create_vk_block_patterns' );
 				$wp_roles->add_cap( 'contributor', 'create_vk_block_patterns' );
-			} elseif ( 'author' === $vbp_options['role'] ) {
+			} elseif ( isset( $vbp_options['role'] ) && 'author' === $vbp_options['role'] ) {
 				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
 				$wp_roles->add_cap( 'editor', 'create_vk_block_patterns' );
 				$wp_roles->add_cap( 'author', 'create_vk_block_patterns' );
 				$wp_roles->remove_cap( 'contributor', 'create_vk_block_patterns' );
-			} elseif ( 'editor' === $vbp_options['role'] ) {
+			} elseif ( isset( $vbp_options['role'] ) && 'editor' === $vbp_options['role'] ) {
 				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
 				$wp_roles->add_cap( 'editor', 'create_vk_block_patterns' );
 				$wp_roles->remove_cap( 'author', 'create_vk_block_patterns' );
