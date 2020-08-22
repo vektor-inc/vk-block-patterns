@@ -1,6 +1,6 @@
 .github/
 .gitignore
-.svnigunore
+.svnignore
 gulpfile.js
 LICENSE
 package.json
