@@ -21,7 +21,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'init', array( __CLASS__, 'register_block_patterns' ), 9 );
-			add_action( 'init', array( __CLASS__, 'register_post_type' ), 11 );
+			add_action( 'init', array( __CLASS__, 'register_post_type' ), 8 );
 			add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
 		}
 
