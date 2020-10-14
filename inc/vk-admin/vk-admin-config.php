@@ -10,5 +10,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Vk_Admin' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . '/vk-admin/class-vk-admin.php';
+	require_once plugin_dir_path( __FILE__ ) . '/package/class-vk-admin.php';
 }
