@@ -151,7 +151,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 
 					// Register Block Pattern.
 					register_block_pattern(
-						'loos-cbp/pattern-' . esc_attr( get_the_ID() ),
+						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
 						array(
 							'title'      => esc_html( get_the_title() ),
 							'content'    => $parts->post_content,
