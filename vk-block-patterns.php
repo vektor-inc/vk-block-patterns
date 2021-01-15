@@ -56,3 +56,4 @@ function vbp_set_plugin_meta( $links ) {
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vbp_set_plugin_meta', 10, 1 );
+include( dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.php' );
