@@ -89,19 +89,17 @@ namespace wp_content\plugins\vk_block_patterns\patterns_data;
                     // 本文欄の /// エスケープを戻す
                     $val = wp_unslash( $val );
 
-                    foreach ( $val['categories'] as $term ){
+                    $val['content'] = str_replace( '[pattern_directory]', $image_dir_uri , $val['content'] );
 
-                        $val['content'] = str_replace( '[pattern_directory]', $image_dir_uri , $val['content'] );
+                    register_block_pattern(
+                        $val['post_name'],
+                        array(
+                            'title'      => $val['title'],
+                            'categories' => $val['categories'],
+                            'content'    => $val['content'],
+                        )
+                    );
 
-                        register_block_pattern(
-                            $term . '/' . $val['post_name'],
-                            array(
-                                'title'      => $val['title'],
-                                'categories' => $val['categories'],
-                                'content'    => $val['content'],
-                            )
-                        );
-                    }
                 }
             } else {
                 echo "データがありません";
