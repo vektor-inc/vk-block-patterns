@@ -60,7 +60,7 @@
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 4,
+        "count": 5,
         "filter": "raw",
         "term_order": "0"
     },
@@ -73,7 +73,7 @@
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 1,
+        "count": 2,
         "filter": "raw",
         "term_order": "0"
     },
@@ -86,7 +86,7 @@
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 1,
+        "count": 2,
         "filter": "raw",
         "term_order": "0"
     },
@@ -100,6 +100,19 @@
         "description": "",
         "parent": 0,
         "count": 24,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "term_id": 189,
+        "name": "\u30da\u30fc\u30b8 \u63a1\u7528\u60c5\u5831",
+        "slug": "%e3%83%9a%e3%83%bc%e3%82%b8-%e6%8e%a1%e7%94%a8%e6%83%85%e5%a0%b1",
+        "term_group": 0,
+        "term_taxonomy_id": 189,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "count": 2,
         "filter": "raw",
         "term_order": "0"
     }
