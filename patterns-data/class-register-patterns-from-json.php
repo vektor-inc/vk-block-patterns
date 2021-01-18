@@ -64,6 +64,32 @@ namespace wp_content\plugins\vk_block_patterns\patterns_data;
                 }
             }
 
+            // import Language
+            /* ------------------------------*/
+            $language_json = $json_dir_path . 'term-language.json';
+
+            if ( file_exists( $language_json ) ) {
+                $json = file_get_contents( $language_json );
+                $json = mb_convert_encoding( $json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+                $obj = json_decode( $json, true );
+                $languages = array();
+                foreach( $obj as $key => $val) {
+                    $languages[] = $val['slug'];
+                }
+            }
+
+            // タームのスラッグが小文字に変換されてしまうため小文字
+            $site_lang = mb_strtolower( get_locale() );
+
+             // 表示中のサイトの言語が言語カテゴリーに含まれている場合
+            if ( in_array( $site_lang, $languages ) ){
+                // 表示中の言語に合致したパターンのみ登録するモード
+                $judge_lang_mode = true;
+            } else {
+                // 英語のパターンのみ登録するモード
+                $judge_lang_mode = false;
+            }
+
             /* import posts 
             /* ------------------------------*/
             if ( is_plugin_active( 'vk-blocks/vk-blocks.php' ) ) {
@@ -91,15 +117,34 @@ namespace wp_content\plugins\vk_block_patterns\patterns_data;
 
                     $val['content'] = str_replace( '[pattern_directory]', $image_dir_uri , $val['content'] );
 
-                    register_block_pattern(
-                        $val['post_name'],
-                        array(
-                            'title'      => $val['title'],
-                            'categories' => $val['categories'],
-                            'content'    => $val['content'],
-                        )
-                    );
+                    $langs = $val[ 'languages' ];
 
+                    // 表示中の言語に合致したパターンのみ登録するモード
+                    if ( $judge_lang_mode ){
+                        if ( in_array( $site_lang, $val[ 'languages' ] ) ){
+                            register_block_pattern(
+                                $val['post_name'],
+                                array(
+                                    'title'      => $val['title'],
+                                    'categories' => $val['categories'],
+                                    'content'    => $val['content'],
+                                )
+                            );
+                        }
+                    
+                    // 英語のパターンのみ登録するモード
+                    } else {
+                        if ( in_array( mb_strtolower( 'en_US' ), $val[ 'languages' ] ) ){
+                            register_block_pattern(
+                                $val['post_name'],
+                                array(
+                                    'title'      => $val['title'],
+                                    'categories' => $val['categories'],
+                                    'content'    => $val['content'],
+                                )
+                            );
+                        }
+                    }
                 }
             } else {
                 echo "データがありません";
