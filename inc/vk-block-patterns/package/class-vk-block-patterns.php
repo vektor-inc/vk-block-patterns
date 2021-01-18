@@ -108,9 +108,10 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			// New sub query.
 			$the_query = new \WP_Query(
 				array(
-					'post_type'      => 'vk-block-patterns',
-					'no_found_rows'  => true,
-					'posts_per_page' => -1,
+					'post_type'      	=> 'vk-block-patterns',
+					'post_status'		=> 'publish',
+					'no_found_rows'  	=> true,
+					'posts_per_page' 	=> -1,
 				)
 			);
 
