@@ -1,10 +1,10 @@
 [
     {
-        "term_id": 154,
+        "term_id": 77,
         "name": "English (United States)",
         "slug": "en_us",
         "term_group": 0,
-        "term_taxonomy_id": 154,
+        "term_taxonomy_id": 77,
         "taxonomy": "vk-managing-patterns-language",
         "description": "",
         "parent": 0,
@@ -13,11 +13,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 153,
+        "term_id": 76,
         "name": "\u65e5\u672c\u8a9e",
         "slug": "ja",
         "term_group": 0,
-        "term_taxonomy_id": 153,
+        "term_taxonomy_id": 76,
         "taxonomy": "vk-managing-patterns-language",
         "description": "",
         "parent": 0,
