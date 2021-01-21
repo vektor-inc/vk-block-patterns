@@ -9,9 +9,9 @@ namespace wp_content\plugins\vk_block_patterns\patterns_data;
         add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'print_pattern_editor_css' ) );
     }
 
-    public static function load_inline_css(){
-        $style_path = dirname( __FILE__ ) . '/style.css';
-        $style_url = str_replace( ABSPATH, site_url() . '/', dirname( __FILE__ ) ) . '/style.css';
+    public static function load_inline_css( $filename = 'style.css' ){
+        $style_path = dirname( __FILE__ ) . '/' . $filename;
+        $style_url = str_replace( ABSPATH, site_url() . '/', dirname( __FILE__ ) ) . '/' . $filename;
         $dynamic_css = '';
         if ( file_exists( $style_path ) ){
 
@@ -35,6 +35,7 @@ namespace wp_content\plugins\vk_block_patterns\patterns_data;
 
     public static function print_pattern_editor_css(){
         $css = self::load_inline_css();
+        $css .= self::load_inline_css( 'style-editor.css' );
         if ( $css ){
             wp_add_inline_style( 'wp-edit-blocks',  $css );
         }
@@ -122,27 +123,32 @@ namespace wp_content\plugins\vk_block_patterns\patterns_data;
                     // 表示中の言語に合致したパターンのみ登録するモード
                     if ( $judge_lang_mode ){
                         if ( in_array( $site_lang, $val[ 'languages' ] ) ){
-                            register_block_pattern(
-                                $val['post_name'],
-                                array(
-                                    'title'      => $val['title'],
-                                    'categories' => $val['categories'],
-                                    'content'    => $val['content'],
-                                )
-                            );
+                            // 本来 $val['post_status'] は必ず必ず入ってくる。リリース前のデータ対応なので2021年3月以降削除可
+                            if ( ! isset( $val['post_status'] ) || $val['post_status'] === 'publish' ){
+                                register_block_pattern(
+                                    $val['post_name'],
+                                    array(
+                                        'title'      => $val['title'],
+                                        'categories' => $val['categories'],
+                                        'content'    => $val['content'],
+                                    )
+                                );
+                            }
                         }
                     
                     // 英語のパターンのみ登録するモード
                     } else {
                         if ( in_array( mb_strtolower( 'en_US' ), $val[ 'languages' ] ) ){
-                            register_block_pattern(
-                                $val['post_name'],
-                                array(
-                                    'title'      => $val['title'],
-                                    'categories' => $val['categories'],
-                                    'content'    => $val['content'],
-                                )
-                            );
+                            if ( ! isset( $val['post_status'] ) || $val['post_status'] === 'publish' ){
+                                register_block_pattern(
+                                    $val['post_name'],
+                                    array(
+                                        'title'      => $val['title'],
+                                        'categories' => $val['categories'],
+                                        'content'    => $val['content'],
+                                    )
+                                );
+                            }
                         }
                     }
                 }
