@@ -1,5 +1,5 @@
 <?php
-namespace wp_content\plugins\_vk_block_patterns\patterns_data;
+namespace wp_content\plugins\vk_block_patterns\patterns_data;
 
 class VK_RegisterPatternsFromJson {
 
