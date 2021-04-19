@@ -1,28 +1,26 @@
 [
     {
-        "term_id": 36,
+        "term_id": 3,
         "name": "English (United States)",
         "slug": "en_us",
         "term_group": 0,
-        "term_taxonomy_id": 36,
+        "term_taxonomy_id": 3,
         "taxonomy": "vk-managing-patterns-language",
         "description": "",
         "parent": 0,
         "count": 0,
-        "filter": "raw",
-        "term_order": "0"
+        "filter": "raw"
     },
     {
-        "term_id": 35,
+        "term_id": 2,
         "name": "\u65e5\u672c\u8a9e",
         "slug": "ja",
         "term_group": 0,
-        "term_taxonomy_id": 35,
+        "term_taxonomy_id": 2,
         "taxonomy": "vk-managing-patterns-language",
         "description": "",
         "parent": 0,
         "count": 25,
-        "filter": "raw",
-        "term_order": "0"
+        "filter": "raw"
     }
 ]
