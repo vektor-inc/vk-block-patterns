@@ -4,7 +4,8 @@
   "description": "You can make and register your original custom block patterns.",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "phpunit": "wp-env run phpunit \"phpunit -c /var/www/html/wp-content/plugins/vk-block-patterns/phpunit.xml.dist --verbose\""
   },
   "repository": {
     "type": "git",
