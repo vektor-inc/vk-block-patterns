@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.6
 Tested up to: 5.6
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,9 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen. 
 
 == Changelog ==
+
+= 1.2.2 =
+[ Bug fix ] Fix PHP Undefined error
 
 = 1.2.1 =
 [ Bug fix ][ PR Column ] Fixed a bug that the border of the image is displayed twice

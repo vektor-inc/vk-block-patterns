@@ -69,7 +69,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		public static function admin_init() {
 
 			global $wp_roles;
-			$vbp_options = get_option( 'vk_block_patterns_options' );
+			$vbp_options = vbp_get_options();
 
 			if ( isset( $vbp_options['role'] ) && 'contributor' === $vbp_options['role'] ) {
 				$wp_roles->add_cap( 'administrator', 'create_vk_block_patterns' );
@@ -108,10 +108,10 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			// New sub query.
 			$the_query = new \WP_Query(
 				array(
-					'post_type'      	=> 'vk-block-patterns',
-					'post_status'		=> 'publish',
-					'no_found_rows'  	=> true,
-					'posts_per_page' 	=> -1,
+					'post_type'      => 'vk-block-patterns',
+					'post_status'    => 'publish',
+					'no_found_rows'  => true,
+					'posts_per_page' => -1,
 				)
 			);
 

@@ -1,0 +1,13 @@
+{
+    "name": "vektor/vk-block-patterns",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Vektor, inc.",
+            "email": "info@vektor-inc.co.jp"
+        }
+    ],
+	"require-dev": {
+		"wp-phpunit/wp-phpunit": "^5.4"
+	}
+}
