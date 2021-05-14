@@ -30,7 +30,7 @@ $role_array = array(
 ?>
 <section>
 	<h3 id="role-setting"><?php echo __( 'Role Setting', 'vk-block-patterns' ); ?></h3>
-	<?php $vbp_options = get_option( 'vk_block_patterns_options' ); ?>
+	<?php $vbp_options = vbp_get_options(); ?>
 	<select name="vk_block_patterns_options[role]">
 		<?php foreach ( $role_array as $role ) : ?>
 			<option value="<?php echo $role['value']; ?>" <?php selected( $vbp_options['role'], $role['value'] ); ?>>
