@@ -34,7 +34,7 @@
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 5,
+        "count": 6,
         "filter": "raw",
         "term_order": "0"
     },
@@ -99,7 +99,7 @@
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 1,
+        "count": 2,
         "filter": "raw",
         "term_order": "0"
     },
@@ -255,7 +255,7 @@
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 5,
+        "count": 6,
         "filter": "raw",
         "term_order": "0"
     },
@@ -281,7 +281,7 @@
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 18,
+        "count": 19,
         "filter": "raw",
         "term_order": "0"
     },
