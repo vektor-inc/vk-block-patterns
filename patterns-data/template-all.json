@@ -1,6 +1,21 @@
 [
     {
-        "title": "\u30b5\u30fc\u30d3\u30b9\u306e\u6d41\u308c",
+        "title": "\u3088\u304f\u3042\u308b\u8cea\u554f Free 01",
+        "post_status": "publish",
+        "post_name": "%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f-%e7%84%a1%e6%96%99%e7%89%88-01",
+        "description": "",
+        "content": "<!-- wp:vk-blocks\/faq -->\n<dl class=\\\"wp-block-vk-blocks-faq vk_faq [accordion_trigger_switch]\\\"><dt class=\\\"vk_faq_title\\\"> <strong>\u7d0d\u671f\u306f\u3069\u308c\u304f\u3089\u3044\u3067\u3059\u304b\uff1f<\/strong><\/dt><dd class=\\\"vk_faq_content\\\"><!-- wp:paragraph -->\n<p>10\u30da\u30fc\u30b8\u7a0b\u5ea6\u306e\u30db\u30fc\u30e0\u30da\u30fc\u30b8\u3067\u3042\u308c\u3070\u7d04\uff11\u30f6\u6708\u534a\u3067\u7d0d\u54c1\u3057\u3066\u3044\u307e\u3059\u3002<\/p>\n<!-- \/wp:paragraph --><\/dd><\/dl>\n<!-- \/wp:vk-blocks\/faq -->\n\n<!-- wp:vk-blocks\/faq -->\n<dl class=\\\"wp-block-vk-blocks-faq vk_faq [accordion_trigger_switch]\\\"><dt class=\\\"vk_faq_title\\\"> <strong>\u539f\u7a3f\u3084\u5199\u771f\u306f\u3053\u3061\u3089\u304c\u7528\u610f\u3059\u308b\u306e\u3067\u3059\u304b\uff1f<\/strong> <\/dt><dd class=\\\"vk_faq_content\\\"><!-- wp:paragraph -->\n<p>\u57fa\u672c\u7684\u306b\u304a\u5ba2\u69d8\u306b\u3066\u3054\u7528\u610f\u3044\u305f\u3060\u3044\u3066\u3044\u307e\u3059\u3002\u30aa\u30d7\u30b7\u30e7\u30f3\u3067\u30d7\u30ed\u306e\u30e9\u30a4\u30bf\u30fc\u306b\u4f9d\u983c\u3059\u308b\u65b9\u6cd5\u3082\u3054\u3056\u3044\u307e\u3059\u3002<\/p>\n<!-- \/wp:paragraph -->\n\n<!-- wp:vk-blocks\/button {\\\"buttonUrl\\\":\\\"#\\\",\\\"buttonAlign\\\":\\\"wide\\\"} -->\n<div class=\\\"wp-block-vk-blocks-button vk_button vk_button-align-wide\\\"><a href=\\\"#\\\" class=\\\"vk_button_link btn btn-primary btn-md\\\" role=\\\"button\\\" aria-pressed=\\\"true\\\" rel=\\\"noopener\\\"><span class=\\\"vk_button_link_txt\\\">\u30aa\u30d7\u30b7\u30e7\u30f3\u6599\u91d1\u3092\u78ba\u8a8d\u3059\u308b<\/span><\/a><\/div>\n<!-- \/wp:vk-blocks\/button --><\/dd><\/dl>\n<!-- \/wp:vk-blocks\/faq -->\n\n<!-- wp:vk-blocks\/faq -->\n<dl class=\\\"wp-block-vk-blocks-faq vk_faq [accordion_trigger_switch]\\\"><dt class=\\\"vk_faq_title\\\"> \u4eca\u306e\u30db\u30fc\u30e0\u30da\u30fc\u30b8\u3092\u30ea\u30cb\u30e5\u30fc\u30a2\u30eb\u3057\u305f\u3044\u306e\u3067\u3059\u304c\u3001\u3067\u304d\u307e\u3059\u304b\uff1f <\/dt><dd class=\\\"vk_faq_content\\\"><!-- wp:paragraph -->\n<p>\u306f\u3044\u3001\u3082\u3061\u308d\u3093\u3067\u3059\u3002\u73fe\u72b6\u306e\u30db\u30fc\u30e0\u30da\u30fc\u30b8\u306e\u8ab2\u984c\u3092\u6d17\u3044\u51fa\u3057\u3001\u89e3\u6c7a\u65b9\u6cd5\u304b\u3089\u4e01\u5be7\u306b\u3054\u63d0\u6848\u3044\u305f\u3057\u307e\u3059\u3002<\/p>\n<!-- \/wp:paragraph --><\/dd><\/dl>\n<!-- \/wp:vk-blocks\/faq -->",
+        "categories": [
+            "vk",
+            "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f",
+            "%e5%b9%85_%e9%80%9a%e5%b8%b8"
+        ],
+        "languages": [
+            "ja"
+        ]
+    },
+    {
+        "title": "\u30b5\u30fc\u30d3\u30b9\u306e\u6d41\u308c Free",
         "post_status": "publish",
         "post_name": "%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e6%b5%81%e3%82%8c",
         "description": "",
@@ -15,7 +30,7 @@
         ]
     },
     {
-        "title": "PR \u30ab\u30e9\u30e0 02",
+        "title": "PR \u30ab\u30e9\u30e0 Free 02",
         "post_status": "publish",
         "post_name": "pr-%e3%82%ab%e3%83%a9%e3%83%a0-02",
         "description": "",
@@ -31,7 +46,7 @@
         ]
     },
     {
-        "title": "PR \u30a2\u30a4\u30b3\u30f3\u30bb\u30c3\u30c8",
+        "title": "PR \u30a2\u30a4\u30b3\u30f3\u30bb\u30c3\u30c8 Free",
         "post_status": "publish",
         "post_name": "pr-%e3%82%a2%e3%82%a4%e3%82%b3%e3%83%b3%e3%82%bb%e3%83%83%e3%83%88",
         "description": "",
@@ -46,7 +61,7 @@
         ]
     },
     {
-        "title": "\u30b5\u30fc\u30d3\u30b9\u6848\u5185 02",
+        "title": "\u30b5\u30fc\u30d3\u30b9\u6848\u5185 \u7121\u6599\u7248 01",
         "post_status": "publish",
         "post_name": "%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e6%a1%88%e5%86%85-2",
         "description": "",
@@ -61,7 +76,7 @@
         ]
     },
     {
-        "title": "\u30c8\u30c3\u30d7\u30da\u30fc\u30b8\uff08\u30b9\u30bf\u30fc\u30bf\u30fc\u30c8\u30c3\u30d7\uff09",
+        "title": "\u30c8\u30c3\u30d7\u30da\u30fc\u30b8 \u7121\u6599\u7248 01 \uff08\u30b9\u30bf\u30fc\u30bf\u30fc\u30c8\u30c3\u30d7\uff09",
         "post_status": "publish",
         "post_name": "3335",
         "description": "",
@@ -77,7 +92,7 @@
         ]
     },
     {
-        "title": "PR \u30b3\u30f3\u30c6\u30f3\u30c4 \u5168\u5e45",
+        "title": "PR \u30b3\u30f3\u30c6\u30f3\u30c4 Free \u5168\u5e45",
         "post_status": "publish",
         "post_name": "pr-%e3%82%b3%e3%83%b3%e3%83%86%e3%83%b3%e3%83%84-%e5%85%a8%e5%b9%85",
         "description": "",
@@ -136,7 +151,7 @@
         ]
     },
     {
-        "title": "\u30b3\u30f3\u30bf\u30af\u30c8\uff12",
+        "title": "\u30b3\u30f3\u30bf\u30af\u30c8 \u5168\u5e45 Free 01",
         "post_status": "publish",
         "post_name": "%e3%82%b3%e3%83%b3%e3%82%bf%e3%82%af%e3%83%88%ef%bc%92",
         "description": "",
@@ -151,7 +166,7 @@
         ]
     },
     {
-        "title": "\u4f1a\u793e\u6848\u5185\uff12",
+        "title": "\u4f1a\u793e\u6848\u5185 Free 01",
         "post_status": "publish",
         "post_name": "%e4%bc%9a%e7%a4%be%e6%a1%88%e5%86%85%ef%bc%92",
         "description": "",
@@ -167,7 +182,7 @@
         ]
     },
     {
-        "title": "Call To Action",
+        "title": "Call To Action 01",
         "post_status": "publish",
         "post_name": "call-to-action",
         "description": "",
@@ -264,6 +279,7 @@
         "content": "<!-- wp:group {\\\"className\\\":\\\"is-style-default\\\",\\\"color\\\":\\\"#eeeeee\\\"} -->\n<div class=\\\"wp-block-group is-style-default\\\"><div class=\\\"wp-block-group__inner-container\\\"><!-- wp:vk-blocks\/spacer {\\\"unit\\\":\\\"rem\\\",\\\"pc\\\":2,\\\"tablet\\\":32,\\\"mobile\\\":2} -->\n<div class=\\\"wp-block-vk-blocks-spacer vk_spacer\\\"><div class=\\\"vk_spacer-display-pc\\\" style=\\\"height:2rem\\\"><\/div><div class=\\\"vk_spacer-display-tablet\\\" style=\\\"height:32rem\\\"><\/div><div class=\\\"vk_spacer-display-mobile\\\" style=\\\"height:2rem\\\"><\/div><\/div>\n<!-- \/wp:vk-blocks\/spacer -->\n\n<!-- wp:vk-blocks\/step -->\n<div class=\\\"wp-block-vk-blocks-step  vk_step\\\"><!-- wp:vk-blocks\/step-item -->\n<div class=\\\"wp-block-vk-blocks-step-item  vk_step_item vk_step_item_lineStyle-default\\\"><div class=\\\"vk_step_item_content\\\"><!-- wp:heading {\\\"level\\\":4,\\\"className\\\":\\\"is-style-vk-heading-plain\\\"} -->\n<h4 class=\\\"is-style-vk-heading-plain\\\"><strong>\u304a\u554f\u3044\u5408\u308f\u305b<\/strong><\/h4>\n<!-- \/wp:heading -->\n\n<!-- wp:paragraph -->\n<p>\u307e\u305a\u306f<a>\u304a\u554f\u3044\u5408\u308f\u305b\u30d5\u30a9\u30fc\u30e0<\/a>\u307e\u305f\u306f\u96fb\u8a71\u306b\u3066\u3054\u9023\u7d61\u304f\u3060\u3055\u3044\u3002<\/p>\n<!-- \/wp:paragraph --><\/div><div class=\\\"vk_step_item_dot vk_step_item_style-default\\\" style=\\\"background-color:#337ab7;color:#ffffff\\\"><div class=\\\"vk_step_item_dot_caption\\\">STEP<\/div><div class=\\\"vk_step_item_dot_num\\\">1<\/div><\/div><\/div>\n<!-- \/wp:vk-blocks\/step-item -->\n\n<!-- wp:vk-blocks\/step-item {\\\"dotNum\\\":2} -->\n<div class=\\\"wp-block-vk-blocks-step-item  vk_step_item vk_step_item_lineStyle-default\\\"><div class=\\\"vk_step_item_content\\\"><!-- wp:heading {\\\"level\\\":4,\\\"className\\\":\\\"is-style-vk-heading-plain\\\"} -->\n<h4 class=\\\"is-style-vk-heading-plain\\\"><strong>\u30b5\u30fc\u30d3\u30b9\u306e\u3054\u63d0\u4f9b<\/strong><\/h4>\n<!-- \/wp:heading -->\n\n<!-- wp:paragraph -->\n<p>\u3054\u63d0\u6848\u3055\u305b\u3066\u3044\u305f\u3060\u3044\u305f\u5185\u5bb9\u306b\u3066\u696d\u52d9\u3092\u5b9f\u65bd\u3044\u305f\u3057\u307e\u3059\u3002<\/p>\n<!-- \/wp:paragraph --><\/div><div class=\\\"vk_step_item_dot vk_step_item_style-default\\\" style=\\\"background-color:#337ab7;color:#ffffff\\\"><div class=\\\"vk_step_item_dot_caption\\\">STEP<\/div><div class=\\\"vk_step_item_dot_num\\\">2<\/div><\/div><\/div>\n<!-- \/wp:vk-blocks\/step-item -->\n\n<!-- wp:vk-blocks\/step-item {\\\"styleLine\\\":\\\"none\\\",\\\"dotNum\\\":3} -->\n<div class=\\\"wp-block-vk-blocks-step-item  vk_step_item vk_step_item_lineStyle-none\\\"><div class=\\\"vk_step_item_content\\\"><!-- wp:heading {\\\"level\\\":4,\\\"className\\\":\\\"is-style-vk-heading-plain\\\"} -->\n<h4 class=\\\"is-style-vk-heading-plain\\\"><strong>\u3054\u5165\u91d1<\/strong><\/h4>\n<!-- \/wp:heading -->\n\n<!-- wp:paragraph -->\n<p>\u7d0d\u54c1\u6708\u306e\u672b\u7de0\u3081\u3067\u8acb\u6c42\u66f8\u3092\u767a\u884c\u3055\u305b\u3066\u3044\u305f\u3060\u304d\u307e\u3059\u306e\u3067\u3001\u7fcc\u6708\u672b\u306b\u3066\u3054\u5165\u91d1\u9858\u3044\u307e\u3059\u3002<\/p>\n<!-- \/wp:paragraph --><\/div><div class=\\\"vk_step_item_dot vk_step_item_style-default\\\" style=\\\"background-color:#337ab7;color:#ffffff\\\"><div class=\\\"vk_step_item_dot_caption\\\">STEP<\/div><div class=\\\"vk_step_item_dot_num\\\">3<\/div><\/div><\/div>\n<!-- \/wp:vk-blocks\/step-item --><\/div>\n<!-- \/wp:vk-blocks\/step -->\n\n<!-- wp:vk-blocks\/spacer {\\\"unit\\\":\\\"rem\\\",\\\"pc\\\":4,\\\"tablet\\\":4,\\\"mobile\\\":4} -->\n<div class=\\\"wp-block-vk-blocks-spacer vk_spacer\\\"><div class=\\\"vk_spacer-display-pc\\\" style=\\\"height:4rem\\\"><\/div><div class=\\\"vk_spacer-display-tablet\\\" style=\\\"height:4rem\\\"><\/div><div class=\\\"vk_spacer-display-mobile\\\" style=\\\"height:4rem\\\"><\/div><\/div>\n<!-- \/wp:vk-blocks\/spacer --><\/div><\/div>\n<!-- \/wp:group -->",
         "categories": [
             "vkp",
+            "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e6%b5%81%e3%82%8c",
             "%e5%b9%85_%e9%80%9a%e5%b8%b8"
         ],
         "languages": [
@@ -271,7 +287,7 @@
         ]
     },
     {
-        "title": "\u30b3\u30f3\u30bf\u30af\u30c8",
+        "title": "\u30b3\u30f3\u30bf\u30af\u30c8 \u5168\u5e45 01",
         "post_status": "publish",
         "post_name": "%e3%82%b3%e3%83%b3%e3%82%bf%e3%82%af%e3%83%88",
         "description": "",
@@ -301,7 +317,7 @@
         ]
     },
     {
-        "title": "\u30b3\u30f3\u30bf\u30af\u30c83",
+        "title": "\u30b3\u30f3\u30bf\u30af\u30c8 \u5168\u5e45 02",
         "post_status": "publish",
         "post_name": "%e3%82%b3%e3%83%b3%e3%82%bf%e3%82%af%e3%83%883-2",
         "description": "",
@@ -331,7 +347,7 @@
         ]
     },
     {
-        "title": "Call To Action2",
+        "title": "Call To Action 02",
         "post_status": "publish",
         "post_name": "call-to-action2",
         "description": "",
@@ -405,9 +421,9 @@
         ]
     },
     {
-        "title": "\u3088\u304f\u3042\u308b\u8cea\u554f1",
+        "title": "\u3088\u304f\u3042\u308b\u8cea\u554f 01",
         "post_status": "publish",
-        "post_name": "%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f1",
+        "post_name": "%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f-01",
         "description": "",
         "content": "<!-- wp:vk-blocks\/outer {\\\"bgColor\\\":\\\"#000000\\\",\\\"bgImage\\\":\\\"[pattern_directory]sample-img07.jpg\\\",\\\"outerWidth\\\":\\\"full\\\",\\\"padding_top_and_bottom\\\":\\\"0\\\",\\\"opacity\\\":0.7,\\\"borderColor\\\":\\\"#000\\\",\\\"clientId\\\":\\\"2996b24d-1ba7-4d6a-8720-26b09c15c7ed\\\"} -->\n<div class=\\\"wp-block-vk-blocks-outer vkb-outer-2996b24d-1ba7-4d6a-8720-26b09c15c7ed vk_outer vk_outer-width-full  vk_outer-paddingLR-none vk_outer-paddingVertical-none vk_outer-bgPosition-normal\\\" style=\\\"border:0px none #000;border-radius:0px\\\"><style>.vkb-outer-2996b24d-1ba7-4d6a-8720-26b09c15c7ed{background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url([pattern_directory]sample-img07.jpg); }<\/style><div><div class=\\\"vk_outer_container\\\"><!-- wp:vk-blocks\/spacer {\\\"unit\\\":\\\"rem\\\",\\\"pc\\\":6,\\\"tablet\\\":6,\\\"mobile\\\":6} -->\n<div class=\\\"wp-block-vk-blocks-spacer vk_spacer\\\"><div class=\\\"vk_spacer-display-pc\\\" style=\\\"height:6rem\\\"><\/div><div class=\\\"vk_spacer-display-tablet\\\" style=\\\"height:6rem\\\"><\/div><div class=\\\"vk_spacer-display-mobile\\\" style=\\\"height:6rem\\\"><\/div><\/div>\n<!-- \/wp:vk-blocks\/spacer -->\n\n<!-- wp:vk-blocks\/heading {\\\"align\\\":\\\"center\\\",\\\"titleStyle\\\":\\\"plain\\\",\\\"titleColor\\\":\\\"#ffffff\\\",\\\"titleMarginBottom\\\":0.5,\\\"subTextFlag\\\":\\\"on\\\",\\\"subTextColor\\\":\\\"#ffffff\\\"} -->\n<div class=\\\"wp-block-vk-blocks-heading\\\" id=\\\"vk-htags-98644d08-b1b5-49e2-93d6-cf722c91e99e\\\"><div class=\\\"vk_heading vk_heading-style-plain\\\"><h2 style=\\\"color:#ffffff;font-size:2rem;margin-bottom:0.5rem;text-align:center\\\" class=\\\"vk_heading_title vk_heading_title-style-plain\\\"><span>\u3088\u304f\u3042\u308b\u8cea\u554f<br><\/span><\/h2><p style=\\\"color:#ffffff;font-size:1.2rem;text-align:center\\\" class=\\\"vk_heading_subtext vk_heading_subtext-style-plain\\\">\u304a\u5ba2\u69d8\u304b\u3089\u3088\u304f\u5bc4\u305b\u3089\u308c\u308b\u3054\u8cea\u554f\u3092\u307e\u3068\u3081\u307e\u3057\u305f<\/p><\/div><\/div>\n<!-- \/wp:vk-blocks\/heading -->\n\n<!-- wp:vk-blocks\/spacer {\\\"spaceType\\\":\\\"margin-top\\\",\\\"unit\\\":\\\"rem\\\",\\\"pc\\\":4,\\\"tablet\\\":4,\\\"mobile\\\":4} -->\n<div class=\\\"wp-block-vk-blocks-spacer vk_spacer\\\"><div class=\\\"vk_spacer-display-pc\\\" style=\\\"margin-top:4rem\\\"><\/div><div class=\\\"vk_spacer-display-tablet\\\" style=\\\"margin-top:4rem\\\"><\/div><div class=\\\"vk_spacer-display-mobile\\\" style=\\\"margin-top:4rem\\\"><\/div><\/div>\n<!-- \/wp:vk-blocks\/spacer -->\n\n<!-- wp:vk-blocks\/card {\\\"name\\\":\\\"vk-blocks\/card\\\",\\\"layout\\\":\\\"card-imageRound\\\",\\\"col_sm\\\":1,\\\"display_btn\\\":false,\\\"activeControl\\\":\\\"{\\\\u0022title\\\\u0022:\\\\u0022center\\\\u0022,\\\\u0022text\\\\u0022:\\\\u0022left\\\\u0022,\\\\u0022button\\\\u0022:\\\\u0022right\\\\u0022}\\\",\\\"clientId\\\":\\\"ab58a3e1-da67-4fde-8b60-106345b5a8c4\\\",\\\"blockId\\\":\\\"ab58a3e1-da67-4fde-8b60-106345b5a8c4\\\"} -->\n<div class=\\\"wp-block-vk-blocks-card vk_posts vk_card_ab58a3e1-da67-4fde-8b60-106345b5a8c4\\\"><!-- wp:vk-blocks\/card-item {\\\"layout\\\":\\\"card-imageRound\\\",\\\"col_sm\\\":1,\\\"display_btn\\\":false,\\\"image\\\":\\\"{\\\\u0022uploading\\\\u0022:false,\\\\u0022date\\\\u0022:1615471888000,\\\\u0022filename\\\\u0022:\\\\u0022pr-img.png\\\\u0022,\\\\u0022menuOrder\\\\u0022:0,\\\\u0022uploadedTo\\\\u0022:2561,\\\\u0022type\\\\u0022:\\\\u0022image\\\\u0022,\\\\u0022subtype\\\\u0022:\\\\u0022png\\\\u0022,\\\\u0022id\\\\u0022:2598,\\\\u0022title\\\\u0022:\\\\u0022pr-img\\\\u0022,\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img.png\\\\u0022,\\\\u0022link\\\\u0022:\\\\u0022http:\/\/localhost:8888\/archives\/vk-managing-patterns\/%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f1\/pr-img\\\\u0022,\\\\u0022alt\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022author\\\\u0022:\\\\u00227\\\\u0022,\\\\u0022description\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022caption\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022name\\\\u0022:\\\\u0022pr-img\\\\u0022,\\\\u0022status\\\\u0022:\\\\u0022inherit\\\\u0022,\\\\u0022modified\\\\u0022:1615471888000,\\\\u0022mime\\\\u0022:\\\\u0022image\/png\\\\u0022,\\\\u0022icon\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-includes\/images\/media\/default.png\\\\u0022,\\\\u0022dateFormatted\\\\u0022:\\\\u00222021\u5e743\u670811\u65e5\\\\u0022,\\\\u0022nonces\\\\u0022:{\\\\u0022update\\\\u0022:\\\\u002232655f2811\\\\u0022,\\\\u0022delete\\\\u0022:\\\\u0022ba7343ba15\\\\u0022,\\\\u0022edit\\\\u0022:\\\\u002285ec33ba9b\\\\u0022},\\\\u0022editLink\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-admin\/post.php?post=2598\\\\u0026action=edit\\\\u0022,\\\\u0022meta\\\\u0022:false,\\\\u0022authorName\\\\u0022:\\\\u0022\u30d9\u30af\u30c8\u30eb\\\\u0022,\\\\u0022authorLink\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-admin\/profile.php\\\\u0022,\\\\u0022uploadedToTitle\\\\u0022:\\\\u0022\u3088\u304f\u3042\u308b\u8cea\u554f1\\\\u0022,\\\\u0022uploadedToLink\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-admin\/post.php?post=2561\\\\u0026action=edit\\\\u0022,\\\\u0022filesizeInBytes\\\\u0022:8293,\\\\u0022filesizeHumanReadable\\\\u0022:\\\\u00228 KB\\\\u0022,\\\\u0022context\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022height\\\\u0022:500,\\\\u0022width\\\\u0022:820,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022,\\\\u0022sizes\\\\u0022:{\\\\u0022thumbnail\\\\u0022:{\\\\u0022height\\\\u0022:150,\\\\u0022width\\\\u0022:150,\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img-150x150.png\\\\u0022,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022},\\\\u0022medium\\\\u0022:{\\\\u0022height\\\\u0022:183,\\\\u0022width\\\\u0022:300,\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img-300x183.png\\\\u0022,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022},\\\\u0022full\\\\u0022:{\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img.png\\\\u0022,\\\\u0022height\\\\u0022:500,\\\\u0022width\\\\u0022:820,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022}},\\\\u0022compat\\\\u0022:{\\\\u0022item\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022meta\\\\u0022:\\\\u0022\\\\u0022}}\\\",\\\"activeControl\\\":\\\"{\\\\u0022title\\\\u0022:\\\\u0022center\\\\u0022,\\\\u0022text\\\\u0022:\\\\u0022left\\\\u0022,\\\\u0022button\\\\u0022:\\\\u0022right\\\\u0022}\\\"} -->\n<div class=\\\"wp-block-vk-blocks-card-item vk_post card card-noborder card-imageRound card-post vk_card_item vk_post-col-xs-12 vk_post-col-sm-12 vk_post-col-md-4 vk_post-col-lg-4 vk_post-col-xl-4 vk_post-col-xxl-4\\\"><div class=\\\"vk_post_imgOuter\\\" style=\\\"background-image:url(http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img.png)\\\"><div class=\\\"card-img-overlay\\\"><\/div><\/div><div class=\\\"vk_post_body card-body\\\"><h5 class=\\\"vk_post_title card-title has-text-align-center\\\"><span class=\\\"has-inline-color has-white-color\\\">\u30db\u30fc\u30e0\u30da\u30fc\u30b8\u5236\u4f5c<\/span><\/h5><p class=\\\"vk_post_excerpt card-text has-text-align-left\\\"><\/p><\/div><\/div>\n<!-- \/wp:vk-blocks\/card-item -->\n\n<!-- wp:vk-blocks\/card-item {\\\"layout\\\":\\\"card-imageRound\\\",\\\"col_sm\\\":1,\\\"display_btn\\\":false,\\\"image\\\":\\\"{\\\\u0022uploading\\\\u0022:false,\\\\u0022date\\\\u0022:\\\\u00222021-03-11T14:11:28.000Z\\\\u0022,\\\\u0022filename\\\\u0022:\\\\u0022pr-img.png\\\\u0022,\\\\u0022menuOrder\\\\u0022:0,\\\\u0022uploadedTo\\\\u0022:2561,\\\\u0022type\\\\u0022:\\\\u0022image\\\\u0022,\\\\u0022subtype\\\\u0022:\\\\u0022png\\\\u0022,\\\\u0022id\\\\u0022:2598,\\\\u0022title\\\\u0022:\\\\u0022pr-img\\\\u0022,\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img.png\\\\u0022,\\\\u0022link\\\\u0022:\\\\u0022http:\/\/localhost:8888\/archives\/vk-managing-patterns\/%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f1\/pr-img\\\\u0022,\\\\u0022alt\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022author\\\\u0022:\\\\u00227\\\\u0022,\\\\u0022description\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022caption\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022name\\\\u0022:\\\\u0022pr-img\\\\u0022,\\\\u0022status\\\\u0022:\\\\u0022inherit\\\\u0022,\\\\u0022modified\\\\u0022:\\\\u00222021-03-11T14:11:28.000Z\\\\u0022,\\\\u0022mime\\\\u0022:\\\\u0022image\/png\\\\u0022,\\\\u0022icon\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-includes\/images\/media\/default.png\\\\u0022,\\\\u0022dateFormatted\\\\u0022:\\\\u00222021\u5e743\u670811\u65e5\\\\u0022,\\\\u0022nonces\\\\u0022:{\\\\u0022update\\\\u0022:\\\\u002232655f2811\\\\u0022,\\\\u0022delete\\\\u0022:\\\\u0022ba7343ba15\\\\u0022,\\\\u0022edit\\\\u0022:\\\\u002285ec33ba9b\\\\u0022},\\\\u0022editLink\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-admin\/post.php?post=2598\\\\u0026action=edit\\\\u0022,\\\\u0022meta\\\\u0022:false,\\\\u0022authorName\\\\u0022:\\\\u0022\u30d9\u30af\u30c8\u30eb\\\\u0022,\\\\u0022authorLink\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-admin\/profile.php\\\\u0022,\\\\u0022uploadedToTitle\\\\u0022:\\\\u0022\u3088\u304f\u3042\u308b\u8cea\u554f1\\\\u0022,\\\\u0022uploadedToLink\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-admin\/post.php?post=2561\\\\u0026action=edit\\\\u0022,\\\\u0022filesizeInBytes\\\\u0022:8293,\\\\u0022filesizeHumanReadable\\\\u0022:\\\\u00228 KB\\\\u0022,\\\\u0022context\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022height\\\\u0022:500,\\\\u0022width\\\\u0022:820,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022,\\\\u0022sizes\\\\u0022:{\\\\u0022thumbnail\\\\u0022:{\\\\u0022height\\\\u0022:150,\\\\u0022width\\\\u0022:150,\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img-150x150.png\\\\u0022,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022},\\\\u0022medium\\\\u0022:{\\\\u0022height\\\\u0022:183,\\\\u0022width\\\\u0022:300,\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img-300x183.png\\\\u0022,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022},\\\\u0022full\\\\u0022:{\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img.png\\\\u0022,\\\\u0022height\\\\u0022:500,\\\\u0022width\\\\u0022:820,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022}},\\\\u0022compat\\\\u0022:{\\\\u0022item\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022meta\\\\u0022:\\\\u0022\\\\u0022}}\\\",\\\"activeControl\\\":\\\"{\\\\u0022title\\\\u0022:\\\\u0022center\\\\u0022,\\\\u0022text\\\\u0022:\\\\u0022left\\\\u0022,\\\\u0022button\\\\u0022:\\\\u0022right\\\\u0022}\\\"} -->\n<div class=\\\"wp-block-vk-blocks-card-item vk_post card card-noborder card-imageRound card-post vk_card_item vk_post-col-xs-12 vk_post-col-sm-12 vk_post-col-md-4 vk_post-col-lg-4 vk_post-col-xl-4 vk_post-col-xxl-4\\\"><div class=\\\"vk_post_imgOuter\\\" style=\\\"background-image:url(http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img.png)\\\"><div class=\\\"card-img-overlay\\\"><\/div><\/div><div class=\\\"vk_post_body card-body\\\"><h5 class=\\\"vk_post_title card-title has-text-align-center\\\"><span class=\\\"has-inline-color has-white-color\\\">SNS\u904b\u7528\u4ee3\u884c <br><\/span><\/h5><p class=\\\"vk_post_excerpt card-text has-text-align-left\\\"><\/p><\/div><\/div>\n<!-- \/wp:vk-blocks\/card-item -->\n\n<!-- wp:vk-blocks\/card-item {\\\"layout\\\":\\\"card-imageRound\\\",\\\"col_sm\\\":1,\\\"display_btn\\\":false,\\\"image\\\":\\\"{\\\\u0022uploading\\\\u0022:false,\\\\u0022date\\\\u0022:\\\\u00222021-03-11T14:11:28.000Z\\\\u0022,\\\\u0022filename\\\\u0022:\\\\u0022pr-img.png\\\\u0022,\\\\u0022menuOrder\\\\u0022:0,\\\\u0022uploadedTo\\\\u0022:2561,\\\\u0022type\\\\u0022:\\\\u0022image\\\\u0022,\\\\u0022subtype\\\\u0022:\\\\u0022png\\\\u0022,\\\\u0022id\\\\u0022:2598,\\\\u0022title\\\\u0022:\\\\u0022pr-img\\\\u0022,\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img.png\\\\u0022,\\\\u0022link\\\\u0022:\\\\u0022http:\/\/localhost:8888\/archives\/vk-managing-patterns\/%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f1\/pr-img\\\\u0022,\\\\u0022alt\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022author\\\\u0022:\\\\u00227\\\\u0022,\\\\u0022description\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022caption\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022name\\\\u0022:\\\\u0022pr-img\\\\u0022,\\\\u0022status\\\\u0022:\\\\u0022inherit\\\\u0022,\\\\u0022modified\\\\u0022:\\\\u00222021-03-11T14:11:28.000Z\\\\u0022,\\\\u0022mime\\\\u0022:\\\\u0022image\/png\\\\u0022,\\\\u0022icon\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-includes\/images\/media\/default.png\\\\u0022,\\\\u0022dateFormatted\\\\u0022:\\\\u00222021\u5e743\u670811\u65e5\\\\u0022,\\\\u0022nonces\\\\u0022:{\\\\u0022update\\\\u0022:\\\\u002232655f2811\\\\u0022,\\\\u0022delete\\\\u0022:\\\\u0022ba7343ba15\\\\u0022,\\\\u0022edit\\\\u0022:\\\\u002285ec33ba9b\\\\u0022},\\\\u0022editLink\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-admin\/post.php?post=2598\\\\u0026action=edit\\\\u0022,\\\\u0022meta\\\\u0022:false,\\\\u0022authorName\\\\u0022:\\\\u0022\u30d9\u30af\u30c8\u30eb\\\\u0022,\\\\u0022authorLink\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-admin\/profile.php\\\\u0022,\\\\u0022uploadedToTitle\\\\u0022:\\\\u0022\u3088\u304f\u3042\u308b\u8cea\u554f1\\\\u0022,\\\\u0022uploadedToLink\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-admin\/post.php?post=2561\\\\u0026action=edit\\\\u0022,\\\\u0022filesizeInBytes\\\\u0022:8293,\\\\u0022filesizeHumanReadable\\\\u0022:\\\\u00228 KB\\\\u0022,\\\\u0022context\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022height\\\\u0022:500,\\\\u0022width\\\\u0022:820,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022,\\\\u0022sizes\\\\u0022:{\\\\u0022thumbnail\\\\u0022:{\\\\u0022height\\\\u0022:150,\\\\u0022width\\\\u0022:150,\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img-150x150.png\\\\u0022,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022},\\\\u0022medium\\\\u0022:{\\\\u0022height\\\\u0022:183,\\\\u0022width\\\\u0022:300,\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img-300x183.png\\\\u0022,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022},\\\\u0022full\\\\u0022:{\\\\u0022url\\\\u0022:\\\\u0022http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img.png\\\\u0022,\\\\u0022height\\\\u0022:500,\\\\u0022width\\\\u0022:820,\\\\u0022orientation\\\\u0022:\\\\u0022landscape\\\\u0022}},\\\\u0022compat\\\\u0022:{\\\\u0022item\\\\u0022:\\\\u0022\\\\u0022,\\\\u0022meta\\\\u0022:\\\\u0022\\\\u0022}}\\\",\\\"activeControl\\\":\\\"{\\\\u0022title\\\\u0022:\\\\u0022center\\\\u0022,\\\\u0022text\\\\u0022:\\\\u0022left\\\\u0022,\\\\u0022button\\\\u0022:\\\\u0022right\\\\u0022}\\\"} -->\n<div class=\\\"wp-block-vk-blocks-card-item vk_post card card-noborder card-imageRound card-post vk_card_item vk_post-col-xs-12 vk_post-col-sm-12 vk_post-col-md-4 vk_post-col-lg-4 vk_post-col-xl-4 vk_post-col-xxl-4\\\"><div class=\\\"vk_post_imgOuter\\\" style=\\\"background-image:url(http:\/\/localhost:8888\/wp-content\/uploads\/2021\/03\/pr-img.png)\\\"><div class=\\\"card-img-overlay\\\"><\/div><\/div><div class=\\\"vk_post_body card-body\\\"><h5 class=\\\"vk_post_title card-title has-text-align-center\\\"><span class=\\\"has-inline-color has-white-color\\\">Web\u30b3\u30f3\u30b5\u30eb\u30c6\u30a3\u30f3\u30b0<\/span><\/h5><p class=\\\"vk_post_excerpt card-text has-text-align-left\\\"><\/p><\/div><\/div>\n<!-- \/wp:vk-blocks\/card-item --><\/div><style type=\\\"text\/css\\\">@media (max-width: 576px) {\n\t\t.vk_card_ab58a3e1-da67-4fde-8b60-106345b5a8c4 .vk_card_item .vk_post_imgOuter::before{\n\t\t\tpadding-top:150px!important;\n\t\t}\n\t}\n\t@media (min-width: 577px) and (max-width: 768px) {\n\t\t.vk_card_ab58a3e1-da67-4fde-8b60-106345b5a8c4 .vk_card_item .vk_post_imgOuter::before{\n\t\t\tpadding-top:150px!important;\n\t\t}\n\t}\n\t@media (min-width: 769px) {\n\t\t.vk_card_ab58a3e1-da67-4fde-8b60-106345b5a8c4 .vk_card_item .vk_post_imgOuter::before{\n\t\t\tpadding-top:150px!important;\n\t\t}\n\t}<\/style>\n<!-- \/wp:vk-blocks\/card -->\n\n<!-- wp:vk-blocks\/button {\\\"buttonUrl\\\":\\\"#\\\",\\\"buttonSize\\\":\\\"lg\\\",\\\"buttonType\\\":\\\"1\\\",\\\"buttonColor\\\":\\\"light\\\",\\\"buttonAlign\\\":\\\"wide\\\",\\\"fontAwesomeIconBefore\\\":\\\"\\\\u003ci class=\\\\u0022fas fa-question-circle\\\\u0022\\\\u003e\\\\u003c\/i\\\\u003e\\\"} -->\n<div class=\\\"wp-block-vk-blocks-button vk_button vk_button-align-wide\\\"><a href=\\\"#\\\" class=\\\"vk_button_link btn btn-outline-light btn-lg\\\" role=\\\"button\\\" aria-pressed=\\\"true\\\" rel=\\\"noopener\\\"><i class=\\\"fas vk_button_link_before fa-question-circle\\\"><\/i><span class=\\\"vk_button_link_txt\\\">\u8a73\u3057\u304f\u898b\u308b<\/span><\/a><\/div>\n<!-- \/wp:vk-blocks\/button -->\n\n<!-- wp:vk-blocks\/spacer {\\\"unit\\\":\\\"rem\\\",\\\"pc\\\":6,\\\"tablet\\\":6,\\\"mobile\\\":6} -->\n<div class=\\\"wp-block-vk-blocks-spacer vk_spacer\\\"><div class=\\\"vk_spacer-display-pc\\\" style=\\\"height:6rem\\\"><\/div><div class=\\\"vk_spacer-display-tablet\\\" style=\\\"height:6rem\\\"><\/div><div class=\\\"vk_spacer-display-mobile\\\" style=\\\"height:6rem\\\"><\/div><\/div>\n<!-- \/wp:vk-blocks\/spacer --><\/div><\/div><\/div>\n<!-- \/wp:vk-blocks\/outer -->",
         "categories": [
@@ -435,7 +451,7 @@
         ]
     },
     {
-        "title": "PR \u30ab\u30e9\u30e0 01",
+        "title": "PR \u30ab\u30e9\u30e0 Free 01",
         "post_status": "publish",
         "post_name": "pr-columns-2",
         "description": "",
