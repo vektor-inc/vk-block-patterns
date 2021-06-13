@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.6
 Tested up to: 5.6
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,16 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen. 
 
 == Changelog ==
+
+= 1.3.0 =
+[ Add Pattern ][ Japanese ] Content Service
+[ Add Pattern ][ Japanese ] Content Front Page (Starter)
+[ Add Pattern ][ Japanese ] Content Company
+[ Add Pattern ][ Japanese ] Section PR Column Free 02
+[ Add Pattern ][ Japanese ] Section PR Iconset Free 02
+[ Add Pattern ][ Japanese ] Section PR Content Free Full width
+[ Add Pattern ][ Japanese ] Section Service Flow Free
+[ Add Pattern ][ Japanese ] FAQ Free 01
 
 = 1.2.2 =
 [ Bug fix ] Fix PHP Undefined error
