@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Pattern Tuning ][ Japanese ] Contact Free
+
 = 1.4.1 =
 [ Pattern Tuning ][ Japanese ] Service Pro 01
 [ Pattern Tuning ][ Japanese ] Company Free 01
