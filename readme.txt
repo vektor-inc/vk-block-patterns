@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.6
 Tested up to: 5.6
-Stable tag: 1.4.1
+Stable tag: 1.5.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,7 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
-[ Pattern Tuning ][ Japanese ] Contact Free
+= 1.5.0 =
+[ Pattern Tuning ][ All ] Block Recovery and Change Spacer
 
 = 1.4.1 =
 [ Pattern Tuning ][ Japanese ] Service Pro 01
