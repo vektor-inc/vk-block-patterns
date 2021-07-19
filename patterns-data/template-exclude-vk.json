@@ -1,5 +1,16 @@
 [
     {
+        "title": "\u81ea\u52d5\u4e0b\u66f8\u304d",
+        "post_status": "auto-draft",
+        "post_name": "",
+        "description": "",
+        "content": "",
+        "categories": [],
+        "languages": [
+            "ja"
+        ]
+    },
+    {
         "title": "\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc\u30dd\u30ea\u30b7\u30fc",
         "post_status": "publish",
         "post_name": "%e3%83%97%e3%83%a9%e3%82%a4%e3%83%90%e3%82%b7%e3%83%bc%e3%83%9d%e3%83%aa%e3%82%b7%e3%83%bc",
