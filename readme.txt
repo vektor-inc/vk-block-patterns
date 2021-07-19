@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72
 Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.6
-Tested up to: 5.6
-Stable tag: 1.5.1
+Tested up to: 5.8
+Stable tag: 1.5.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,9 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen. 
 
 == Changelog ==
+
+= 1.5.2 =
+[ Bug fix ] fix block recovery
 
 = 1.5.1 =
 [ Other ] Version Only
