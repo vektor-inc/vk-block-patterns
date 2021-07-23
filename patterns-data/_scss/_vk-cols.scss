@@ -86,4 +86,31 @@
             }
         }
     }
-} 
+}
+
+.vk-cols--menu {
+    h2,h3,h4,h5 {
+        margin-bottom:0.2em;
+        text-shadow: #000 0 0 10px;
+        &:first-child{
+            margin-top:0;
+        }
+    }
+    p {
+        margin-bottom:1rem;
+        text-shadow: #000 0 0 10px;
+    }
+    .wp-block-cover__inner-container:last-child{
+        margin-bottom:0;
+    }
+    &.vk-cols--fit {
+        .wp-block-column {
+            padding-bottom:1px;
+        }
+        @media (min-width: 600px) {
+            .wp-block-column:not(:first-child) {
+                padding-left:1px;
+            }
+        }
+    }
+}
