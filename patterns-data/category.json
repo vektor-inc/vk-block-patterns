@@ -99,7 +99,7 @@
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 19,
+        "count": 20,
         "filter": "raw",
         "term_order": "0"
     },
@@ -333,7 +333,7 @@
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 17,
+        "count": 18,
         "filter": "raw",
         "term_order": "0"
     }

@@ -99,6 +99,9 @@
     }
 }
 
+/*
+    カラムメニュー
+/* ----------------------------------- */
 .vk-cols--menu {
     h2,h3,h4,h5 {
         margin-bottom:0.2em;
@@ -114,24 +117,12 @@
     .wp-block-cover__inner-container:last-child{
         margin-bottom:0;
     }
-    // &.vk-cols--fit {
-    //     .wp-block-column {
-    //         padding-bottom:1px;
-    //     }
-    //     @media (min-width: 600px) {
-    //         .wp-block-column:not(:first-child) {
-    //             padding-left:1px;
-    //         }
-    //     }
-    // }
 }
 
+/*
+    フィットバナー
+/* ----------------------------------- */
 .vk-cols--fitbnrs {
-    // @media (min-width: 600px){
-    //     .wp-block-column:not(:first-child){
-    //         margin-left:1px;
-    //     }
-    // }
     .wp-block-column {
         .wp-block-cover:hover img{
             filter: unset;
@@ -180,19 +171,4 @@
             text-shadow: #000 0 0 10px;
         }
     }
-    // &--tate{
-    //     .vk_button{
-    //         .vk_button_link_txt {
-    //             writing-mode: vertical-rl;
-    //             margin:0 auto;
-    //             text-align: center;
-    //             width:auto;
-    //             transform: translateY(-50%) translateX(-50%);
-    //         }
-    //         .vk_button_link_subCaption {
-    //             top:unset;
-    //             bottom:3em;
-    //         }
-    //     }
-    // }
 }
