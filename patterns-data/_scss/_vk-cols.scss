@@ -4,6 +4,9 @@
         flex-direction: row-reverse;
     }
 }
+/*
+    Fit
+/* ----------------------------------- */
 .vk-cols--fit {
     margin-top:0;
     margin-bottom:0;
@@ -44,6 +47,14 @@
         }
         .wp-block-column:not(:only-child) {
             flex-basis: 50% !important;
+        }
+    }
+    &--gap1 {
+        gap:1px;
+        @media (min-width: 600px) and (max-width: 781px) {
+            .wp-block-column:not(:only-child) {
+                flex-basis: calc(50% - 1px)!important;
+            }
         }
     }
 }
@@ -103,14 +114,85 @@
     .wp-block-cover__inner-container:last-child{
         margin-bottom:0;
     }
-    &.vk-cols--fit {
-        .wp-block-column {
-            padding-bottom:1px;
+    // &.vk-cols--fit {
+    //     .wp-block-column {
+    //         padding-bottom:1px;
+    //     }
+    //     @media (min-width: 600px) {
+    //         .wp-block-column:not(:first-child) {
+    //             padding-left:1px;
+    //         }
+    //     }
+    // }
+}
+
+.vk-cols--fitbnrs {
+    // @media (min-width: 600px){
+    //     .wp-block-column:not(:first-child){
+    //         margin-left:1px;
+    //     }
+    // }
+    .wp-block-column {
+        .wp-block-cover:hover img{
+            filter: unset;
         }
-        @media (min-width: 600px) {
-            .wp-block-column:not(:first-child) {
-                padding-left:1px;
-            }
+        .wp-block-cover:hover{
+            background-color: unset;
         }
     }
+    .wp-block-cover__inner-container{
+        position: absolute;
+        height:100%;
+        width:100%;
+    }
+    .vk_button{
+        height:100%;
+        margin:0;
+        .btn {
+            height:100%;
+            width:100%;
+            border: none;
+            box-shadow: none;
+            background-color:unset;
+            transition: unset;
+            &:hover {
+                transition: unset;
+            }
+            &:after{
+                border:none;
+            }
+        }
+        .vk_button_link_txt {
+            width: 100%;
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translateY(-50%) translateX(-50%);
+            font-size: 2rem;
+            text-shadow: #000 0 0 10px;
+        }
+        .vk_button_link_subCaption {
+            width: 100%;
+            position: absolute;
+            top:calc( 50% + 2.2em );
+            left:50%;
+            transform: translateY(-50%) translateX(-50%);
+            text-shadow: #000 0 0 10px;
+        }
+    }
+    // &--tate{
+    //     .vk_button{
+    //         .vk_button_link_txt {
+    //             writing-mode: vertical-rl;
+    //             margin:0 auto;
+    //             text-align: center;
+    //             width:auto;
+    //             transform: translateY(-50%) translateX(-50%);
+    //         }
+    //         .vk_button_link_subCaption {
+    //             top:unset;
+    //             bottom:3em;
+    //         }
+    //     }
+    // }
 }
