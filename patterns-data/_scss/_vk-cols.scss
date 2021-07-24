@@ -177,6 +177,12 @@
     メディアカラム
 /* ----------------------------------- */
 .vk-cols--media{
+    .wp-block-column:not(:first-child) {
+        .wp-block-image,
+        figure, {
+            margin-bottom:0;
+        }
+    }
     @media (min-width: 782px) {
         .wp-block-column:not(:first-child) {
             margin-left: 3rem;
