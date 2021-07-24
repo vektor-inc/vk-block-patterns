@@ -1,5 +1,8 @@
 .vk-cols--reverse{
     flex-direction: row-reverse;
+    div{
+        flex-direction:unset;
+    }
     .block-editor-block-list__block {
         flex-direction: row-reverse;
     }
