@@ -172,3 +172,24 @@
         }
     }
 }
+
+/*
+    メディアカラム
+/* ----------------------------------- */
+.vk-cols--media{
+    @media (min-width: 782px) {
+        .wp-block-column:not(:first-child) {
+            margin-left: 3rem;
+        }
+        &.vk-cols--reverse .wp-block-column:not(:first-child) {
+            margin-right: 3rem;
+            margin-left: 0;
+        }
+    }
+    @media (min-width: 600px) and (max-width: 781px) {
+        &.vk-cols--reverse .wp-block-column:not(:first-child) {
+            margin-right: 2rem;
+            margin-left: 0;
+        }
+    }
+}
