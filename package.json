@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass --watch --style=compressed --no-source-map patterns-data/_scss:patterns-data",
     "phpunit": "wp-env run phpunit \"phpunit -c /var/www/html/wp-content/plugins/vk-block-patterns/phpunit.xml.dist --verbose\""
   },
   "repository": {
@@ -19,5 +20,8 @@
   "homepage": "https://github.com/vektor-inc/vk-block-patterns#readme",
   "dependencies": {
     "gulp": "^4.0.2"
+  },
+  "devDependencies": {
+    "sass": "^1.35.2"
   }
 }
