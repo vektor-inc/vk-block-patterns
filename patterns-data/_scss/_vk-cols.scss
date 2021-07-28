@@ -22,12 +22,11 @@
         padding: 0;
     }
     @media (max-width: 599px){
-        &:not(.has-background){
-            & > .wp-block-column {
-                // padding-top:0 !important; カラムを積んだ時に上のカラムとくっついてしまう
-                padding-left:0 !important;
-                padding-right:0 !important;
-            }
+        // アウター＆インナー両方背景指定がない場合
+        &:not(.has-background) > .wp-block-column:not(.has-background){
+            // padding-top:0 !important; カラムを積んだ時に上のカラムとくっついてしまう
+            padding-left:0 !important;
+            padding-right:0 !important;
         }
     }
 
