@@ -54,8 +54,10 @@ class VK_RegisterPatternsFromJson {
 
 			if ( file_exists( $category_json ) ) {
 				$json = file_get_contents( $category_json );
-				$json = mb_convert_encoding( $json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
-				$obj  = json_decode( $json, true );
+				if ( function_exists( 'mb_convert_encoding' ) ) {
+					$json = mb_convert_encoding( $json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
+				}
+				$obj = json_decode( $json, true );
 				foreach ( $obj as $key => $val ) {
 					// Block Category.
 					register_block_pattern_category(
@@ -70,8 +72,10 @@ class VK_RegisterPatternsFromJson {
 			$language_json = $json_dir_path . 'term-language.json';
 
 			if ( file_exists( $language_json ) ) {
-				$json      = file_get_contents( $language_json );
-				$json      = mb_convert_encoding( $json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
+				$json = file_get_contents( $language_json );
+				if ( function_exists( 'mb_convert_encoding' ) ) {
+					$json = mb_convert_encoding( $json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
+				}
 				$obj       = json_decode( $json, true );
 				$languages = array();
 				foreach ( $obj as $key => $val ) {
@@ -107,8 +111,10 @@ class VK_RegisterPatternsFromJson {
 
 			if ( file_exists( $jsonUrl ) ) {
 				$json = file_get_contents( $jsonUrl );
-				$json = mb_convert_encoding( $json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
-				$obj  = json_decode( $json, true );
+				if ( function_exists( 'mb_convert_encoding' ) ) {
+					$json = mb_convert_encoding( $json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
+				}
+				$obj = json_decode( $json, true );
 
 				$image_dir_path = $json_dir_path . 'images/';
 				$image_dir_uri  = str_replace( wp_normalize_path( ABSPATH ), site_url() . '/', $image_dir_path );
