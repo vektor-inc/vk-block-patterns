@@ -139,6 +139,7 @@ class VK_RegisterPatternsFromJson {
 										'title'      => $val['title'],
 										'categories' => $val['categories'],
 										'content'    => $val['content'],
+										'blockTypes' => $val['blockTypes'],
 									)
 								);
 							}
@@ -154,6 +155,7 @@ class VK_RegisterPatternsFromJson {
 										'title'      => $val['title'],
 										'categories' => $val['categories'],
 										'content'    => $val['content'],
+										'blockTypes' => $val['blockTypes'],
 									)
 								);
 							}
