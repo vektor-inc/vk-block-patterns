@@ -1,0 +1,17 @@
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 3 | @use "vk-bg-position-editor";
+ *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   patterns-data/_scss/style-editor.scss 3:1  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 3 \2502  @use \"vk-bg-position-editor\";\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   patterns-data/_scss/style-editor.scss 3:1  root stylesheet";
+}
