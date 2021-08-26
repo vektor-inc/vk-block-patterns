@@ -4,6 +4,7 @@
 
 /*
     Fit : 余白のないカラム
+    2カラムだけでなく3カラムや4カラムでも使用される想定
 /* ----------------------------------- */
 .vk-cols--fit {
     margin-top:0;
@@ -64,11 +65,8 @@
     & > .wp-block-column {
         flex-basis: 50%;
     }
-}
-
-// 全幅
-.vk_outer.vk_outer-width-full {
-    .vk-cols--fit.vk-cols--grid {
+    // 画像部分全幅
+    &.vk-cols--grid--alignfull {
         &  > .wp-block-column:nth-child(2){
             & > .wp-block-cover {
                 @media (max-width: 599px){
@@ -93,6 +91,34 @@
         }
     }
 }
+
+// 全幅
+// .vk_outer.vk_outer-width-full {
+//     .vk-cols--fit.vk-cols--grid {
+//         &  > .wp-block-column:nth-child(2){
+//             & > .wp-block-cover {
+//                 @media (max-width: 599px){
+//                     width:100vw;
+//                     margin-right:calc( ( 100% - 100vw ) / 2 );
+//                     margin-left:calc( ( 100% - 100vw ) / 2 );
+//                 }
+//                 @media (min-width: 600px){
+//                     margin-right:calc( 100% - 50vw );
+//                     width:50vw;
+//                 }
+//             }     
+//         }
+//         &.vk-cols--reverse {
+//             @media (min-width: 600px){
+//                 &  > .wp-block-column:nth-child(2){
+//                     & > .wp-block-cover {
+//                         margin-left:calc( 100% - 50vw );
+//                     }            
+//                 }
+//             }
+//         }
+//     }
+// }
 
 /*
     カラムメニュー
