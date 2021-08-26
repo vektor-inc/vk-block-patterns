@@ -1,6 +1,6 @@
 {
-	"core": null,
-	"mappings":{
-        "wp-content/": "../../"
-    }
+    "core": null,
+    "plugins": [
+        "."
+	]
 }

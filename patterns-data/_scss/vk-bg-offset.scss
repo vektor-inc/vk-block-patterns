@@ -1,0 +1,49 @@
+.vk-bg-offset {
+    position:relative;
+    & > .wp-block-group__inner-container > div{
+        position: relative;
+        z-index: 1;
+    }
+}
+.vk-bg-offset-bg {
+    position: absolute !important;
+    height:100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: calc( 100vw - var(--vk-width-bg-offset) );
+    &.vk-bg-offset-bg--left {
+        margin-left:var(--vk-width-bg-offset);
+    }
+    &.vk-bg-offset-bg--right {
+        margin-right:var(--vk-width-bg-offset);
+    }
+}
+.vk-bg-offset-bg--45 {
+    --vk-width-bg-offset:45vw;  
+}
+.vk-bg-offset-bg--40 {
+    --vk-width-bg-offset:40vw;  
+}
+.vk-bg-offset-bg--35 {
+    --vk-width-bg-offset:35vw;  
+}
+.vk-bg-offset-bg--30 {
+    --vk-width-bg-offset:30vw;  
+}
+.vk-bg-offset-bg--25 {
+    --vk-width-bg-offset:25vw;  
+}
+.vk-bg-offset-bg--20 {
+    --vk-width-bg-offset:20vw;  
+}
+.vk-bg-offset-bg--15 {
+    --vk-width-bg-offset:15vw;  
+}
+.vk-bg-offset-bg--10 {
+    --vk-width-bg-offset:10vw;  
+}
+.vk-bg-offset-bg--5 {
+    --vk-width-bg-offset:5vw;  
+}

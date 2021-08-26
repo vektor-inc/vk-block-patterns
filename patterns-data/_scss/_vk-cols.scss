@@ -1,8 +1,9 @@
 .vk-cols--reverse{
     flex-direction: row-reverse;
 }
+
 /*
-    Fit
+    Fit : 余白のないカラム
 /* ----------------------------------- */
 .vk-cols--fit {
     margin-top:0;
@@ -56,7 +57,7 @@
 }
 
 /*
-    等幅
+   Grid : 50%分割カラム
 /* ----------------------------------- */
 .vk-cols--fit.vk-cols--grid{
     & > .block-editor-block-list__block,
@@ -65,9 +66,7 @@
     }
 }
 
-/*
-    全幅
-/* ----------------------------------- */
+// 全幅
 .vk_outer.vk_outer-width-full {
     .vk-cols--fit.vk-cols--grid {
         &  > .wp-block-column:nth-child(2){

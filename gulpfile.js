@@ -9,6 +9,7 @@ gulp.task('dist', function (done) {
 		'./**/*.png',
 		'./assets/**',
 		'./inc/**',
+		'./patterns-data/',
 		"!./vendor/**",
 		"!./.vscode/**",
 		"!./bin/**",
