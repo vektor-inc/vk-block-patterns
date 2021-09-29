@@ -1,10 +1,10 @@
 [
     {
-        "term_id": 1047,
+        "term_id": 1075,
         "name": "Section_PR",
         "slug": "section_pr",
         "term_group": 0,
-        "term_taxonomy_id": 1047,
+        "term_taxonomy_id": 1075,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -13,11 +13,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1048,
+        "term_id": 1076,
         "name": "UsingBlock_Core",
         "slug": "wordpress%e6%a8%99%e6%ba%96",
         "term_group": 0,
-        "term_taxonomy_id": 1048,
+        "term_taxonomy_id": 1076,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -26,37 +26,37 @@
         "term_order": "0"
     },
     {
-        "term_id": 1049,
+        "term_id": 1077,
         "name": "UsingBlock_Core+VK Blocks",
         "slug": "vk",
         "term_group": 0,
-        "term_taxonomy_id": 1049,
+        "term_taxonomy_id": 1077,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 18,
+        "count": 20,
         "filter": "raw",
         "term_order": "0"
     },
     {
-        "term_id": 1050,
+        "term_id": 1078,
         "name": "UsingBlock_Core+VK Blocks Pro",
         "slug": "vkp",
         "term_group": 0,
-        "term_taxonomy_id": 1050,
+        "term_taxonomy_id": 1078,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 22,
+        "count": 20,
         "filter": "raw",
         "term_order": "0"
     },
     {
-        "term_id": 1051,
+        "term_id": 1079,
         "name": "Width_Normal",
         "slug": "width_normal",
         "term_group": 0,
-        "term_taxonomy_id": 1051,
+        "term_taxonomy_id": 1079,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -65,11 +65,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1052,
+        "term_id": 1080,
         "name": "\u30ab\u30e9\u30e0",
         "slug": "columns",
         "term_group": 0,
-        "term_taxonomy_id": 1052,
+        "term_taxonomy_id": 1080,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -78,11 +78,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1053,
+        "term_id": 1081,
         "name": "\u30bb\u30af\u30b7\u30e7\u30f3_CTA",
         "slug": "%e3%82%a8%e3%83%aa%e3%82%a2_cta",
         "term_group": 0,
-        "term_taxonomy_id": 1053,
+        "term_taxonomy_id": 1081,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -91,11 +91,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1054,
+        "term_id": 1082,
         "name": "\u30bb\u30af\u30b7\u30e7\u30f3_PR",
         "slug": "%e3%82%a8%e3%83%aa%e3%82%a2_pr",
         "term_group": 0,
-        "term_taxonomy_id": 1054,
+        "term_taxonomy_id": 1082,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -104,24 +104,24 @@
         "term_order": "0"
     },
     {
-        "term_id": 1055,
+        "term_id": 1083,
         "name": "\u30bb\u30af\u30b7\u30e7\u30f3_SNS",
         "slug": "%e3%82%a8%e3%83%aa%e3%82%a2_sns",
         "term_group": 0,
-        "term_taxonomy_id": 1055,
+        "term_taxonomy_id": 1083,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 3,
+        "count": 2,
         "filter": "raw",
         "term_order": "0"
     },
     {
-        "term_id": 1056,
+        "term_id": 1084,
         "name": "\u30bb\u30af\u30b7\u30e7\u30f3_\u30b9\u30bf\u30c3\u30d5",
         "slug": "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e3%82%b9%e3%82%bf%e3%83%83%e3%83%95",
         "term_group": 0,
-        "term_taxonomy_id": 1056,
+        "term_taxonomy_id": 1084,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -130,11 +130,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1057,
+        "term_id": 1085,
         "name": "\u30bb\u30af\u30b7\u30e7\u30f3_\u30bf\u30a4\u30c8\u30eb",
         "slug": "%e8%a6%8b%e5%87%ba%e3%81%97",
         "term_group": 0,
-        "term_taxonomy_id": 1057,
+        "term_taxonomy_id": 1085,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -143,11 +143,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1058,
+        "term_id": 1086,
         "name": "\u30bb\u30af\u30b7\u30e7\u30f3_\u30d2\u30fc\u30ed\u30fc",
         "slug": "%e3%83%92%e3%83%bc%e3%83%ad%e3%83%bc",
         "term_group": 0,
-        "term_taxonomy_id": 1058,
+        "term_taxonomy_id": 1086,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -156,11 +156,24 @@
         "term_order": "0"
     },
     {
-        "term_id": 1059,
+        "term_id": 1087,
+        "name": "\u30bb\u30af\u30b7\u30e7\u30f3_\u30d7\u30ed\u30d5\u30a3\u30fc\u30eb",
+        "slug": "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e3%83%97%e3%83%ad%e3%83%95%e3%82%a3%e3%83%bc%e3%83%ab",
+        "term_group": 0,
+        "term_taxonomy_id": 1087,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "count": 1,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "term_id": 1088,
         "name": "\u30bb\u30af\u30b7\u30e7\u30f3_\u3088\u304f\u3042\u308b\u8cea\u554f",
         "slug": "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f",
         "term_group": 0,
-        "term_taxonomy_id": 1059,
+        "term_taxonomy_id": 1088,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -169,11 +182,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1060,
+        "term_id": 1089,
         "name": "\u30bb\u30af\u30b7\u30e7\u30f3_\u6295\u7a3f\u30ea\u30b9\u30c8",
         "slug": "%e3%82%a8%e3%83%aa%e3%82%a2_%e6%8a%95%e7%a8%bf%e3%83%aa%e3%82%b9%e3%83%88",
         "term_group": 0,
-        "term_taxonomy_id": 1060,
+        "term_taxonomy_id": 1089,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -182,11 +195,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1061,
+        "term_id": 1090,
         "name": "\u30bb\u30af\u30b7\u30e7\u30f3_\u6328\u62f6",
         "slug": "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e6%8c%a8%e6%8b%b6",
         "term_group": 0,
-        "term_taxonomy_id": 1061,
+        "term_taxonomy_id": 1090,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -195,11 +208,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1062,
+        "term_id": 1091,
         "name": "\u30bb\u30af\u30b7\u30e7\u30f3_\u6d41\u308c",
         "slug": "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e6%b5%81%e3%82%8c",
         "term_group": 0,
-        "term_taxonomy_id": 1062,
+        "term_taxonomy_id": 1091,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -208,11 +221,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1063,
+        "term_id": 1092,
         "name": "\u30c6\u30ad\u30b9\u30c8",
         "slug": "text",
         "term_group": 0,
-        "term_taxonomy_id": 1063,
+        "term_taxonomy_id": 1092,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -221,11 +234,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1064,
+        "term_id": 1093,
         "name": "\u30da\u30fc\u30b8_\u30b5\u30fc\u30d3\u30b9\u7d39\u4ecb",
         "slug": "%e3%83%9a%e3%83%bc%e3%82%b8_%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e7%b4%b9%e4%bb%8b",
         "term_group": 0,
-        "term_taxonomy_id": 1064,
+        "term_taxonomy_id": 1093,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -234,11 +247,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1065,
+        "term_id": 1094,
         "name": "\u30da\u30fc\u30b8_\u30c8\u30c3\u30d7\u30da\u30fc\u30b8\/LP",
         "slug": "%e3%83%9a%e3%83%bc%e3%82%b8_%e3%83%88%e3%83%83%e3%83%97%e3%83%9a%e3%83%bc%e3%82%b8-lp",
         "term_group": 0,
-        "term_taxonomy_id": 1065,
+        "term_taxonomy_id": 1094,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -247,11 +260,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1066,
+        "term_id": 1095,
         "name": "\u30da\u30fc\u30b8_\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc\u30dd\u30ea\u30b7\u30fc",
         "slug": "%e3%83%9a%e3%83%bc%e3%82%b8_%e3%83%97%e3%83%a9%e3%82%a4%e3%83%90%e3%82%b7%e3%83%bc%e3%83%9d%e3%83%aa%e3%82%b7%e3%83%bc",
         "term_group": 0,
-        "term_taxonomy_id": 1066,
+        "term_taxonomy_id": 1095,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -260,11 +273,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1067,
+        "term_id": 1096,
         "name": "\u30da\u30fc\u30b8_\u4f1a\u793e\u6848\u5185",
         "slug": "%e3%83%9a%e3%83%bc%e3%82%b8_%e4%bc%9a%e7%a4%be%e6%a1%88%e5%86%85",
         "term_group": 0,
-        "term_taxonomy_id": 1067,
+        "term_taxonomy_id": 1096,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -273,11 +286,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1068,
+        "term_id": 1097,
         "name": "\u30da\u30fc\u30b8_\u5168\u5e45",
         "slug": "full-width",
         "term_group": 0,
-        "term_taxonomy_id": 1068,
+        "term_taxonomy_id": 1097,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -286,11 +299,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1069,
+        "term_id": 1098,
         "name": "\u30da\u30fc\u30b8_\u63a1\u7528\u60c5\u5831",
         "slug": "%e3%83%9a%e3%83%bc%e3%82%b8-%e6%8e%a1%e7%94%a8%e6%83%85%e5%a0%b1",
         "term_group": 0,
-        "term_taxonomy_id": 1069,
+        "term_taxonomy_id": 1098,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -299,11 +312,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1070,
+        "term_id": 1099,
         "name": "\u30da\u30fc\u30b8_\u901a\u5e38\u5e45",
         "slug": "%e3%83%91%e3%82%bf%e3%83%bc%e3%83%b3%e3%82%bf%e3%82%a4%e3%83%97_%e3%83%9a%e3%83%bc%e3%82%b8_%e9%80%9a%e5%b8%b8%e5%b9%85",
         "term_group": 0,
-        "term_taxonomy_id": 1070,
+        "term_taxonomy_id": 1099,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -312,11 +325,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1071,
+        "term_id": 1100,
         "name": "\u30d8\u30c3\u30c0\u30fc",
         "slug": "%e3%83%98%e3%83%83%e3%83%80%e3%83%bc",
         "term_group": 0,
-        "term_taxonomy_id": 1071,
+        "term_taxonomy_id": 1100,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -325,28 +338,28 @@
         "term_order": "0"
     },
     {
-        "term_id": 1072,
+        "term_id": 1101,
         "name": "\u5e45_\u5168\u5e45",
         "slug": "%e5%b9%85_%e5%85%a8%e5%b9%85",
         "term_group": 0,
-        "term_taxonomy_id": 1072,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "count": 22,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "term_id": 1073,
-        "name": "\u5e45_\u901a\u5e38",
-        "slug": "%e5%b9%85_%e9%80%9a%e5%b8%b8",
-        "term_group": 0,
-        "term_taxonomy_id": 1073,
+        "term_taxonomy_id": 1101,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
         "count": 21,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "term_id": 1102,
+        "name": "\u5e45_\u901a\u5e38",
+        "slug": "%e5%b9%85_%e9%80%9a%e5%b8%b8",
+        "term_group": 0,
+        "term_taxonomy_id": 1102,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "count": 22,
         "filter": "raw",
         "term_order": "0"
     }
