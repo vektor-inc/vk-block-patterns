@@ -1,8 +1,22 @@
 .editor-styles-wrapper {
     .vk-cols--fitbnrs {
         .vk_button a.btn-primary,
-        .vk_button a:hover.btn-primary{
+        .vk_button a:hover.btn-primary {
             background: unset;
+        }
+    }
+}
+/**
+ブロックエディタで wp-block に対して上下 margin 28px がついてしまって、ボタンが下付けにならないため 下部の margin を 5px に指定
+*/
+.editor-styles-wrapper {
+    .vk-cols--hasbtn {
+        .wp-block-column {
+            padding-bottom:4em;
+            .wp-block-buttons,
+            .vk_button {
+                margin-bottom:5px;
+            }
         }
     }
 }

@@ -2,6 +2,20 @@
     flex-direction: row-reverse;
 }
 
+.vk-cols--hasbtn{
+    & > .wp-block-column {
+        position: relative;
+        padding-bottom:3em;
+        margin-bottom:var(--vk-margin-block-bottom);
+        & > .wp-block-buttons,
+        & > .vk_button {
+            position: absolute;
+            bottom:0;
+        }
+    }
+    margin-bottom:0;
+}
+
 /*
     Fit : 余白のないカラム
     2カラムだけでなく3カラムや4カラムでも使用される想定
