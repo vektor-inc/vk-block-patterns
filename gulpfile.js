@@ -7,6 +7,7 @@ gulp.task('dist', function (done) {
 		'./**/*.txt',
 		'./**/*.css',
 		'./**/*.png',
+		'./**/*.json',
 		'./assets/**',
 		'./inc/**',
 		'./patterns-data/',
