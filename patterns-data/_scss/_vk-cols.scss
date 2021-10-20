@@ -3,6 +3,7 @@
 }
 
 .vk-cols--hasbtn{
+    & > .row > .vk_gridColumn_item,
     & > .wp-block-column {
         position: relative;
         padding-bottom:3em;
@@ -11,6 +12,7 @@
         & > .vk_button {
             position: absolute;
             bottom:0;
+            width:calc( 100% - 15px - 15px );
         }
     }
     margin-bottom:0;
