@@ -122,7 +122,7 @@ class Register_Patterns_From_Json {
 			$site_lang = mb_strtolower( get_locale() );
 
 			// 表示中のサイトの言語が言語カテゴリーに含まれている場合.
-			if ( in_array( $site_lang, $languages ) ) {
+			if ( in_array( $site_lang, $languages, true ) ) {
 				// 表示中の言語に合致したパターンのみ登録するモード.
 				$judge_lang_mode = true;
 			} else {
@@ -134,7 +134,7 @@ class Register_Patterns_From_Json {
 			/* import posts
 			/* --------------------------- */
 			$active_plugins = get_option( 'active_plugins', array() );
-			if ( in_array( 'vk-blocks/vk-blocks.php', $active_plugins ) ) {
+			if ( in_array( 'vk-blocks/vk-blocks.php', $active_plugins, true ) ) {
 				$filename = 'template-for-vk-free.json';
 			} elseif ( in_array( 'vk-blocks-pro/vk-blocks.php', $active_plugins ) ) {
 				$filename = 'template-for-vk-pro.json';
@@ -165,7 +165,7 @@ class Register_Patterns_From_Json {
 
 					// 表示中の言語に合致したパターンのみ登録するモード.
 					if ( $judge_lang_mode ) {
-						if ( in_array( $site_lang, $val['languages'] ) ) {
+						if ( in_array( $site_lang, $val['languages'], true ) ) {
 							// 本来 $val['post_status'] は必ず必ず入ってくる。リリース前のデータ対応なので2021年3月以降削除可.
 							if ( ! isset( $val['post_status'] ) || 'publish' === $val['post_status'] ) {
 								register_block_pattern(
@@ -181,7 +181,7 @@ class Register_Patterns_From_Json {
 						}
 					} else {
 						// 英語のパターンのみ登録するモード.
-						if ( in_array( mb_strtolower( 'en_US' ), $val['languages'] ) ) {
+						if ( in_array( mb_strtolower( 'en_US' ), $val['languages'], true ) ) {
 							if ( ! isset( $val['post_status'] ) || 'publish' === $val['post_status'] ) {
 								register_block_pattern(
 									$val['post_name'],
