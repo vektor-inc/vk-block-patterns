@@ -1,3 +1,18 @@
+
+.editor-styles-wrapper {
+    .vk-cols--reverse{
+        @media ( min-width:600px ){
+            .wp-block-column:not(.wp-block-column:last-child){
+                margin-left:1em;
+            }
+            .wp-block-column:last-child {
+                margin-right:1em;
+                margin-left:0;
+            }
+        }
+    }
+}
+
 .editor-styles-wrapper {
     .vk-cols--fitbnrs {
         .vk_button a.btn-primary,

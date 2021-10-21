@@ -1,5 +1,14 @@
 .vk-cols--reverse{
     flex-direction: row-reverse;
+    @media ( min-width:600px ){
+        .wp-block-column:not(.wp-block-column:last-child){
+            margin-left:1em;
+        }
+        .wp-block-column:last-child {
+            margin-right:1em;
+            margin-left:0;
+        }
+    }
 }
 
 .vk-cols--hasbtn{
