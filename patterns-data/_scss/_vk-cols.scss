@@ -185,6 +185,7 @@
     .vk_button{
         height:100%;
         margin:0;
+        .vk_button_btn, // VK Blocks Pro で一時的に .btn クラスを削除されてしまったのでリカバー用に .vk_button_btn 追加 （2021/11末削除）
         .btn {
             height:100%;
             width:100%;
