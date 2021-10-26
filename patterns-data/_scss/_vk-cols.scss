@@ -1,7 +1,7 @@
 .vk-cols--reverse{
     flex-direction: row-reverse;
     @media ( min-width:600px ){
-        .wp-block-column:not(.wp-block-column:last-child){
+        .wp-block-column{
             margin-left:1em;
         }
         .wp-block-column:last-child {
@@ -107,6 +107,11 @@
         }
         &.vk-cols--reverse {
             @media (min-width: 600px){
+                // reverse クラスが余白をつけるように追加しているのでgridの場合は打ち消し
+                &  > .wp-block-column{
+                    margin-left:0;
+                    margin-right:0;
+                }
                 &  > .wp-block-column:nth-child(2){
                     & > .wp-block-cover {
                         margin-left:calc( 100% - 50vw );
