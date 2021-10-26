@@ -1,0 +1,19 @@
+// カラムブロックに画像を入れて右揃えなどにすると
+// classic.css が height:0; 指定してきてカラムの中の画像がカラムからはみ出るのでautoに上書き
+.wp-block[data-align=left],
+.wp-block[data-align=right] {
+    height:auto;
+    // .wp-block の上下にコアが追加する余白を小さく変更
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.edit-post-visual-editor {
+    @media ( max-width: 599px ) {
+        .wp-block-image.vk-aligncenter--mobile{
+            float:none;
+            margin-left:auto;
+            margin-right:auto;
+        }
+    }
+}

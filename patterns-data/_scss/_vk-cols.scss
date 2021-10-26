@@ -1,8 +1,18 @@
 .vk-cols--reverse{
     flex-direction: row-reverse;
+    @media ( min-width:600px ){
+        .wp-block-column{
+            margin-left:1em;
+        }
+        .wp-block-column:last-child {
+            margin-right:1em;
+            margin-left:0;
+        }
+    }
 }
 
 .vk-cols--hasbtn{
+    & > .row > .vk_gridColumn_item,
     & > .wp-block-column {
         position: relative;
         padding-bottom:3em;
@@ -11,6 +21,7 @@
         & > .vk_button {
             position: absolute;
             bottom:0;
+            width:calc( 100% - 15px - 15px );
         }
     }
     margin-bottom:0;
@@ -96,6 +107,11 @@
         }
         &.vk-cols--reverse {
             @media (min-width: 600px){
+                // reverse クラスが余白をつけるように追加しているのでgridの場合は打ち消し
+                &  > .wp-block-column{
+                    margin-left:0;
+                    margin-right:0;
+                }
                 &  > .wp-block-column:nth-child(2){
                     & > .wp-block-cover {
                         margin-left:calc( 100% - 50vw );
@@ -174,6 +190,7 @@
     .vk_button{
         height:100%;
         margin:0;
+        .vk_button_btn, // VK Blocks Pro で一時的に .btn クラスを削除されてしまったのでリカバー用に .vk_button_btn 追加 （2021/11末削除）
         .btn {
             height:100%;
             width:100%;
