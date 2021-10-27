@@ -122,34 +122,6 @@
     }
 }
 
-// 全幅
-// .vk_outer.vk_outer-width-full {
-//     .vk-cols--fit.vk-cols--grid {
-//         &  > .wp-block-column:nth-child(2){
-//             & > .wp-block-cover {
-//                 @media (max-width: 599px){
-//                     width:100vw;
-//                     margin-right:calc( ( 100% - 100vw ) / 2 );
-//                     margin-left:calc( ( 100% - 100vw ) / 2 );
-//                 }
-//                 @media (min-width: 600px){
-//                     margin-right:calc( 100% - 50vw );
-//                     width:50vw;
-//                 }
-//             }     
-//         }
-//         &.vk-cols--reverse {
-//             @media (min-width: 600px){
-//                 &  > .wp-block-column:nth-child(2){
-//                     & > .wp-block-cover {
-//                         margin-left:calc( 100% - 50vw );
-//                     }            
-//                 }
-//             }
-//         }
-//     }
-// }
-
 /*
     カラムメニュー
 /* ----------------------------------- */
@@ -231,8 +203,16 @@
 .vk-cols--media{
     .wp-block-column:not(:first-child) {
         .wp-block-image,
-        figure, {
+        figure {
             margin-bottom:0;
+        }
+    }
+    // .vk-cols--reverse が付与する余白の打ち消し
+    @media (min-width: 600px){
+        &.vk-cols--reverse {
+            .wp-block-column:first-child {
+                margin-left:0;
+            }
         }
     }
     @media (min-width: 782px) {
