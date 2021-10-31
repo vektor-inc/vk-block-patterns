@@ -8,6 +8,14 @@
             margin-right:1em;
             margin-left:0;
         }
+        // ↑ でリバース用の余白を追加しているが、
+        // fitでは不要なので打ち消し
+        &.vk-cols--fit{
+            .wp-block-column {
+                margin-right:0;
+                margin-left:0;
+            }
+        }
     }
 }
 
@@ -56,7 +64,6 @@
             padding-right:0 !important;
         }
     }
-
     // コアのカラムブロックの余白打ち消し
     @media (min-width: 782px){
         .block-editor-block-list__block.wp-block-column:not(:first-child),
