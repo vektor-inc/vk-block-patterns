@@ -3,10 +3,10 @@
     .vk-cols--reverse{
         @media ( min-width:600px ){
             .wp-block-column:not(.wp-block-column:last-child){
-                margin-left:1em;
+                // margin-left:1em; // これがあると編集画面に余白が出来るけど必要？
             }
             .wp-block-column:last-child {
-                margin-right:1em;
+                // margin-right:1em; // これがあると編集画面に余白が出来るけど必要？
                 margin-left:0;
             }
         }
