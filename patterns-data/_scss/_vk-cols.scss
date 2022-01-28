@@ -49,60 +49,64 @@
     Fit : 余白のないカラム
     2カラムだけでなく3カラムや4カラムでも使用される想定
 /* ----------------------------------- */
-.vk-cols--fit {
-    margin-top:0;
-    margin-bottom:0;
-    justify-content: space-between;
-    & > .wp-block-column {
-        *:last-child{
-            margin-bottom:0;
-        }
-        // 編集画面用
-        & > .wp-block-cover{
-            margin-top:0;
-        }
-    }
-    &.has-background {
-        // .has-background に対してコアが付与する余白を付与
-        padding: 0;
-    }
-    @media (max-width: 599px){
-        // アウター＆インナー両方背景指定がない場合
-        &:not(.has-background) > .wp-block-column:not(.has-background){
-            // padding-top:0 !important; カラムを積んだ時に上のカラムとくっついてしまう
-            padding-left:0 !important;
-            padding-right:0 !important;
-        }
-    }
-    // コアのカラムブロックの余白打ち消し
-    @media (min-width: 782px){
-        .block-editor-block-list__block.wp-block-column:not(:first-child),
-        .wp-block-column:not(:first-child) {
-            margin-left: 0;
-        }
-    }
-    @media (min-width: 600px) and (max-width: 781px){
-        .wp-block-column:nth-child(2n) {
-            margin-left: 0;
-        }
-        .wp-block-column:not(:only-child) {
-            flex-basis: 50% !important;
-        }
-    }
-    &--gap1 {
-        gap:1px;
-        @media (min-width: 600px) and (max-width: 781px) {
-            .wp-block-column:not(:only-child) {
-                flex-basis: calc(50% - 1px)!important;
-            }
-        }
-    }
+.vk-cols--fit.wp-block-columns {
+	&--gap1 {
+		gap:1px;
+		@media (min-width: 600px) and (max-width: 781px) {
+			.wp-block-column:not(:only-child) {
+				flex-basis: calc(50% - 1px)!important;
+			}
+		}
+	}
+	&,
+	&:not(.is-not-stacked-on-mobile){
+		margin-top:0;
+		margin-bottom:0;
+		justify-content: space-between;
+		& > .wp-block-column {
+			*:last-child{
+				margin-bottom:0;
+			}
+			// 編集画面用
+			& > .wp-block-cover{
+				margin-top:0;
+			}
+		}
+		&.has-background {
+			// .has-background に対してコアが付与する余白を付与
+			padding: 0;
+		}
+		@media (max-width: 599px){
+			// アウター＆インナー両方背景指定がない場合
+			&:not(.has-background) > .wp-block-column:not(.has-background){
+				// padding-top:0 !important; カラムを積んだ時に上のカラムとくっついてしまう
+				padding-left:0 !important;
+				padding-right:0 !important;
+			}
+		}
+		// コアのカラムブロックの余白打ち消し
+		@media (min-width: 782px){
+			.block-editor-block-list__block.wp-block-column:not(:first-child),
+			& > .wp-block-column:not(:first-child) {
+				margin-left: 0;
+			}
+		}
+		@media (min-width: 600px) and (max-width: 781px){
+			.wp-block-column:nth-child(2n) {
+				margin-left: 0;
+			}
+			.wp-block-column:not(:only-child) {
+				flex-basis: 50% !important;
+			}
+		}
+	}
 }
 
 /*
    Grid : 50%分割カラム
 /* ----------------------------------- */
-.vk-cols--fit.vk-cols--grid{
+.vk-cols--fit.vk-cols--grid,
+.vk-cols--fit.vk-cols--grid:not(.is-not-stacked-on-mobile){
     & > .block-editor-block-list__block,
     & > .wp-block-column {
         flex-basis: 50%;
