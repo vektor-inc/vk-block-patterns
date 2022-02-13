@@ -1,23 +1,23 @@
 [
     {
-        "term_id": 1840,
+        "term_id": 1868,
         "name": "Section_PR",
         "slug": "section_pr",
         "term_group": 0,
-        "term_taxonomy_id": 1840,
+        "term_taxonomy_id": 1868,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 1,
+        "count": 2,
         "filter": "raw",
         "term_order": "0"
     },
     {
-        "term_id": 1841,
+        "term_id": 1869,
         "name": "UsingBlock_Core",
         "slug": "wordpress%e6%a8%99%e6%ba%96",
         "term_group": 0,
-        "term_taxonomy_id": 1841,
+        "term_taxonomy_id": 1869,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -26,24 +26,24 @@
         "term_order": "0"
     },
     {
-        "term_id": 1842,
+        "term_id": 1870,
         "name": "UsingBlock_Core+VK Blocks",
         "slug": "vk",
         "term_group": 0,
-        "term_taxonomy_id": 1842,
+        "term_taxonomy_id": 1870,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 22,
+        "count": 23,
         "filter": "raw",
         "term_order": "0"
     },
     {
-        "term_id": 1843,
+        "term_id": 1871,
         "name": "UsingBlock_Core+VK Blocks Pro",
         "slug": "vkp",
         "term_group": 0,
-        "term_taxonomy_id": 1843,
+        "term_taxonomy_id": 1871,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -52,11 +52,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1844,
+        "term_id": 1872,
         "name": "Width_Normal",
         "slug": "width_normal",
         "term_group": 0,
-        "term_taxonomy_id": 1844,
+        "term_taxonomy_id": 1872,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -65,24 +65,24 @@
         "term_order": "0"
     },
     {
-        "term_id": 1845,
+        "term_id": 1873,
         "name": "カラム",
         "slug": "columns",
         "term_group": 0,
-        "term_taxonomy_id": 1845,
+        "term_taxonomy_id": 1873,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
-        "count": 17,
+        "count": 19,
         "filter": "raw",
         "term_order": "0"
     },
     {
-        "term_id": 1846,
+        "term_id": 1874,
         "name": "セクション_CTA",
         "slug": "%e3%82%a8%e3%83%aa%e3%82%a2_cta",
         "term_group": 0,
-        "term_taxonomy_id": 1846,
+        "term_taxonomy_id": 1874,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -91,11 +91,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1847,
+        "term_id": 1875,
         "name": "セクション_PR",
         "slug": "%e3%82%a8%e3%83%aa%e3%82%a2_pr",
         "term_group": 0,
-        "term_taxonomy_id": 1847,
+        "term_taxonomy_id": 1875,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -104,11 +104,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1848,
+        "term_id": 1876,
         "name": "セクション_SNS",
         "slug": "%e3%82%a8%e3%83%aa%e3%82%a2_sns",
         "term_group": 0,
-        "term_taxonomy_id": 1848,
+        "term_taxonomy_id": 1876,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -117,11 +117,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1849,
+        "term_id": 1877,
         "name": "セクション_スタッフ",
         "slug": "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e3%82%b9%e3%82%bf%e3%83%83%e3%83%95",
         "term_group": 0,
-        "term_taxonomy_id": 1849,
+        "term_taxonomy_id": 1877,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -130,11 +130,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1850,
+        "term_id": 1878,
         "name": "セクション_タイトル",
         "slug": "%e8%a6%8b%e5%87%ba%e3%81%97",
         "term_group": 0,
-        "term_taxonomy_id": 1850,
+        "term_taxonomy_id": 1878,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -143,11 +143,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1851,
+        "term_id": 1879,
         "name": "セクション_ヒーロー",
         "slug": "%e3%83%92%e3%83%bc%e3%83%ad%e3%83%bc",
         "term_group": 0,
-        "term_taxonomy_id": 1851,
+        "term_taxonomy_id": 1879,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -156,11 +156,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1852,
+        "term_id": 1880,
         "name": "セクション_プロフィール",
         "slug": "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e3%83%97%e3%83%ad%e3%83%95%e3%82%a3%e3%83%bc%e3%83%ab",
         "term_group": 0,
-        "term_taxonomy_id": 1852,
+        "term_taxonomy_id": 1880,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -169,11 +169,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1853,
+        "term_id": 1881,
         "name": "セクション_よくある質問",
         "slug": "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e3%82%88%e3%81%8f%e3%81%82%e3%82%8b%e8%b3%aa%e5%95%8f",
         "term_group": 0,
-        "term_taxonomy_id": 1853,
+        "term_taxonomy_id": 1881,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -182,11 +182,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1854,
+        "term_id": 1882,
         "name": "セクション_投稿リスト",
         "slug": "%e3%82%a8%e3%83%aa%e3%82%a2_%e6%8a%95%e7%a8%bf%e3%83%aa%e3%82%b9%e3%83%88",
         "term_group": 0,
-        "term_taxonomy_id": 1854,
+        "term_taxonomy_id": 1882,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -195,11 +195,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1855,
+        "term_id": 1883,
         "name": "セクション_挨拶",
         "slug": "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e6%8c%a8%e6%8b%b6",
         "term_group": 0,
-        "term_taxonomy_id": 1855,
+        "term_taxonomy_id": 1883,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -208,11 +208,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1856,
+        "term_id": 1884,
         "name": "セクション_流れ",
         "slug": "%e3%82%bb%e3%82%af%e3%82%b7%e3%83%a7%e3%83%b3_%e6%b5%81%e3%82%8c",
         "term_group": 0,
-        "term_taxonomy_id": 1856,
+        "term_taxonomy_id": 1884,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -221,11 +221,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1857,
+        "term_id": 1885,
         "name": "テキスト",
         "slug": "text",
         "term_group": 0,
-        "term_taxonomy_id": 1857,
+        "term_taxonomy_id": 1885,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -234,11 +234,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1858,
+        "term_id": 1886,
         "name": "ページ_サービス紹介",
         "slug": "%e3%83%9a%e3%83%bc%e3%82%b8_%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e7%b4%b9%e4%bb%8b",
         "term_group": 0,
-        "term_taxonomy_id": 1858,
+        "term_taxonomy_id": 1886,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -247,11 +247,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1859,
+        "term_id": 1887,
         "name": "ページ_トップページ/LP",
         "slug": "%e3%83%9a%e3%83%bc%e3%82%b8_%e3%83%88%e3%83%83%e3%83%97%e3%83%9a%e3%83%bc%e3%82%b8-lp",
         "term_group": 0,
-        "term_taxonomy_id": 1859,
+        "term_taxonomy_id": 1887,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -260,11 +260,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1860,
+        "term_id": 1888,
         "name": "ページ_プライバシーポリシー",
         "slug": "%e3%83%9a%e3%83%bc%e3%82%b8_%e3%83%97%e3%83%a9%e3%82%a4%e3%83%90%e3%82%b7%e3%83%bc%e3%83%9d%e3%83%aa%e3%82%b7%e3%83%bc",
         "term_group": 0,
-        "term_taxonomy_id": 1860,
+        "term_taxonomy_id": 1888,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -273,11 +273,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1861,
+        "term_id": 1889,
         "name": "ページ_会社案内",
         "slug": "%e3%83%9a%e3%83%bc%e3%82%b8_%e4%bc%9a%e7%a4%be%e6%a1%88%e5%86%85",
         "term_group": 0,
-        "term_taxonomy_id": 1861,
+        "term_taxonomy_id": 1889,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -286,11 +286,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1862,
+        "term_id": 1890,
         "name": "ページ_全幅",
         "slug": "full-width",
         "term_group": 0,
-        "term_taxonomy_id": 1862,
+        "term_taxonomy_id": 1890,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -299,11 +299,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1863,
+        "term_id": 1891,
         "name": "ページ_採用情報",
         "slug": "%e3%83%9a%e3%83%bc%e3%82%b8-%e6%8e%a1%e7%94%a8%e6%83%85%e5%a0%b1",
         "term_group": 0,
-        "term_taxonomy_id": 1863,
+        "term_taxonomy_id": 1891,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -312,11 +312,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1864,
+        "term_id": 1892,
         "name": "ページ_通常幅",
         "slug": "%e3%83%91%e3%82%bf%e3%83%bc%e3%83%b3%e3%82%bf%e3%82%a4%e3%83%97_%e3%83%9a%e3%83%bc%e3%82%b8_%e9%80%9a%e5%b8%b8%e5%b9%85",
         "term_group": 0,
-        "term_taxonomy_id": 1864,
+        "term_taxonomy_id": 1892,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -325,11 +325,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1865,
+        "term_id": 1893,
         "name": "ヘッダー",
         "slug": "%e3%83%98%e3%83%83%e3%83%80%e3%83%bc",
         "term_group": 0,
-        "term_taxonomy_id": 1865,
+        "term_taxonomy_id": 1893,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -338,11 +338,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1866,
+        "term_id": 1894,
         "name": "幅_全幅",
         "slug": "%e5%b9%85_%e5%85%a8%e5%b9%85",
         "term_group": 0,
-        "term_taxonomy_id": 1866,
+        "term_taxonomy_id": 1894,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,
@@ -351,11 +351,11 @@
         "term_order": "0"
     },
     {
-        "term_id": 1867,
+        "term_id": 1895,
         "name": "幅_通常",
         "slug": "%e5%b9%85_%e9%80%9a%e5%b8%b8",
         "term_group": 0,
-        "term_taxonomy_id": 1867,
+        "term_taxonomy_id": 1895,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
         "parent": 0,

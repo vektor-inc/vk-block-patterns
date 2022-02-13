@@ -1,5 +1,64 @@
 [
     {
+        "title": "PR Content Full Width",
+        "post_status": "publish",
+        "post_name": "%e3%83%92%e3%83%bc%e3%83%ad%e3%83%bc1-2",
+        "description": "",
+        "content": "<!-- wp:cover {\\\"url\\\":\\\"[pattern_directory]pr-img.png\\\",\\\"id\\\":3450,\\\"dimRatio\\\":90,\\\"overlayColor\\\":\\\"black\\\",\\\"minHeight\\\":0,\\\"align\\\":\\\"full\\\",\\\"style\\\":{\\\"spacing\\\":{\\\"padding\\\":{\\\"top\\\":\\\"2rem\\\",\\\"bottom\\\":\\\"1.5rem\\\"}}}} -->\n<div class=\\\"wp-block-cover alignfull\\\" style=\\\"padding-top:2rem;padding-bottom:1.5rem\\\"><span aria-hidden=\\\"true\\\" class=\\\"has-black-background-color has-background-dim-90 wp-block-cover__gradient-background has-background-dim\\\"></span><img class=\\\"wp-block-cover__image-background wp-image-3450\\\" alt=\\\"\\\" src=\\\"[pattern_directory]pr-img.png\\\" data-object-fit=\\\"cover\\\"/><div class=\\\"wp-block-cover__inner-container\\\"><!-- wp:group {\\\"layout\\\":{\\\"inherit\\\":true}} -->\n<div class=\\\"wp-block-group\\\"><!-- wp:columns {\\\"verticalAlignment\\\":null,\\\"className\\\":\\\"vk-cols\\\\u002d\\\\u002dreverse mb-0\\\"} -->\n<div class=\\\"wp-block-columns vk-cols--reverse mb-0\\\"><!-- wp:column {\\\"verticalAlignment\\\":\\\"center\\\"} -->\n<div class=\\\"wp-block-column is-vertically-aligned-center\\\"><!-- wp:image {\\\"align\\\":\\\"right\\\",\\\"id\\\":5421,\\\"sizeSlug\\\":\\\"full\\\",\\\"linkDestination\\\":\\\"media\\\",\\\"className\\\":\\\"vk-aligncenter\\\\u002d\\\\u002dmobile\\\"} -->\n<div class=\\\"wp-block-image vk-aligncenter--mobile\\\"><figure class=\\\"alignright size-full\\\"><a href=\\\"[pattern_directory]device_01.png\\\"><img src=\\\"[pattern_directory]device_01.png\\\" alt=\\\"\\\" class=\\\"wp-image-5421\\\"/></a></figure></div>\n<!-- /wp:image --></div>\n<!-- /wp:column -->\n\n<!-- wp:column {\\\"verticalAlignment\\\":\\\"center\\\"} -->\n<div class=\\\"wp-block-column is-vertically-aligned-center\\\"><!-- wp:heading {\\\"className\\\":\\\"is-style-vk-heading-plain\\\"} -->\n<h2 class=\\\"is-style-vk-heading-plain\\\" id=\\\"コンセプトやキャッチコピー-1\\\">Catch phrase or Concept and so on</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p><meta charset=\\\"utf-8\\\">This part contains a description of your company.<br>Explain what you value, such as your company\\'s concept and philosophy. I recommend writing what you want to convey the most to your customers.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:buttons -->\n<div class=\\\"wp-block-buttons\\\"><!-- wp:button {\\\"width\\\":100,\\\"className\\\":\\\"is-style-outline\\\"} -->\n<div class=\\\"wp-block-button has-custom-width wp-block-button__width-100 is-style-outline\\\"><a class=\\\"wp-block-button__link\\\">Read more</a></div>\n<!-- /wp:button --></div>\n<!-- /wp:buttons --></div>\n<!-- /wp:column --></div>\n<!-- /wp:columns --></div>\n<!-- /wp:group --></div></div>\n<!-- /wp:cover -->",
+        "categories": [
+            "section_pr",
+            "vk",
+            "columns"
+        ],
+        "languages": [
+            "en_us"
+        ],
+        "blockTypes": false
+    },
+    {
+        "title": "PR カラム Free 02",
+        "post_status": "publish",
+        "post_name": "pr-%e3%82%ab%e3%83%a9%e3%83%a0-02",
+        "description": "",
+        "content": "<!-- wp:columns -->\n<div class=\\\"wp-block-columns\\\"><!-- wp:column -->\n<div class=\\\"wp-block-column\\\"><!-- wp:image {\\\"id\\\":3358,\\\"sizeSlug\\\":\\\"large\\\",\\\"linkDestination\\\":\\\"media\\\",\\\"className\\\":\\\"is-style-vk-image-border\\\"} -->\n<figure class=\\\"wp-block-image size-large is-style-vk-image-border\\\"><a href=\\\"[pattern_directory]pr_1.jpg\\\"><img src=\\\"[pattern_directory]pr_1-1024x410.jpg\\\" alt=\\\"\\\" class=\\\"wp-image-3358\\\"/></a></figure>\n<!-- /wp:image -->\n\n<!-- wp:group -->\n<div class=\\\"wp-block-group\\\"><!-- wp:heading {\\\"textAlign\\\":\\\"center\\\",\\\"level\\\":4,\\\"className\\\":\\\"mb-0 is-style-vk-heading-plain\\\"} -->\n<h4 class=\\\"has-text-align-center mb-0 is-style-vk-heading-plain\\\">ウェブ制作</h4>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"textColor\\\":\\\"cyan-bluish-gray\\\",\\\"fontSize\\\":\\\"small\\\"} -->\n<p class=\\\"has-text-align-center has-cyan-bluish-gray-color has-text-color has-small-font-size\\\">Web</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:group -->\n\n<!-- wp:list {\\\"className\\\":\\\"is-style-vk-triangle-mark\\\"} -->\n<ul class=\\\"is-style-vk-triangle-mark\\\"><li>企画 / 構成 </li><li>ウェブサイト制作</li><li>ランディングページ制作</li></ul>\n<!-- /wp:list -->\n\n<!-- wp:spacer {\\\"height\\\":20} -->\n<div style=\\\"height:20px\\\" aria-hidden=\\\"true\\\" class=\\\"wp-block-spacer\\\"></div>\n<!-- /wp:spacer --></div>\n<!-- /wp:column -->\n\n<!-- wp:column -->\n<div class=\\\"wp-block-column\\\"><!-- wp:image {\\\"id\\\":3359,\\\"sizeSlug\\\":\\\"large\\\",\\\"linkDestination\\\":\\\"media\\\",\\\"className\\\":\\\"is-style-vk-image-border\\\"} -->\n<figure class=\\\"wp-block-image size-large is-style-vk-image-border\\\"><a href=\\\"[pattern_directory]pr_2.jpg\\\"><img src=\\\"[pattern_directory]pr_2-1024x410.jpg\\\" alt=\\\"\\\" class=\\\"wp-image-3359\\\"/></a></figure>\n<!-- /wp:image -->\n\n<!-- wp:group -->\n<div class=\\\"wp-block-group\\\"><!-- wp:heading {\\\"textAlign\\\":\\\"center\\\",\\\"level\\\":4,\\\"className\\\":\\\"mb-0 is-style-vk-heading-plain\\\"} -->\n<h4 class=\\\"has-text-align-center mb-0 is-style-vk-heading-plain\\\">印刷物</h4>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"textColor\\\":\\\"cyan-bluish-gray\\\",\\\"fontSize\\\":\\\"small\\\"} -->\n<p class=\\\"has-text-align-center has-cyan-bluish-gray-color has-text-color has-small-font-size\\\">Printing</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:group -->\n\n<!-- wp:list {\\\"className\\\":\\\"is-style-vk-triangle-mark\\\"} -->\n<ul class=\\\"is-style-vk-triangle-mark\\\"><li>チラシ / ポスター</li><li>名刺 / 各種カード</li><li>パンフレット</li></ul>\n<!-- /wp:list -->\n\n<!-- wp:spacer {\\\"height\\\":20} -->\n<div style=\\\"height:20px\\\" aria-hidden=\\\"true\\\" class=\\\"wp-block-spacer\\\"></div>\n<!-- /wp:spacer --></div>\n<!-- /wp:column -->\n\n<!-- wp:column -->\n<div class=\\\"wp-block-column\\\"><!-- wp:image {\\\"id\\\":3360,\\\"sizeSlug\\\":\\\"large\\\",\\\"linkDestination\\\":\\\"media\\\",\\\"className\\\":\\\"is-style-vk-image-border\\\"} -->\n<figure class=\\\"wp-block-image size-large is-style-vk-image-border\\\"><a href=\\\"[pattern_directory]pr_3.jpg\\\"><img src=\\\"[pattern_directory]pr_3-1024x410.jpg\\\" alt=\\\"\\\" class=\\\"wp-image-3360\\\"/></a></figure>\n<!-- /wp:image -->\n\n<!-- wp:group -->\n<div class=\\\"wp-block-group\\\"><!-- wp:heading {\\\"textAlign\\\":\\\"center\\\",\\\"level\\\":4,\\\"className\\\":\\\"mb-0 is-style-vk-heading-plain\\\"} -->\n<h4 class=\\\"has-text-align-center mb-0 is-style-vk-heading-plain\\\">システム開発</h4>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"textColor\\\":\\\"cyan-bluish-gray\\\",\\\"fontSize\\\":\\\"small\\\"} -->\n<p class=\\\"has-text-align-center has-cyan-bluish-gray-color has-text-color has-small-font-size\\\">System</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:group -->\n\n<!-- wp:list {\\\"className\\\":\\\"is-style-vk-triangle-mark\\\"} -->\n<ul class=\\\"is-style-vk-triangle-mark\\\"><li>ウェブシステム開発</li><li>各種CMS実装</li><li>業務システム開発</li></ul>\n<!-- /wp:list -->\n\n<!-- wp:spacer {\\\"height\\\":20} -->\n<div style=\\\"height:20px\\\" aria-hidden=\\\"true\\\" class=\\\"wp-block-spacer\\\"></div>\n<!-- /wp:spacer --></div>\n<!-- /wp:column --></div>\n<!-- /wp:columns -->",
+        "categories": [
+            "wordpress%e6%a8%99%e6%ba%96",
+            "columns",
+            "%e3%82%a8%e3%83%aa%e3%82%a2_pr",
+            "%e5%b9%85_%e9%80%9a%e5%b8%b8"
+        ],
+        "languages": [
+            "ja"
+        ],
+        "blockTypes": [
+            "core/columns",
+            "core/column",
+            "core/image",
+            "core/group",
+            "core/heading",
+            "core/paragraph",
+            "core/list",
+            "core/spacer"
+        ]
+    },
+    {
+        "title": "画像カラム",
+        "post_status": "private",
+        "post_name": "5809",
+        "description": "",
+        "content": "<!-- wp:columns {\\\"className\\\":\\\"vk-cols\\\"} -->\n<div class=\\\"wp-block-columns vk-cols\\\"><!-- wp:column {\\\"style\\\":{\\\"spacing\\\":{\\\"padding\\\":{\\\"bottom\\\":\\\"2em\\\"}}}} -->\n<div class=\\\"wp-block-column\\\" style=\\\"padding-bottom:2em\\\"><!-- wp:cover {\\\"url\\\":\\\"[pattern_directory]pr-img.png\\\",\\\"id\\\":2311,\\\"dimRatio\\\":15,\\\"overlayColor\\\":\\\"black\\\",\\\"minHeight\\\":300,\\\"contentPosition\\\":\\\"center center\\\",\\\"style\\\":{\\\"color\\\":{}}} -->\n<div class=\\\"wp-block-cover has-background-dim-20 has-black-background-color has-background-dim\\\" style=\\\"min-height:300px\\\"><img class=\\\"wp-block-cover__image-background wp-image-2311\\\" alt=\\\"\\\" src=\\\"[pattern_directory]pr-img.png\\\" data-object-fit=\\\"cover\\\"/><div class=\\\"wp-block-cover__inner-container\\\"><!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"placeholder\\\":\\\"タイトルを入力...\\\",\\\"style\\\":{\\\"typography\\\":{\\\"fontSize\\\":\\\"20px\\\"}}} -->\n<p class=\\\"has-text-align-center\\\" style=\\\"font-size:20px\\\"><strong>カラムイメージ</strong></p>\n<!-- /wp:paragraph --></div></div>\n<!-- /wp:cover --></div>\n<!-- /wp:column -->\n\n<!-- wp:column {\\\"style\\\":{\\\"spacing\\\":{\\\"padding\\\":{\\\"bottom\\\":\\\"2em\\\"}}}} -->\n<div class=\\\"wp-block-column\\\" style=\\\"padding-bottom:2em\\\"><!-- wp:cover {\\\"url\\\":\\\"[pattern_directory]pr-img.png\\\",\\\"id\\\":2311,\\\"dimRatio\\\":15,\\\"overlayColor\\\":\\\"black\\\",\\\"minHeight\\\":300,\\\"contentPosition\\\":\\\"center center\\\",\\\"style\\\":{\\\"color\\\":{}}} -->\n<div class=\\\"wp-block-cover has-background-dim-20 has-black-background-color has-background-dim\\\" style=\\\"min-height:300px\\\"><img class=\\\"wp-block-cover__image-background wp-image-2311\\\" alt=\\\"\\\" src=\\\"[pattern_directory]pr-img.png\\\" data-object-fit=\\\"cover\\\"/><div class=\\\"wp-block-cover__inner-container\\\"><!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"placeholder\\\":\\\"タイトルを入力...\\\",\\\"style\\\":{\\\"typography\\\":{\\\"fontSize\\\":\\\"20px\\\"}}} -->\n<p class=\\\"has-text-align-center\\\" style=\\\"font-size:20px\\\"><meta charset=\\\"utf-8\\\"><strong>カラムイメージ</strong></p>\n<!-- /wp:paragraph --></div></div>\n<!-- /wp:cover --></div>\n<!-- /wp:column -->\n\n<!-- wp:column {\\\"style\\\":{\\\"spacing\\\":{\\\"padding\\\":{\\\"bottom\\\":\\\"2em\\\"}}}} -->\n<div class=\\\"wp-block-column\\\" style=\\\"padding-bottom:2em\\\"><!-- wp:cover {\\\"url\\\":\\\"[pattern_directory]pr-img.png\\\",\\\"id\\\":2311,\\\"dimRatio\\\":15,\\\"overlayColor\\\":\\\"black\\\",\\\"minHeight\\\":300,\\\"style\\\":{\\\"color\\\":{}}} -->\n<div class=\\\"wp-block-cover has-background-dim-20 has-black-background-color has-background-dim\\\" style=\\\"min-height:300px\\\"><img class=\\\"wp-block-cover__image-background wp-image-2311\\\" alt=\\\"\\\" src=\\\"[pattern_directory]pr-img.png\\\" data-object-fit=\\\"cover\\\"/><div class=\\\"wp-block-cover__inner-container\\\"><!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"placeholder\\\":\\\"タイトルを入力...\\\",\\\"style\\\":{\\\"typography\\\":{\\\"fontSize\\\":\\\"20px\\\"}}} -->\n<p class=\\\"has-text-align-center\\\" style=\\\"font-size:20px\\\"><meta charset=\\\"utf-8\\\"><strong>カラムイメージ</strong></p>\n<!-- /wp:paragraph --></div></div>\n<!-- /wp:cover --></div>\n<!-- /wp:column --></div>\n<!-- /wp:columns -->",
+        "categories": [],
+        "languages": [
+            "ja"
+        ],
+        "blockTypes": [
+            "core/columns",
+            "core/column",
+            "core/cover",
+            "core/paragraph"
+        ]
+    },
+    {
         "title": "プライバシーポリシー",
         "post_status": "publish",
         "post_name": "%e3%83%97%e3%83%a9%e3%82%a4%e3%83%90%e3%82%b7%e3%83%bc%e3%83%9d%e3%83%aa%e3%82%b7%e3%83%bc",
@@ -91,73 +150,6 @@
             "core/heading",
             "core/paragraph",
             "core/cover"
-        ]
-    },
-    {
-        "title": "PR カラム",
-        "post_status": "publish",
-        "post_name": "pr-columns-normal",
-        "description": "",
-        "content": "<!-- wp:columns {\\\"className\\\":\\\"vk-cols\\\\u002d\\\\u002dhas-btn\\\"} -->\n<div class=\\\"wp-block-columns vk-cols--has-btn\\\"><!-- wp:column -->\n<div class=\\\"wp-block-column\\\"><!-- wp:image {\\\"className\\\":\\\"is-style-vk-image-border\\\"} -->\n<figure class=\\\"wp-block-image is-style-vk-image-border\\\"><img src=\\\"[pattern_directory]logo_Lightning.png\\\" alt=\\\"\\\"/></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\\\"level\\\":5,\\\"className\\\":\\\"is-style-vk-heading-plain\\\"} -->\n<h5 class=\\\"is-style-vk-heading-plain\\\">About Lightning</h5>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Lightning（無料）はWeb制作の専門知識がなくても簡単にビジネスサイトが作成できるように設計されたWordPressテーマです。</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:spacer {\\\"height\\\":20} -->\n<div style=\\\"height:20px\\\" aria-hidden=\\\"true\\\" class=\\\"wp-block-spacer\\\"></div>\n<!-- /wp:spacer --></div>\n<!-- /wp:column -->\n\n<!-- wp:column -->\n<div class=\\\"wp-block-column\\\"><!-- wp:image {\\\"className\\\":\\\"is-style-vk-image-border\\\"} -->\n<figure class=\\\"wp-block-image is-style-vk-image-border\\\"><img src=\\\"[pattern_directory]logo_ExUnit.png\\\" alt=\\\"\\\"/></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\\\"level\\\":5,\\\"className\\\":\\\"is-style-vk-heading-plain\\\"} -->\n<h5 class=\\\"is-style-vk-heading-plain\\\">ExUnit</h5>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>多機能プラグイン「VK All in One Expansion Unit（無料）」を利用することで、さまざまな便利な機能や豊富なウィジェットをご利用いただけます。</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:column -->\n\n<!-- wp:column -->\n<div class=\\\"wp-block-column\\\"><!-- wp:image {\\\"className\\\":\\\"is-style-vk-image-border\\\"} -->\n<figure class=\\\"wp-block-image is-style-vk-image-border\\\"><img src=\\\"[pattern_directory]logo_VK_Blocks.png\\\" alt=\\\"\\\"/></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\\\"level\\\":5,\\\"className\\\":\\\"is-style-vk-heading-plain\\\"} -->\n<h5 class=\\\"is-style-vk-heading-plain\\\">VK Blocks</h5>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>プラグイン「VK Blocks（無料）」はビジネスサイトの構築に役立つさまざまなブロックとスタイルおよび機能を追加するブロックライブラリです。</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:column -->\n\n<!-- wp:column -->\n<div class=\\\"wp-block-column\\\"><!-- wp:image {\\\"className\\\":\\\"is-style-vk-image-border\\\"} -->\n<figure class=\\\"wp-block-image is-style-vk-image-border\\\"><img src=\\\"[pattern_directory]logo_FilterSearch.png\\\" alt=\\\"\\\"/></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\\\"level\\\":5,\\\"className\\\":\\\"is-style-vk-heading-plain\\\"} -->\n<h5 class=\\\"is-style-vk-heading-plain\\\">VK Filter Search</h5>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>プラグイン「VK Filter Search（無料）」は、編集画面に絞り込み検索ブロックを作成できます。 投稿タイプやカスタム分類で絞り込む事ができます。</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:column --></div>\n<!-- /wp:columns -->",
-        "categories": [
-            "wordpress%e6%a8%99%e6%ba%96",
-            "columns",
-            "%e3%82%a8%e3%83%aa%e3%82%a2_pr",
-            "%e5%b9%85_%e9%80%9a%e5%b8%b8"
-        ],
-        "languages": [
-            "ja"
-        ],
-        "blockTypes": [
-            "core/columns",
-            "core/column",
-            "core/image",
-            "core/heading",
-            "core/paragraph",
-            "core/spacer"
-        ]
-    },
-    {
-        "title": "PR カラム Free 02",
-        "post_status": "publish",
-        "post_name": "pr-%e3%82%ab%e3%83%a9%e3%83%a0-02",
-        "description": "",
-        "content": "<!-- wp:columns -->\n<div class=\\\"wp-block-columns\\\"><!-- wp:column -->\n<div class=\\\"wp-block-column\\\"><!-- wp:image {\\\"id\\\":3358,\\\"sizeSlug\\\":\\\"large\\\",\\\"linkDestination\\\":\\\"media\\\",\\\"className\\\":\\\"is-style-vk-image-border\\\"} -->\n<figure class=\\\"wp-block-image size-large is-style-vk-image-border\\\"><a href=\\\"[pattern_directory]pr_1.jpg\\\"><img src=\\\"[pattern_directory]pr_1-1024x410.jpg\\\" alt=\\\"\\\" class=\\\"wp-image-3358\\\"/></a></figure>\n<!-- /wp:image -->\n\n<!-- wp:group -->\n<div class=\\\"wp-block-group\\\"><!-- wp:heading {\\\"textAlign\\\":\\\"center\\\",\\\"level\\\":4,\\\"className\\\":\\\"mb-0 is-style-vk-heading-plain\\\"} -->\n<h4 class=\\\"has-text-align-center mb-0 is-style-vk-heading-plain\\\">ウェブ制作</h4>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"textColor\\\":\\\"cyan-bluish-gray\\\",\\\"fontSize\\\":\\\"small\\\"} -->\n<p class=\\\"has-text-align-center has-cyan-bluish-gray-color has-text-color has-small-font-size\\\">Web</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:group -->\n\n<!-- wp:list {\\\"className\\\":\\\"is-style-vk-triangle-mark\\\"} -->\n<ul class=\\\"is-style-vk-triangle-mark\\\"><li>企画 / 構成 </li><li>ウェブサイト制作</li><li>ランディングページ制作</li></ul>\n<!-- /wp:list -->\n\n<!-- wp:spacer {\\\"height\\\":20} -->\n<div style=\\\"height:20px\\\" aria-hidden=\\\"true\\\" class=\\\"wp-block-spacer\\\"></div>\n<!-- /wp:spacer --></div>\n<!-- /wp:column -->\n\n<!-- wp:column -->\n<div class=\\\"wp-block-column\\\"><!-- wp:image {\\\"id\\\":3359,\\\"sizeSlug\\\":\\\"large\\\",\\\"linkDestination\\\":\\\"media\\\",\\\"className\\\":\\\"is-style-vk-image-border\\\"} -->\n<figure class=\\\"wp-block-image size-large is-style-vk-image-border\\\"><a href=\\\"[pattern_directory]pr_2.jpg\\\"><img src=\\\"[pattern_directory]pr_2-1024x410.jpg\\\" alt=\\\"\\\" class=\\\"wp-image-3359\\\"/></a></figure>\n<!-- /wp:image -->\n\n<!-- wp:group -->\n<div class=\\\"wp-block-group\\\"><!-- wp:heading {\\\"textAlign\\\":\\\"center\\\",\\\"level\\\":4,\\\"className\\\":\\\"mb-0 is-style-vk-heading-plain\\\"} -->\n<h4 class=\\\"has-text-align-center mb-0 is-style-vk-heading-plain\\\">印刷物</h4>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"textColor\\\":\\\"cyan-bluish-gray\\\",\\\"fontSize\\\":\\\"small\\\"} -->\n<p class=\\\"has-text-align-center has-cyan-bluish-gray-color has-text-color has-small-font-size\\\">Printing</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:group -->\n\n<!-- wp:list {\\\"className\\\":\\\"is-style-vk-triangle-mark\\\"} -->\n<ul class=\\\"is-style-vk-triangle-mark\\\"><li>チラシ / ポスター</li><li>名刺 / 各種カード</li><li>パンフレット</li></ul>\n<!-- /wp:list -->\n\n<!-- wp:spacer {\\\"height\\\":20} -->\n<div style=\\\"height:20px\\\" aria-hidden=\\\"true\\\" class=\\\"wp-block-spacer\\\"></div>\n<!-- /wp:spacer --></div>\n<!-- /wp:column -->\n\n<!-- wp:column -->\n<div class=\\\"wp-block-column\\\"><!-- wp:image {\\\"id\\\":3360,\\\"sizeSlug\\\":\\\"large\\\",\\\"linkDestination\\\":\\\"media\\\",\\\"className\\\":\\\"is-style-vk-image-border\\\"} -->\n<figure class=\\\"wp-block-image size-large is-style-vk-image-border\\\"><a href=\\\"[pattern_directory]pr_3.jpg\\\"><img src=\\\"[pattern_directory]pr_3-1024x410.jpg\\\" alt=\\\"\\\" class=\\\"wp-image-3360\\\"/></a></figure>\n<!-- /wp:image -->\n\n<!-- wp:group -->\n<div class=\\\"wp-block-group\\\"><!-- wp:heading {\\\"textAlign\\\":\\\"center\\\",\\\"level\\\":4,\\\"className\\\":\\\"mb-0 is-style-vk-heading-plain\\\"} -->\n<h4 class=\\\"has-text-align-center mb-0 is-style-vk-heading-plain\\\">システム開発</h4>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"textColor\\\":\\\"cyan-bluish-gray\\\",\\\"fontSize\\\":\\\"small\\\"} -->\n<p class=\\\"has-text-align-center has-cyan-bluish-gray-color has-text-color has-small-font-size\\\">System</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:group -->\n\n<!-- wp:list {\\\"className\\\":\\\"is-style-vk-triangle-mark\\\"} -->\n<ul class=\\\"is-style-vk-triangle-mark\\\"><li>ウェブシステム開発</li><li>各種CMS実装</li><li>業務システム開発</li></ul>\n<!-- /wp:list -->\n\n<!-- wp:spacer {\\\"height\\\":20} -->\n<div style=\\\"height:20px\\\" aria-hidden=\\\"true\\\" class=\\\"wp-block-spacer\\\"></div>\n<!-- /wp:spacer --></div>\n<!-- /wp:column --></div>\n<!-- /wp:columns -->",
-        "categories": [
-            "wordpress%e6%a8%99%e6%ba%96",
-            "columns",
-            "%e3%82%a8%e3%83%aa%e3%82%a2_pr",
-            "%e5%b9%85_%e9%80%9a%e5%b8%b8"
-        ],
-        "languages": [
-            "ja"
-        ],
-        "blockTypes": [
-            "core/columns",
-            "core/column",
-            "core/image",
-            "core/group",
-            "core/heading",
-            "core/paragraph",
-            "core/list",
-            "core/spacer"
-        ]
-    },
-    {
-        "title": "画像カラム",
-        "post_status": "private",
-        "post_name": "5809",
-        "description": "",
-        "content": "<!-- wp:columns {\\\"className\\\":\\\"vk-cols\\\"} -->\n<div class=\\\"wp-block-columns vk-cols\\\"><!-- wp:column {\\\"style\\\":{\\\"spacing\\\":{\\\"padding\\\":{\\\"bottom\\\":\\\"2em\\\"}}}} -->\n<div class=\\\"wp-block-column\\\" style=\\\"padding-bottom:2em\\\"><!-- wp:cover {\\\"url\\\":\\\"[pattern_directory]pr-img.png\\\",\\\"id\\\":2311,\\\"dimRatio\\\":15,\\\"overlayColor\\\":\\\"black\\\",\\\"minHeight\\\":300,\\\"contentPosition\\\":\\\"center center\\\",\\\"style\\\":{\\\"color\\\":{}}} -->\n<div class=\\\"wp-block-cover has-background-dim-20 has-black-background-color has-background-dim\\\" style=\\\"min-height:300px\\\"><img class=\\\"wp-block-cover__image-background wp-image-2311\\\" alt=\\\"\\\" src=\\\"[pattern_directory]pr-img.png\\\" data-object-fit=\\\"cover\\\"/><div class=\\\"wp-block-cover__inner-container\\\"><!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"placeholder\\\":\\\"タイトルを入力...\\\",\\\"style\\\":{\\\"typography\\\":{\\\"fontSize\\\":\\\"20px\\\"}}} -->\n<p class=\\\"has-text-align-center\\\" style=\\\"font-size:20px\\\"><strong>カラムイメージ</strong></p>\n<!-- /wp:paragraph --></div></div>\n<!-- /wp:cover --></div>\n<!-- /wp:column -->\n\n<!-- wp:column {\\\"style\\\":{\\\"spacing\\\":{\\\"padding\\\":{\\\"bottom\\\":\\\"2em\\\"}}}} -->\n<div class=\\\"wp-block-column\\\" style=\\\"padding-bottom:2em\\\"><!-- wp:cover {\\\"url\\\":\\\"[pattern_directory]pr-img.png\\\",\\\"id\\\":2311,\\\"dimRatio\\\":15,\\\"overlayColor\\\":\\\"black\\\",\\\"minHeight\\\":300,\\\"contentPosition\\\":\\\"center center\\\",\\\"style\\\":{\\\"color\\\":{}}} -->\n<div class=\\\"wp-block-cover has-background-dim-20 has-black-background-color has-background-dim\\\" style=\\\"min-height:300px\\\"><img class=\\\"wp-block-cover__image-background wp-image-2311\\\" alt=\\\"\\\" src=\\\"[pattern_directory]pr-img.png\\\" data-object-fit=\\\"cover\\\"/><div class=\\\"wp-block-cover__inner-container\\\"><!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"placeholder\\\":\\\"タイトルを入力...\\\",\\\"style\\\":{\\\"typography\\\":{\\\"fontSize\\\":\\\"20px\\\"}}} -->\n<p class=\\\"has-text-align-center\\\" style=\\\"font-size:20px\\\"><meta charset=\\\"utf-8\\\"><strong>カラムイメージ</strong></p>\n<!-- /wp:paragraph --></div></div>\n<!-- /wp:cover --></div>\n<!-- /wp:column -->\n\n<!-- wp:column {\\\"style\\\":{\\\"spacing\\\":{\\\"padding\\\":{\\\"bottom\\\":\\\"2em\\\"}}}} -->\n<div class=\\\"wp-block-column\\\" style=\\\"padding-bottom:2em\\\"><!-- wp:cover {\\\"url\\\":\\\"[pattern_directory]pr-img.png\\\",\\\"id\\\":2311,\\\"dimRatio\\\":15,\\\"overlayColor\\\":\\\"black\\\",\\\"minHeight\\\":300,\\\"style\\\":{\\\"color\\\":{}}} -->\n<div class=\\\"wp-block-cover has-background-dim-20 has-black-background-color has-background-dim\\\" style=\\\"min-height:300px\\\"><img class=\\\"wp-block-cover__image-background wp-image-2311\\\" alt=\\\"\\\" src=\\\"[pattern_directory]pr-img.png\\\" data-object-fit=\\\"cover\\\"/><div class=\\\"wp-block-cover__inner-container\\\"><!-- wp:paragraph {\\\"align\\\":\\\"center\\\",\\\"placeholder\\\":\\\"タイトルを入力...\\\",\\\"style\\\":{\\\"typography\\\":{\\\"fontSize\\\":\\\"20px\\\"}}} -->\n<p class=\\\"has-text-align-center\\\" style=\\\"font-size:20px\\\"><meta charset=\\\"utf-8\\\"><strong>カラムイメージ</strong></p>\n<!-- /wp:paragraph --></div></div>\n<!-- /wp:cover --></div>\n<!-- /wp:column --></div>\n<!-- /wp:columns -->",
-        "categories": [],
-        "languages": [
-            "ja"
-        ],
-        "blockTypes": [
-            "core/columns",
-            "core/column",
-            "core/cover",
-            "core/paragraph"
         ]
     }
 ]
