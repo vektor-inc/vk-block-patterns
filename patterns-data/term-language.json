@@ -8,13 +8,13 @@
         "taxonomy": "vk-managing-patterns-language",
         "description": "",
         "parent": 0,
-        "count": 2,
+        "count": 3,
         "filter": "raw",
         "term_order": "0"
     },
     {
         "term_id": 35,
-        "name": "\u65e5\u672c\u8a9e",
+        "name": "日本語",
         "slug": "ja",
         "term_group": 0,
         "term_taxonomy_id": 35,
