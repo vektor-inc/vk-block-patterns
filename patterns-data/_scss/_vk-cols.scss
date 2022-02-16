@@ -173,6 +173,9 @@
         }
         .wp-block-cover:hover{
             background-color: unset;
+			.wp-block-cover__image-background {
+				filter:unset !important;
+			}
         }
     }
     .wp-block-cover__inner-container{
