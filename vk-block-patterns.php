@@ -68,3 +68,20 @@ function vbp_get_options() {
 	$options = get_option( 'vk_block_patterns_options', $default );
 	return $options;
 }
+
+/**
+ * Add pattern library link
+ *
+ * @return void
+ */
+function vbp_add_pattern_link() {
+	$parent_slug = 'edit.php?post_type=vk-block-patterns';
+	$page_title  = 'パターンライブラリ';
+	$menu_title  = 'パターンライブラリ';
+	$capability  = 'edit_posts';
+	$menu_slug   = 'https://patterns.vektor-inc.co.jp/';
+	$function    = '';
+	add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' );
+}
+add_action( 'admin_menu', 'vbp_add_pattern_link' );
+
