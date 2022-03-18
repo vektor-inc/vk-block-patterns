@@ -8,7 +8,7 @@
         "taxonomy": "vk-managing-patterns-language",
         "description": "",
         "parent": 0,
-        "count": 3,
+        "count": 15,
         "filter": "raw",
         "term_order": "0"
     },
@@ -21,7 +21,7 @@
         "taxonomy": "vk-managing-patterns-language",
         "description": "",
         "parent": 0,
-        "count": 50,
+        "count": 45,
         "filter": "raw",
         "term_order": "0"
     }
