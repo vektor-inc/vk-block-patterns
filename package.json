@@ -5,6 +5,8 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "wp-scripts start",
+    "build": "wp-scripts build",
     "sass": "sass --watch --style=compressed --no-source-map patterns-data/_scss:patterns-data",
     "phpunit": "wp-env run phpunit \"phpunit -c /var/www/html/wp-content/plugins/vk-block-patterns/phpunit.xml.dist --verbose\""
   },
@@ -22,6 +24,7 @@
     "gulp": "^4.0.2"
   },
   "devDependencies": {
+    "@wordpress/scripts": "^22.2.1",
     "sass": "^1.49.0"
   }
 }

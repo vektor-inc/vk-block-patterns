@@ -45,6 +45,8 @@ function vbp_plugin_loaded() {
 	require_once VBP_PATH . 'inc/vk-block-patterns/vk-block-patterns-config.php';
 	// Load VKAdmin.
 	require_once VBP_PATH . 'inc/vk-admin/vk-admin-config.php';
+	// Load Edit Post Options.
+	require_once VBP_PATH . 'inc/edit-post/vk-edit-post-config.php';
 	// Load Admin Options.
 	require_once VBP_PATH . 'admin/admin.php';
 }

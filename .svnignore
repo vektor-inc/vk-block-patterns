@@ -7,3 +7,4 @@ package.json
 package-lock.json
 README.md
 vk-block-patterns.code-workspace
+src/
