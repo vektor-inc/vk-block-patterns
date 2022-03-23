@@ -20,16 +20,6 @@
         "term_order": "0"
     },
     {
-        "name": "Section_PR",
-        "slug": "section_pr",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
         "name": "セクション_CTA",
         "slug": "%e3%82%a8%e3%83%aa%e3%82%a2_cta",
         "term_group": 0,
