@@ -23,6 +23,7 @@ if ( ! function_exists( 'vbp_setting' ) ) {
 			require_once dirname( __FILE__ ) . '/admin-role.php';
 			?>
 		</form>
+		<div id="vk_block_patterns_admin"></div>
 		<?php
 	}
 }
@@ -80,4 +81,6 @@ function vbp_setting_option_save() {
 		}
 	}
 }
-add_action( 'admin_init', 'vbp_setting_option_save', 10, 2 );
+// add_action('admin_init', 'vbp_setting_option_save', 10, 2);
+
+require_once VBP_PATH . 'admin/admin-edit.php';

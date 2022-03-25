@@ -1,0 +1,131 @@
+import { __, getLocaleData } from '@wordpress/i18n';
+import { render, useState, useEffect } from '@wordpress/element';
+import {
+	ToggleControl,
+	Button,
+	SelectControl,
+	Spinner,
+} from '@wordpress/components';
+import api from '@wordpress/api';
+/*globals vkpOptions */
+
+// Adminコンポーネント
+const Admin = () => {
+	const [ vkpOption, setVkpOption ] = useState( vkpOptions );
+
+	const updateOptionValue = ( newValue ) => {
+		setVkpOption( newValue );
+	};
+
+	const [ isLoading, setIsLoading ] = useState( false );
+
+	useEffect( () => {
+		api.loadPromise.then( () => {
+			const model = new api.models.Settings();
+			// 設定値の取得
+			model.fetch().then( ( response ) => {
+				setVkpOption( response.vk_block_patterns_options );
+			} );
+		} );
+	}, [] );
+
+	// オプション値を保存
+	const onClickUpdate = () => {
+		setIsLoading( true );
+		api.loadPromise.then( (/*response*/) => {
+			// console.log( response );
+			const model = new api.models.Settings( {
+				vk_block_patterns_options: vkpOption,
+			} );
+			const save = model.save();
+
+			save.success( (/* response, status */) => {
+				// console.log( response );
+				// console.log( status );
+				setTimeout( () => {
+					setIsLoading( false );
+				}, 600 );
+			} );
+
+			save.error( () => {
+				setTimeout( () => {
+					setIsLoading( false );
+				}, 600 );
+			} );
+		} );
+	};
+
+	// 言語設定を取得
+	const lang = getLocaleData()[ '' ].lang;
+
+	return (
+		<>
+			<div>
+				<h3 id="role-setting">
+					{ __( 'Role Setting', 'vk-block-patterns' ) }
+				</h3>
+				<SelectControl
+					value={ vkpOption.role }
+					onChange={ ( newValue ) => {
+						updateOptionValue( { ...vkpOption, role: newValue } );
+					} }
+					options={ [
+						{
+							label: __(
+								'Contributor or higher',
+								'vk-block-patterns'
+							),
+							value: 'contributor',
+						},
+						{
+							label: __(
+								'Author or higher',
+								'vk-block-patterns'
+							),
+							value: 'author',
+						},
+						{
+							label: __(
+								'Editor or higher',
+								'vk-block-patterns'
+							),
+							value: 'editor',
+						},
+						{
+							label: __(
+								'Administrator only',
+								'vk-block-patterns'
+							),
+							value: 'administrator',
+						},
+					] }
+				/>
+				{ lang === 'ja_JP' && (
+					<>
+						<h3 id="editor-setting">
+							{ __( 'Editor Setting', 'vk-block-patterns' ) }
+						</h3>
+						<ToggleControl
+							label={ __(
+								'Display a link to the VK pattern library on the toolbar',
+								'vk-block-patterns'
+							) }
+							checked={ vkpOption.showPatternsLink }
+							onChange={ ( newValue ) => {
+								updateOptionValue( {
+									...vkpOption,
+									showPatternsLink: newValue,
+								} );
+							} }
+						/>
+					</>
+				) }
+				<Button isPrimary onClick={ onClickUpdate }>
+					変更を保存
+				</Button>
+				{ isLoading && <Spinner /> }
+			</div>
+		</>
+	);
+};
+render( <Admin />, document.getElementById( 'vk_block_patterns_admin' ) );

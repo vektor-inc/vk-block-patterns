@@ -64,6 +64,7 @@ require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.
 function vbp_get_options() {
 	$default = array(
 		'role' => 'author',
+		'showPatternsLink' => true,
 	);
 	$options = get_option( 'vk_block_patterns_options', $default );
 	return $options;
@@ -85,3 +86,19 @@ function vbp_add_pattern_link() {
 }
 add_action( 'admin_menu', 'vbp_add_pattern_link' );
 
+
+/**
+ * プラグイン停止時
+ */
+if (function_exists('register_deactivation_hook')) {
+	register_deactivation_hook(__FILE__, 'vkp_uninstall_function');
+}
+
+/**
+ * Uninstall Function
+ * プラグインを停止時したときにオプション値を削除する
+ * 仮実装
+ */
+function vkp_uninstall_function() {
+	delete_option('vk_block_patterns_options');
+}
