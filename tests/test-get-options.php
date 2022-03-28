@@ -13,14 +13,17 @@ class GetOptionsTest extends WP_UnitTestCase {
 				'option'  => null,
 				'correct' => array(
 					'role' => 'author',
+					'showPatternsLink' => true,
 				),
 			),
 			array(
 				'option'  => array(
 					'role' => 'editor',
+					'showPatternsLink' => false,
 				),
 				'correct' => array(
 					'role' => 'editor',
+					'showPatternsLink' => false,
 				),
 			),
 		);
@@ -39,9 +42,11 @@ class GetOptionsTest extends WP_UnitTestCase {
 			$return  = vbp_get_options();
 			$correct = $test_value['correct'];
 
-			print 'return  :' . $return['role'] . PHP_EOL;
-			print 'correct :' . $correct['role'] . PHP_EOL;
-			$this->assertEquals( $correct['role'], $return['role'] );
+			print 'return[\'role\']  :' . $return['role'] . PHP_EOL;
+			print 'correct[\'role\'] :' . $correct['role'] . PHP_EOL;
+			print 'return[\'showPatternsLink\']  :' . $return['showPatternsLink'] . PHP_EOL;
+			print 'correct[\'showPatternsLink\'] :' . $correct['showPatternsLink'] . PHP_EOL;
+			$this->assertEquals( $correct, $return );
 
 		}
 	}

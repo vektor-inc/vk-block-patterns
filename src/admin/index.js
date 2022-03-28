@@ -18,6 +18,7 @@ const Admin = () => {
 	};
 
 	const [ isLoading, setIsLoading ] = useState( false );
+	const [ isSaveSuccess, setIsSaveSuccess ] = useState( '' );
 
 	useEffect( () => {
 		api.loadPromise.then( () => {
@@ -44,12 +45,14 @@ const Admin = () => {
 				// console.log( status );
 				setTimeout( () => {
 					setIsLoading( false );
+					setIsSaveSuccess( true );
 				}, 600 );
 			} );
 
 			save.error( () => {
 				setTimeout( () => {
 					setIsLoading( false );
+					setIsSaveSuccess( false );
 				}, 600 );
 			} );
 		} );
@@ -120,10 +123,16 @@ const Admin = () => {
 						/>
 					</>
 				) }
-				<Button isPrimary onClick={ onClickUpdate }>
+				<Button
+					isPrimary
+					onClick={ onClickUpdate }
+					isBusy={ isLoading }
+				>
 					変更を保存
 				</Button>
 				{ isLoading && <Spinner /> }
+				{ isSaveSuccess === false &&
+					__( 'Failed to save.', 'vk-block-patterns' ) }
 			</div>
 		</>
 	);
