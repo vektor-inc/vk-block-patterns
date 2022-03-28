@@ -1,5 +1,5 @@
 import { __, getLocaleData } from '@wordpress/i18n';
-import { render, useState, useEffect } from '@wordpress/element';
+import { render, useState } from '@wordpress/element';
 import {
 	ToggleControl,
 	Button,
@@ -11,8 +11,9 @@ import api from '@wordpress/api';
 
 // Adminコンポーネント
 const Admin = () => {
+	// PHPから受け取った値 booleanは空'' falseまたは1 trueを渡すのでtrue,falseに整形
 	const defaultShowPatternsLink =
-		vkpOptions.showPatternsLink === '1' ? true : false;
+	vkpOptions.showPatternsLink === '1' ? true : false;
 	const [ vkpOption, setVkpOption ] = useState( {
 		role: vkpOptions.role,
 		showPatternsLink: defaultShowPatternsLink,
@@ -24,16 +25,6 @@ const Admin = () => {
 
 	const [ isLoading, setIsLoading ] = useState( false );
 	const [ isSaveSuccess, setIsSaveSuccess ] = useState( '' );
-
-	useEffect( () => {
-		api.loadPromise.then( () => {
-			const model = new api.models.Settings();
-			// 設定値の取得
-			model.fetch().then( ( response ) => {
-				setVkpOption( response.vk_block_patterns_options );
-			} );
-		} );
-	}, [] );
 
 	// オプション値を保存
 	const onClickUpdate = () => {
