@@ -88,20 +88,3 @@ function vbp_add_pattern_link() {
 	add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' );
 }
 add_action( 'admin_menu', 'vbp_add_pattern_link' );
-
-
-/**
- * プラグイン停止時
- */
-if (function_exists('register_deactivation_hook')) {
-	register_deactivation_hook(__FILE__, 'vkp_uninstall_function');
-}
-
-/**
- * Uninstall Function
- * プラグインを停止時したときにオプション値を削除する
- * 仮実装
- */
-function vkp_uninstall_function() {
-	delete_option('vk_block_patterns_options');
-}
