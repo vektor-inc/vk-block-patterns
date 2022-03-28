@@ -18,6 +18,15 @@ class GetOptionsTest extends WP_UnitTestCase {
 			),
 			array(
 				'option'  => array(
+					'role' => 'author',
+				),
+				'correct' => array(
+					'role' => 'author',
+					'showPatternsLink' => true,
+				),
+			),
+			array(
+				'option'  => array(
 					'role' => 'editor',
 					'showPatternsLink' => false,
 				),
