@@ -12,8 +12,11 @@ import './style.scss';
 
 const PatternsLink = () => {
 	return (
-		<ExternalLink href="https://patterns.vektor-inc.co.jp/">
-			VK パターンライブラリ
+		<ExternalLink 
+			href="https://patterns.vektor-inc.co.jp/"
+			className="components-button is-secondary"
+		>
+			VK Pattern Library
 		</ExternalLink>
 	);
 };
