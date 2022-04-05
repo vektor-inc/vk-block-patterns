@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Add style ] Add Table class 
+
 = 1.15.0 =
 [ Add ] Grid col Card block pattern
 
