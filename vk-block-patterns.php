@@ -85,6 +85,8 @@ function vbp_add_pattern_link() {
 	$capability  = 'edit_posts';
 	$menu_slug   = 'https://patterns.vektor-inc.co.jp/';
 	$function    = '';
-	add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' );
+	if ( 'ja' === get_locale() ) {
+		add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' );
+	}
 }
 add_action( 'admin_menu', 'vbp_add_pattern_link' );
