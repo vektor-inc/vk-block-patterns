@@ -9,7 +9,6 @@ import { ExternalLink } from '@wordpress/components';
 
 import './style.scss';
 /* globals vkpOptions */
-/* vkpOptions は admin/admin.php から wp_localize_script() で取得  */
 
 const PatternsLink = () => {
 	return (
@@ -23,6 +22,7 @@ const PatternsLink = () => {
 };
 
 domReady( () => {
+	// vkpOptions は wp_localize_script() で送られてきている
 	const { showPatternsLink } = vkpOptions;
 	if ( ! showPatternsLink ) {
 		return;
