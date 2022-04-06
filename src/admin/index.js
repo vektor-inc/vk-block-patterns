@@ -11,7 +11,8 @@ import api from '@wordpress/api';
 
 // Adminコンポーネント
 const Admin = () => {
-	// PHPから受け取った値 booleanは空'' falseまたは1 trueを渡すのでtrue,falseに整形
+
+	// PHPから受け取った値 boolean は 空 '' false または 1 true を渡すので true,false に整形
 	const defaultShowPatternsLink =
 		vkpOptions.showPatternsLink === '1' ? true : false;
 	const [ vkpOption, setVkpOption ] = useState( {
