@@ -8,7 +8,8 @@ import { getLocaleData } from '@wordpress/i18n';
 import { ExternalLink } from '@wordpress/components';
 
 import './style.scss';
-/*globals vkpOptions */
+/* globals vkpOptions */
+/* vkpOptions は admin/admin.php から wp_localize_script() で取得  */
 
 const PatternsLink = () => {
 	return (
@@ -45,8 +46,11 @@ domReady( () => {
 		const patternsLinkArea = document.createElement( 'div' );
 		patternsLinkArea.classList.add( 'vk-patterns-header-toolbar' );
 
+		// .vk-patterns-header-toolbar がまだ存在しなかったら
 		if ( ! headerToolbar.querySelector( '.vk-patterns-header-toolbar' ) ) {
+			// .vk-patterns-header-toolbar 内にリンク追加
 			render( <PatternsLink />, patternsLinkArea );
+			// ツールバーの子要素の最後にパターンへのリンクを追加
 			headerToolbar.appendChild( patternsLinkArea );
 		}
 	};
