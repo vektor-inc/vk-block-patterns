@@ -125,7 +125,7 @@ const Admin = () => {
 					onClick={ onClickUpdate }
 					isBusy={ isLoading }
 				>
-					変更を保存
+					{__( 'Save setting', 'vk-block-patterns' ) }
 				</Button>
 				{ isLoading && <Spinner /> }
 				{ isSaveSuccess === false &&
