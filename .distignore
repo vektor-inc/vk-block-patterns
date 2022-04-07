@@ -1,10 +1,15 @@
-# .distignore があればこのファイル不要では？
+/.wordpress-org
+/.git
+/.github
+/node_modules
+
+.distignore
+.gitignore
 .github/
 .gitignore
 .svnignore
 .vscode/
 gulpfile.js
-LICENSE
 package.json
 package-lock.json
 README.md
