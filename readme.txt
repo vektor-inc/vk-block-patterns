@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
 Tested up to: 5.9.3
-Stable tag: 1.15.0
+Stable tag: 1.16.1
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,7 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
-= 1.16.0 =
+= 1.16.1 =
 [ Add ][ Japanese ] Add VK Pattern Library link to block editor
 [ Add style ] Add Table class
 [ Add ][ English ] Staff Pattern
