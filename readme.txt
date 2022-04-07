@@ -17,8 +17,9 @@ When you activate this plugin that create new custom post type for custom block 
 == Changelog ==
 
 = 1.16.0 =
-[ Add ] [ Japanese ] Add VK Pattern Library link to block editor
-[ Add style ] Add Table class 
+[ Add ][ Japanese ] Add VK Pattern Library link to block editor
+[ Add style ] Add Table class
+[ Add ][ English ] Staff Pattern
 
 = 1.15.0 =
 [ Add ] Grid col Card block pattern
