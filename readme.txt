@@ -1,5 +1,5 @@
 === VK Block Patterns ===
-Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72
+Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki
 Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
