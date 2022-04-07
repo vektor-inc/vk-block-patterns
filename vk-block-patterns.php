@@ -69,7 +69,6 @@ function vbp_get_options() {
 	$options = get_option( 'vk_block_patterns_options' );
 	// showPatternsLinkは後から追加したので、option値に保存されてない時にデフォルトとマージする
 	$options = wp_parse_args( $options, $default );
-	$options['showPatternsLink'] = ( isset( $options['showPatternsLink'] ) ) ? $options['showPatternsLink'] : true;
 	return $options;
 }
 
