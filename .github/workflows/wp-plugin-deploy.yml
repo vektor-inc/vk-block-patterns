@@ -32,6 +32,10 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 14.x
+    - name: Build
+      run: |
+        npm install
+        npm run dist
     - run: bash bin/dist.sh
     - run: echo "DIST_VERSION=$(echo ${{ github.ref }} | sed -E 's/^refs\/tags\/v?(.*)$/\1/')" >> $GITHUB_ENV
     - run: test -e dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip

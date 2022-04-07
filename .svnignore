@@ -1,6 +1,8 @@
+# .distignore があればこのファイル不要では？
 .github/
 .gitignore
 .svnignore
+.vscode/
 gulpfile.js
 LICENSE
 package.json
