@@ -1,6 +1,8 @@
+# .distignore があればこのファイル不要では？
 .github/
 .gitignore
 .svnignore
+.vscode/
 gulpfile.js
 LICENSE
 package.json
@@ -8,3 +10,4 @@ package-lock.json
 README.md
 vk-block-patterns.code-workspace
 src/
+node_modules/

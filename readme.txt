@@ -1,5 +1,5 @@
 === VK Block Patterns ===
-Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72
+Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki
 Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
@@ -17,8 +17,9 @@ When you activate this plugin that create new custom post type for custom block 
 == Changelog ==
 
 = 1.16.0 =
-[ Add ] [ Japanese ] Add VK Pattern Library link to block editor
-[ Add style ] Add Table class 
+[ Add ][ Japanese ] Add VK Pattern Library link to block editor
+[ Add style ] Add Table class
+[ Add ][ English ] Staff Pattern
 
 = 1.15.0 =
 [ Add ] Grid col Card block pattern

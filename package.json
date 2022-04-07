@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "wp-scripts start",
-    "build": "wp-scripts build",
-    "sass": "sass --watch --style=compressed --no-source-map patterns-data/_scss:patterns-data",
+    "build": "wp-scripts build && npm run build:sass",
+    "dist": "npm run build && npx gulp dist",
+    "build:sass": "sass --style=compressed --no-source-map patterns-data/_scss:patterns-data",
+    "sass": "sass --watch patterns-data/_scss:patterns-data",
     "lint": "wp-scripts format src/ && wp-scripts lint-js src/ --fix",
     "phpunit": "wp-env run phpunit \"phpunit -c /var/www/html/wp-content/plugins/vk-block-patterns/phpunit.xml.dist --verbose\""
   },

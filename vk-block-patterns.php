@@ -63,7 +63,7 @@ require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.
 
 function vbp_get_options() {
 	$default = array(
-		'role' => 'author',
+		'role'             => 'author',
 		'showPatternsLink' => true,
 	);
 	$options = get_option( 'vk_block_patterns_options' );
