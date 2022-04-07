@@ -13,8 +13,6 @@ ZIPBALL="${dist_dir}/${PLUGIN_NAME}_v${CURRENT_VERSION}.zip"
 [[ -e "${dist_dir}" ]] || mkdir "${dist_dir}"
 [[ -e "${ZIPBALL}" ]] && rm -r "${ZIPBALL}"
 
-npm run dist
-
 cd "${dist_dir}"
 
 zip -r "${ZIPBALL}" "${PLUGIN_NAME}/"

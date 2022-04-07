@@ -1,6 +1,7 @@
 .github/
 .gitignore
 .svnignore
+.vscode/
 gulpfile.js
 LICENSE
 package.json
