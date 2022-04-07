@@ -1,0 +1,11 @@
+// 992px以下では非表示にする
+@media ( max-width: 992px ) {
+
+	.edit-post-header__toolbar,
+	.edit-site-header__toolbar {
+
+		.vk-patterns-header-toolbar {
+			display: none;
+		}
+	}
+}
