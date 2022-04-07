@@ -106,3 +106,5 @@ dist
 .wp-env.override.json
 vendor/
 build/
+
+*.map

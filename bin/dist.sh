@@ -13,7 +13,7 @@ ZIPBALL="${dist_dir}/${PLUGIN_NAME}_v${CURRENT_VERSION}.zip"
 [[ -e "${dist_dir}" ]] || mkdir "${dist_dir}"
 [[ -e "${ZIPBALL}" ]] && rm -r "${ZIPBALL}"
 
-rsync -av "${PLUGIN_DIR}/" "${src_dir}/" --exclude="dist/" --exclude-from='.svnignore'
+npm run dist
 
 cd "${dist_dir}"
 

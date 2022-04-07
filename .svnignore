@@ -8,3 +8,4 @@ package-lock.json
 README.md
 vk-block-patterns.code-workspace
 src/
+node_modules/
