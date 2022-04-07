@@ -3,7 +3,7 @@ Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72
 Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
-Tested up to: 5.9.2
+Tested up to: 5.9.3
 Stable tag: 1.15.0
 Requires PHP: 7.2
 License: GPLv2 or later
@@ -15,6 +15,10 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen. 
 
 == Changelog ==
+
+= 1.16.0 =
+[ Add ] [ Japanese ] Add VK Pattern Library link to block editor
+[ Add style ] Add Table class 
 
 = 1.15.0 =
 [ Add ] Grid col Card block pattern

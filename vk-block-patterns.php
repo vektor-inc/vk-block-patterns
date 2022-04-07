@@ -3,7 +3,7 @@
  * Plugin Name: VK Block Patterns
  * Plugin URI: https://github.com/vektor-inc/vk-block-patterns
  * Description: You can make and register your original custom block patterns.
- * Version: 1.15.0
+ * Version: 1.16.0
  * Requires at least: 5.8
  * Author:  Vektor,Inc.
  * Author URI: https://vektor-inc.co.jp
@@ -45,6 +45,8 @@ function vbp_plugin_loaded() {
 	require_once VBP_PATH . 'inc/vk-block-patterns/vk-block-patterns-config.php';
 	// Load VKAdmin.
 	require_once VBP_PATH . 'inc/vk-admin/vk-admin-config.php';
+	// Load Edit Post Options.
+	require_once VBP_PATH . 'inc/edit-post/vk-edit-post-config.php';
 	// Load Admin Options.
 	require_once VBP_PATH . 'admin/admin.php';
 }
@@ -62,8 +64,11 @@ require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.
 function vbp_get_options() {
 	$default = array(
 		'role' => 'author',
+		'showPatternsLink' => true,
 	);
-	$options = get_option( 'vk_block_patterns_options', $default );
+	$options = get_option( 'vk_block_patterns_options' );
+	// showPatternsLinkは後から追加したので、option値に保存されてない時にデフォルトとマージする
+	$options = wp_parse_args( $options, $default );
 	return $options;
 }
 
@@ -79,7 +84,8 @@ function vbp_add_pattern_link() {
 	$capability  = 'edit_posts';
 	$menu_slug   = 'https://patterns.vektor-inc.co.jp/';
 	$function    = '';
-	add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' );
+	if ( 'ja' === get_locale() ) {
+		add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' );
+	}
 }
 add_action( 'admin_menu', 'vbp_add_pattern_link' );
-

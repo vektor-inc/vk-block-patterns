@@ -1,0 +1,29 @@
+/**
+ * Table class
+ * @since 1.16.0 
+ */
+.vk-table{
+	&--width{
+		&--th25 :where(tr > *:first-child){
+			width:25%;
+		}
+		&--th30 :where(tr > *:first-child){
+			width:30%;
+		}
+		&--th35 :where(tr > *:first-child){
+			width:35%;
+		}
+		&--th40 :where(tr > *:first-child){
+			width:40%;
+		}
+	}
+	&--mobile-block{
+		@media ( max-width:599px ){
+			:is(th,td) {
+				width:100%;
+				display: block;
+				border-top:none;
+			}
+		}
+	}
+}
