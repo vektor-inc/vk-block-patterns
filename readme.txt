@@ -16,6 +16,9 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.16.2 =
+[ Bug fix ] Admin transration
+
 = 1.16.1 =
 [ Add ][ Japanese ] Add VK Pattern Library link to block editor
 [ Add style ] Add Table class
