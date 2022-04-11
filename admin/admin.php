@@ -133,3 +133,13 @@ function vbp_admin_enqueue_scripts( $hook_suffix ) {
 	wp_localize_script( 'vk-patterns-admin-js', 'vkpOptions', $vbp_options );
 }
 add_action( 'admin_enqueue_scripts', 'vbp_admin_enqueue_scripts' );
+
+/**
+ * Add admin js transration
+ *
+ * @return void
+ */
+function vbp_admin_script_translations() {
+	wp_set_script_translations( 'vk-patterns-admin-js', 'vk-block-patterns' );
+}
+add_action( 'init', 'vbp_admin_script_translations' );
