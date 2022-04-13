@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
 Tested up to: 5.9.3
-Stable tag: 1.17.1
+Stable tag: 1.17.2
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,7 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
-= 1.17.1 =
+= 1.17.2 =
 [ Add style ] Add Table th bg class 
 
 = 1.16.5 =

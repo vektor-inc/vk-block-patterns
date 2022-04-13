@@ -3,7 +3,7 @@
  * @since 1.17.0 
  */
  :root {
-	--vk-color-th-bg-bright: #f5f5f5;
+	--vk-color-th-bg-bright: rgba( 0, 0, 0, 0.05 );
  }
 .vk-table{
 	&--th {
