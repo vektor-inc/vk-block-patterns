@@ -7,16 +7,16 @@
  }
 .vk-table{
 	&--th {
-		&--width25:where(tr > *:first-child){
+		&--width25 :where(tr > *:first-child){
 			width:25%;
 		}
-		&--width30:where(tr > *:first-child){
+		&--width30 :where(tr > *:first-child){
 			width:30%;
 		}
-		&--width35:where(tr > *:first-child){
+		&--width35 :where(tr > *:first-child){
 			width:35%;
 		}
-		&--width40:where(tr > *:first-child){
+		&--width40 :where(tr > *:first-child){
 			width:40%;
 		}
 		&--bg-bright {
