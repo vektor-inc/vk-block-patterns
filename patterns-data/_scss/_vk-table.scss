@@ -1,6 +1,6 @@
 /**
  * Table class
- * @since 1.16.0 
+ * @since 1.17.0 
  */
  :root {
 	--vk-color-th-bg-bright: #f5f5f5;
@@ -34,7 +34,7 @@
 			}
 		}
 	}
-	// 以下古いクラス名につき使用不可
+	// 1.16.0 以下古いクラス名につき使用不可
 	&--width{
 		&--th25 :where(tr > *:first-child){
 			width:25%;
