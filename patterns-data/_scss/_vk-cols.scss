@@ -59,6 +59,7 @@
 		}
 	}
 	&.wp-block-columns {
+		gap:0;
 		&,
 		&:not(.is-not-stacked-on-mobile){
 			margin-top:0;
