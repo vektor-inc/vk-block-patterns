@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Bug fix ] Display Patterns of "VK Block Pattern" on WP 6.0
+
 = 1.17.4 =
 [ Other ] Cope with 6.0
 
