@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
 Tested up to: 5.9.3
-Stable tag: 1.17.4
+Stable tag: 1.18.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.18.0 =
 [ Specification Change ] Cope with WordPress 6.0 CSS
 [ Bug fix ] Display Patterns of "VK Block Pattern" on WP 6.0
 
