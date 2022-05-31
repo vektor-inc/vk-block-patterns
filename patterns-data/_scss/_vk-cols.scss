@@ -1,32 +1,5 @@
 .vk-cols--reverse{
     flex-direction: row-reverse;
-    @media ( min-width:600px ){
-        .wp-block-column{
-            margin-left:1em;
-        }
-        .wp-block-column:last-child {
-            margin-right:1em;
-            margin-left:0;
-        }
-        // ↑ でリバース用の余白を追加しているが、
-        // fitでは不要なので打ち消し
-        &.vk-cols--fit{
-            .wp-block-column {
-                margin-right:0;
-                margin-left:0;
-            }
-        }
-    }
-	@media (min-width: 782px){
-		&.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column:not(:first-child) {
-			margin-left:0;
-		}
-	}
-	@media (min-width: 600px) and (max-width: 781px){
-		&.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column:nth-child(2n){
-			margin-left:0;
-		}
-	}
 }
 
 .vk-cols--hasbtn{
@@ -50,14 +23,6 @@
     2カラムだけでなく3カラムや4カラムでも使用される想定
 /* ----------------------------------- */
 .vk-cols--fit {
-	&--gap1.wp-block-columns {
-		gap:1px;
-		@media (min-width: 600px) and (max-width: 781px) {
-			.wp-block-column:not(:only-child) {
-				flex-basis: calc(50% - 1px)!important;
-			}
-		}
-	}
 	&.wp-block-columns {
 		gap:0;
 		&,
@@ -100,6 +65,14 @@
 				.wp-block-column:not(:only-child) {
 					flex-basis: 50% !important;
 				}
+			}
+		}
+	}
+	&--gap1.wp-block-columns {
+		gap:1px;
+		@media (min-width: 600px) and (max-width: 781px) {
+			.wp-block-column:not(:only-child) {
+				flex-basis: calc(50% - 1px)!important;
 			}
 		}
 	}
@@ -227,37 +200,9 @@
 /*
     メディアカラム
 /* ----------------------------------- */
-.vk-cols--media{
-
-    .wp-block-column:not(:first-child) {
-        .wp-block-image,
-        figure {
-            margin-bottom:0;
-        }
-    }
-    // .vk-cols--reverse が付与する余白の打ち消し
-    @media (min-width: 600px){
-        &.vk-cols--reverse {
-            .wp-block-column:first-child {
-                margin-left:0;
-            }
-        }
-    }
-    @media (min-width: 782px) {
-        .wp-block-column:not(:first-child) {
-			--wp--style--block-gap : 3rem;
-            margin-left: 3rem;
-        }
-        &.vk-cols--reverse .wp-block-column:not(:first-child) {
-            margin-right: 3rem;
-            margin-left: 0;
-        }
-    }
-    @media (min-width: 600px) and (max-width: 781px) {
-		--wp--style--block-gap : 2rem;
-        &.vk-cols--reverse .wp-block-column:not(:first-child) {
-            margin-right: 2rem;
-            margin-left: 0;
-        }
+.vk-cols--media.wp-block-columns{
+    @media (min-width: 992px) {
+		gap:3rem;
+		--wp--style--block-gap : 3rem;
     }
 }
