@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki
 Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
-Tested up to: 5.9.3
-Stable tag: 1.18.0
+Tested up to: 6.0.0
+Stable tag: 1.19.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,11 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen. 
 
 == Changelog ==
+
+= 1.19.0 =
+[ Design tuning ] .vk-cols--fit can now be used in free version
+[ Design tuning ] .vk-fit-map can now be used in group blocks
+[ Delete ] Delete some deprecated patterns 
 
 = 1.18.0 =
 [ Specification Change ] Cope with WordPress 6.0 CSS

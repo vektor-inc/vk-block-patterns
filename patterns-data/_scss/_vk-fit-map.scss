@@ -6,4 +6,8 @@
         max-height: 400px;
         width:100vw;
     }
+	&.alignfull div[class*="__inner-container"], 
+	&.alignwide div[class*="__inner-container"]{
+		max-width:100%;
+	}
 }
