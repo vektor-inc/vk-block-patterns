@@ -2,7 +2,7 @@
     flex-direction: row-reverse;
 }
 
-.vk-cols--hasbtn{
+.vk-cols--hasbtn{ // 結局汎用ブロックではボタンの処理が完全に制御できないので基本的に非推奨
     & > .row > .vk_gridColumn_item,
     & > .wp-block-column {
         position: relative;
@@ -12,7 +12,7 @@
         & > .vk_button {
             position: absolute;
             bottom:0;
-            width:calc( 100% - 15px - 15px );
+			width:100%; // カラムに padding つけられると absolute なのでpadding引いた幅を検出できずにはみ出すが、まぁしゃーないと思う。
         }
     }
     margin-bottom:0;

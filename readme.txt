@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Design bug fix ] .vk-cols--hasbtn change to not recommend.
+
 = 1.19.0 =
 [ Design tuning ] .vk-cols--fit can now be used in free version
 [ Design tuning ] .vk-fit-map can now be used in group blocks
