@@ -52,7 +52,7 @@
                     margin-bottom:5px;
                     position: absolute;
                     bottom:0;
-                    width:calc( 100% - 15px - 15px );
+                    width:100%; // カラムに padding つけられると absolute なのでpadding引いた幅を検出できずにはみ出すが、まぁしゃーないと思う。
                 }
             }
         }

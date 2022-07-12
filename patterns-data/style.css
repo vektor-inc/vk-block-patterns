@@ -14,7 +14,7 @@
 .vk-cols--hasbtn > .row > .vk_gridColumn_item > .wp-block-buttons, .vk-cols--hasbtn > .row > .vk_gridColumn_item > .vk_button, .vk-cols--hasbtn > .wp-block-column > .wp-block-buttons, .vk-cols--hasbtn > .wp-block-column > .vk_button {
   position: absolute;
   bottom: 0;
-  width: calc(100% - 15px - 15px);
+  width: 100%;
 }
 
 /*
