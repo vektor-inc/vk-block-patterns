@@ -4,6 +4,7 @@ import {
 	ToggleControl,
 	Button,
 	SelectControl,
+	TextControl,
 	Spinner,
 } from '@wordpress/components';
 import api from '@wordpress/api';
@@ -18,6 +19,7 @@ const Admin = () => {
 	const [ vkpOption, setVkpOption ] = useState( {
 		role: vkpOptions.role,
 		showPatternsLink: defaultShowPatternsLink,
+		patternLibraryUserName: vkpOptions.patternLibraryUserName,		
 	} );
 
 	const updateOptionValue = ( newValue ) => {
@@ -115,6 +117,22 @@ const Admin = () => {
 								updateOptionValue( {
 									...vkpOption,
 									showPatternsLink: newValue,
+								} );
+							} }
+						/>
+						<h3 id="pattern-library-setting">
+							{ __( 'VK Pattern Library Setting', 'vk-block-patterns' ) }
+						</h3>
+						<TextControl
+							label={ __(
+								'User Name of VK Pattern Library',
+								'vk-block-patterns'
+							) }
+							value={ vkpOption.patternLibraryUserName }
+							onChange={ ( newValue ) => {
+								updateOptionValue( {
+									...vkpOption,
+									patternLibraryUserName: newValue,
 								} );
 							} }
 						/>

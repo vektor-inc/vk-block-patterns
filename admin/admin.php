@@ -56,6 +56,7 @@ function vbp_setting_page() {
 	$lang          = ( get_locale() === 'ja' ) ? 'ja' : 'en';
 	if ( 'ja' === $lang ) {
 		$get_menu_html .= '<li><a href="#editor-setting">' . __( 'Editor Setting', 'vk-block-patterns' ) . '</a></li>';
+		$get_menu_html .= '<li><a href="#pattern-library-setting">' . __( 'Pattern Library Setting', 'vk-block-patterns' ) . '</a></li>';
 	}
 
 	Vk_Admin::admin_page_frame( $get_page_title, 'vbp_setting', $get_logo_html, $get_menu_html );
@@ -68,13 +69,17 @@ function vkp_show_patterns_register_settings() {
 	$properties_editor_settings = array();
 	$default_editor_settings    = array();
 	$default_option_settings    = array(
-		'role'             => array(
+		'role'                   => array(
 			'type'    => 'string',
 			'default' => 'author',
 		),
-		'showPatternsLink' => array(
+		'showPatternsLink'       => array(
 			'type'    => 'boolean',
 			'default' => true,
+		),
+		'patternLibraryUserName' => array(
+			'type'    => 'string',
+			'default' => '',
 		),
 	);
 
