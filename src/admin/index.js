@@ -124,8 +124,9 @@ const Admin = () => {
 							{ __( 'VK Pattern Library Setting', 'vk-block-patterns' ) }
 						</h3>
 						<TextControl
+							type="email"
 							label={ __(
-								'User Name of VK Pattern Library',
+								'User Mail Adress on Vektor WordPress Solutions',
 								'vk-block-patterns'
 							) }
 							value={ vkpOption.patternLibraryUserName }
