@@ -8,7 +8,7 @@
  */
 function vbp_get_pattern_api_data() {
     $options    = get_option( 'vk_block_patterns_options' );
-    $user_email = $options['VWSMail'];
+    $user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
     $return = '';
 
     if ( ! empty( $user_email )) {
