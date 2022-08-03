@@ -109,7 +109,7 @@ const Admin = () => {
 						</h3>
 						<ToggleControl
 							label={ __(
-								'Display a link to the VK pattern library on the toolbar',
+								'Display a link to the VK Pattern Library on the toolbar',
 								'vk-block-patterns'
 							) }
 							checked={ vkpOption.showPatternsLink }
