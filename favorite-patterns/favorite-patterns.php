@@ -11,7 +11,7 @@ function vbp_get_pattern_api_data() {
     $user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
     $return = '';
 
-    if ( ! empty( $user_email )) {
+    if ( ! empty( $user_email ) ) {
         $result = wp_remote_post(
             'https://test.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
             array(
