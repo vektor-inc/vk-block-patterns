@@ -66,7 +66,7 @@ function vbp_get_options() {
 	$default = array(
 		'role'                   => 'author',
 		'showPatternsLink'       => true,
-		'patternLibraryUserName' => '',
+		'VWSMail' => '',
 	);
 	$options = get_option( 'vk_block_patterns_options' );
 	// showPatternsLinkは後から追加したので、option値に保存されてない時にデフォルトとマージする

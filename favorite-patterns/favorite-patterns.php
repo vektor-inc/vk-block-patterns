@@ -8,20 +8,22 @@
  */
 function vbp_get_pattern_api_data() {
     $options    = get_option( 'vk_block_patterns_options' );
-    $user_email = $options['patternLibraryUserName'];
+    $user_email = $options['VWSMail'];
     $return = '';
 
-    $result = wp_remote_post(
-        'https://test.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
-        array(
-            'timeout' => 10,
-            'body' => array(
-                'login_id' => $user_email,
-            ),
-        )
-    );
-    if ( ! empty( $result ) && ! is_wp_error( $result ) ) {
-        $return = json_decode( $result['body'], true );
+    if ( ! empty( $user_email )) {
+        $result = wp_remote_post(
+            'https://test.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+            array(
+                'timeout' => 10,
+                'body' => array(
+                    'login_id' => $user_email,
+                ),
+            )
+        );
+        if ( ! empty( $result ) && ! is_wp_error( $result ) ) {
+            $return = json_decode( $result['body'], true );
+        }
     }
     return $return;
 }

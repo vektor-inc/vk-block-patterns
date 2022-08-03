@@ -77,7 +77,7 @@ function vkp_show_patterns_register_settings() {
 			'type'    => 'boolean',
 			'default' => true,
 		),
-		'patternLibraryUserName' => array(
+		'VWSMail' => array(
 			'type'    => 'string',
 			'default' => '',
 		),

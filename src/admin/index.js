@@ -19,7 +19,7 @@ const Admin = () => {
 	const [ vkpOption, setVkpOption ] = useState( {
 		role: vkpOptions.role,
 		showPatternsLink: defaultShowPatternsLink,
-		patternLibraryUserName: vkpOptions.patternLibraryUserName,		
+		VWSMail: vkpOptions.VWSMail,		
 	} );
 
 	const updateOptionValue = ( newValue ) => {
@@ -129,11 +129,11 @@ const Admin = () => {
 								'User Mail Adress on Vektor WordPress Solutions',
 								'vk-block-patterns'
 							) }
-							value={ vkpOption.patternLibraryUserName }
+							value={ vkpOption.VWSMail }
 							onChange={ ( newValue ) => {
 								updateOptionValue( {
 									...vkpOption,
-									patternLibraryUserName: newValue,
+									VWSMail: newValue,
 								} );
 							} }
 						/>
