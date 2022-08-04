@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki
 Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
-Tested up to: 6.0.0
-Stable tag: 1.19.0
+Tested up to: 6.0.１
+Stable tag: 1.20.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.20.0 =
 [ Add ] Built-in Patterns Setting
 [ Add ][ Japanese ] Add combination with VK Patterns.
 [ Design bug fix ] .vk-cols--hasbtn change to not recommend.
