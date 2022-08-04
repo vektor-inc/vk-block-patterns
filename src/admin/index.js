@@ -6,7 +6,6 @@ import {
 	SelectControl,
 	TextControl,
 	Spinner,
-	CheckboxControl,
 } from '@wordpress/components';
 import api from '@wordpress/api';
 /*globals vkpOptions */
