@@ -49,11 +49,11 @@ function vbp_register_favorite_patterns() {
         );
         if ( ! empty( $patterns ) && is_array( $patterns ) ) {
             foreach ( $patterns as $pattern ) {
-                register_block_pattern( 
+                 register_block_pattern( 
                     $pattern['post_name'],
                     array(
                         'title'      => $pattern['title'],
-                        'categories' => array( 'vk-pattern-favorites' ),
+                        'categories' => $pattern['categories'],
                         'content'    => $pattern['content'],
                     )
                 );
