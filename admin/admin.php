@@ -53,10 +53,9 @@ function vbp_setting_page() {
 	$get_logo_html = apply_filters( 'vbp_logo_html', $get_logo_html );
 
 	$get_menu_html = '<li><a href="#role-setting">' . __( 'Role Setting', 'vk-block-patterns' ) . '</a></li>';
-	$lang          = ( get_locale() === 'ja' ) ? 'ja' : 'en';
+	$lang          = ( 'ja' === get_locale() ) ? 'ja' : 'en';
 	if ( 'ja' === $lang ) {
-		$get_menu_html .= '<li><a href="#editor-setting">' . __( 'Editor Setting', 'vk-block-patterns' ) . '</a></li>';
-		$get_menu_html .= '<li><a href="#pattern-library-setting">' . __( 'Pattern Library Setting', 'vk-block-patterns' ) . '</a></li>';
+		$get_menu_html .= '<li><a href="#pattern-library-setting">' . __( 'VK Pattern Library Setting', 'vk-block-patterns' ) . '</a></li>';
 	}
 
 	Vk_Admin::admin_page_frame( $get_page_title, 'vbp_setting', $get_logo_html, $get_menu_html );
@@ -69,15 +68,15 @@ function vkp_show_patterns_register_settings() {
 	$properties_editor_settings = array();
 	$default_editor_settings    = array();
 	$default_option_settings    = array(
-		'role'                   => array(
+		'role'             => array(
 			'type'    => 'string',
 			'default' => 'author',
 		),
-		'showPatternsLink'       => array(
+		'showPatternsLink' => array(
 			'type'    => 'boolean',
 			'default' => true,
 		),
-		'VWSMail' => array(
+		'VWSMail'          => array(
 			'type'    => 'string',
 			'default' => '',
 		),
@@ -124,6 +123,9 @@ function vbp_admin_enqueue_scripts( $hook_suffix ) {
 		wp_enqueue_style( $style );
 	}
 
+	$admin_style = VBP_URL . 'build/admin/style-index.css';
+	wp_enqueue_style( 'vk-block-patterns-admin-style', $admin_style, array(), $asset['version'] );
+
 	wp_enqueue_script(
 		'vk-patterns-admin-js',
 		VBP_URL . 'build/admin/index.js',
@@ -135,7 +137,8 @@ function vbp_admin_enqueue_scripts( $hook_suffix ) {
 
 	// 画面読み込み時に保存値を localize_script を使って渡す.
 	// boolean は 空 '' false または 1 true を渡す.
-	$vbp_options = vbp_get_options();
+	$vbp_options             = vbp_get_options();
+	$vbp_options['adminUrl'] = admin_url();
 	wp_localize_script( 'vk-patterns-admin-js', 'vkpOptions', $vbp_options );
 }
 add_action( 'admin_enqueue_scripts', 'vbp_admin_enqueue_scripts' );

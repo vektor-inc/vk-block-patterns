@@ -1,4 +1,4 @@
-import { __, getLocaleData } from '@wordpress/i18n';
+import { __, _x, sprintf, getLocaleData } from '@wordpress/i18n';
 import { render, useState } from '@wordpress/element';
 import {
 	ToggleControl,
@@ -10,6 +10,8 @@ import {
 import api from '@wordpress/api';
 /*globals vkpOptions */
 
+import './style.scss';
+
 // Adminコンポーネント
 const Admin = () => {
 
@@ -19,7 +21,7 @@ const Admin = () => {
 	const [ vkpOption, setVkpOption ] = useState( {
 		role: vkpOptions.role,
 		showPatternsLink: defaultShowPatternsLink,
-		VWSMail: vkpOptions.VWSMail,		
+		VWSMail: vkpOptions.VWSMail,
 	} );
 
 	const updateOptionValue = ( newValue ) => {
@@ -59,13 +61,18 @@ const Admin = () => {
 
 	// 言語設定を取得
 	const lang = getLocaleData()[ '' ].lang;
-
+	// パターン管理画面URL
+	const patternPostTypeUrl = vkpOptions.adminUrl + 'edit.php?post_type=vk-block-patterns';
 	return (
 		<>
 			<div>
+				<section>
 				<h3 id="role-setting">
 					{ __( 'Role Setting', 'vk-block-patterns' ) }
 				</h3>
+				<p>
+					{__( 'VK Block Patterns にパターンを登録できるユーザー権限', 'vk-block-patterns' )} [ <a href={patternPostTypeUrl}>VK Block Patterns</a> ]
+				</p>
 				<SelectControl
 					value={ vkpOption.role }
 					onChange={ ( newValue ) => {
@@ -102,41 +109,57 @@ const Admin = () => {
 						},
 					] }
 				/>
+				</section>
+
 				{ lang === 'ja_JP' && (
 					<>
-						<h3 id="editor-setting">
-							{ __( 'Editor Setting', 'vk-block-patterns' ) }
-						</h3>
-						<ToggleControl
-							label={ __(
-								'Display a link to the VK Pattern Library on the toolbar',
-								'vk-block-patterns'
-							) }
-							checked={ vkpOption.showPatternsLink }
-							onChange={ ( newValue ) => {
-								updateOptionValue( {
-									...vkpOption,
-									showPatternsLink: newValue,
-								} );
-							} }
-						/>
 						<h3 id="pattern-library-setting">
 							{ __( 'VK Pattern Library Setting', 'vk-block-patterns' ) }
 						</h3>
-						<TextControl
-							type="email"
-							label={ __(
-								'User Mail Adress on Vektor WordPress Solutions',
-								'vk-block-patterns'
-							) }
-							value={ vkpOption.VWSMail }
-							onChange={ ( newValue ) => {
-								updateOptionValue( {
-									...vkpOption,
-									VWSMail: newValue,
-								} );
-							} }
-						/>
+
+						<section>
+							<h4>
+								{ __( 'VWS account linkage', 'vk-block-patterns' ) }
+							</h4>
+							{ /* 日本語向けの案内なのと翻訳挟んでのリンク処理が難しいので日本語ママ */}
+							<p><a href="https://vws.vektor-inc.co.jp/product/lightning-g3-pro-pack?ref=vkbp-admin" target="_blank">Lightning G3 Pro Pack</a> のライセンスをお持ちのユーザーは、<a href="https://vws.vektor-inc.co.jp/my-account" target="_blank">アカウント</a>のメールアドレスを登録してください。<br />
+							VK Pattern Library でお気に入りに登録したパターンをエディター上で直接呼び出す事ができます。</p>
+							<TextControl
+								type="email"
+								className="vws-mail-address"
+								label={ __(
+									'VWS Account email address',
+									'vk-block-patterns'
+								) }
+								value={ vkpOption.VWSMail }
+								onChange={ ( newValue ) => {
+									updateOptionValue( {
+										...vkpOption,
+										VWSMail: newValue,
+									} );
+								} }
+							/>
+							<p>[ <a href="https://patterns.vektor-inc.co.jp/about/about-favorite/" target="_blank">{ __( 'Click here for more information on Favorites', 'vk-block-patterns' ) }</a> ]</p>
+						</section>
+
+						<section>
+							<h4>
+								{ __( 'Editor Setting', 'vk-block-patterns' ) }
+							</h4>
+							<ToggleControl
+								label={ __(
+									'Show VK Pattern Library link in editor toolbar',
+									'vk-block-patterns'
+								) }
+								checked={ vkpOption.showPatternsLink }
+								onChange={ ( newValue ) => {
+									updateOptionValue( {
+										...vkpOption,
+										showPatternsLink: newValue,
+									} );
+								} }
+							/>
+						</section>
 					</>
 				) }
 				<Button
