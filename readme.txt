@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Add ] Built-in Patterns Setting
 [ Add ][ Japanese ] Add combination with VK Patterns.
 [ Design bug fix ] .vk-cols--hasbtn change to not recommend.
 
