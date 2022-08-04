@@ -81,8 +81,9 @@ if ( ! empty( $options['disableCorePattern'] ) ) {
 	remove_theme_support( 'core-block-patterns' );
 }
 
-if ( empty( $options['disablePluginPattern'] ) ) {
-	require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.php';
+require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.php';
+if ( ! empty( $options['disablePluginPattern'] ) ) {
+	remove_action( 'init', array( 'wp_content\plugins\vk_block_patterns\patterns_data\Register_Patterns_From_Json', 'register_template' ) );
 }
 
 if ( ! empty( $options['VWSMail'] ) ) {
