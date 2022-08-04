@@ -3,7 +3,7 @@
  * Plugin Name: VK Block Patterns
  * Plugin URI: https://github.com/vektor-inc/vk-block-patterns
  * Description: You can make and register your original custom block patterns.
- * Version: 1.19.0
+ * Version: 1.20.0
  * Requires at least: 5.8
  * Author:  Vektor,Inc.
  * Author URI: https://vektor-inc.co.jp
@@ -59,17 +59,35 @@ function vbp_set_plugin_meta( $links ) {
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vbp_set_plugin_meta', 10, 1 );
-require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.php';
+
+
 
 function vbp_get_options() {
 	$default = array(
-		'role'             => 'author',
-		'showPatternsLink' => true,
+		'role'                 => 'author',
+		'showPatternsLink'     => true,
+		'VWSMail'              => '',
+		'disableCorePattern'   => false,
+		'disablePluginPattern' => false,
 	);
 	$options = get_option( 'vk_block_patterns_options' );
 	// showPatternsLinkは後から追加したので、option値に保存されてない時にデフォルトとマージする
 	$options = wp_parse_args( $options, $default );
 	return $options;
+}
+
+$options = vbp_get_options();
+if ( ! empty( $options['disableCorePattern'] ) ) {
+	remove_theme_support( 'core-block-patterns' );
+}
+
+require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.php';
+if ( ! empty( $options['disablePluginPattern'] ) ) {
+	remove_action( 'init', array( 'wp_content\plugins\vk_block_patterns\patterns_data\Register_Patterns_From_Json', 'register_template' ) );
+}
+
+if ( ! empty( $options['VWSMail'] ) ) {
+	require dirname( __FILE__ ) . '/favorite-patterns/favorite-patterns.php';
 }
 
 /**
