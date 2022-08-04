@@ -6,6 +6,7 @@ import {
 	SelectControl,
 	TextControl,
 	Spinner,
+	CheckboxControl,
 } from '@wordpress/components';
 import api from '@wordpress/api';
 /*globals vkpOptions */
@@ -16,10 +17,16 @@ const Admin = () => {
 	// PHPから受け取った値 boolean は 空 '' false または 1 true を渡すので true,false に整形
 	const defaultShowPatternsLink =
 		vkpOptions.showPatternsLink === '1' ? true : false;
+	const defaultDisableCorePattern =
+		vkpOptions.disableCorePattern === '1' ? true : false;
+	const defaultDisablePluginPattern =
+		vkpOptions.disablePluginPattern === '1' ? true : false;	
 	const [ vkpOption, setVkpOption ] = useState( {
 		role: vkpOptions.role,
 		showPatternsLink: defaultShowPatternsLink,
-		VWSMail: vkpOptions.VWSMail,		
+		VWSMail: vkpOptions.VWSMail,
+		disableCorePattern: defaultDisableCorePattern,
+		disablePluginPattern: defaultDisablePluginPattern,
 	} );
 
 	const updateOptionValue = ( newValue ) => {
@@ -101,6 +108,35 @@ const Admin = () => {
 							value: 'administrator',
 						},
 					] }
+				/>
+				<h3 id="built-in-patterns-setting">
+					{ __( 'Build in Patterns Setting', 'vk-block-patterns' ) }
+				</h3>
+				<ToggleControl
+					label={ __(
+						'Disable WordPress Core Patterns',
+						'vk-block-patterns'
+					) }
+					checked={ vkpOption.disableCorePattern }
+					onChange={ ( newValue ) => {
+						updateOptionValue( {
+							...vkpOption,
+							disableCorePattern: newValue,
+						} );
+					} }
+				/>
+				<ToggleControl
+					label={ __(
+						'Disable Patterns of This Plugin',
+						'vk-block-patterns'
+					) }
+					checked={ vkpOption.disablePluginPattern }
+					onChange={ ( newValue ) => {
+						updateOptionValue( {
+							...vkpOption,
+							disablePluginPattern: newValue,
+						} );
+					} }
 				/>
 				{ lang === 'ja_JP' && (
 					<>

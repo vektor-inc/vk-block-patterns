@@ -53,6 +53,7 @@ function vbp_setting_page() {
 	$get_logo_html = apply_filters( 'vbp_logo_html', $get_logo_html );
 
 	$get_menu_html = '<li><a href="#role-setting">' . __( 'Role Setting', 'vk-block-patterns' ) . '</a></li>';
+	$get_menu_html = '<li><a href="#built-in-patterns-setting">' . __( 'Build in Patterns Setting', 'vk-block-patterns' ) . '</a></li>';
 	$lang          = ( get_locale() === 'ja' ) ? 'ja' : 'en';
 	if ( 'ja' === $lang ) {
 		$get_menu_html .= '<li><a href="#editor-setting">' . __( 'Editor Setting', 'vk-block-patterns' ) . '</a></li>';
@@ -77,9 +78,17 @@ function vkp_show_patterns_register_settings() {
 			'type'    => 'boolean',
 			'default' => true,
 		),
-		'VWSMail' => array(
+		'VWSMail'                => array(
 			'type'    => 'string',
 			'default' => '',
+		),
+		'disableCorePattern'     => array(
+			'type'    => 'boolean',
+			'default' => false,
+		),
+		'disablePluginPattern'     => array(
+			'type'    => 'boolean',
+			'default' => false,
 		),
 	);
 
