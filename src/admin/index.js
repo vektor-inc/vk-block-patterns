@@ -1,4 +1,4 @@
-import { __, _x, sprintf, getLocaleData } from '@wordpress/i18n';
+import { __, _x, getLocaleData } from '@wordpress/i18n';
 import { render, useState } from '@wordpress/element';
 import {
 	ToggleControl,
