@@ -60,11 +60,13 @@ function vbp_set_plugin_meta( $links ) {
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vbp_set_plugin_meta', 10, 1 );
 require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.php';
+require dirname( __FILE__ ) . '/favorite-patterns/favorite-patterns.php';
 
 function vbp_get_options() {
 	$default = array(
-		'role'             => 'author',
-		'showPatternsLink' => true,
+		'role'                   => 'author',
+		'showPatternsLink'       => true,
+		'VWSMail' => '',
 	);
 	$options = get_option( 'vk_block_patterns_options' );
 	// showPatternsLinkは後から追加したので、option値に保存されてない時にデフォルトとマージする
