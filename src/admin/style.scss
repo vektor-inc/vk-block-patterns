@@ -1,0 +1,18 @@
+section {
+	margin-bottom: 30px;
+
+	h4 {
+		font-size: 16px;
+		margin-top: 0;
+		margin-bottom: 15px;
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 4px;
+	}
+
+	.vws-mail-address {
+		input[type="email"] {
+			max-width: 70%;
+			margin-left: 1em;
+		}
+	}
+}

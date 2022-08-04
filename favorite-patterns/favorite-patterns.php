@@ -44,7 +44,7 @@ function vbp_register_favorite_patterns() {
         register_block_pattern_category(
             'vk-pattern-favorites',
             array( 
-                'label' => __( 'Favorites of Pattern Library', 'vk-block-patterns' ) 
+                'label' => __( 'Favorites of VK Pattern Library', 'vk-block-patterns' ) 
             )
         );
         if ( ! empty( $patterns ) && is_array( $patterns ) ) {
