@@ -13,7 +13,7 @@ function vbp_get_pattern_api_data() {
 
     if ( ! empty( $user_email ) ) {
         $result = wp_remote_post(
-            'https://test.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+            'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
             array(
                 'timeout' => 10,
                 'body' => array(
