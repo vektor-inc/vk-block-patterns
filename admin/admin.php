@@ -53,7 +53,7 @@ function vbp_setting_page() {
 	$get_logo_html = apply_filters( 'vbp_logo_html', $get_logo_html );
 
 	$get_menu_html = '<li><a href="#role-setting">' . __( 'Role Setting', 'vk-block-patterns' ) . '</a></li>';
-	$get_menu_html = '<li><a href="#default-patterns-setting">' . __( 'Build in Patterns Setting', 'vk-block-patterns' ) . '</a></li>';
+	$get_menu_html = '<li><a href="#default-patterns-setting">' . __( 'Default Patterns Setting', 'vk-block-patterns' ) . '</a></li>';
 	$lang          = ( get_locale() === 'ja' ) ? 'ja' : 'en';
 	if ( 'ja' === $lang ) {
 		$get_menu_html .= '<li><a href="#pattern-library-setting">' . __( 'VK Pattern Library Setting', 'vk-block-patterns' ) . '</a></li>';
@@ -69,23 +69,23 @@ function vkp_show_patterns_register_settings() {
 	$properties_editor_settings = array();
 	$default_editor_settings    = array();
 	$default_option_settings    = array(
-		'role'             => array(
+		'role'                 => array(
 			'type'    => 'string',
 			'default' => 'author',
 		),
-		'showPatternsLink' => array(
+		'showPatternsLink'     => array(
 			'type'    => 'boolean',
 			'default' => true,
 		),
-		'VWSMail'                => array(
+		'VWSMail'              => array(
 			'type'    => 'string',
 			'default' => '',
 		),
-		'disableCorePattern'     => array(
+		'disableCorePattern'   => array(
 			'type'    => 'boolean',
 			'default' => false,
 		),
-		'disablePluginPattern'     => array(
+		'disablePluginPattern' => array(
 			'type'    => 'boolean',
 			'default' => false,
 		),
