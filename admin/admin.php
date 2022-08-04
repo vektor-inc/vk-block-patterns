@@ -53,7 +53,7 @@ function vbp_setting_page() {
 	$get_logo_html = apply_filters( 'vbp_logo_html', $get_logo_html );
 
 	$get_menu_html = '<li><a href="#role-setting">' . __( 'Role Setting', 'vk-block-patterns' ) . '</a></li>';
-	$get_menu_html = '<li><a href="#default-patterns-setting">' . __( 'Default Patterns Setting', 'vk-block-patterns' ) . '</a></li>';
+	$get_menu_html = '<li><a href="#default-patterns-setting">' . __( 'Default Pattern Setting', 'vk-block-patterns' ) . '</a></li>';
 	$lang          = ( get_locale() === 'ja' ) ? 'ja' : 'en';
 	if ( 'ja' === $lang ) {
 		$get_menu_html .= '<li><a href="#pattern-library-setting">' . __( 'VK Pattern Library Setting', 'vk-block-patterns' ) . '</a></li>';
