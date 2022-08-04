@@ -115,8 +115,10 @@ const Admin = () => {
 						},
 					] }
 				/>
+				</section>
+				<section>
 				<h3 id="default-patterns-setting">
-					{ __( 'Default Patterns Setting', 'vk-block-patterns' ) }
+					{ __( 'Default Pattern Setting', 'vk-block-patterns' ) }
 				</h3>
 				<ToggleControl
 					label={ __(
