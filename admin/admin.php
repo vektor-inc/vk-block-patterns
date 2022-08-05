@@ -157,66 +157,66 @@ add_action( 'admin_enqueue_scripts', 'vbp_admin_enqueue_scripts' );
  * 警告を追加
  */
 function vbp_vws_alert() {
-    $options       = vbp_get_options();
-    $notice        = '';
-    $lang          = ( get_locale() === 'ja' ) ? 'ja' : 'en';
-	$current_url   = ( ( ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) ) ? "https://" : "http://" ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-	$url_next      = false === strpos(  $current_url, '?' ) ? '?' : '&';
-    $setting_link  = admin_url() . 'options-general.php?page=vk_block_patterns_options';
-    
-    if ( 'ja' === $lang ) {
-        if ( ! empty( $options['VWSMail'] ) ) {
-            $pattern_api_data = vbp_get_pattern_api_data();
-            if ( ! empty( $pattern_api_data ) && is_array( $pattern_api_data ) && ! empty( $pattern_api_data['role'] ) ) {
-                $role = $pattern_api_data['role'];
-                if ( 'invalid-user' === $role && false === $options['account-check']['disable-invalid-notice'] ) {
-                    $notice  = '<div class="notice notice-warning"><p>';
-                    $notice .= __( 'The registerd VWS account linkage is invalid. Please change VWS account linkage.','vk-block-patterns' );                    
-                    $notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
-                    $notice .= '<a href="'. $current_url . $url_next . 'disable-invalid-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
-                    $notice .= '</p></div>';
-                } elseif ( 'free-user' === $role && false === $options['account-check']['disable-free-notice'] ) {
-                    $notice  = '<div class="notice notice-warning"><p>';
-                    $notice .= __( 'Your VWS account linkage is Outdated. Please Update VWS account license.','vk-block-patterns' );                    
-                    $notice .= '<a href="'. $current_url . $url_next . 'disable-free-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
-                    $notice .= '</p></div>';
-                }                
-            }
-        } elseif ( false === $options['account-check']['disable-empty-notice'] ) {
-            $notice  = '<div class="notice notice-warning"><p>';
-            $notice .= __( 'The VWS account linkage is not registerd. Please register VWS account linkage.','vk-block-patterns' );                    
-            $notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
-            $notice .= '<a href="'. $current_url . $url_next . 'disable-empty-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
-            $notice .= '</p></div>';
-        }
-    }
-    echo $notice;
+	$options      = vbp_get_options();
+	$notice       = '';
+	$lang         = ( get_locale() === 'ja' ) ? 'ja' : 'en';
+	$current_url  = ( ( ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) ) ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	$url_next     = false === strpos( $current_url, '?' ) ? '?' : '&';
+	$setting_link = admin_url() . 'options-general.php?page=vk_block_patterns_options';
+
+	if ( 'ja' === $lang ) {
+		if ( ! empty( $options['VWSMail'] ) ) {
+			$pattern_api_data = vbp_get_pattern_api_data();
+			if ( ! empty( $pattern_api_data ) && is_array( $pattern_api_data ) && ! empty( $pattern_api_data['role'] ) ) {
+				$role = $pattern_api_data['role'];
+				if ( 'invalid-user' === $role && false === $options['account-check']['disable-invalid-notice'] ) {
+					$notice  = '<div class="notice notice-warning"><p>';
+					$notice .= __( 'The registerd VWS account linkage is invalid. Please change VWS account linkage.', 'vk-block-patterns' );
+					$notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
+					$notice .= '<a href="' . $current_url . $url_next . 'disable-invalid-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
+					$notice .= '</p></div>';
+				} elseif ( 'free-user' === $role && false === $options['account-check']['disable-free-notice'] ) {
+					$notice  = '<div class="notice notice-warning"><p>';
+					$notice .= __( 'Your VWS account linkage is Outdated. Please Update VWS account license.', 'vk-block-patterns' );
+					$notice .= '<a href="' . $current_url . $url_next . 'disable-free-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
+					$notice .= '</p></div>';
+				}
+			}
+		} elseif ( false === $options['account-check']['disable-empty-notice'] ) {
+			$notice  = '<div class="notice notice-warning"><p>';
+			$notice .= __( 'The VWS account linkage is not registerd. Please register VWS account linkage.', 'vk-block-patterns' );
+			$notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
+			$notice .= '<a href="' . $current_url . $url_next . 'disable-empty-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
+			$notice .= '</p></div>';
+		}
+	}
+	echo $notice;
 }
 add_action( 'admin_notices', 'vbp_vws_alert' );
 
 function vbp_admin_control() {
-    $options    = vbp_get_options();   
-    $current_date = date('Y-m-d H:i:s');
+	$options      = vbp_get_options();
+	$current_date = date( 'Y-m-d H:i:s' );
 
-    if ( null !== $options['account-check']['date'] ) {
-        $checked_date = $options['account-check']['date'];
-        $diff_yaer = ( strtotime( $current_date ) - strtotime( $checked_date ) ) / ( 60 * 60 * 24 * 365 );
-        if ( 1 <= $diff_yaer ) {
-            $options['account-check']['disable-invalid-notice'] = false;
-            $options['account-check']['disable-free-notice'] = false;
-        }
-    }
+	if ( null !== $options['account-check']['date'] ) {
+		$checked_date = $options['account-check']['date'];
+		$diff_yaer    = ( strtotime( $current_date ) - strtotime( $checked_date ) ) / ( 60 * 60 * 24 * 365 );
+		if ( 1 <= $diff_yaer ) {
+			$options['account-check']['disable-invalid-notice'] = false;
+			$options['account-check']['disable-free-notice']    = false;
+		}
+	}
 
-    if ( isset( $_GET[ 'disable-invalid-notice'] ) ) {
-        $options['account-check']['disable-invalid-notice'] = true;
-    }
-    if ( isset( $_GET[ 'disable-free-notice'] ) ) {
-        $options['account-check']['disable-free-notice'] = true;
-    }
-    if ( isset( $_GET[ 'disable-empty-notice'] ) ) {
-        $options['account-check']['disable-empty-notice'] = true;
-    }  
-	$options['account-check']['date'] =  $current_date;
+	if ( isset( $_GET['disable-invalid-notice'] ) ) {
+		$options['account-check']['disable-invalid-notice'] = true;
+	}
+	if ( isset( $_GET['disable-free-notice'] ) ) {
+		$options['account-check']['disable-free-notice'] = true;
+	}
+	if ( isset( $_GET['disable-empty-notice'] ) ) {
+		$options['account-check']['disable-empty-notice'] = true;
+	}
+	$options['account-check']['date'] = $current_date;
 	update_option( 'vk_block_patterns_options', $options );
 }
 add_action( 'admin_init', 'vbp_admin_control' );
