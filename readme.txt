@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Fix ][ Japanese ] Add alert of VWS account linkage.
+
 = 1.20.6
 [ Fix ] Setting screen 
 
