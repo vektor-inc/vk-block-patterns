@@ -172,12 +172,15 @@ function vbp_vws_alert() {
 				if ( 'invalid-user' === $role && false === $options['account-check']['disable-invalid-notice'] ) {
 					$notice  = '<div class="notice notice-warning"><p>';
 					$notice .= __( 'The registerd VWS account linkage is invalid. Please change VWS account linkage.', 'vk-block-patterns' );
+					$notice .= ' ';
 					$notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
+					$notice .= ' ';
 					$notice .= '<a href="' . $current_url . $url_next . 'disable-invalid-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
 					$notice .= '</p></div>';
 				} elseif ( 'free-user' === $role && false === $options['account-check']['disable-free-notice'] ) {
 					$notice  = '<div class="notice notice-warning"><p>';
 					$notice .= __( 'Your VWS account linkage is Outdated. Please Update VWS account license.', 'vk-block-patterns' );
+					$notice .= ' ';
 					$notice .= '<a href="' . $current_url . $url_next . 'disable-free-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
 					$notice .= '</p></div>';
 				}
@@ -185,7 +188,9 @@ function vbp_vws_alert() {
 		} elseif ( false === $options['account-check']['disable-empty-notice'] ) {
 			$notice  = '<div class="notice notice-warning"><p>';
 			$notice .= __( 'The VWS account linkage is not registerd. Please register VWS account linkage.', 'vk-block-patterns' );
+			$notice .= ' ';
 			$notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
+			$notice .= ' ';
 			$notice .= '<a href="' . $current_url . $url_next . 'disable-empty-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
 			$notice .= '</p></div>';
 		}
