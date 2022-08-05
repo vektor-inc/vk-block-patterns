@@ -77,7 +77,7 @@ const Admin = () => {
 					{ __( 'Role Setting', 'vk-block-patterns' ) }
 				</h3>
 				<p>
-					{__( 'VK Block Patterns にパターンを登録できるユーザー権限', 'vk-block-patterns' )} [ <a href={patternPostTypeUrl}>VK Block Patterns</a> ]
+					{__( 'User permission to register patterns in VK Block Patterns', 'vk-block-patterns' )} [ <a href={patternPostTypeUrl}>VK Block Patterns</a> ]
 				</p>
 				<SelectControl
 					value={ vkpOption.role }
@@ -115,8 +115,10 @@ const Admin = () => {
 						},
 					] }
 				/>
-				<h3 id="built-in-patterns-setting">
-					{ __( 'Build in Patterns Setting', 'vk-block-patterns' ) }
+				</section>
+				<section>
+				<h3 id="default-patterns-setting">
+					{ __( 'Default Pattern Setting', 'vk-block-patterns' ) }
 				</h3>
 				<ToggleControl
 					label={ __(
