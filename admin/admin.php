@@ -202,8 +202,10 @@ function vbp_vws_alert_list() {
 
 /**
  * 警告を追加
+ * 
+ * @param Array $api API for TEST.
  */
-function vbp_vws_alert() {
+function vbp_vws_alert( $api ) {
 	$options      = vbp_get_options();
 	$alerts       = vbp_vws_alert_list();
 	$notice       = '';
@@ -211,7 +213,7 @@ function vbp_vws_alert() {
 
 	if ( 'ja' === $lang ) {
 		if ( ! empty( $options['VWSMail'] ) ) {
-			$pattern_api_data = vbp_get_pattern_api_data();
+			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data();
 			if ( ! empty( $pattern_api_data ) && is_array( $pattern_api_data ) && ! empty( $pattern_api_data['role'] ) ) {
 				$role = $pattern_api_data['role'];
 				if ( 'invalid-user' === $role && false === $options['account-check']['disable-invalid-notice'] ) {
