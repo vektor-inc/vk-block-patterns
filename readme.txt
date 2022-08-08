@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
 Tested up to: 6.0.1
-Stable tag: 1.20.6
+Stable tag: 1.21.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,6 +17,10 @@ When you activate this plugin that create new custom post type for custom block 
 == Changelog ==
 
 [ Fix ][ Japanese ] Add alert of VWS account linkage.
+[ Update ] Update CTA Pattern
+
+= 1.21.0
+[ Update ] Update CTA Pattern
 
 = 1.20.6
 [ Fix ] Setting screen 
