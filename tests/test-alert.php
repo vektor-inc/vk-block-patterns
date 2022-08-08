@@ -134,7 +134,7 @@ class AlertTest extends WP_UnitTestCase {
 		);
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'alert()' . PHP_EOL;
+		print 'vbp_vws_alert()' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 		foreach ( $test_data as $test_value ) {;
 			if ( empty( $test_value['option'] ) ){
