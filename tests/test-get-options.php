@@ -14,7 +14,16 @@ class GetOptionsTest extends WP_UnitTestCase {
 				'correct' => array(
 					'role' => 'author',
 					'showPatternsLink' => true,
-				),
+					'VWSMail'              => '',
+					'disableCorePattern'   => false,
+					'disablePluginPattern' => false,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					),
+				)
 			),
 			array(
 				'option'  => array(
@@ -23,6 +32,15 @@ class GetOptionsTest extends WP_UnitTestCase {
 				'correct' => array(
 					'role' => 'author',
 					'showPatternsLink' => true,
+					'VWSMail'              => '',
+					'disableCorePattern'   => false,
+					'disablePluginPattern' => false,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					)
 				),
 			),
 			array(
@@ -33,6 +51,15 @@ class GetOptionsTest extends WP_UnitTestCase {
 				'correct' => array(
 					'role' => 'editor',
 					'showPatternsLink' => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => false,
+					'disablePluginPattern' => false,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					)
 				),
 			),
 		);

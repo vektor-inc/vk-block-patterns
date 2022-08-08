@@ -205,11 +205,11 @@ function vbp_vws_alert_list() {
  * 
  * @param Array $api API for TEST.
  */
-function vbp_vws_alert( $api ) {
+function vbp_vws_alert( $api = array() ) {
 	$options      = vbp_get_options();
 	$alerts       = vbp_vws_alert_list();
 	$notice       = '';
-	$lang         = ( get_locale() === 'ja' ) ? 'ja' : 'en';
+	$lang         = ( get_locale() === 'ja' || get_locale() === 'ja_JP' ) ? 'ja' : 'en';
 
 	if ( 'ja' === $lang ) {
 		if ( ! empty( $options['VWSMail'] ) ) {
@@ -226,9 +226,14 @@ function vbp_vws_alert( $api ) {
 			$notice  = $alerts['empty-user'];
 		}
 	}
+	return  $notice;
+}
+
+function vbp_display_vws_alert() {
+	$notice       = vbp_vws_alert();
 	echo $notice;
 }
-add_action( 'admin_notices', 'vbp_vws_alert' );
+add_action( 'admin_notices', 'vbp_display_vws_alert' );
 
 function vbp_admin_control() {
 	$options      = vbp_get_options();
