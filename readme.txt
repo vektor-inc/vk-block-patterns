@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Fix ] Setting screen 
+
 = 1.21.0
 [ Update ] Update CTA Pattern
 
