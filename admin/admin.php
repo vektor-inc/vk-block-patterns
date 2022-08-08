@@ -154,15 +154,60 @@ add_action( 'admin_enqueue_scripts', 'vbp_admin_enqueue_scripts' );
 
 
 /**
+ * 警告文のリスト
+ */
+function vbp_vws_alert_list() {
+
+	// 変数を定義
+	$current_url  = ( ( ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) ) ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	$url_next     = false === strpos( $current_url, '?' ) ? '?' : '&';
+	$setting_link = admin_url() . 'options-general.php?page=vk_block_patterns_options';
+
+	// 無効なユーザーが設定された場合
+	$invalid_notice  = '<div class="notice notice-warning"><p>';
+	$invalid_notice .= __( 'The registerd VWS account linkage is invalid. Please change VWS account linkage.', 'vk-block-patterns' );
+	$invalid_notice .= ' ';
+	$invalid_notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
+	$invalid_notice .= ' ';
+	$invalid_notice .= '<a href="' . $current_url . $url_next . 'disable-invalid-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
+	$invalid_notice .= '</p></div>';
+
+	// 期限切れユーザーが設定された場合
+	$free_notice  = '<div class="notice notice-warning"><p>';
+	$free_notice .= __( 'Your VWS account linkage is Outdated. Please Update VWS account license.', 'vk-block-patterns' );
+	$free_notice .= ' ';
+	$free_notice .= '<a href="' . $current_url . $url_next . 'disable-free-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
+	$free_notice .= '</p></div>';
+
+	// メールアドレスが入力されていない場合
+	$empty_notice  = '<div class="notice notice-warning"><p>';
+	$empty_notice .= __( 'The VWS account linkage is not registerd. Please register VWS account linkage.', 'vk-block-patterns' );
+	$empty_notice .= ' ';
+	$empty_notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
+	$empty_notice .= ' ';
+	$empty_notice .= '<a href="' . $current_url . $url_next . 'disable-empty-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
+	$empty_notice .= '</p></div>';
+
+	// 配列に整えて返す
+	$alert = array(
+		'invalid-user' => $invalid_notice,
+		'free-user'    => $free_notice,
+		'empty-user'   => $empty_notice,
+	);
+
+	return $alert;
+}
+
+
+
+/**
  * 警告を追加
  */
 function vbp_vws_alert() {
 	$options      = vbp_get_options();
+	$alerts       = vbp_vws_alert_list();
 	$notice       = '';
 	$lang         = ( get_locale() === 'ja' ) ? 'ja' : 'en';
-	$current_url  = ( ( ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) ) ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-	$url_next     = false === strpos( $current_url, '?' ) ? '?' : '&';
-	$setting_link = admin_url() . 'options-general.php?page=vk_block_patterns_options';
 
 	if ( 'ja' === $lang ) {
 		if ( ! empty( $options['VWSMail'] ) ) {
@@ -170,29 +215,13 @@ function vbp_vws_alert() {
 			if ( ! empty( $pattern_api_data ) && is_array( $pattern_api_data ) && ! empty( $pattern_api_data['role'] ) ) {
 				$role = $pattern_api_data['role'];
 				if ( 'invalid-user' === $role && false === $options['account-check']['disable-invalid-notice'] ) {
-					$notice  = '<div class="notice notice-warning"><p>';
-					$notice .= __( 'The registerd VWS account linkage is invalid. Please change VWS account linkage.', 'vk-block-patterns' );
-					$notice .= ' ';
-					$notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
-					$notice .= ' ';
-					$notice .= '<a href="' . $current_url . $url_next . 'disable-invalid-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
-					$notice .= '</p></div>';
+					$notice = $alerts['invalid-user'];
 				} elseif ( 'free-user' === $role && false === $options['account-check']['disable-free-notice'] ) {
-					$notice  = '<div class="notice notice-warning"><p>';
-					$notice .= __( 'Your VWS account linkage is Outdated. Please Update VWS account license.', 'vk-block-patterns' );
-					$notice .= ' ';
-					$notice .= '<a href="' . $current_url . $url_next . 'disable-free-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
-					$notice .= '</p></div>';
+					$notice = $alerts['free-user'];
 				}
 			}
 		} elseif ( false === $options['account-check']['disable-empty-notice'] ) {
-			$notice  = '<div class="notice notice-warning"><p>';
-			$notice .= __( 'The VWS account linkage is not registerd. Please register VWS account linkage.', 'vk-block-patterns' );
-			$notice .= ' ';
-			$notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
-			$notice .= ' ';
-			$notice .= '<a href="' . $current_url . $url_next . 'disable-empty-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
-			$notice .= '</p></div>';
+			$notice  = $alerts['empty-user'];
 		}
 	}
 	echo $notice;
