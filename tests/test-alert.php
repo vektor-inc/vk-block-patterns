@@ -11,6 +11,20 @@ class AlertTest extends WP_UnitTestCase {
 		
 		$alerts       = vbp_vws_alert_list();
 		$test_data = array(
+			/* 英語の場合 */
+			array(
+				'locale'  => 'en_US',
+				'option'  => array(
+					'VWSMail'                    => '',
+					'account-check' => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					),
+				),
+				'correct' => '',
+			),
 			/* VWS 連携が未入力の場合 */
 			// デフォルトの状態
 			array(
@@ -142,8 +156,9 @@ class AlertTest extends WP_UnitTestCase {
 			} else {
 				update_option( 'vk_block_patterns_options', $test_value['option'] );
 			}
-			// 日本語環境でないとテストにならない
-			switch_to_locale('ja_JP');
+			// 言語を変更
+			$locale = ! empty( $test_value['locale'] ) ? $test_value['locale'] : 'ja_JP';
+			switch_to_locale( $locale );
 			vbp_admin_control();
 			$api = ! empty( $test_value['api'] ) ? $test_value['api'] : array();
 
