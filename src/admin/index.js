@@ -159,7 +159,7 @@ const Admin = () => {
 							</h4>
 							{ /* 日本語向けの案内なのと翻訳挟んでのリンク処理が難しいので日本語ママ */}
 							<p><a href="https://vws.vektor-inc.co.jp/product/lightning-g3-pro-pack?ref=vkbp-admin" target="_blank">Lightning G3 Pro Pack</a> のライセンスをお持ちのユーザーは、<a href="https://vws.vektor-inc.co.jp/my-account" target="_blank">アカウント</a>のメールアドレスを登録してください。<br />
-							VK Pattern Library でお気に入りに登録したパターンをエディター上で直接呼び出す事ができます。</p>
+							<a href="https://patterns.vektor-inc.co.jp/" target="_blank">VK Pattern Library</a> でお気に入りに登録したパターンをエディター上で直接呼び出す事ができます。</p>
 							<TextControl
 								type="email"
 								className="vws-mail-address"
