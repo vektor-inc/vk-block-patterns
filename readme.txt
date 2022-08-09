@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
 Tested up to: 6.0.1
-Stable tag: 1.24.0
+Stable tag: 1.24.1
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,12 +16,15 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.24.1 =
+[ Other ] Admin text tuning
+
 = 1.24.0 =
-[ Othe ] Update admin library
+[ Other ] Update admin library
 
 = 1.23.0 =
 [ Update ] Update CTA Pattern
-[ Othe ] Add Pattern Lib notice
+[ Other ] Add Pattern Lib notice
 
 = 1.22.0 =
 [ Fix ] Setting screen 
