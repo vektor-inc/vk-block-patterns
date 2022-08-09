@@ -135,7 +135,7 @@ const Admin = () => {
 				/>
 				<ToggleControl
 					label={ __(
-						'Disable Patterns of This Plugin',
+						'Disable default patterns of this plugin',
 						'vk-block-patterns'
 					) }
 					checked={ vkpOption.disablePluginPattern }
