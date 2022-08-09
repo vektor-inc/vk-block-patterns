@@ -3,7 +3,7 @@
  * Plugin Name: VK Block Patterns
  * Plugin URI: https://github.com/vektor-inc/vk-block-patterns
  * Description: You can make and register your original custom block patterns.
- * Version: 1.22.0
+ * Version: 1.23.0
  * Requires at least: 5.8
  * Author:  Vektor,Inc.
  * Author URI: https://vektor-inc.co.jp
@@ -69,6 +69,12 @@ function vbp_get_options() {
 		'VWSMail'              => '',
 		'disableCorePattern'   => false,
 		'disablePluginPattern' => false,
+		'account-check'        => array(
+			'date'                   => null,
+			'disable-empty-notice'   => false,
+			'disable-invalid-notice' => false,
+			'disable-free-notice'    => false,
+		),
 	);
 	$options = get_option( 'vk_block_patterns_options' );
 	// showPatternsLinkは後から追加したので、option値に保存されてない時にデフォルトとマージする
