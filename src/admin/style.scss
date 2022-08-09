@@ -16,3 +16,18 @@ section {
 		}
 	}
 }
+
+/* 2022.08.09 */
+/* VK Admin のバージョンｎ 2.2.0 以降が浸透したら削除可 */
+#adminContent_sub {
+	.notice {
+		padding-bottom: 10px;
+	}
+
+	.button {
+		white-space: normal;
+		margin: 5px 0;
+		padding: 0.5em 1em;
+		line-height: 1.4;
+	}
+}
