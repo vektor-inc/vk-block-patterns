@@ -69,6 +69,12 @@ function vbp_get_options() {
 		'VWSMail'              => '',
 		'disableCorePattern'   => false,
 		'disablePluginPattern' => false,
+		'account-check'        => array(
+			'date'                   => null,
+			'disable-empty-notice'   => false,
+			'disable-invalid-notice' => false,
+			'disable-free-notice'    => false,
+		)
 	);
 	$options = get_option( 'vk_block_patterns_options' );
 	// showPatternsLinkは後から追加したので、option値に保存されてない時にデフォルトとマージする

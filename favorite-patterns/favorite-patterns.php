@@ -62,3 +62,4 @@ function vbp_register_favorite_patterns() {
     }
 }
 add_action( 'init', 'vbp_register_favorite_patterns' );
+
