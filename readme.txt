@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Othe ] Update admin library
+
 = 1.23.0 =
 [ Update ] Update CTA Pattern
 [ Othe ] Add Pattern Lib notice
