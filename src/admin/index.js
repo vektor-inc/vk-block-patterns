@@ -175,7 +175,8 @@ const Admin = () => {
 									} );
 								} }
 							/>
-							<p>[ <a href="https://patterns.vektor-inc.co.jp/about/about-favorite/" target="_blank">{ __( 'Click here for more information on Favorites', 'vk-block-patterns' ) }</a> ]</p>
+							<p>お気に入り登録・連携を利用するには VK Pattern Library のユーザーアカウントを発行する必要があります。<br />
+							[ <a href="https://patterns.vektor-inc.co.jp/about/about-favorite/" target="_blank">{ __( 'Click here for more information on Favorites', 'vk-block-patterns' ) }</a> ]</p>
 						</section>
 
 						<section>
