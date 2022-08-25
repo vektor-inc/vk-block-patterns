@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Add ][ Japanese ] Add combination with X-T9 Patterns.
+
 = 1.24.2 =
 [ Other ] Admin text tuning
 
