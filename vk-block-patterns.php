@@ -47,7 +47,7 @@ function vbp_get_options() {
 		'VWSMail'              => '',
 		'disableCorePattern'   => false,
 		'disablePluginPattern' => false,
-		'disableXT9Pattern' => false,
+		'disableXT9Pattern'    => false,
 		'account-check'        => array(
 			'date'                   => null,
 			'disable-empty-notice'   => false,
