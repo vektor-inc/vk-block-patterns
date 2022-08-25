@@ -14,7 +14,7 @@ if ( ! function_exists( 'vbp_setting' ) ) {
 	 * Admin Page Setting.
 	 */
 	function vbp_setting() {
-		$options = get_option( 'vk_block_patterns_options' );
+		$options = vbp_get_options();
 		?>
 		<div id="vk_block_patterns_admin"></div>
 		<?php
@@ -89,6 +89,10 @@ function vkp_show_patterns_register_settings() {
 			'type'    => 'boolean',
 			'default' => false,
 		),
+		'disableXT9Pattern' => array(
+			'type'    => 'boolean',
+			'default' => false,
+		),
 	);
 
 	foreach ( $default_option_settings as $key => $value ) {
@@ -148,6 +152,7 @@ function vbp_admin_enqueue_scripts( $hook_suffix ) {
 	// boolean は 空 '' false または 1 true を渡す.
 	$vbp_options             = vbp_get_options();
 	$vbp_options['adminUrl'] = admin_url();
+	$vbp_options['template'] = get_template();
 	wp_localize_script( 'vk-patterns-admin-js', 'vkpOptions', $vbp_options );
 }
 add_action( 'admin_enqueue_scripts', 'vbp_admin_enqueue_scripts' );

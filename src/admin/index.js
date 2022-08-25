@@ -69,6 +69,7 @@ const Admin = () => {
 	const lang = getLocaleData()[ '' ].lang;
 	// パターン管理画面URL
 	const patternPostTypeUrl = vkpOptions.adminUrl + 'edit.php?post_type=vk-block-patterns';
+	const template           = vkpOptions.template;
 	return (
 		<>
 			<div>
@@ -146,6 +147,23 @@ const Admin = () => {
 						} );
 					} }
 				/>
+				{ lang === 'ja_JP' && vkpOption.VWSMail !== '' && template === 'x-t9' && (
+					<>
+						<ToggleControl
+							label={ __(
+								'Disable X-T9 patterns',
+								'vk-block-patterns'
+							) }
+							checked={ vkpOption.disableXT9Pattern }
+							onChange={ ( newValue ) => {
+								updateOptionValue( {
+									...vkpOption,
+									disableXT9Pattern: newValue,
+								} );
+							} }
+						/>
+					</>
+				)}
 				</section>
 				{ lang === 'ja_JP' && (
 					<>
