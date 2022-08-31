@@ -35,6 +35,35 @@ define( 'VBP_URL', plugin_dir_url( __FILE__ ) );
 global $vbp_prefix;
 $vbp_prefix = apply_filters( 'vbp_prefix', 'VK ' );
 
+/**
+ * オプション値を取得して返す
+ * 
+ * @return $options オプション値の配列
+ */
+function vbp_get_options() {
+	// デフォルト値.
+	// この値を追加した場合は ./test/test-get-options.php のテストを追記する.
+	$default = array(
+		'role'                 => 'author',
+		'showPatternsLink'     => true,
+		'VWSMail'              => '',
+		'disableCorePattern'   => false,
+		'disablePluginPattern' => false,
+		'disableXT9Pattern'    => false,
+		'account-check'        => array(
+			'date'                   => null,
+			'disable-empty-notice'   => false,
+			'disable-invalid-notice' => false,
+			'disable-free-notice'    => false,
+		),
+	);
+	$options = get_option( 'vk_block_patterns_options' );
+	// 後から追加される項目もあるので、option値に保存されてない時にデフォルトとマージする
+	// ただし wp_parse_args は1階層目の内容しかきれいにマージしてくれないので注意.
+	$options = wp_parse_args( $options, $default );
+	return $options;
+}
+
 
 /**
  * Plugin Loaded
@@ -59,28 +88,6 @@ function vbp_set_plugin_meta( $links ) {
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vbp_set_plugin_meta', 10, 1 );
-
-
-
-function vbp_get_options() {
-	$default = array(
-		'role'                 => 'author',
-		'showPatternsLink'     => true,
-		'VWSMail'              => '',
-		'disableCorePattern'   => false,
-		'disablePluginPattern' => false,
-		'account-check'        => array(
-			'date'                   => null,
-			'disable-empty-notice'   => false,
-			'disable-invalid-notice' => false,
-			'disable-free-notice'    => false,
-		),
-	);
-	$options = get_option( 'vk_block_patterns_options' );
-	// showPatternsLinkは後から追加したので、option値に保存されてない時にデフォルトとマージする
-	$options = wp_parse_args( $options, $default );
-	return $options;
-}
 
 $options = vbp_get_options();
 if ( ! empty( $options['disableCorePattern'] ) ) {

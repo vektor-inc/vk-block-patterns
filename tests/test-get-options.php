@@ -8,6 +8,7 @@
 class GetOptionsTest extends WP_UnitTestCase {
 
 	public function test_vbp_get_options() {
+		// オプション値の追加などがあった場合は $test_data の配列の中のデータを追加してテストを追加してください。
 		$test_data = array(
 			array(
 				'option'  => null,
@@ -17,6 +18,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => false,
+					'disableXT9Pattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
@@ -35,6 +37,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => false,
+					'disableXT9Pattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
@@ -54,12 +57,44 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => false,
+					'disableXT9Pattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
-					)
+					),
+				),
+			),
+			// X-T9 のパターン読み込みパラメーター追加.
+			// https://github.com/vektor-inc/vk-block-patterns/pull/132
+			array(
+				'option'  => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					),
+				),
+				'correct' => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => false,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					),
 				),
 			),
 		);
