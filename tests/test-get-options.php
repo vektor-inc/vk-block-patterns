@@ -8,6 +8,7 @@
 class GetOptionsTest extends WP_UnitTestCase {
 
 	public function test_vbp_get_options() {
+		// オプション値の追加などがあった場合は $test_data の配列の中のデータを追加してテストを追加してください。
 		$test_data = array(
 			array(
 				'option'  => null,
