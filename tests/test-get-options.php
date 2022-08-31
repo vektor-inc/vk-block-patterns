@@ -17,6 +17,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => false,
+					'disableXT9Pattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
@@ -35,6 +36,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => false,
+					'disableXT9Pattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
@@ -54,6 +56,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => false,
+					'disableXT9Pattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
