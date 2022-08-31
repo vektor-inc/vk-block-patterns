@@ -37,7 +37,7 @@ $vbp_prefix = apply_filters( 'vbp_prefix', 'VK ' );
 
 /**
  * オプション値を取得して返す
- * 
+ *
  * @return $options オプション値の配列
  */
 function vbp_get_options() {
