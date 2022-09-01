@@ -8,58 +8,93 @@
 class GetOptionsTest extends WP_UnitTestCase {
 
 	public function test_vbp_get_options() {
+		// オプション値の追加などがあった場合は $test_data の配列の中のデータを追加してテストを追加してください.
 		$test_data = array(
 			array(
 				'option'  => null,
 				'correct' => array(
-					'role' => 'author',
-					'showPatternsLink' => true,
+					'role'                 => 'author',
+					'showPatternsLink'     => true,
 					'VWSMail'              => '',
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => false,
+					'disableXT9Pattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
 					),
-				)
+				),
 			),
 			array(
 				'option'  => array(
 					'role' => 'author',
 				),
 				'correct' => array(
-					'role' => 'author',
-					'showPatternsLink' => true,
+					'role'                 => 'author',
+					'showPatternsLink'     => true,
 					'VWSMail'              => '',
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => false,
+					'disableXT9Pattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
-					)
+					),
 				),
 			),
 			array(
 				'option'  => array(
-					'role' => 'editor',
+					'role'             => 'editor',
 					'showPatternsLink' => false,
 				),
 				'correct' => array(
-					'role' => 'editor',
-					'showPatternsLink' => false,
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
 					'VWSMail'              => '',
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => false,
+					'disableXT9Pattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
-					)
+					),
+				),
+			),
+			// X-T9 のパターン読み込みパラメーター追加.
+			// https://github.com/vektor-inc/vk-block-patterns/pull/132
+			array(
+				'option'  => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					),
+				),
+				'correct' => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => false,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					),
 				),
 			),
 		);
@@ -69,7 +104,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 		foreach ( $test_data as $test_value ) {
 
-			if ( empty( $test_value['option'] ) ){
+			if ( empty( $test_value['option'] ) ) {
 				delete_option( 'vk_block_patterns_options' );
 			} else {
 				update_option( 'vk_block_patterns_options', $test_value['option'] );

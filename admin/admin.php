@@ -14,7 +14,7 @@ if ( ! function_exists( 'vbp_setting' ) ) {
 	 * Admin Page Setting.
 	 */
 	function vbp_setting() {
-		$options = get_option( 'vk_block_patterns_options' );
+		$options = vbp_get_options();
 		?>
 		<div id="vk_block_patterns_admin"></div>
 		<?php
@@ -52,9 +52,9 @@ function vbp_setting_page() {
 	$get_logo_html = '<img src="' . plugin_dir_url( __FILE__ ) . '/images/vk-block-patterns-logo_ol.svg" alt="VK Block Patterns" />';
 	$get_logo_html = apply_filters( 'vbp_logo_html', $get_logo_html );
 
-	$get_menu_html = '<li><a href="#role-setting">' . __( 'Role Setting', 'vk-block-patterns' ) . '</a></li>';
+	$get_menu_html  = '<li><a href="#role-setting">' . __( 'Role Setting', 'vk-block-patterns' ) . '</a></li>';
 	$get_menu_html .= '<li><a href="#default-patterns-setting">' . __( 'Default Pattern Setting', 'vk-block-patterns' ) . '</a></li>';
-	$lang          = ( get_locale() === 'ja' ) ? 'ja' : 'en';
+	$lang           = ( get_locale() === 'ja' ) ? 'ja' : 'en';
 	if ( 'ja' === $lang ) {
 		$get_menu_html .= '<li><a href="#pattern-library-setting">' . __( 'VK Pattern Library Setting', 'vk-block-patterns' ) . '</a></li>';
 	}
@@ -86,6 +86,10 @@ function vkp_show_patterns_register_settings() {
 			'default' => false,
 		),
 		'disablePluginPattern' => array(
+			'type'    => 'boolean',
+			'default' => false,
+		),
+		'disableXT9Pattern'    => array(
 			'type'    => 'boolean',
 			'default' => false,
 		),
@@ -148,6 +152,7 @@ function vbp_admin_enqueue_scripts( $hook_suffix ) {
 	// boolean は 空 '' false または 1 true を渡す.
 	$vbp_options             = vbp_get_options();
 	$vbp_options['adminUrl'] = admin_url();
+	$vbp_options['template'] = get_template();
 	wp_localize_script( 'vk-patterns-admin-js', 'vkpOptions', $vbp_options );
 }
 add_action( 'admin_enqueue_scripts', 'vbp_admin_enqueue_scripts' );
@@ -172,9 +177,9 @@ function vbp_vws_alert_list() {
 	$invalid_notice .= '<a href="' . $current_url . $url_next . 'disable-invalid-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
 	$invalid_notice .= '</p></div>';
 
-	// 期限切れユーザーが設定された場合
+	// 無料版ユーザーが設定された場合.
 	$free_notice  = '<div class="notice notice-warning"><p>';
-	$free_notice .= __( 'Your VWS account linkage is Outdated. Please Update VWS account license.', 'vk-block-patterns' );
+	$free_notice .= 'VK Pattern Library の連携権限が無効です。<a href="https://vws.vektor-inc.co.jp/my-account/license" target="_blank">VWS のマイアカウントページ</a> でライセンスの有効期限をご確認ください。';
 	$free_notice .= ' ';
 	$free_notice .= '<a href="' . $current_url . $url_next . 'disable-free-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
 	$free_notice .= '</p></div>';
@@ -202,14 +207,14 @@ function vbp_vws_alert_list() {
 
 /**
  * 警告を追加
- * 
+ *
  * @param Array $api API for TEST.
  */
 function vbp_vws_alert( $api = array() ) {
-	$options      = vbp_get_options();
-	$alerts       = vbp_vws_alert_list();
-	$notice       = '';
-	$lang         = ( get_locale() === 'ja' || get_locale() === 'ja_JP' ) ? 'ja' : 'en';
+	$options = vbp_get_options();
+	$alerts  = vbp_vws_alert_list();
+	$notice  = '';
+	$lang    = ( get_locale() === 'ja' || get_locale() === 'ja_JP' ) ? 'ja' : 'en';
 
 	if ( 'ja' === $lang ) {
 		if ( ! empty( $options['VWSMail'] ) ) {
@@ -223,14 +228,14 @@ function vbp_vws_alert( $api = array() ) {
 				}
 			}
 		} elseif ( false === $options['account-check']['disable-empty-notice'] ) {
-			$notice  = $alerts['empty-user'];
+			$notice = $alerts['empty-user'];
 		}
 	}
-	return  $notice;
+	return $notice;
 }
 
 function vbp_display_vws_alert() {
-	$notice       = vbp_vws_alert();
+	$notice = vbp_vws_alert();
 	echo $notice;
 }
 add_action( 'admin_notices', 'vbp_display_vws_alert' );
