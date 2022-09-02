@@ -170,7 +170,14 @@ function vbp_vws_alert_list() {
 
 	// 無効なユーザーが設定された場合
 	$invalid_notice  = '<div class="notice notice-warning"><p>';
-	$invalid_notice .= __( 'The registerd VWS account linkage is invalid. Please change VWS account linkage.', 'vk-block-patterns' );
+	$invalid_notice .= '登録されたメールアドレスのユーザーが <a href="https://patterns.vektor-inc.co.jp/" target="_blank" rel="noopener noreferrer">VK Paterns Library</a> に見つかりませんでした。<br />';
+	$invalid_notice .= '<a href="https://patterns.vektor-inc.co.jp/my-account/" target="_blank" rel="noopener noreferrer">VK Paterns Library</a> の登録メールアドレスと同じメールアドレスを登録してください。<br />';
+	$invalid_notice .= '有料版ユーザーで、VK Pattern Library のユーザーアカウントを未発行の場合は VWS のマイアカウントページから VK Patterns Library のユーザーを発行してください。<br />';
+	$invalid_notice .= '<a href="https://vws.vektor-inc.co.jp/my-account" class="button button-primary" target="_blank" rel="noopener noreferrer">VWSマイアカウント</a>';
+	$invalid_notice .= ' ';
+	$invalid_notice .= '<a href="https://patterns.vektor-inc.co.jp/about/flow/" class="button button-primary" target="_blank" rel="noopener noreferrer">VK Pattern Library ユーザー登録手順</a>';
+	$invalid_notice .= ' ';
+	$invalid_notice .= '<a href="https://patterns.vektor-inc.co.jp/about/about-favorite/" class="button button-primary" target="_blank" rel="noopener noreferrer">VK Pattern Library お気に入り設定</a>';
 	$invalid_notice .= ' ';
 	$invalid_notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
 	$invalid_notice .= ' ';
@@ -179,7 +186,9 @@ function vbp_vws_alert_list() {
 
 	// 無料版ユーザーが設定された場合.
 	$free_notice  = '<div class="notice notice-warning"><p>';
-	$free_notice .= 'VK Pattern Library の連携権限が無効です。<a href="https://vws.vektor-inc.co.jp/my-account/license" target="_blank">VWS のマイアカウントページ</a> でライセンスの有効期限をご確認ください。';
+	$free_notice .= '設定されたメールアドレスのVWSアカウントは、ライセンスの期限が切れているため、お気に入り機能がご利用できません。恐れ入りますがライセンスの再購入をよろしくお願いいたします。';
+	$free_notice .= ' ';
+	$free_notice .= '<a href="https://vws.vektor-inc.co.jp/product/lightning-g3-pro-pack" class="button button-primary" target="_blank" rel="noopener noreferrer">Lightning G3 Pro Pack</a>';
 	$free_notice .= ' ';
 	$free_notice .= '<a href="' . $current_url . $url_next . 'disable-free-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
 	$free_notice .= '</p></div>';
