@@ -16,6 +16,9 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Fix ][ Japanese ] Fix API Alert.
+
+
 [ Add ][ Japanese ] Add combination with X-T9 Patterns.
 
 = 1.24.2 =
