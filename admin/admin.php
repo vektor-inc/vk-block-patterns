@@ -168,11 +168,11 @@ function vbp_vws_alert_list() {
 	$url_next     = false === strpos( $current_url, '?' ) ? '?' : '&';
 	$setting_link = admin_url() . 'options-general.php?page=vk_block_patterns_options';
 
-	// 無効なユーザーが設定された場合.
+	// 無効なメールアドレス（ patterns. に該当アカウントがない ）が設定された場合.
 	$invalid_notice  = '<div class="notice notice-warning"><p>';
 	$invalid_notice .= '登録されたメールアドレスのユーザーが <a href="https://patterns.vektor-inc.co.jp/" target="_blank" rel="noopener noreferrer">VK Pattern Library</a> に見つかりませんでした。<br />';
 	$invalid_notice .= '<a href="https://patterns.vektor-inc.co.jp/my-account/" target="_blank" rel="noopener noreferrer">VK Pattern Library の登録メールアドレス</a> と同じメールアドレスを登録してください。<br />';
-	$invalid_notice .= '有料版ユーザーで VK Pattern Library のユーザーアカウントを未発行の場合は <a href="https://vws.vektor-inc.co.jp/my-account" target="_blank">VWS のマイアカウントページ</a> から VK Pattern Library のユーザーを発行してください。</p>';
+	$invalid_notice .= '有料版ユーザーで VK Pattern Library のユーザーアカウントを未発行の場合は <a href="https://vws.vektor-inc.co.jp/my-account" target="_blank" rel="noopener noreferrer">VWS のマイアカウントページ</a> から VK Pattern Library のユーザーを発行してください。</p>';
 	$invalid_notice .= '<p>';
 	$invalid_notice .= '<a href="https://patterns.vektor-inc.co.jp/about/flow/" class="button button-primary" target="_blank" rel="noopener noreferrer">VK Pattern Library ユーザー登録手順</a>';
 	$invalid_notice .= ' ';
@@ -183,25 +183,30 @@ function vbp_vws_alert_list() {
 	$invalid_notice .= '<a href="' . $current_url . $url_next . 'disable-invalid-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
 	$invalid_notice .= '</p></div>';
 
-	// 無料版ユーザーが設定された場合.
+	// 無料版（＝有効期限が切れた）ユーザーが設定された場合.
 	$free_notice  = '<div class="notice notice-warning"><p>';
-	$free_notice .= '設定されたメールアドレスのVWSアカウントは、ライセンスの期限が切れているため、お気に入り機能がご利用できません。恐れ入りますがライセンスの再購入をよろしくお願いいたします。';
-	$free_notice .= ' ';
+	$free_notice .= '設定されたメールアドレスと連携している <a href="https://vws.vektor-inc.co.jp/my-account/license" target="_blank" rel="noopener noreferrer">VWSアカウント</a> はライセンスの期限が切れているためお気に入り機能などがご利用できなくなっています。ライセンスの再購入をご検討ください。';
+	$free_notice .= '</p>';
+	$free_notice .= '<p>';
 	$free_notice .= '<a href="https://vws.vektor-inc.co.jp/product/lightning-g3-pro-pack" class="button button-primary" target="_blank" rel="noopener noreferrer">Lightning G3 Pro Pack</a>';
 	$free_notice .= ' ';
 	$free_notice .= '<a href="' . $current_url . $url_next . 'disable-free-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
-	$free_notice .= '</p></div>';
+	$free_notice .= '</p>';
+	$free_notice .= '</div>';
 
-	// メールアドレスが入力されていない場合
-	$empty_notice  = '<div class="notice notice-warning"><p>';
+	// メールアドレスが入力されていない場合.
+	$empty_notice  = '<div class="notice notice-warning">';
+	$empty_notice .= '<p>';
 	$empty_notice .= 'VK Pattern Library のアカウント連携が設定されていません。';
-	$empty_notice .= ' ';
+	$empty_notice .= '</p>';
+	$empty_notice .= '<div style="margin-bottom:10px;">';
 	$empty_notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
 	$empty_notice .= ' ';
 	$empty_notice .= '<a href="' . $current_url . $url_next . 'disable-empty-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
-	$empty_notice .= '</p></div>';
+	$empty_notice .= '</div>';
+	$empty_notice .= '</div>';
 
-	// 配列に整えて返す
+	// 配列に整えて返す.
 	$alert = array(
 		'invalid-user' => $invalid_notice,
 		'free-user'    => $free_notice,
