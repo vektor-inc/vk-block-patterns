@@ -172,19 +172,15 @@ const Admin = () => {
 						</h3>
 
 						<section>
-							<h4>
-								{ __( 'VWS account linkage', 'vk-block-patterns' ) }
-							</h4>
-							{ /* 日本語向けの案内なのと翻訳挟んでのリンク処理が難しいので日本語ママ */}
-							<p><a href="https://vws.vektor-inc.co.jp/product/lightning-g3-pro-pack?ref=vkbp-admin" target="_blank">Lightning G3 Pro Pack</a> のライセンスをお持ちのユーザーは、<a href="https://vws.vektor-inc.co.jp/my-account" target="_blank">アカウント</a>のメールアドレスを登録してください。<br />
-							<a href="https://patterns.vektor-inc.co.jp/" target="_blank">VK Pattern Library</a> でお気に入りに登録したパターンをエディター上で直接呼び出す事ができます。</p>
+						{ /* 日本語向けの案内 & 翻訳挟んでのリンク処理が難しい & 翻訳関数挟むと多国語の人が翻訳しようとする時に疑問に思われるので日本語ママ */}
+							<h4>アカウント連携</h4>
+							<p><a href="https://vws.vektor-inc.co.jp/product/lightning-g3-pro-pack?ref=vkbp-admin" target="_blank">Lightning G3 Pro Pack</a> のライセンスをお持ちのユーザーは <a href="https://patterns.vektor-inc.co.jp/" target="_blank">VK Pattern Library</a> でお気に入りに登録したパターンをエディター上で直接呼び出す事ができます。</p>
+							<p>お気に入り登録・連携を利用するには VK Pattern Library のユーザーアカウントを発行する必要があります。<br />
+							[ <a href="https://patterns.vektor-inc.co.jp/about/about-favorite/" target="_blank">{ __( 'Click here for more information on Favorites', 'vk-block-patterns' ) }</a> ]</p>
 							<TextControl
 								type="email"
 								className="vws-mail-address"
-								label={ __(
-									'VWS Account email address',
-									'vk-block-patterns'
-								) }
+								label={ 'VK Pattern Library のアカウントのメールアドレス' }
 								value={ vkpOption.VWSMail }
 								onChange={ ( newValue ) => {
 									updateOptionValue( {
@@ -193,8 +189,6 @@ const Admin = () => {
 									} );
 								} }
 							/>
-							<p>お気に入り登録・連携を利用するには VK Pattern Library のユーザーアカウントを発行する必要があります。<br />
-							[ <a href="https://patterns.vektor-inc.co.jp/about/about-favorite/" target="_blank">{ __( 'Click here for more information on Favorites', 'vk-block-patterns' ) }</a> ]</p>
 						</section>
 
 						<section>
