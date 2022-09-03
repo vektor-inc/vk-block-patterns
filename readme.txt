@@ -16,10 +16,9 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
-[ Fix ][ Japanese ] Fix API Alert.
-
-
 [ Add ][ Japanese ] Add combination with X-T9 Patterns.
+[ Fix ][ Japanese ] Fix API Alert.
+[ Fix ][ Japanese ] Fix VK Pattern Library Linkage description.
 
 = 1.24.2 =
 [ Other ] Admin text tuning
