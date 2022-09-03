@@ -168,13 +168,12 @@ function vbp_vws_alert_list() {
 	$url_next     = false === strpos( $current_url, '?' ) ? '?' : '&';
 	$setting_link = admin_url() . 'options-general.php?page=vk_block_patterns_options';
 
-	// 無効なユーザーが設定された場合
+	// 無効なユーザーが設定された場合.
 	$invalid_notice  = '<div class="notice notice-warning"><p>';
-	$invalid_notice .= '登録されたメールアドレスのユーザーが <a href="https://patterns.vektor-inc.co.jp/" target="_blank" rel="noopener noreferrer">VK Paterns Library</a> に見つかりませんでした。<br />';
-	$invalid_notice .= '<a href="https://patterns.vektor-inc.co.jp/my-account/" target="_blank" rel="noopener noreferrer">VK Paterns Library</a> の登録メールアドレスと同じメールアドレスを登録してください。<br />';
-	$invalid_notice .= '有料版ユーザーで、VK Pattern Library のユーザーアカウントを未発行の場合は VWS のマイアカウントページから VK Patterns Library のユーザーを発行してください。<br />';
-	$invalid_notice .= '<a href="https://vws.vektor-inc.co.jp/my-account" class="button button-primary" target="_blank" rel="noopener noreferrer">VWSマイアカウント</a>';
-	$invalid_notice .= ' ';
+	$invalid_notice .= '登録されたメールアドレスのユーザーが <a href="https://patterns.vektor-inc.co.jp/" target="_blank" rel="noopener noreferrer">VK Pattern Library</a> に見つかりませんでした。<br />';
+	$invalid_notice .= '<a href="https://patterns.vektor-inc.co.jp/my-account/" target="_blank" rel="noopener noreferrer">VK Pattern Library の登録メールアドレス</a> と同じメールアドレスを登録してください。<br />';
+	$invalid_notice .= '有料版ユーザーで VK Pattern Library のユーザーアカウントを未発行の場合は <a href="https://vws.vektor-inc.co.jp/my-account" target="_blank">VWS のマイアカウントページ</a> から VK Pattern Library のユーザーを発行してください。</p>';
+	$invalid_notice .= '<p>';
 	$invalid_notice .= '<a href="https://patterns.vektor-inc.co.jp/about/flow/" class="button button-primary" target="_blank" rel="noopener noreferrer">VK Pattern Library ユーザー登録手順</a>';
 	$invalid_notice .= ' ';
 	$invalid_notice .= '<a href="https://patterns.vektor-inc.co.jp/about/about-favorite/" class="button button-primary" target="_blank" rel="noopener noreferrer">VK Pattern Library お気に入り設定</a>';
@@ -195,7 +194,7 @@ function vbp_vws_alert_list() {
 
 	// メールアドレスが入力されていない場合
 	$empty_notice  = '<div class="notice notice-warning"><p>';
-	$empty_notice .= __( 'The VWS account linkage is not registerd. Please register VWS account linkage.', 'vk-block-patterns' );
+	$empty_notice .= 'VK Pattern Library のアカウント連携が設定されていません。';
 	$empty_notice .= ' ';
 	$empty_notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
 	$empty_notice .= ' ';
