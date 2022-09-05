@@ -78,6 +78,18 @@ function vbp_plugin_loaded() {
 	require_once VBP_PATH . 'inc/edit-post/vk-edit-post-config.php';
 	// Load Admin Options.
 	require_once VBP_PATH . 'admin/admin.php';
+
+	$options = vbp_get_options();
+	if ( ! empty( $options['disableCorePattern'] ) ) {
+		remove_theme_support( 'core-block-patterns' );
+	}
+	
+	require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.php';
+	if ( ! empty( $options['disablePluginPattern'] ) ) {
+		remove_action( 'init', array( 'wp_content\plugins\vk_block_patterns\patterns_data\Register_Patterns_From_Json', 'register_template' ) );
+	}
+	
+	require dirname( __FILE__ ) . '/favorite-patterns/favorite-patterns.php';
 }
 add_action( 'plugins_loaded', 'vbp_plugin_loaded' );
 
@@ -89,19 +101,7 @@ function vbp_set_plugin_meta( $links ) {
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vbp_set_plugin_meta', 10, 1 );
 
-$options = vbp_get_options();
-if ( ! empty( $options['disableCorePattern'] ) ) {
-	remove_theme_support( 'core-block-patterns' );
-}
 
-require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.php';
-if ( ! empty( $options['disablePluginPattern'] ) ) {
-	remove_action( 'init', array( 'wp_content\plugins\vk_block_patterns\patterns_data\Register_Patterns_From_Json', 'register_template' ) );
-}
-
-if ( ! empty( $options['VWSMail'] ) ) {
-	require dirname( __FILE__ ) . '/favorite-patterns/favorite-patterns.php';
-}
 
 /**
  * Add pattern library link
