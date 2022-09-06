@@ -51,10 +51,11 @@ function vbp_get_options() {
 		'disablePluginPattern' => false,
 		'disableXT9Pattern'    => false,
 		'account-check'        => array(
-			'date'                   => null,
-			'disable-empty-notice'   => false,
-			'disable-invalid-notice' => false,
-			'disable-free-notice'    => false,
+			'date'                         => null,
+			'disable-empty-notice'         => false,
+			'disable-invalid-notice'       => false,
+			'disable-free-notice'          => false,
+			'disable-not-logged-in-notice' => false,
 		),
 	);
 	$options = get_option( 'vk_block_patterns_options' );

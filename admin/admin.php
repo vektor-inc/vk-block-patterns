@@ -206,11 +206,24 @@ function vbp_vws_alert_list() {
 	$empty_notice .= '</div>';
 	$empty_notice .= '</div>';
 
+	// VK Pattens Library にログインしていない場合
+	$not_logged_in = '<div class="notice notice-warning">';
+	$not_logged_in.= '<p>';
+	$not_logged_in.= 'VK Pattern Library にログインしていません。お気に入りパターンや X-T9 のパターンを利用するには VK Pattern Library にログインする必要があります。';
+	$not_logged_in.= '</p>';
+	$not_logged_in.= '<div style="margin-bottom:10px;">';
+	$not_logged_in.= '<a href="https://patterns.vektor-inc.co.jp/" class="button button-primary" target="_blank" rel="noopener noreferrer">VK Pattern Library にログインする</a>';
+	$not_logged_in.= ' ';
+	$not_logged_in.= '<a href="' . $current_url . $url_next . 'disable-not-logged-in-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
+	$not_logged_in.= '</div>';
+	$not_logged_in.= '</div>';
+
 	// 配列に整えて返す.
 	$alert = array(
-		'invalid-user' => $invalid_notice,
-		'free-user'    => $free_notice,
-		'empty-user'   => $empty_notice,
+		'invalid-user'  => $invalid_notice,
+		'free-user'     => $free_notice,
+		'empty-user'    => $empty_notice,
+		'not-logged-in' => $not_logged_in,
 	);
 
 	return $alert;
@@ -238,6 +251,8 @@ function vbp_vws_alert( $api = array() ) {
 					$notice = $alerts['invalid-user'];
 				} elseif ( 'free-user' === $role && false === $options['account-check']['disable-free-notice'] ) {
 					$notice = $alerts['free-user'];
+				} elseif ( 'not-logged-in' === $role && false === $options['account-check']['disable-not-logged-in-notice'] ) {
+					$notice = $alerts['not-logged-in'];
 				}
 			}
 		} elseif ( false === $options['account-check']['disable-empty-notice'] ) {
@@ -261,8 +276,9 @@ function vbp_admin_control() {
 		$checked_date = $options['account-check']['date'];
 		$diff_yaer    = ( strtotime( $current_date ) - strtotime( $checked_date ) ) / ( 60 * 60 * 24 * 365 );
 		if ( 1 <= $diff_yaer ) {
-			$options['account-check']['disable-invalid-notice'] = false;
-			$options['account-check']['disable-free-notice']    = false;
+			$options['account-check']['disable-invalid-notice']          = false;
+			$options['account-check']['disable-free-notice']             = false;
+			$options['account-check']['disable-not-logged-in-notice']    = false;
 		}
 	}
 
@@ -274,6 +290,9 @@ function vbp_admin_control() {
 	}
 	if ( isset( $_GET['disable-empty-notice'] ) ) {
 		$options['account-check']['disable-empty-notice'] = true;
+	}
+	if ( isset( $_GET['disable-not-logged-in-notice'] ) ) {
+		$options['account-check']['disable-not-logged-in-notice'] = true;
 	}
 	$options['account-check']['date'] = $current_date;
 	update_option( 'vk_block_patterns_options', $options );

@@ -145,6 +145,49 @@ class AlertTest extends WP_UnitTestCase {
 				),
 				'correct' => $alerts['free-user'],
 			),
+			/* ログインされていないのを検出した場合 */
+			// デフォルトの状態
+			array(
+				'option'  => array(
+					'VWSMail'                    => 'vk-support@vektor-inc.co.jp',
+					'account-check' => array(
+						'date'                         => null,
+						'disable-not-logged-in-notice' => false,
+					),
+				),
+				'api' => array(
+					'role' => 'not-logged-in'
+				),
+				'correct' => $alerts['not-logged-in'],
+			),
+			// 無効化されてから１年経過前
+			array(
+				'option'  => array(
+					'VWSMail'                    => 'vk-support@vektor-inc.co.jp',
+					'account-check' => array(
+						'date'                         => date( 'Y-m-d H:i:s', strtotime("-11 month") ),
+						'disable-not-logged-in-notice' => true,
+					),
+				),
+				'api' => array(
+					'role' => 'not-logged-in'
+				),
+				'correct' => '',
+			),
+			// 無効化されてから１年経過後
+			array(
+				'option'  => array(
+					'VWSMail'                    => 'vk-support@vektor-inc.co.jp',
+					'account-check' => array(
+						'date'                         => date( 'Y-m-d H:i:s', strtotime("-13 month") ),
+						'disable-not-logged-in-notice' => true,
+					),
+				),
+				'api' => array(
+					'role' => 'not-logged-in'
+				),
+				'correct' => $alerts['not-logged-in'],
+			),
 		);
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;

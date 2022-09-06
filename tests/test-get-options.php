@@ -20,10 +20,11 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'disablePluginPattern' => false,
 					'disableXT9Pattern'    => false,
 					'account-check'        => array(
-						'date'                   => null,
-						'disable-empty-notice'   => false,
-						'disable-invalid-notice' => false,
-						'disable-free-notice'    => false,
+						'date'                         => null,
+						'disable-empty-notice'         => false,
+						'disable-invalid-notice'       => false,
+						'disable-free-notice'          => false,
+						'disable-not-logged-in-notice' => false,
 					),
 				),
 			),
@@ -39,10 +40,11 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'disablePluginPattern' => false,
 					'disableXT9Pattern'    => false,
 					'account-check'        => array(
-						'date'                   => null,
-						'disable-empty-notice'   => false,
-						'disable-invalid-notice' => false,
-						'disable-free-notice'    => false,
+						'date'                         => null,
+						'disable-empty-notice'         => false,
+						'disable-invalid-notice'       => false,
+						'disable-free-notice'          => false,
+						'disable-not-logged-in-notice' => false,
 					),
 				),
 			),
@@ -59,10 +61,11 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'disablePluginPattern' => false,
 					'disableXT9Pattern'    => false,
 					'account-check'        => array(
-						'date'                   => null,
-						'disable-empty-notice'   => false,
-						'disable-invalid-notice' => false,
-						'disable-free-notice'    => false,
+						'date'                         => null,
+						'disable-empty-notice'         => false,
+						'disable-invalid-notice'       => false,
+						'disable-free-notice'          => false,
+						'disable-not-logged-in-notice' => false,
 					),
 				),
 			),
@@ -90,10 +93,104 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'disablePluginPattern' => true,
 					'disableXT9Pattern'    => false,
 					'account-check'        => array(
+						'date'                         => null,
+						'disable-empty-notice'         => false,
+						'disable-invalid-notice'       => false,
+						'disable-free-notice'          => false,
+					),
+				),
+			),
+			array(
+				'option'  => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => false,
+					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
+					),
+				),
+				'correct' => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => false,
+					'account-check'        => array(
+						'date'                         => null,
+						'disable-empty-notice'         => false,
+						'disable-invalid-notice'       => false,
+						'disable-free-notice'          => false,
+					),
+				),
+			),
+			// ログインチェックが追加
+			array(
+				'option'  => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => false,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					),
+				),
+				'correct' => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => false,
+					'account-check'        => array(
+						'date'                         => null,
+						'disable-empty-notice'         => false,
+						'disable-invalid-notice'       => false,
+						'disable-free-notice'          => false,
+					),
+				),
+			),
+			// ログインチェックが追加
+			array(
+				'option'  => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => false,
+					'account-check'        => array(
+						'date'                         => null,
+						'disable-empty-notice'         => false,
+						'disable-invalid-notice'       => false,
+						'disable-free-notice'          => false,
+						'disable-not-logged-in-notice' => false,
+					),
+				),
+				'correct' => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => false,
+					'account-check'        => array(
+						'date'                         => null,
+						'disable-empty-notice'         => false,
+						'disable-invalid-notice'       => false,
+						'disable-free-notice'          => false,
+						'disable-not-logged-in-notice' => false,
 					),
 				),
 			),
@@ -113,10 +210,10 @@ class GetOptionsTest extends WP_UnitTestCase {
 			$return  = vbp_get_options();
 			$correct = $test_value['correct'];
 
-			print 'return[\'role\']  :' . $return['role'] . PHP_EOL;
-			print 'correct[\'role\'] :' . $correct['role'] . PHP_EOL;
-			print 'return[\'showPatternsLink\']  :' . $return['showPatternsLink'] . PHP_EOL;
-			print 'correct[\'showPatternsLink\'] :' . $correct['showPatternsLink'] . PHP_EOL;
+			print 'return:' . PHP_EOL;
+			var_dump( $return );
+			print 'correct:' . PHP_EOL;
+			var_dump( $correct );
 			$this->assertEquals( $correct, $return );
 
 		}

@@ -19,7 +19,7 @@ function vbp_get_pattern_api_data() {
 			array(
 				'timeout' => 10,
 				'body'    => array(
-					'login_id' => $user_email,
+					'login_mail' => $user_email,
 				),
 			)
 		);
