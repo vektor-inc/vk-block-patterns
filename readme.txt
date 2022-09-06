@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Fix ][ Japanese ] Fix API Alert.
+
 = 1.25.2 =
 [ Bug fix ] Fix Setting Page Layout bug ( vk admin 2.6.0 )
 
