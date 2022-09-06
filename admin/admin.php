@@ -209,7 +209,7 @@ function vbp_vws_alert_list() {
 	// VK Pattens Library にログインしていない場合
 	$not_logged_in = '<div class="notice notice-warning">';
 	$not_logged_in.= '<p>';
-	$not_logged_in.= 'VK Pattern Library にログインしていません。お気に入りパターンや X-T9 のパターンを利用するには VK Pattern Library にログインする必要があります。';
+	$not_logged_in.= '24 時間以内に VK Pattern Library にログインしていません。お気に入りパターンや X-T9 のパターンを利用するには 24 時間以内に VK Pattern Library にログインする必要があります。';
 	$not_logged_in.= '</p>';
 	$not_logged_in.= '<div style="margin-bottom:10px;">';
 	$not_logged_in.= '<a href="https://patterns.vektor-inc.co.jp/" class="button button-primary" target="_blank" rel="noopener noreferrer">VK Pattern Library にログインする</a>';
