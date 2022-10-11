@@ -1,5 +1,5 @@
 import { __, _x, getLocaleData } from '@wordpress/i18n';
-import { render, useState } from '@wordpress/element';
+import { render, useState, useEffect } from '@wordpress/element';
 import {
 	ToggleControl,
 	Button,
@@ -75,6 +75,16 @@ const Admin = () => {
 	const patternPostTypeUrl =
 		vkpOptions.adminUrl + 'edit.php?post_type=vk-block-patterns';
 	const template = vkpOptions.template;
+
+	// snackbar更新する
+	useEffect(() => {
+		if (isSaveSuccess) {
+			setTimeout(() => {
+				setIsSaveSuccess();
+			}, 3000);
+		}
+	}, [isSaveSuccess]);
+
 	return (
 		<>
 			<div>
