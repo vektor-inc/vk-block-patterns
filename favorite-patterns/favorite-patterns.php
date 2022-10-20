@@ -23,14 +23,14 @@ function vbp_get_pattern_api_data() {
 	$return     = '';
 	
 	if ( ! empty( $user_email ) ) {
-		// キャッシュデータを読み込み
+		// パターンのキャッシュデータを読み込み.
 		$transients = get_transient( 'vk_patterns_api_data' );
 
-		// キャッシュがあればキャッシュを読み込み.
-		// そうでなければ API を呼び出しキャッシュに登録.
+		// パターンのキャッシュがあればキャッシュを読み込み.
 		if ( ! empty( $transients ) ) {
 			$return = $transients;
 		} else {
+			// パターンのキャッシュがない場合 API を呼び出しキャッシュに登録.
 			$result = wp_remote_post(
 				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 				array(
