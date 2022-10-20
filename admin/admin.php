@@ -153,6 +153,7 @@ function vbp_admin_enqueue_scripts( $hook_suffix ) {
 	$vbp_options             = vbp_get_options();
 	$vbp_options['adminUrl'] = admin_url();
 	$vbp_options['template'] = get_template();
+	$vbp_options['ajaxUrl']  = admin_url( 'admin-ajax.php' );
 	wp_localize_script( 'vk-patterns-admin-js', 'vkpOptions', $vbp_options );
 }
 add_action( 'admin_enqueue_scripts', 'vbp_admin_enqueue_scripts' );
@@ -279,3 +280,13 @@ function vbp_admin_control() {
 	update_option( 'vk_block_patterns_options', $options );
 }
 add_action( 'admin_init', 'vbp_admin_control' );
+
+ /**
+  * Add Favorite
+  */
+  function vbp_clear_patterns_cache() {
+	delete_transient( 'vk_patterns_api_data' );
+    die();
+}
+add_action( 'wp_ajax_clear_patterns_cache', 'vbp_clear_patterns_cache' );
+add_action( 'wp_ajax_nopriv_clear_patterns_cache', 'vbp_clear_patterns_cache' );
