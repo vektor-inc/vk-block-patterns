@@ -78,16 +78,10 @@ function vbp_plugin_loaded() {
 	require_once VBP_PATH . 'inc/edit-post/vk-edit-post-config.php';
 	// Load Admin Options.
 	require_once VBP_PATH . 'admin/admin.php';
+	
+	require VBP_PATH . '/favorite-patterns/favorite-patterns.php';
 }
 add_action( 'plugins_loaded', 'vbp_plugin_loaded' );
-
-// Add a link to this plugin's settings page
-function vbp_set_plugin_meta( $links ) {
-	$settings_link = '<a href="options-general.php?page=vk_block_patterns_options">' . __( 'Setting', 'vk-block-patterns' ) . '</a>';
-	array_unshift( $links, $settings_link );
-	return $links;
-}
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vbp_set_plugin_meta', 10, 1 );
 
 $options = vbp_get_options();
 if ( ! empty( $options['disableCorePattern'] ) ) {
@@ -99,9 +93,13 @@ if ( ! empty( $options['disablePluginPattern'] ) ) {
 	remove_action( 'init', array( 'wp_content\plugins\vk_block_patterns\patterns_data\Register_Patterns_From_Json', 'register_template' ) );
 }
 
-if ( ! empty( $options['VWSMail'] ) ) {
-	require dirname( __FILE__ ) . '/favorite-patterns/favorite-patterns.php';
+// Add a link to this plugin's settings page
+function vbp_set_plugin_meta( $links ) {
+	$settings_link = '<a href="options-general.php?page=vk_block_patterns_options">' . __( 'Setting', 'vk-block-patterns' ) . '</a>';
+	array_unshift( $links, $settings_link );
+	return $links;
 }
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'vbp_set_plugin_meta', 10, 1 );
 
 /**
  * Add pattern library link

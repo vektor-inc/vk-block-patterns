@@ -7,6 +7,15 @@
 
 /**
  * API からデータを読み込み
+ *
+ * @return array{
+ *      array {
+ *      role: string,
+ *      title: string,
+ *      categories: array,
+ *      content: string,
+ *  }
+ * } $return
  */
 function vbp_get_pattern_api_data() {
 	$options    = vbp_get_options();
@@ -32,43 +41,23 @@ function vbp_get_pattern_api_data() {
 
 /**
  * パターンを登録
+ * 
+ * @param array  $api テスト用に用意した API を読み込む変数（通常は空）.
+ * @param string $template テスト用に用意した現在のテーマが何かを読み込む変数（通常は空）.
  */
-function vbp_register_favorite_patterns() {
-	$pattern_api_data = vbp_get_pattern_api_data();
-	$current_template = get_template();
+function vbp_register_favorite_patterns( $api = null, $template = null ) {
 	$options          = vbp_get_options();
-	if ( ! empty( $pattern_api_data ) && is_array( $pattern_api_data ) ) {
-		if ( ! empty( $pattern_api_data['patterns'] ) ) {
-			$patterns_data = $pattern_api_data['patterns'];
-
-			if ( function_exists( 'mb_convert_encoding' ) ) {
-				$patterns_data = mb_convert_encoding( $patterns_data, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
-			}
-
-			$patterns = json_decode( $patterns_data, true );
-			register_block_pattern_category(
-				'vk-pattern-favorites',
-				array(
-					'label' => __( 'Favorites of VK Pattern Library', 'vk-block-patterns' ),
-				)
-			);
-			if ( ! empty( $patterns ) && is_array( $patterns ) ) {
-				foreach ( $patterns as $pattern ) {
-					register_block_pattern(
-						$pattern['post_name'],
-						array(
-							'title'      => $pattern['title'],
-							'categories' => $pattern['categories'],
-							'content'    => $pattern['content'],
-						)
-					);
-				}
-			}
-		}
-
-		if ( 'x-t9' === $current_template && false === $options['disableXT9Pattern'] ) {
-			if ( ! empty( $pattern_api_data['x-t9'] ) ) {
-				$patterns_data = $pattern_api_data['x-t9'];
+	$result = array(
+		'favorite' => array(),
+		'x-t9'     => array(),
+	);
+	if ( ! empty( $options['VWSMail'] ) ) {
+		$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data();
+		$current_template = ! empty( $template ) ? $template : get_template();		
+		
+		if ( ! empty( $pattern_api_data ) && is_array( $pattern_api_data ) ) {
+			if ( ! empty( $pattern_api_data['patterns'] ) ) {
+				$patterns_data = $pattern_api_data['patterns'];
 
 				if ( function_exists( 'mb_convert_encoding' ) ) {
 					$patterns_data = mb_convert_encoding( $patterns_data, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
@@ -76,14 +65,14 @@ function vbp_register_favorite_patterns() {
 
 				$patterns = json_decode( $patterns_data, true );
 				register_block_pattern_category(
-					'x-t9',
+					'vk-pattern-favorites',
 					array(
-						'label' => __( 'X-T9', 'vk-block-patterns' ),
+						'label' => __( 'Favorites of VK Pattern Library', 'vk-block-patterns' ),
 					)
 				);
 				if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 					foreach ( $patterns as $pattern ) {
-						register_block_pattern(
+						$result['favorite'][] = register_block_pattern(
 							$pattern['post_name'],
 							array(
 								'title'      => $pattern['title'],
@@ -94,7 +83,38 @@ function vbp_register_favorite_patterns() {
 					}
 				}
 			}
+			
+			if ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) ) {
+				if ( ! empty( $pattern_api_data['x-t9'] ) ) {
+					$patterns_data = $pattern_api_data['x-t9'];
+
+					if ( function_exists( 'mb_convert_encoding' ) ) {
+						$patterns_data = mb_convert_encoding( $patterns_data, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
+					}
+					
+					$patterns = json_decode( $patterns_data, true );
+					register_block_pattern_category(
+						'x-t9',
+						array(
+							'label' => __( 'X-T9', 'vk-block-patterns' ),
+						)
+					);
+					if ( ! empty( $patterns ) && is_array( $patterns ) ) {
+						foreach ( $patterns as $pattern ) {
+							$result['x-t9'][] = register_block_pattern(
+								$pattern['post_name'],
+								array(
+									'title'      => $pattern['title'],
+									'categories' => $pattern['categories'],
+									'content'    => $pattern['content'],
+								)
+							);
+						}
+					}
+				}
+			}
 		}
 	}
+	return $result;
 }
 add_action( 'init', 'vbp_register_favorite_patterns' );
