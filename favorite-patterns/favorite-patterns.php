@@ -42,8 +42,8 @@ function vbp_get_pattern_api_data() {
 			);
 			if ( ! empty( $result ) && ! is_wp_error( $result ) ) {
 				$return = json_decode( $result['body'], true );
-				// APIで取得したパターンデータをキャッシュに登録. 86400 = 1日 で設定.
-				set_transient( 'vk_patterns_api_data', $return, 86400 );
+				// APIで取得したパターンデータをキャッシュに登録. 1日 に設定.
+				set_transient( 'vk_patterns_api_data', $return, 60 * 60 * 24 );
 			}
 		}
 	}
