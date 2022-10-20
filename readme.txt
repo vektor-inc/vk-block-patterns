@@ -15,7 +15,7 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen. 
 
 == Changelog ==
-
+[ Specification Change ] Changed to cache pattern api data.
 [ Fix ] Add Snackbar when success save setting or not.
 
 = 1.25.2 =
