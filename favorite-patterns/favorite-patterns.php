@@ -32,6 +32,9 @@ function vbp_get_pattern_api_data() {
 
 /**
  * パターンを登録
+ * 
+ * @param array  $api テスト用に用意した API を読み込む変数（通常は空）.
+ * @param string $template テスト用に用意した現在のテーマが何かを読み込む変数（通常は空）.
  */
 function vbp_register_favorite_patterns( $api = null, $template = null ) {
 	$options          = vbp_get_options();
