@@ -7,6 +7,15 @@
 
 /**
  * API からデータを読み込み
+ *
+ * @return array{
+ *      array {
+ *      role: string,
+ *      title: string,
+ *      categories: array,
+ *      content: string,
+ *  }
+ * } $return
  */
 function vbp_get_pattern_api_data() {
 	$options    = vbp_get_options();
