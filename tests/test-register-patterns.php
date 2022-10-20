@@ -71,6 +71,30 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     )
                 )
 			),
+            // API がなくても キャッシュがあれば OK
+            array(
+				'options'  => array(
+                    'VWSMail'           => 'vk-support@vektor-inc.co.jp',
+                    'disableXT9Pattern' => false,
+                ),
+                'api' => null,
+                'transients' => array(
+                    'role'     => 'pro-user',
+                    'patterns' => $favorite_patterns,
+                    'x-t9'     => $xt9_patterns,
+                ),
+                'template' => 'x-t9',
+                'correct'  => array(
+                    'favorite' => array(
+                        true,
+                        true,
+                    ),
+                    'x-t9'    => array(
+                        true,
+                        true,
+                    )
+                )
+			),
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
@@ -163,10 +187,14 @@ class RegisterPatternsTest extends WP_UnitTestCase {
         );
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
-		print 'REgister Patterns' . PHP_EOL;
+		print 'Register Patterns' . PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 		foreach ( $test_data as $test_value ) {
             update_option( 'vk_block_patterns_options', $test_value['options'] );
+
+            if ( ! empty( $test_value['transients']) ) {
+                set_transient( 'vk_patterns_api_data', $test_value['transients'], 86400 ); 
+            }
 
 			$return  = vbp_register_favorite_patterns( $test_value['api'], $test_value['template'] );
 			$correct = $test_value['correct'];
@@ -176,6 +204,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             print 'correct:' . PHP_EOL;
 			var_dump( $correct );
 			$this->assertEquals( $correct, $return );
+            delete_transient( 'vk_patterns_api_data' );
 		}
         delete_option( 'vk_block_patterns_options' );
 	}

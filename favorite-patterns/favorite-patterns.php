@@ -21,19 +21,29 @@ function vbp_get_pattern_api_data() {
 	$options    = vbp_get_options();
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
 	$return     = '';
-
+	
 	if ( ! empty( $user_email ) ) {
-		$result = wp_remote_post(
-			'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
-			array(
-				'timeout' => 10,
-				'body'    => array(
-					'login_id' => $user_email,
-				),
-			)
-		);
-		if ( ! empty( $result ) && ! is_wp_error( $result ) ) {
-			$return = json_decode( $result['body'], true );
+		// キャッシュデータを読み込み
+		$transients = get_transient( 'vk_patterns_api_data' );
+
+		// キャッシュがあればキャッシュを読み込み.
+		// そうでなければ API を呼び出しキャッシュに登録.
+		if ( ! empty( $transients ) ) {
+			$return = $transients;
+		} else {
+			$result = wp_remote_post(
+				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+				array(
+					'timeout' => 10,
+					'body'    => array(
+						'login_id' => $user_email,
+					),
+				)
+			);
+			if ( ! empty( $result ) && ! is_wp_error( $result ) ) {
+				$return = json_decode( $result['body'], true );
+				set_transient( 'vk_patterns_api_data', $return, 86400 ); 
+			}
 		}
 	}
 	return $return;
