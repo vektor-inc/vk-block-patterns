@@ -193,7 +193,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             update_option( 'vk_block_patterns_options', $test_value['options'] );
 
             if ( ! empty( $test_value['transients']) ) {
-                set_transient( 'vk_patterns_api_data', $test_value['transients'], 86400 ); 
+                set_transient( 'vk_patterns_api_data', $test_value['transients'], 60 * 60 * 24 ); 
             }
 
 			$return  = vbp_register_favorite_patterns( $test_value['api'], $test_value['template'] );
