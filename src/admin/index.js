@@ -310,7 +310,7 @@ const Admin = () => {
 							{ isCleared === true && (
 								<div>
 									<Snackbar>
-										{ __( 'Chache Cleared', 'vk-block-patterns'  ) }{ ' ' }
+										{ __( 'Cache cleared', 'vk-block-patterns'  ) }{ ' ' }
 									</Snackbar>
 								</div>
 							) }
