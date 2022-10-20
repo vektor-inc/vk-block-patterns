@@ -57,6 +57,7 @@ function vbp_setting_page() {
 	$lang           = ( get_locale() === 'ja' ) ? 'ja' : 'en';
 	if ( 'ja' === $lang ) {
 		$get_menu_html .= '<li><a href="#pattern-library-setting">' . __( 'VK Pattern Library Setting', 'vk-block-patterns' ) . '</a></li>';
+		$get_menu_html .= '<li><a href="#cache-setting">' . __( 'Patterns data cache setting', 'vk-block-patterns' ) . '</a></li>';
 	}
 
 	Vk_Admin::admin_page_frame( $get_page_title, 'vbp_setting', $get_logo_html, $get_menu_html );

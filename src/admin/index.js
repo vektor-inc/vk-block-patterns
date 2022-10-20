@@ -295,11 +295,12 @@ const Admin = () => {
 						</section>
 
 						<section>
-							<h4>
-								{ __( 'Patterns Data Cache Setting', 'vk-block-patterns' ) }
-							</h4>
+							<h3 id="cache-setting">
+								{ __( 'Patterns data cache setting', 'vk-block-patterns' ) }
+							</h3>
+							<p>{ __( 'If the VK Pattern Library data is old, please try clearing the cache.', 'vk-block-patterns' ) }</p>
 							<Button
-								isPrimary
+								isSecondary
 								onClick={ clearPatternsCache }
 								isBusy={ isClearing }
 							>
