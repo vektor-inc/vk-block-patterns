@@ -21,16 +21,16 @@ function vbp_get_pattern_api_data() {
 	$options    = vbp_get_options();
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
 	$return     = '';
-	
+
 	if ( ! empty( $user_email ) ) {
-		// パターンのキャッシュデータを読み込み.
+		// パターン情報をキャッシュデータから読み込み読み込み.
 		$transients = get_transient( 'vk_patterns_api_data' );
 
 		// パターンのキャッシュがあればキャッシュを読み込み.
 		if ( ! empty( $transients ) ) {
 			$return = $transients;
 		} else {
-			// パターンのキャッシュがない場合 API を呼び出しキャッシュに登録.
+			// キャッシュがない場合 API を呼び出しキャッシュに登録.
 			$result = wp_remote_post(
 				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 				array(
