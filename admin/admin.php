@@ -57,6 +57,7 @@ function vbp_setting_page() {
 	$lang           = ( get_locale() === 'ja' ) ? 'ja' : 'en';
 	if ( 'ja' === $lang ) {
 		$get_menu_html .= '<li><a href="#pattern-library-setting">' . __( 'VK Pattern Library Setting', 'vk-block-patterns' ) . '</a></li>';
+		$get_menu_html .= '<li><a href="#cache-setting">' . __( 'Patterns data cache setting', 'vk-block-patterns' ) . '</a></li>';
 	}
 
 	Vk_Admin::admin_page_frame( $get_page_title, 'vbp_setting', $get_logo_html, $get_menu_html );
@@ -153,6 +154,7 @@ function vbp_admin_enqueue_scripts( $hook_suffix ) {
 	$vbp_options             = vbp_get_options();
 	$vbp_options['adminUrl'] = admin_url();
 	$vbp_options['template'] = get_template();
+	$vbp_options['ajaxUrl']  = admin_url( 'admin-ajax.php' );
 	wp_localize_script( 'vk-patterns-admin-js', 'vkpOptions', $vbp_options );
 }
 add_action( 'admin_enqueue_scripts', 'vbp_admin_enqueue_scripts' );
@@ -216,8 +218,6 @@ function vbp_vws_alert_list() {
 	return $alert;
 }
 
-
-
 /**
  * 警告を追加
  *
@@ -279,3 +279,15 @@ function vbp_admin_control() {
 	update_option( 'vk_block_patterns_options', $options );
 }
 add_action( 'admin_init', 'vbp_admin_control' );
+
+ /**
+  * API連携で取得したパターンデータのキャッシュを削除
+  * Delete Cache Pattern Data from API
+  */
+function vbp_clear_patterns_cache() {
+	delete_transient( 'vk_patterns_api_data' );
+	die();
+}
+// 'clear_patterns_cache' の部分は src/admin/js/index.js　で定義している.
+add_action( 'wp_ajax_clear_patterns_cache', 'vbp_clear_patterns_cache' );
+add_action( 'wp_ajax_nopriv_clear_patterns_cache', 'vbp_clear_patterns_cache' );
