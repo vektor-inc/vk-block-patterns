@@ -192,7 +192,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		foreach ( $test_data as $test_value ) {
             update_option( 'vk_block_patterns_options', $test_value['options'] );
 
+			// テストデータにキャシュの指定がある場合.
             if ( ! empty( $test_value['transients']) ) {
+				// キャッシュをセット.
                 set_transient( 'vk_patterns_api_data', $test_value['transients'], 60 * 60 * 24 ); 
             }
 
