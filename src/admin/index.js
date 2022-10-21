@@ -36,6 +36,8 @@ const Admin = () => {
 
 	const [ isLoading, setIsLoading ] = useState( false );
 	const [ isSaveSuccess, setIsSaveSuccess ] = useState( '' );
+	const [ isClearing, setIsClearing ] = useState( false );
+	const [ isCleared, setIsCleared ] = useState( '' );
 	const [ isReload, setIsReload ] = useState( false );
 
 	// オプション値を保存
@@ -69,12 +71,29 @@ const Admin = () => {
 		} );
 	};
 
+	const clearPatternsCache = () => {
+		setIsClearing( true );
+
+		// ajax を使う時の定型文的な...
+		const req = new XMLHttpRequest();
+		// ajax で POST して PHPにわたす
+		req.open('POST', ajaxUrl, true);
+		req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+		// アクションフックのポイント（PHP側でキャッシュをクリアする処理が走る）
+		req.send(`action=clear_patterns_cache`);
+
+		setIsClearing( false );
+		setIsCleared( true );
+	}
+
 	// 言語設定を取得
 	const lang = getLocaleData()[ '' ].lang;
 	// パターン管理画面URL
 	const patternPostTypeUrl =
 		vkpOptions.adminUrl + 'edit.php?post_type=vk-block-patterns';
 	const template = vkpOptions.template;
+
+	const ajaxUrl  =  vkpOptions.ajaxUrl;
 
 	// snackbar更新する
 	useEffect(() => {
@@ -84,6 +103,15 @@ const Admin = () => {
 			}, 3000);
 		}
 	}, [isSaveSuccess]);
+
+	// snackbar更新する
+	useEffect(() => {
+		if (isCleared) {
+			setTimeout(() => {
+				setIsCleared();
+			}, 3000);
+		}
+	}, [isCleared]);
 
 	return (
 		<>
@@ -270,6 +298,28 @@ const Admin = () => {
 									} );
 								} }
 							/>
+						</section>
+
+						<section>
+							<h3 id="cache-setting">
+								{ __( 'Patterns data cache setting', 'vk-block-patterns' ) }
+							</h3>
+							<p>{ __( 'If the VK Pattern Library data is old, please try clearing the cache.', 'vk-block-patterns' ) }</p>
+							<Button
+								isSecondary
+								onClick={ clearPatternsCache }
+								isBusy={ isClearing }
+							>
+								{ __( 'Clear Cache', 'vk-block-patterns' ) }
+							</Button>
+							{ isClearing && <Spinner /> }
+							{ isCleared === true && (
+								<div>
+									<Snackbar>
+										{ __( 'Cache cleared', 'vk-block-patterns'  ) }{ ' ' }
+									</Snackbar>
+								</div>
+							) }
 						</section>
 					</>
 				) }

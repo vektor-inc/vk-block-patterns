@@ -23,17 +23,28 @@ function vbp_get_pattern_api_data() {
 	$return     = '';
 
 	if ( ! empty( $user_email ) ) {
-		$result = wp_remote_post(
-			'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
-			array(
-				'timeout' => 10,
-				'body'    => array(
-					'login_id' => $user_email,
-				),
-			)
-		);
-		if ( ! empty( $result ) && ! is_wp_error( $result ) ) {
-			$return = json_decode( $result['body'], true );
+		// パターン情報をキャッシュデータから読み込み読み込み.
+		$transients = get_transient( 'vk_patterns_api_data' );
+
+		// パターンのキャッシュがあればキャッシュを読み込み.
+		if ( ! empty( $transients ) ) {
+			$return = $transients;
+		} else {
+			// キャッシュがない場合 API を呼び出しキャッシュに登録.
+			$result = wp_remote_post(
+				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+				array(
+					'timeout' => 10,
+					'body'    => array(
+						'login_id' => $user_email,
+					),
+				)
+			);
+			if ( ! empty( $result ) && ! is_wp_error( $result ) ) {
+				$return = json_decode( $result['body'], true );
+				// APIで取得したパターンデータをキャッシュに登録. 1日 に設定.
+				set_transient( 'vk_patterns_api_data', $return, 60 * 60 * 24 );
+			}
 		}
 	}
 	return $return;
@@ -41,20 +52,25 @@ function vbp_get_pattern_api_data() {
 
 /**
  * パターンを登録
- * 
+ *
  * @param array  $api テスト用に用意した API を読み込む変数（通常は空）.
  * @param string $template テスト用に用意した現在のテーマが何かを読み込む変数（通常は空）.
+ *
+ * @return array{
+ *  'favorite' => array(),
+ *  'x-t9'    => array()
+ * } $returnx : 成功したらそれぞれの配列に true が入ってくる.
  */
 function vbp_register_favorite_patterns( $api = null, $template = null ) {
-	$options          = vbp_get_options();
-	$result = array(
+	$options = vbp_get_options();
+	$result  = array(
 		'favorite' => array(),
 		'x-t9'     => array(),
 	);
 	if ( ! empty( $options['VWSMail'] ) ) {
 		$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data();
-		$current_template = ! empty( $template ) ? $template : get_template();		
-		
+		$current_template = ! empty( $template ) ? $template : get_template();
+
 		if ( ! empty( $pattern_api_data ) && is_array( $pattern_api_data ) ) {
 			if ( ! empty( $pattern_api_data['patterns'] ) ) {
 				$patterns_data = $pattern_api_data['patterns'];
@@ -83,7 +99,7 @@ function vbp_register_favorite_patterns( $api = null, $template = null ) {
 					}
 				}
 			}
-			
+
 			if ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) ) {
 				if ( ! empty( $pattern_api_data['x-t9'] ) ) {
 					$patterns_data = $pattern_api_data['x-t9'];
@@ -91,7 +107,7 @@ function vbp_register_favorite_patterns( $api = null, $template = null ) {
 					if ( function_exists( 'mb_convert_encoding' ) ) {
 						$patterns_data = mb_convert_encoding( $patterns_data, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
 					}
-					
+
 					$patterns = json_decode( $patterns_data, true );
 					register_block_pattern_category(
 						'x-t9',
