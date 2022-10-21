@@ -218,8 +218,6 @@ function vbp_vws_alert_list() {
 	return $alert;
 }
 
-
-
 /**
  * 警告を追加
  *
@@ -283,11 +281,12 @@ function vbp_admin_control() {
 add_action( 'admin_init', 'vbp_admin_control' );
 
  /**
-  * Add Favorite
+  * API連携で取得したパターンデータのキャッシュを削除
+  * Delete Cache Pattern Data from API
   */
-  function vbp_clear_patterns_cache() {
+function vbp_clear_patterns_cache() {
 	delete_transient( 'vk_patterns_api_data' );
-    die();
+	die();
 }
 // 'clear_patterns_cache' の部分は src/admin/js/index.js　で定義している.
 add_action( 'wp_ajax_clear_patterns_cache', 'vbp_clear_patterns_cache' );
