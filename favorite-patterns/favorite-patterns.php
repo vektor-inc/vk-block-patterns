@@ -52,20 +52,20 @@ function vbp_get_pattern_api_data() {
 
 /**
  * パターンを登録
- * 
+ *
  * @param array  $api テスト用に用意した API を読み込む変数（通常は空）.
  * @param string $template テスト用に用意した現在のテーマが何かを読み込む変数（通常は空）.
  */
 function vbp_register_favorite_patterns( $api = null, $template = null ) {
-	$options          = vbp_get_options();
-	$result = array(
+	$options = vbp_get_options();
+	$result  = array(
 		'favorite' => array(),
 		'x-t9'     => array(),
 	);
 	if ( ! empty( $options['VWSMail'] ) ) {
 		$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data();
-		$current_template = ! empty( $template ) ? $template : get_template();		
-		
+		$current_template = ! empty( $template ) ? $template : get_template();
+
 		if ( ! empty( $pattern_api_data ) && is_array( $pattern_api_data ) ) {
 			if ( ! empty( $pattern_api_data['patterns'] ) ) {
 				$patterns_data = $pattern_api_data['patterns'];
@@ -94,7 +94,7 @@ function vbp_register_favorite_patterns( $api = null, $template = null ) {
 					}
 				}
 			}
-			
+
 			if ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) ) {
 				if ( ! empty( $pattern_api_data['x-t9'] ) ) {
 					$patterns_data = $pattern_api_data['x-t9'];
@@ -102,7 +102,7 @@ function vbp_register_favorite_patterns( $api = null, $template = null ) {
 					if ( function_exists( 'mb_convert_encoding' ) ) {
 						$patterns_data = mb_convert_encoding( $patterns_data, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
 					}
-					
+
 					$patterns = json_decode( $patterns_data, true );
 					register_block_pattern_category(
 						'x-t9',

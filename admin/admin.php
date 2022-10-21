@@ -289,5 +289,6 @@ add_action( 'admin_init', 'vbp_admin_control' );
 	delete_transient( 'vk_patterns_api_data' );
     die();
 }
+// 'clear_patterns_cache' の部分は src/admin/js/index.js　で定義している.
 add_action( 'wp_ajax_clear_patterns_cache', 'vbp_clear_patterns_cache' );
 add_action( 'wp_ajax_nopriv_clear_patterns_cache', 'vbp_clear_patterns_cache' );

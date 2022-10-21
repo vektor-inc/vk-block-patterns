@@ -73,10 +73,15 @@ const Admin = () => {
 
 	const clearPatternsCache = () => {
 		setIsClearing( true );
+
+		// ajax を使う時の定型文的な...
 		const req = new XMLHttpRequest();
+		// ajax で POST して PHPにわたす
 		req.open('POST', ajaxUrl, true);
 		req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+		// アクションフックのポイント（PHP側でキャッシュをクリアする処理が走る）
 		req.send(`action=clear_patterns_cache`);
+
 		setIsClearing( false );
 		setIsCleared( true );
 	}
@@ -87,6 +92,7 @@ const Admin = () => {
 	const patternPostTypeUrl =
 		vkpOptions.adminUrl + 'edit.php?post_type=vk-block-patterns';
 	const template = vkpOptions.template;
+
 	const ajaxUrl  =  vkpOptions.ajaxUrl;
 
 	// snackbar更新する
