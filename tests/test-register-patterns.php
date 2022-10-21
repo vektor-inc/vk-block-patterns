@@ -193,10 +193,10 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             update_option( 'vk_block_patterns_options', $test_value['options'] );
 
 			// テストデータにキャシュの指定がある場合.
-            if ( ! empty( $test_value['transients']) ) {
+			if ( ! empty( $test_value['transients']) ) {
 				// キャッシュをセット.
-                set_transient( 'vk_patterns_api_data', $test_value['transients'], 60 * 60 * 24 ); 
-            }
+				set_transient( 'vk_patterns_api_data', $test_value['transients'], 60 * 60 * 24 ); 
+			}
 
 			$return  = vbp_register_favorite_patterns( $test_value['api'], $test_value['template'] );
 			$correct = $test_value['correct'];
@@ -206,7 +206,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             print 'correct:' . PHP_EOL;
 			var_dump( $correct );
 			$this->assertEquals( $correct, $return );
-            delete_transient( 'vk_patterns_api_data' );
+
+			// キャッシュ削除.
+			delete_transient( 'vk_patterns_api_data' );
 		}
         delete_option( 'vk_block_patterns_options' );
 	}
