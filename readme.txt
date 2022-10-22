@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
 Tested up to: 6.0.2
-Stable tag: 1.25.2
+Stable tag: 1.25.4
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,9 +16,12 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
-= 1.25.3 =
+= 1.25.4 =
 [ Specification Change ] Changed to cache pattern api data.
 [ Fix ] Add Snackbar when success save setting or not.
+
+= 1.25.3 (Beta) =
+1.25.4 Beta release
 
 = 1.25.2 =
 [ Bug fix ] Fix Setting Page Layout bug ( vk admin 2.6.0 )
