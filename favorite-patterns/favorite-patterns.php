@@ -134,4 +134,4 @@ function vbp_register_patterns( $template = null ) {
 	}
 	return $result;
 }
-add_action( 'init', 'vbp_register_favorite_patterns' );
+add_action( 'init', 'vbp_register_patterns' );
