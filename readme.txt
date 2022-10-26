@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Specification Change ] When editor screen opend, pattern cache will be deleted. 
+
 = 1.25.4 =
 [ Specification Change ] Changed to cache pattern api data.
 [ Fix ] Add Snackbar when success save setting or not.
