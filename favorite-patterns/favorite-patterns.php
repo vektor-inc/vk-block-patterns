@@ -19,7 +19,7 @@
  */
 function vbp_get_pattern_api_data() {
 	$options    = vbp_get_options();
-	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
+	$user_email = ! empty( $options['VWSMail'] ) ? bin2hex( openssl_encrypt( esc_html( $options['VWSMail'] ), 'aes-256-cbc', '7634268425857832', OPENSSL_RAW_DATA, '2684258578322424' ) ) : '';
 	$return     = '';
 
 	if ( ! empty( $user_email ) ) {
@@ -32,11 +32,11 @@ function vbp_get_pattern_api_data() {
 		} else {
 			// キャッシュがない場合 API を呼び出しキャッシュに登録.
 			$result = wp_remote_post(
-				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+				'https://test.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 				array(
 					'timeout' => 10,
 					'body'    => array(
-						'login_id' => $user_email,
+						'login_email' => $user_email,
 					),
 				)
 			);
