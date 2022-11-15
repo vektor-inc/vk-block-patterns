@@ -15,8 +15,11 @@
 }
 
 .editor-styles-wrapper {
-	.vk-cols--fit.wp-block-columns {
+	.wp-block-columns.vk-cols--fit {
 		gap:0;
+		&--gap1 {
+			gap:1px;
+		}
 	}
 }
 
@@ -58,4 +61,3 @@
         }
     }
 }
-
