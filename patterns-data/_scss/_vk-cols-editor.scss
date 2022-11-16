@@ -59,3 +59,13 @@
     }
 }
 
+/*
+    メディアカラム
+/* ----------------------------------- */
+.editor-styles-wrapper {
+	.vk-cols--media.wp-block-columns{
+		@media (min-width: 992px) {
+			gap:3rem;
+		}
+	}
+}
