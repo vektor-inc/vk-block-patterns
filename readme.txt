@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Bug fix ][ Fit column ] fix gap on edit screen
+
 = 1.25.5 =
 [ Bug fix ][ Fit bunner ] fix background transparent
 
