@@ -169,7 +169,7 @@
             width:100%;
             border: none;
             box-shadow: none;
-            background-color:unset;
+            background-color:unset !important;
             transition: unset;
             &:hover {
                 transition: unset;
@@ -204,6 +204,5 @@
 .vk-cols--media.wp-block-columns{
     @media (min-width: 992px) {
 		gap:3rem;
-		--wp--style--block-gap : 3rem;
     }
 }

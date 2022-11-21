@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki
 Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
-Tested up to: 6.0.2
-Stable tag: 1.25.4
+Tested up to: 6.1
+Stable tag: 1.25.6
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,7 +16,14 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+
 [ Specification Change ] When editor screen opend, pattern cache will be deleted. 
+
+= 1.25.6 =
+[ Bug fix ][ Fit column ] fix gap on edit screen
+
+= 1.25.5 =
+[ Bug fix ][ Fit bunner ] fix background transparent
 
 = 1.25.4 =
 [ Specification Change ] Changed to cache pattern api data.
