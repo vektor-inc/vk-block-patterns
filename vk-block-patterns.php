@@ -47,7 +47,7 @@ function vbp_get_options() {
 		'role'                 => 'author',
 		'showPatternsLink'     => true,
 		'VWSMail'              => '',
-		'disableCorePattern'   => false,
+		'disableCorePattern'   => true,
 		'disablePluginPattern' => false,
 		'disableXT9Pattern'    => false,
 		'account-check'        => array(
