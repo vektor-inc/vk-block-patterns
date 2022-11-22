@@ -59,14 +59,21 @@ function vbp_reload_pattern_api_data() {
 
 	// オプションを取得
 	$options = vbp_get_options();
+
+	// キャッシュの有効時間（秒）
+	$cache_time = 60 * 60;
+
 	// 最後にキャッシュされた時間を取得
-	$cached_time = $options['last-pattern-cached'];
+	$last_cached = $options['last-pattern-cached'];
+
 	// 現在の時刻を取得
 	$current_time = date( 'Y-m-d H:i:s' );
-	// 差分を取得・キャッシュが初めてなら１時間経過したものとみなす
-	$diff = ! empty( $cached_time ) ? strtotime( $current_time ) -  strtotime( $cached_time ) : 60 * 60 + 1;
+
+	// 差分を取得・キャッシュが初めてならキャッシュの有効時間が経過したものとみなす
+	$diff = ! empty( $last_cached ) ? strtotime( $current_time ) -  strtotime( $last_cached ) : $cache_time + 1;
+
 	// フラグがなければパターンのデータのキャッシュをパージ
-	if ( $diff > 60 * 60  ) {
+	if ( $diff > $cache_time  ) {
 		// パターンのデータのキャッシュをパージ
 		delete_transient( 'vk_patterns_api_data' );
 		// 最後にキャッシュされた時間を更新
