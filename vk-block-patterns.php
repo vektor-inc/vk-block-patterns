@@ -56,6 +56,8 @@ function vbp_get_options() {
 			'disable-invalid-notice' => false,
 			'disable-free-notice'    => false,
 		),
+		'last-pattern-cached'  => null,
+	
 	);
 	$options = get_option( 'vk_block_patterns_options' );
 	// 後から追加される項目もあるので、option値に保存されてない時にデフォルトとマージする

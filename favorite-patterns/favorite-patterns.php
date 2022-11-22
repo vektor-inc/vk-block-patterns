@@ -56,14 +56,23 @@ function vbp_get_pattern_api_data() {
  * 編集画面を開いた時点で条件付きでキャッシュをクリア
  */
 function vbp_reload_pattern_api_data() {
-	// キャッシュを保持するフラグがあるか確認
-	$transients = get_transient( 'vk_patterns_api_data_cached' );
+
+	// オプションを取得
+	$options = vbp_get_options();
+	// 最後にキャッシュされた時間を取得
+	$cached_time = $options['last-pattern-cached'];
+	// 現在の時刻を取得
+	$current_time = date( 'Y-m-d H:i:s' );
+	// 差分を取得・キャッシュが初めてなら１時間経過したものとみなす
+	$diff = ! empty( $cached_time ) ? strtotime( $current_time ) -  strtotime( $cached_time ) : 60 * 60 + 1;
 	// フラグがなければパターンのデータのキャッシュをパージ
-	if ( empty( $transients ) ) {
+	if ( $diff > 60 * 60  ) {
 		// パターンのデータのキャッシュをパージ
 		delete_transient( 'vk_patterns_api_data' );
+		// 最後にキャッシュされた時間を更新
+		$options['last-pattern-cached'] = $current_time;
 		// 最低１時間はキャッシュを保持
-		set_transient( 'vk_patterns_api_data_cached', true, 60 * 60 );
+		update_option( 'vk_block_patterns_options', $options );
 	}
 }
 add_action( 'load-post.php', 'vbp_reload_pattern_api_data' );
