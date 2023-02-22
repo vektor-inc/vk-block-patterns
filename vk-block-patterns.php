@@ -125,8 +125,6 @@ add_action( 'admin_menu', 'vbp_add_pattern_link' );
  */
 function vbp_uninstall() {
 
-	global $vbp_prefix;
-
 	$options = vbp_get_options();
 
 	// データを削除しないにチェックが入っていたら何もしない
@@ -134,46 +132,10 @@ function vbp_uninstall() {
 		return;
 	}
 
-	unregister_setting( 'vbp_setting', 'vk_block_patterns_options' );
-
 	// オプションを削除
+	unregister_setting( 'vbp_setting', 'vk_block_patterns_options' );	
 	delete_option( 'vk_block_patterns_options' );
 	delete_site_option( 'vk_block_patterns_options' );
 
-	// カスタム投稿と関係ないブロックパターンカテゴリを削除
-	unregister_block_pattern_category( 'vk-block-patterns' );
-	unregister_block_pattern_category( 'x-t9' );
-	unregister_block_pattern_category( 'vk-pattern-favorites' );
-
-	// パターンカテゴリを削除
-	$terms = get_terms(
-		array(
-			'taxonomy' => 'vk-block-patterns-category'
-		)
-	);
-
-	foreach ( $terms as $term ) {
-		unregister_block_pattern_category( 'vk-block-pattern-' . $term->ID );
-		wp_delete_term( $term->ID, 'vk-block-patterns-category' );
-	}
-
-	// パターンのデータを削除
-	$posts = get_posts(
-		array(
-			'posts_per_page'   => -1,
-			'post_type' => 'vk-block-patterns',
-		)    
-	);
-
-	foreach ( $posts as $post ) {
-		unregister_block_pattern( 'vk-block-patterns/pattern-' . $post->ID );
-		wp_delete_post( $post->ID, true );
-	}
-
-	// カスタム分類の登録解除
-	unregister_taxonomy( 'vk-block-patterns-category' );
-	
-	// 投稿タイプの登録解除
-	unregister_post_type( 'vk-block-patterns' );
 }
 register_uninstall_hook( __FILE__, 'vbp_uninstall' );
