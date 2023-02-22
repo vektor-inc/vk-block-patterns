@@ -16,7 +16,9 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Specification Change ] Add uninstall.
 [ Specification Change ] Change to disable WordPress Default pattern on default setting
+
 
 = 1.25.6 =
 [ Bug fix ][ Fit column ] fix gap on edit screen
