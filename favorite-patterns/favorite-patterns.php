@@ -18,7 +18,7 @@
  * } $return
  */
 function vbp_get_pattern_api_data() {
-	// オプション地を取得.
+	// オプション値を取得.
 	$options = vbp_get_options();
 	// メールアドレスを取得.
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
