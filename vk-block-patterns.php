@@ -56,6 +56,7 @@ function vbp_get_options() {
 			'disable-invalid-notice' => false,
 			'disable-free-notice'    => false,
 		),
+		'last-pattern-cached'  => null,
 		'savePluginData'  => false,
 	);
 	$options = get_option( 'vk_block_patterns_options' );

@@ -49,12 +49,38 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 		// オプション値の追加などがあった場合は $test_data の配列の中のデータを追加してテストを追加してください.
 		$test_data = array(
-			array(
+            // API があってキャッシュがない場合
+            array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => false,
                 ),
                 'api' => array(
+                    'role'     => 'pro-user',
+                    'patterns' => $favorite_patterns,
+                    'x-t9'     => $xt9_patterns,
+                ),
+                'transients' => array(),
+                'template' => 'x-t9',
+                'correct'  => array(
+                    'favorite' => array(
+                        true,
+                        true,
+                    ),
+                    'x-t9'    => array(
+                        true,
+                        true,
+                    )
+                )
+			),
+            // API がなくてキャッシュがある場合
+            array(
+				'options'  => array(
+                    'VWSMail'           => 'vk-support@vektor-inc.co.jp',
+                    'disableXT9Pattern' => false,
+                ),
+                'api' => array(),
+                'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
                     'x-t9'     => $xt9_patterns,
@@ -71,13 +97,39 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     )
                 )
 			),
-            // API がなくても キャッシュがあれば OK
+             // API もキャッシュもある場合
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => false,
                 ),
-                'api' => null,
+                'api' => array(
+                    'role'     => 'pro-user',
+                    'patterns' => $favorite_patterns,
+                    'x-t9'     => $xt9_patterns,
+                ),
+                'transients' => array(
+                    'role'     => 'pro-user',
+                    'patterns' => $favorite_patterns,
+                    'x-t9'     => $xt9_patterns,
+                ),
+                'template' => 'x-t9',
+                'correct'  => array(
+                    'favorite' => array(
+                        true,
+                        true,
+                    ),
+                    'x-t9'    => array(
+                        true,
+                        true,
+                    )
+                )
+			),
+			array(
+				'options'  => array(
+                    'VWSMail'           => 'vk-support@vektor-inc.co.jp',
+                    'disableXT9Pattern' => false,
+                ),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
@@ -100,7 +152,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => true,
                 ),
-                'api' => array(
+                'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
                     'x-t9'     => $xt9_patterns,
@@ -119,7 +171,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => false,
                 ),
-                'api' => array(
+                'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
                     'x-t9'     => $xt9_patterns,
@@ -138,7 +190,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => true,
                 ),
-                'api' => array(
+                'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
                     'x-t9'     => $xt9_patterns,
@@ -157,7 +209,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => '',
                     'disableXT9Pattern' => false,
                 ),
-                'api' => array(
+                'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
                     'x-t9'     => $xt9_patterns,
@@ -173,7 +225,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => '',
                     'disableXT9Pattern' => false,
                 ),
-                'api' => array(
+                'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
                     'x-t9'     => $xt9_patterns,
@@ -198,7 +250,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 				set_transient( 'vk_patterns_api_data', $test_value['transients'], 60 * 60 * 24 ); 
 			}
 
-			$return  = vbp_register_favorite_patterns( $test_value['api'], $test_value['template'] );
+			$return  = vbp_register_patterns( $test_value['api'], $test_value['template'] );
 			$correct = $test_value['correct'];
 
 			print 'return:' . PHP_EOL;

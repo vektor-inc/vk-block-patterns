@@ -17,8 +17,9 @@ When you activate this plugin that create new custom post type for custom block 
 == Changelog ==
 
 [ Add ] Add functions to insert a registered pattern as the initial pattern for a post type
-[ Specification Change ] Add uninstall.
+[ Specification Change ] When editor screen opend, pattern cache will be deleted. 
 [ Specification Change ] Change to disable WordPress Default pattern on default setting
+[ Specification Change ] Add uninstall.
 
 
 = 1.25.6 =

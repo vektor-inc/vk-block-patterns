@@ -33,7 +33,7 @@ const Admin = () => {
 		disablePluginPattern: defaultDisablePluginPattern,
 		savePluginData: savePluginData
 	} );
-
+	const ajaxUrl  =  vkpOptions.ajaxUrl;
 	const updateOptionValue = ( newValue ) => {
 		setVkpOption( newValue );
 	};
@@ -43,6 +43,22 @@ const Admin = () => {
 	const [ isClearing, setIsClearing ] = useState( false );
 	const [ isCleared, setIsCleared ] = useState( '' );
 	const [ isReload, setIsReload ] = useState( false );
+
+	// パターンのキャッシュをクリア
+	const clearPatternsCache = () => {
+		setIsClearing( true );
+
+		// ajax を使う時の定型文的な...
+		const req = new XMLHttpRequest();
+		// ajax で POST して PHPにわたす
+		req.open('POST', ajaxUrl, true);
+		req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+		// アクションフックのポイント（PHP側でキャッシュをクリアする処理が走る）
+		req.send(`action=clear_patterns_cache`);
+
+		setIsClearing( false );
+		setIsCleared( true );
+	}
 
 	// オプション値を保存
 	const onClickUpdate = () => {
@@ -62,6 +78,7 @@ const Admin = () => {
 					setIsSaveSuccess( true );
 				}, 600 );
 				if ( isReload === true ) {
+					clearPatternsCache();
 					location.reload();
 				}
 			} );
@@ -75,21 +92,6 @@ const Admin = () => {
 		} );
 	};
 
-	const clearPatternsCache = () => {
-		setIsClearing( true );
-
-		// ajax を使う時の定型文的な...
-		const req = new XMLHttpRequest();
-		// ajax で POST して PHPにわたす
-		req.open('POST', ajaxUrl, true);
-		req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-		// アクションフックのポイント（PHP側でキャッシュをクリアする処理が走る）
-		req.send(`action=clear_patterns_cache`);
-
-		setIsClearing( false );
-		setIsCleared( true );
-	}
-
 	// 言語設定を取得
 	const lang = getLocaleData()[ '' ].lang;
 	// パターン管理画面URL
@@ -97,7 +99,7 @@ const Admin = () => {
 		vkpOptions.adminUrl + 'edit.php?post_type=vk-block-patterns';
 	const template = vkpOptions.template;
 
-	const ajaxUrl  =  vkpOptions.ajaxUrl;
+	
 
 	// snackbar更新する
 	useEffect(() => {
