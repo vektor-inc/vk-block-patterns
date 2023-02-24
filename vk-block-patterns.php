@@ -56,6 +56,7 @@ function vbp_get_options() {
 			'disable-invalid-notice' => false,
 			'disable-free-notice'    => false,
 		),
+		'savePluginData'  => false,
 	);
 	$options = get_option( 'vk_block_patterns_options' );
 	// 後から追加される項目もあるので、option値に保存されてない時にデフォルトとマージする
@@ -118,3 +119,23 @@ function vbp_add_pattern_link() {
 	}
 }
 add_action( 'admin_menu', 'vbp_add_pattern_link' );
+
+/**
+ * アンインストール処理
+ */
+function vbp_uninstall() {
+
+	$options = vbp_get_options();
+
+	// データを削除しないにチェックが入っていたら何もしない
+	if ( ! empty( $options['savePluginData'] ) ) {
+		return;
+	}
+
+	// オプションを削除
+	unregister_setting( 'vbp_setting', 'vk_block_patterns_options' );	
+	delete_option( 'vk_block_patterns_options' );
+	delete_site_option( 'vk_block_patterns_options' );
+
+}
+register_uninstall_hook( __FILE__, 'vbp_uninstall' );
