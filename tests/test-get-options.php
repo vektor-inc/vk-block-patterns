@@ -25,6 +25,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
 					),
+					'savePluginData'       => false,
 				),
 			),
 			array(
@@ -44,6 +45,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
 					),
+					'savePluginData'       => false,
 				),
 			),
 			array(
@@ -64,6 +66,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
 					),
+					'savePluginData'       => false,
 				),
 			),
 			// X-T9 のパターン読み込みパラメーター追加.
@@ -95,6 +98,39 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
 					),
+					'savePluginData'       => false,
+				),
+			),
+			array(
+				'option'  => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => 'info@gmail.com',
+					'disableCorePattern'   => false,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => true,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					),
+					'savePluginData'       => true,
+				),
+				'correct' => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => 'info@gmail.com',
+					'disableCorePattern'   => false,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => true,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					),
+					'savePluginData'       => true,
 				),
 			),
 		);
