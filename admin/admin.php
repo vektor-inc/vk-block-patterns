@@ -94,6 +94,10 @@ function vkp_show_patterns_register_settings() {
 			'type'    => 'boolean',
 			'default' => false,
 		),
+		'savePluginData'    => array(
+			'type'    => 'boolean',
+			'default' => false,
+		),
 	);
 
 	foreach ( $default_option_settings as $key => $value ) {

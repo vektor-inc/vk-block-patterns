@@ -22,12 +22,16 @@ const Admin = () => {
 		vkpOptions.disableCorePattern === '1' ? true : false;
 	const defaultDisablePluginPattern =
 		vkpOptions.disablePluginPattern === '1' ? true : false;
+	const savePluginData =
+		vkpOptions.savePluginData === '1' ? true : false;
+
 	const [ vkpOption, setVkpOption ] = useState( {
 		role: vkpOptions.role,
 		showPatternsLink: defaultShowPatternsLink,
 		VWSMail: vkpOptions.VWSMail,
 		disableCorePattern: defaultDisableCorePattern,
 		disablePluginPattern: defaultDisablePluginPattern,
+		savePluginData: savePluginData
 	} );
 	const ajaxUrl  =  vkpOptions.ajaxUrl;
 	const updateOptionValue = ( newValue ) => {
@@ -297,6 +301,25 @@ const Admin = () => {
 									updateOptionValue( {
 										...vkpOption,
 										showPatternsLink: newValue,
+									} );
+								} }
+							/>
+						</section>
+
+						<section>
+							<h4>
+								{ __( 'Uninstall Setting', 'vk-block-patterns' ) }
+							</h4>
+							<ToggleControl
+								label={ __(
+									'When Uninstall This Plugin, Save Data of This Plugin',
+									'vk-block-patterns'
+								) }
+								checked={ vkpOption.savePluginData }
+								onChange={ ( newValue ) => {
+									updateOptionValue( {
+										...vkpOption,
+										savePluginData: newValue,
 									} );
 								} }
 							/>

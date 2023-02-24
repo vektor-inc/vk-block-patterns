@@ -26,6 +26,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-free-notice'    => false,
 					),
 					'last-pattern-cached'  => null
+					'savePluginData'       => false,
 				),
 			),
 			array(
@@ -46,6 +47,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-free-notice'    => false,
 					),
 					'last-pattern-cached'  => null
+					'savePluginData'       => false,
 				),
 			),
 			array(
@@ -67,6 +69,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-free-notice'    => false,
 					),
 					'last-pattern-cached'  => null
+					'savePluginData'       => false,
 				),
 			),
 			// X-T9 のパターン読み込みパラメーター追加.
@@ -99,6 +102,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-free-notice'    => false,
 					),
 					'last-pattern-cached'  => null
+					'savePluginData'       => false,
 				),
 			),
 			array(
@@ -108,13 +112,14 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => true,
+          'disableXT9Pattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
-					),
 					'last-pattern-cached'  => '2022-11-11 11:11',
+					'savePluginData'       => true,
 				),
 				'correct' => array(
 					'role'                 => 'editor',
@@ -130,6 +135,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-free-notice'    => false,
 					),
 					'last-pattern-cached'  => '2022-11-11 11:11',
+					'savePluginData'       => true,
 				),
 			),
 		);
