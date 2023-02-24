@@ -18,14 +18,14 @@
  * } $return
  */
 function vbp_get_pattern_api_data() {
-	// オプション地を取得
-	$options    = vbp_get_options();
-	// メールアドレスを取得
+	// オプション地を取得.
+	$options = vbp_get_options();
+	// メールアドレスを取得.
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
 	// パターン情報をキャッシュデータから読み込み読み込み.
 	$transients = get_transient( 'vk_patterns_api_data' );
-	// デフォルトの返り値
-	$return     = '';
+	// デフォルトの返り値.
+	$return = '';
 
 	if ( ! empty( $user_email ) ) {
 		// パターンのキャッシュがあればキャッシュを読み込み.
@@ -57,28 +57,28 @@ function vbp_get_pattern_api_data() {
  */
 function vbp_reload_pattern_api_data() {
 
-	// オプションを取得
+	// オプションを取得.
 	$options = vbp_get_options();
 
-	// キャッシュの有効時間（秒）
+	// キャッシュの有効時間（秒）.
 	$cache_time = 60 * 60;
 
-	// 最後にキャッシュされた時間を取得
+	// 最後にキャッシュされた時間を取得.
 	$last_cached = $options['last-pattern-cached'];
 
-	// 現在の時刻を取得
+	// 現在の時刻を取得.
 	$current_time = date( 'Y-m-d H:i:s' );
 
-	// 差分を取得・キャッシュが初めてならキャッシュの有効時間が経過したものとみなす
-	$diff = ! empty( $last_cached ) ? strtotime( $current_time ) -  strtotime( $last_cached ) : $cache_time + 1;
+	// 差分を取得・キャッシュが初めてならキャッシュの有効時間が経過したものとみなす.
+	$diff = ! empty( $last_cached ) ? strtotime( $current_time ) - strtotime( $last_cached ) : $cache_time + 1;
 
-	// フラグがなければパターンのデータのキャッシュをパージ
-	if ( $diff > $cache_time  ) {
-		// パターンのデータのキャッシュをパージ
+	// フラグがなければパターンのデータのキャッシュをパージ.
+	if ( $diff > $cache_time ) {
+		// パターンのデータのキャッシュをパージ.
 		delete_transient( 'vk_patterns_api_data' );
-		// 最後にキャッシュされた時間を更新
+		// 最後にキャッシュされた時間を更新.
 		$options['last-pattern-cached'] = $current_time;
-		// 最低１時間はキャッシュを保持
+		// 最低１時間はキャッシュを保持.
 		update_option( 'vk_block_patterns_options', $options );
 	}
 }
@@ -100,10 +100,10 @@ add_action( 'load-site-editor.php', 'vbp_reload_pattern_api_data' );
  * } $returnx : 成功したらそれぞれの配列に true が入ってくる.
  */
 function vbp_register_patterns( $api = null, $template = null ) {
-	// オプション値を読み込み
+	// オプション値を読み込み.
 	$options = vbp_get_options();
-	// テスト用の結果を返す配列
-	$result  = array(
+	// テスト用の結果を返す配列.
+	$result = array(
 		'favorite' => array(),
 		'x-t9'     => array(),
 	);
