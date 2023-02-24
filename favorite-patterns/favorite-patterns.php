@@ -6,7 +6,7 @@
  */
 
 /**
- * API からデータを読み込み
+ * API のデータをキャッシュに格納
  *
  * @return array{
  *      array {
@@ -18,14 +18,16 @@
  * } $return
  */
 function vbp_get_pattern_api_data() {
-	$options    = vbp_get_options();
+	// オプション地を取得.
+	$options = vbp_get_options();
+	// メールアドレスを取得.
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
-	$return     = '';
+	// パターン情報をキャッシュデータから読み込み読み込み.
+	$transients = get_transient( 'vk_patterns_api_data' );
+	// デフォルトの返り値.
+	$return = '';
 
 	if ( ! empty( $user_email ) ) {
-		// パターン情報をキャッシュデータから読み込み読み込み.
-		$transients = get_transient( 'vk_patterns_api_data' );
-
 		// パターンのキャッシュがあればキャッシュを読み込み.
 		if ( ! empty( $transients ) ) {
 			$return = $transients;
@@ -51,6 +53,42 @@ function vbp_get_pattern_api_data() {
 }
 
 /**
+ * 編集画面を開いた時点で条件付きでキャッシュをクリア
+ */
+function vbp_reload_pattern_api_data() {
+
+	// オプションを取得.
+	$options = vbp_get_options();
+
+	// キャッシュの有効時間（秒）.
+	$cache_time = 60 * 60;
+
+	// 最後にキャッシュされた時間を取得.
+	$last_cached = $options['last-pattern-cached'];
+
+	// 現在の時刻を取得.
+	$current_time = date( 'Y-m-d H:i:s' );
+
+	// 差分を取得・キャッシュが初めてならキャッシュの有効時間が経過したものとみなす.
+	$diff = ! empty( $last_cached ) ? strtotime( $current_time ) - strtotime( $last_cached ) : $cache_time + 1;
+
+	// フラグがなければパターンのデータのキャッシュをパージ.
+	if ( $diff > $cache_time ) {
+		// パターンのデータのキャッシュをパージ.
+		delete_transient( 'vk_patterns_api_data' );
+		// 最後にキャッシュされた時間を更新.
+		$options['last-pattern-cached'] = $current_time;
+		// 最低１時間はキャッシュを保持.
+		update_option( 'vk_block_patterns_options', $options );
+	}
+}
+add_action( 'load-post.php', 'vbp_reload_pattern_api_data' );
+add_action( 'load-post-new.php', 'vbp_reload_pattern_api_data' );
+add_action( 'load-site-editor.php', 'vbp_reload_pattern_api_data' );
+
+
+
+/**
  * パターンを登録
  *
  * @param array  $api テスト用に用意した API を読み込む変数（通常は空）.
@@ -61,12 +99,15 @@ function vbp_get_pattern_api_data() {
  *  'x-t9'    => array()
  * } $returnx : 成功したらそれぞれの配列に true が入ってくる.
  */
-function vbp_register_favorite_patterns( $api = null, $template = null ) {
+function vbp_register_patterns( $api = null, $template = null ) {
+	// オプション値を読み込み.
 	$options = vbp_get_options();
-	$result  = array(
+	// テスト用の結果を返す配列.
+	$result = array(
 		'favorite' => array(),
 		'x-t9'     => array(),
 	);
+
 	if ( ! empty( $options['VWSMail'] ) ) {
 		$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data();
 		$current_template = ! empty( $template ) ? $template : get_template();
@@ -133,4 +174,4 @@ function vbp_register_favorite_patterns( $api = null, $template = null ) {
 	}
 	return $result;
 }
-add_action( 'init', 'vbp_register_favorite_patterns' );
+add_action( 'init', 'vbp_register_patterns' );

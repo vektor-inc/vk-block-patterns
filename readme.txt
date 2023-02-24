@@ -1,10 +1,10 @@
 === VK Block Patterns ===
-Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki
+Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki,doshimaf
 Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 5.8
 Tested up to: 6.1
-Stable tag: 1.25.6
+Stable tag: 1.26.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,12 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen. 
 
 == Changelog ==
+
+= 1.26.0 =
+[ Add ] Add functions to insert a registered pattern as the initial pattern for a post type
+[ Specification Change ] When editor screen opend, pattern cache will be deleted. 
+[ Specification Change ] Change to disable WordPress Default pattern on default setting
+[ Specification Change ] Add uninstall.
 
 = 1.25.6 =
 [ Bug fix ][ Fit column ] fix gap on edit screen

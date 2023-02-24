@@ -3,7 +3,7 @@
  * Plugin Name: VK Block Patterns
  * Plugin URI: https://github.com/vektor-inc/vk-block-patterns
  * Description: You can make and register your original custom block patterns.
- * Version: 1.25.6
+ * Version: 1.26.0
  * Requires at least: 5.8
  * Author:  Vektor,Inc.
  * Author URI: https://vektor-inc.co.jp
@@ -47,7 +47,7 @@ function vbp_get_options() {
 		'role'                 => 'author',
 		'showPatternsLink'     => true,
 		'VWSMail'              => '',
-		'disableCorePattern'   => false,
+		'disableCorePattern'   => true,
 		'disablePluginPattern' => false,
 		'disableXT9Pattern'    => false,
 		'account-check'        => array(
@@ -56,6 +56,8 @@ function vbp_get_options() {
 			'disable-invalid-notice' => false,
 			'disable-free-notice'    => false,
 		),
+		'last-pattern-cached'  => null,
+		'savePluginData'  => false,
 	);
 	$options = get_option( 'vk_block_patterns_options' );
 	// 後から追加される項目もあるので、option値に保存されてない時にデフォルトとマージする
@@ -118,3 +120,23 @@ function vbp_add_pattern_link() {
 	}
 }
 add_action( 'admin_menu', 'vbp_add_pattern_link' );
+
+/**
+ * アンインストール処理
+ */
+function vbp_uninstall() {
+
+	$options = vbp_get_options();
+
+	// データを削除しないにチェックが入っていたら何もしない
+	if ( ! empty( $options['savePluginData'] ) ) {
+		return;
+	}
+
+	// オプションを削除
+	unregister_setting( 'vbp_setting', 'vk_block_patterns_options' );	
+	delete_option( 'vk_block_patterns_options' );
+	delete_site_option( 'vk_block_patterns_options' );
+
+}
+register_uninstall_hook( __FILE__, 'vbp_uninstall' );

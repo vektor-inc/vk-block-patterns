@@ -84,13 +84,17 @@ function vkp_show_patterns_register_settings() {
 		),
 		'disableCorePattern'   => array(
 			'type'    => 'boolean',
-			'default' => false,
+			'default' => true,
 		),
 		'disablePluginPattern' => array(
 			'type'    => 'boolean',
 			'default' => false,
 		),
 		'disableXT9Pattern'    => array(
+			'type'    => 'boolean',
+			'default' => false,
+		),
+		'savePluginData'    => array(
 			'type'    => 'boolean',
 			'default' => false,
 		),

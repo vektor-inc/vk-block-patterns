@@ -11,12 +11,12 @@ class GetOptionsTest extends WP_UnitTestCase {
 		// オプション値の追加などがあった場合は $test_data の配列の中のデータを追加してテストを追加してください.
 		$test_data = array(
 			array(
-				'option'  => null,
+				'option'  => array(),
 				'correct' => array(
 					'role'                 => 'author',
 					'showPatternsLink'     => true,
 					'VWSMail'              => '',
-					'disableCorePattern'   => false,
+					'disableCorePattern'   => true,
 					'disablePluginPattern' => false,
 					'disableXT9Pattern'    => false,
 					'account-check'        => array(
@@ -25,6 +25,8 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
 					),
+					'last-pattern-cached'  => null
+					'savePluginData'       => false,
 				),
 			),
 			array(
@@ -35,7 +37,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'role'                 => 'author',
 					'showPatternsLink'     => true,
 					'VWSMail'              => '',
-					'disableCorePattern'   => false,
+					'disableCorePattern'   => true,
 					'disablePluginPattern' => false,
 					'disableXT9Pattern'    => false,
 					'account-check'        => array(
@@ -44,6 +46,8 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
 					),
+					'last-pattern-cached'  => null
+					'savePluginData'       => false,
 				),
 			),
 			array(
@@ -55,7 +59,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'role'                 => 'editor',
 					'showPatternsLink'     => false,
 					'VWSMail'              => '',
-					'disableCorePattern'   => false,
+					'disableCorePattern'   => true,
 					'disablePluginPattern' => false,
 					'disableXT9Pattern'    => false,
 					'account-check'        => array(
@@ -64,6 +68,8 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
 					),
+					'last-pattern-cached'  => null
+					'savePluginData'       => false,
 				),
 			),
 			// X-T9 のパターン読み込みパラメーター追加.
@@ -73,7 +79,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'role'                 => 'editor',
 					'showPatternsLink'     => false,
 					'VWSMail'              => '',
-					'disableCorePattern'   => true,
+					'disableCorePattern'   => false,
 					'disablePluginPattern' => true,
 					'account-check'        => array(
 						'date'                   => null,
@@ -81,6 +87,39 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
 					),
+				),
+				'correct' => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => false,
+					'disablePluginPattern' => true,
+					'disableXT9Pattern'    => false,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					),
+					'last-pattern-cached'  => null
+					'savePluginData'       => false,
+				),
+			),
+			array(
+				'option'  => array(
+					'role'                 => 'editor',
+					'showPatternsLink'     => false,
+					'VWSMail'              => '',
+					'disableCorePattern'   => true,
+					'disablePluginPattern' => true,
+          'disableXT9Pattern'    => false,
+					'account-check'        => array(
+						'date'                   => null,
+						'disable-empty-notice'   => false,
+						'disable-invalid-notice' => false,
+						'disable-free-notice'    => false,
+					'last-pattern-cached'  => '2022-11-11 11:11',
+					'savePluginData'       => true,
 				),
 				'correct' => array(
 					'role'                 => 'editor',
@@ -95,6 +134,8 @@ class GetOptionsTest extends WP_UnitTestCase {
 						'disable-invalid-notice' => false,
 						'disable-free-notice'    => false,
 					),
+					'last-pattern-cached'  => '2022-11-11 11:11',
+					'savePluginData'       => true,
 				),
 			),
 		);
@@ -104,7 +145,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 		foreach ( $test_data as $test_value ) {
 
-			if ( empty( $test_value['option'] ) ) {
+			if ( ! isset( $test_value['option'] ) ) {
 				delete_option( 'vk_block_patterns_options' );
 			} else {
 				update_option( 'vk_block_patterns_options', $test_value['option'] );
