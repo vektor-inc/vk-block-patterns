@@ -116,6 +116,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				$the_query->the_post();
 				$post_data = get_post();
 				$terms     = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
+				$registered_post_type = get_post_meta( get_the_ID(), 'vbp-init-post-type', true);
+
 				if ( ! empty( $terms ) ) {
 					$pattern_categories = array();
 					foreach( $terms as $term ) {
@@ -130,14 +132,27 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					}
 
 					// Register Block Pattern.
-					register_block_pattern(
-						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
-						array(
-							'title'      => esc_html( get_the_title() ),
-							'content'    => $post_data->post_content,
-							'categories' => $pattern_categories,
-						)
-					);
+					if ( $registered_post_type ) {
+						register_block_pattern(
+							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+							array(
+								'title'      => esc_html( get_the_title() ),
+								'content'    => $post_data->post_content,
+								'categories' => $pattern_categories,
+								'blockTypes' => array( 'core/post-content' ),
+								'postTypes'  => array( $registered_post_type ),
+							)
+						);
+					} else {
+						register_block_pattern(
+							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+							array(
+								'title'      => esc_html( get_the_title() ),
+								'content'    => $post_data->post_content,
+								'categories' => $pattern_categories,
+							)
+						);
+					}
 
 				} else {
 
@@ -150,14 +165,27 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					);
 
 					// Register Block Pattern.
-					register_block_pattern(
-						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
-						array(
-							'title'      => esc_html( get_the_title() ),
-							'content'    => $post_data->post_content,
-							'categories' => array( 'vk-block-patterns' ),
-						)
-					);
+					if ( $registered_post_type ) {
+						register_block_pattern(
+							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+							array(
+								'title'      => esc_html( get_the_title() ),
+								'content'    => $post_data->post_content,
+								'categories' => array( 'vk-block-patterns' ),
+								'blockTypes' => array( 'core/post-content' ),
+								'postTypes'  => array( $registered_post_type ),
+							)
+						);
+					} else {
+						register_block_pattern(
+							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+							array(
+								'title'      => esc_html( get_the_title() ),
+								'content'    => $post_data->post_content,
+								'categories' => array( 'vk-block-patterns' ),
+							)
+						);
+					}
 
 				}
 			}
