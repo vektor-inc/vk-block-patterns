@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Bug fix ] Fix php error
+
 = 1.26.0 =
 [ Add ] Add functions to insert a registered pattern as the initial pattern for a post type
 [ Specification Change ] When editor screen opend, pattern cache will be deleted. 

@@ -15,7 +15,7 @@ function vk_block_patterns_add_meta_box() {
 		'Use in initial pattern',
 		'vk_block_patterns_meta_box_html',
 		'vk-block-patterns',
-		'side',
+		'side'
 	);
 }
 add_action( 'admin_menu', 'vk_block_patterns_add_meta_box' );
