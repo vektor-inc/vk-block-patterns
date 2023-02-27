@@ -28,7 +28,7 @@ jobs:
 
     # get the node version from the .node-version file
     - name: Read .node-version
-      run: echo "##[set-output name=NODEVERSION;]$(cat .node-version)"
+      run: echo "{NODEVERSION}={$(cat .node-version)}" >> $GITHUB_OUTPUT
       id: nodenv
 
     # setup node based on the version from the .node-version file, fetched in the previous step
