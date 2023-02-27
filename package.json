@@ -12,6 +12,7 @@
     "build:sass": "sass --style=compressed --no-source-map patterns-data/_scss:patterns-data",
     "sass": "sass --watch patterns-data/_scss:patterns-data",
     "lint": "wp-scripts format src/ && wp-scripts lint-js src/ --fix",
+    "wp-env": "wp-env",
     "phpunit": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-block-patterns/.phpunit.xml --verbose'"
   },
   "repository": {
