@@ -237,13 +237,13 @@ const Admin = () => {
 							<h4>アカウント連携</h4>
 							<p>
 								<a
-									href="https://vws.vektor-inc.co.jp/product/lightning-g3-pro-pack?ref=vkbp-admin"
+									href="https://vws.vektor-inc.co.jp/vektor-passport?ref=vkbp-admin"
 									target="_blank"
 									rel="noreferrer"
 								>
-									Lightning G3 Pro Pack
+									Vektor Passport
 								</a>{ ' ' }
-								のライセンスをお持ちのユーザーは{ ' ' }
+								あるいは Lightning G3 Pro Pack のライセンスをお持ちのユーザーは{ ' ' }
 								<a
 									href="https://patterns.vektor-inc.co.jp/"
 									target="_blank"
