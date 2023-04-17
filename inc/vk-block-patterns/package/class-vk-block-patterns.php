@@ -119,45 +119,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				$registered_pattern_add_method = get_post_meta( get_the_ID(), 'vbp-init-pattern-add-method', true );
 				$registered_post_type = get_post_meta(get_the_ID(), 'vbp-init-post-type', true);
 				$registered_pattern_template_lock = get_post_meta( get_the_ID(), 'vbp-init-pattern-template-lock', true );
-				$registered_pattern_content = get_the_content();
-				$registered_pattern_blocks = parse_blocks( $registered_pattern_content );
-
-				// テンプレートにセットするための配列を生成
-        $insert_pattern_blocks = array();
-        foreach ( $registered_pattern_blocks as $registered_pattern_block ) {
-          $insert_pattern_block = array(
-            'name' => $registered_pattern_block['blockName'],
-            'attrs' => $registered_pattern_block['attrs'],
-            'innerBlocks' => array(),
-            'innerHTML' => '',
-            'innerContent' => array()
-          );
-          // 内部ブロックが存在する場合
-          if ( ! empty( $registered_pattern_block['innerBlocks'] ) ) {
-            foreach ( $registered_pattern_block['innerBlocks'] as $inner_block ) {
-              $inner_insert_pattern_block = array(
-                'name' => $inner_block['blockName'],
-                'attrs' => $inner_block['attrs'],
-                'innerBlocks' => array(),
-                'innerHTML' => '',
-                'innerContent' => array()
-              );
-              // 内部コンテンツが存在する場合
-              if ( ! empty( $inner_block['innerContent'] ) ) {
-                $inner_insert_pattern_block['innerContent'] = $inner_block['innerContent'];
-              } else {
-                $inner_insert_pattern_block['innerBlocks'] = $inner_block['innerBlocks'];
-              }
-              $insert_pattern_block['innerBlocks'][] = $inner_insert_pattern_block;
-            }
-          } else {
-            // 内部コンテンツが存在する場合
-            if ( ! empty( $registered_pattern_block['innerContent'] ) ) {
-              $insert_pattern_block['innerContent'] = $registered_pattern_block['innerContent'];
-            }
-          }
-          $insert_pattern_blocks[] = $insert_pattern_block;
-        }
 
 				if (!empty($terms)) {
 					$pattern_categories = array();
@@ -173,6 +134,23 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					}
 
 					// Register Block Pattern.
+					if ( $registered_pattern_add_method === 'add' && $registered_post_type ) {
+						// 対象の投稿タイプを指定
+						$post_type_object           = get_post_type_object($registered_post_type);
+						// パターンをテンプレートに挿入
+						$post_type_object->template = array(
+							array(
+								'core/pattern',
+								array(
+									'slug'       => 'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
+								),
+							),
+						);
+            // テンプレートロック
+						// if( $registered_pattern_template_lock === 'lock') {
+						// 	$post_type_object->template_lock = 'all';
+						// }
+					}
 					if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
 						register_block_pattern(
 							'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
@@ -184,15 +162,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 								'postTypes'  => array($registered_post_type),
 							)
 						);
-					} else if ( $registered_pattern_add_method === 'add' && $registered_post_type ) {
-						// 対象の投稿タイプを指定
-						$post_type_object           = get_post_type_object($registered_post_type);
-						// 挿入するブロックの情報
-						$post_type_object->template = $insert_pattern_blocks;
-            // テンプレートロック
-						if( $registered_pattern_template_lock === 'lock') {
-							$post_type_object->template_lock = 'all';
-						}
 					} else {
 						register_block_pattern(
 							'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
@@ -214,6 +183,23 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					);
 
 					// Register Block Pattern.
+					if ( $registered_pattern_add_method === 'add' && $registered_post_type ) {
+						// 対象の投稿タイプを指定
+						$post_type_object           = get_post_type_object($registered_post_type);
+						// パターンをテンプレートに挿入
+						$post_type_object->template = array(
+							array(
+								'core/pattern',
+								array(
+									'slug'       => 'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
+								),
+							),
+						);
+            // テンプレートロック
+						// if( $registered_pattern_template_lock === 'lock') {
+						// 	$post_type_object->template_lock = 'all';
+						// }
+					}
 					if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
 						register_block_pattern(
 							'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
@@ -225,15 +211,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 								'postTypes'  => array($registered_post_type),
 							)
 						);
-					} else if ( $registered_pattern_add_method === 'add' && $registered_post_type ) {
-						// 対象の投稿タイプを指定
-						$post_type_object           = get_post_type_object($registered_post_type);
-						// 挿入するブロックの情報
-						$post_type_object->template = $insert_pattern_blocks;
-            // テンプレートロック
-						if( $registered_pattern_template_lock === 'lock') {
-							$post_type_object->template_lock = 'all';
-						}
 					} else {
 						register_block_pattern(
 							'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
