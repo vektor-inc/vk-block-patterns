@@ -39,9 +39,6 @@ function vk_block_patterns_meta_box_html( $post ) {
 
 
 	$html  = '<div class="vk-block-patterns-input-wrap">';
-	$html .= '<p>' . $saved_add_method . '</p>';
-	$html .= '<p>' . $saved_post_type . '</p>';
-	$html .= '<p>' . $saved_template_lock . '</p>';
 
 	// 投稿の新規作成時、候補に表示or自動追加
 	$add_method_options = array(

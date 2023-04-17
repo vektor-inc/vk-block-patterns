@@ -111,8 +111,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				)
 			);
 
-      $is_first_post = true;
-
 			// Sub loop.
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
@@ -160,13 +158,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
           }
           $insert_pattern_blocks[] = $insert_pattern_block;
         }
-
-        if ( $is_first_post ) {
-          // var_dump($registered_pattern_content);
-          // var_dump($registered_pattern_blocks);
-          var_dump($insert_pattern_blocks);
-          $is_first_post = false;
-      }
 
 				if (!empty($terms)) {
 					$pattern_categories = array();
