@@ -26,24 +26,71 @@ add_action( 'admin_menu', 'vk_block_patterns_add_meta_box' );
  * @param Object $post 投稿の情報が詰まったオブジェクト.
  */
 function vk_block_patterns_meta_box_html( $post ) {
-	$data = get_post_meta( $post->ID, 'vbp-init-post-type', true );
-	$data = ! empty( $data ) ? $data : '';
+	$saved_add_method = get_post_meta( $post->ID, 'vbp-init-pattern-add-method', true );
+	$saved_post_type = get_post_meta( $post->ID, 'vbp-init-post-type', true );
+	$saved_template_lock = get_post_meta( $post->ID, 'vbp-init-pattern-template-lock', true );
 
+	$saved_add_method = ! empty( $saved_add_method ) ? $saved_add_method : '';
+	$saved_post_type = ! empty( $saved_post_type ) ? $saved_post_type : '';
+	$saved_template_lock = ! empty( $saved_template_lock ) ? $saved_template_lock : '';
+
+	// 追加されている投稿タイプを取得
 	$post_types = get_post_types( array( 'public' => true ), 'objects' );
 
+
 	$html  = '<div class="vk-block-patterns-input-wrap">';
+	$html .= '<p>' . $saved_add_method . '</p>';
+	$html .= '<p>' . $saved_post_type . '</p>';
+	$html .= '<p>' . $saved_template_lock . '</p>';
+
+	// 投稿の新規作成時、候補に表示or自動追加
+	$add_method_options = array(
+		''     => __( 'Do not use', 'vk-block-patterns' ),
+		'show' => __( 'Show in Candidate', 'vk-block-patterns' ),
+		'add'  => __( 'Auto add', 'vk-block-patterns' ),
+	);
+
+	$html .= '<h4>' . esc_html__( 'How to Add Patterns.', 'vk-block-patterns' ) . '</h4>';
+	$html .= '<select name="vbp-init-pattern-add-method" id="vbp-init-pattern-add-method">';
+	foreach ( $add_method_options as $key => $value) {
+		$selected = '';
+		if ( $key === $saved_add_method) {
+			$selected = 'selected';
+		}
+		$html .= '<option value="' . esc_attr( $key ) . '"' . $selected . '>' . esc_html( $value ) . '</option>';
+	}
+	$html .= '</select>';
+
+	// 対象の投稿タイプを選択
 	$html .= '<h4>' . esc_html__( 'Target Post Type.', 'vk-block-patterns' ) . '</h4>';
 	$html .= '<p>' . esc_html__( 'If you want to use this pattern as the initial pattern for the specific post type, please specify the target post type.', 'vk-block-patterns' ) . '</p>';
 	$html .= '<select name="vbp-init-post-type" id="vbp-init-post-type">';
-	$html .= '<option value="">' . esc_html__( 'Do not use', 'vk-block-patterns' ) . '</option>';
 	foreach ( $post_types as $post_type ) {
-		if ( $post_type->name === $data ) {
+		if ( $post_type->name === $saved_post_type ) {
 			$html .= '<option value="' . $post_type->name . '" selected="selected">' . $post_type->label . '</option>';
 		} else {
 			$html .= '<option value="' . $post_type->name . '" >' . $post_type->label . '</option>';
 		}
 	};
 	$html .= '</select>';
+
+	// 新規追加時、パターンをロックするか
+	$template_lock_options = array(
+		'lock' => __( 'Template lock', 'vk-block-patterns' ),
+		'nolock'  => __( 'No Template lock', 'vk-block-patterns' ),
+	);
+
+	$html .= '<h4>' . esc_html__( 'Template lock.', 'vk-block-patterns' ) . '</h4>';
+	$html .= '<select name="vbp-init-pattern-template-lock" id="vbp-init-pattern-template-lock">';
+	foreach ( $template_lock_options as $key => $value) {
+		$selected = '';
+		if ( $key === $saved_template_lock) {
+			$selected = 'selected';
+		}
+		$html .= '<option value="' . esc_attr( $key ) . '"' . $selected . '>' . esc_html( $value ) . '</option>';
+	}
+	$html .= '</select>';
+
 	$html .= '</div>';
 	echo $html;
 }
@@ -54,10 +101,20 @@ function vk_block_patterns_meta_box_html( $post ) {
  * @param in t $post_id 投稿ID.
  */
 function vk_block_patterns_save_meta_box( $post_id ) {
-	if ( ! empty( $_POST['vbp-init-post-type'] ) ) {
+	if ( isset( $_POST['vbp-init-pattern-add-method'] ) ) {
+		update_post_meta( $post_id, 'vbp-init-pattern-add-method', $_POST['vbp-init-pattern-add-method'] );
+	} else {
+		delete_post_meta( $post_id, 'vbp-init-pattern-add-method' );
+	}
+	if ( isset( $_POST['vbp-init-post-type'] ) ) {
 		update_post_meta( $post_id, 'vbp-init-post-type', $_POST['vbp-init-post-type'] );
 	} else {
 		delete_post_meta( $post_id, 'vbp-init-post-type' );
+	}
+	if ( isset( $_POST['vbp-init-pattern-template-lock'] ) ) {
+		update_post_meta( $post_id, 'vbp-init-pattern-template-lock', $_POST['vbp-init-pattern-template-lock'] );
+	} else {
+		delete_post_meta( $post_id, 'vbp-init-pattern-template-lock' );
 	}
 }
 
