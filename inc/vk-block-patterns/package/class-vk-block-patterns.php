@@ -118,7 +118,10 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				$terms     = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
 				$registered_pattern_add_method = get_post_meta( get_the_ID(), 'vbp-init-pattern-add-method', true );
 				$registered_post_type = get_post_meta(get_the_ID(), 'vbp-init-post-type', true);
-				$registered_pattern_template_lock = get_post_meta( get_the_ID(), 'vbp-init-pattern-template-lock', true );
+
+				if ( $registered_post_type && ( empty($registered_pattern_add_method) || $registered_pattern_add_method === '' ) ){
+					$registered_pattern_add_method = 'show';
+				}
 
 				if (!empty($terms)) {
 					$pattern_categories = array();
@@ -146,10 +149,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 								),
 							),
 						);
-            // テンプレートロック
-						// if( $registered_pattern_template_lock === 'lock') {
-						// 	$post_type_object->template_lock = 'all';
-						// }
 					}
 					if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
 						register_block_pattern(
@@ -195,10 +194,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 								),
 							),
 						);
-            // テンプレートロック
-						// if( $registered_pattern_template_lock === 'lock') {
-						// 	$post_type_object->template_lock = 'all';
-						// }
 					}
 					if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
 						register_block_pattern(
