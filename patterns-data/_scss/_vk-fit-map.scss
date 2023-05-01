@@ -1,4 +1,7 @@
 .vk-fit-map {
+	figure {
+		margin-bottom:0;
+	}
     iframe {
         position: relative;
         margin-bottom:0;
@@ -6,8 +9,7 @@
         max-height: 400px;
         width:100vw;
     }
-	&.alignfull div[class*="__inner-container"], 
-	&.alignwide div[class*="__inner-container"]{
+	&:is(.alignfull,.alignwide) div {
 		max-width:100%;
 	}
 }
