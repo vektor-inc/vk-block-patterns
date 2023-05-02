@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Specification Change ] Change pattern category constitution and Update Block Patterns
+
 = 1.26.1 =
 [ Bug fix ] Fix php error
 
