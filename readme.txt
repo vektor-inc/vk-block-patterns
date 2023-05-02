@@ -17,6 +17,7 @@ When you activate this plugin that create new custom post type for custom block 
 == Changelog ==
 
 [ Add ] Add functions to automatically insert a registered pattern as the template for a post type
+[ Specification Change ] Change pattern category constitution and Update Block Patterns
 
 = 1.26.1 =
 [ Bug fix ] Fix php error
