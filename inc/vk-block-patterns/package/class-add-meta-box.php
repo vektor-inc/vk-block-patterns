@@ -1,12 +1,13 @@
 <?php
-
 /**
- * VK Patterns Custom Fields
+ * VK Block Patterns metabox class
  *
- * @package VK Patterns
+ * @package vektor-inc/vk-block-patterns
  */
 
-class VKB_AddMetaBox {
+namespace VKBlockPatterns;
+
+class AddMetaBox {
 
 	/**
 	 * Constructor
@@ -89,7 +90,7 @@ class VKB_AddMetaBox {
 	 *
 	 * @param in t $post_id 投稿ID.
 	 */
-	private static function save_meta_box( $post_id ) {
+	public static function save_meta_box( $post_id ) {
 		if ( isset( $_POST['vbp-init-pattern-add-method'] ) ) {
 			update_post_meta( $post_id, 'vbp-init-pattern-add-method', $_POST['vbp-init-pattern-add-method'] );
 		} else {
@@ -100,6 +101,7 @@ class VKB_AddMetaBox {
 		} else {
 			delete_post_meta( $post_id, 'vbp-init-post-type' );
 		}
+		return true;
 	}
 }
-new VKB_AddMetaBox();
+new AddMetaBox();
