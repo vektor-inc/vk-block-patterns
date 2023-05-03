@@ -1,35 +1,35 @@
 {
-  "name": "vk-block-patterns",
-  "version": "1.0.0",
-  "description": "You can make and register your original custom block patterns.",
-  "main": "gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "update": "ncu -u && rm -rf node_modules package-lock.json && npm install",
-    "watch": "wp-scripts start",
-    "build": "wp-scripts build && npm run build:sass",
-    "dist": "npm run build && npx gulp dist",
-    "build:sass": "sass --style=compressed --no-source-map patterns-data/_scss:patterns-data",
-    "sass": "sass --watch patterns-data/_scss:patterns-data",
-    "lint": "wp-scripts format src/ && wp-scripts lint-js src/ --fix",
-    "wp-env": "wp-env",
-    "phpunit": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-block-patterns/.phpunit.xml --verbose'"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vektor-inc/vk-block-patterns.git"
-  },
-  "author": "Vektor,Inc.",
-  "license": "GPL-2.0-or-later",
-  "bugs": {
-    "url": "https://github.com/vektor-inc/vk-block-patterns/issues"
-  },
-  "homepage": "https://github.com/vektor-inc/vk-block-patterns#readme",
-  "devDependencies": {
-    "@wordpress/env": "^5.12.0",
-    "@wordpress/scripts": "^25.4.0",
-    "gulp": "^4.0.2",
-    "npm-check-updates": "^16.7.9",
-    "sass": "^1.58.3"
-  }
+	"name": "vk-block-patterns",
+	"version": "1.0.0",
+	"description": "You can make and register your original custom block patterns.",
+	"main": "gulpfile.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"update": "ncu -u && rm -rf node_modules package-lock.json && npm install",
+		"watch": "wp-scripts start",
+		"build": "wp-scripts build && npm run build:sass",
+		"dist": "npm run build && npx gulp dist",
+		"build:sass": "sass --style=compressed --no-source-map patterns-data/_scss:patterns-data && sass --style=compressed --no-source-map inc/vk-block-patterns/package:inc/vk-block-patterns/package",
+		"sass": "sass --watch patterns-data/_scss:patterns-data",
+		"lint": "wp-scripts format src/ && wp-scripts lint-js src/ --fix",
+		"wp-env": "wp-env",
+		"phpunit": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/vk-block-patterns/.phpunit.xml --verbose'"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vektor-inc/vk-block-patterns.git"
+	},
+	"author": "Vektor,Inc.",
+	"license": "GPL-2.0-or-later",
+	"bugs": {
+		"url": "https://github.com/vektor-inc/vk-block-patterns/issues"
+	},
+	"homepage": "https://github.com/vektor-inc/vk-block-patterns#readme",
+	"devDependencies": {
+		"@wordpress/env": "^5.12.0",
+		"@wordpress/scripts": "^25.4.0",
+		"gulp": "^4.0.2",
+		"npm-check-updates": "^16.7.9",
+		"sass": "^1.58.3"
+	}
 }
