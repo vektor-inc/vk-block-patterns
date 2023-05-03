@@ -15,6 +15,7 @@ class AddMetaBox {
 	public function __construct() {
 		add_action( 'admin_menu', array( __CLASS__, 'add_meta_box' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_meta_box' ) );
+		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_scripts' ) );
 	}
 
 	/**
@@ -102,6 +103,15 @@ class AddMetaBox {
 			delete_post_meta( $post_id, 'vbp-init-post-type' );
 		}
 		return true;
+	}
+
+	public static function enqueue_scripts() {
+		wp_enqueue_style(
+			'vk-block-patterns-editor',
+			plugins_url( '/editor.css', __FILE__ ),
+			array(),
+			filemtime( plugin_dir_path( __FILE__ ) . '/editor.css' )
+		);
 	}
 }
 new AddMetaBox();
