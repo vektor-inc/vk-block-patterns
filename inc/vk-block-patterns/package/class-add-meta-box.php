@@ -31,6 +31,65 @@ class AddMetaBox {
 		);
 	}
 
+	public static function allowed_html() {
+		$common_attr = array(
+			'id'    => array(),
+			'class' => array(),
+			'role'  => array(),
+			'style' => array(),
+			'title' => array(),
+			'name'  => array(),
+			'value' => array(),
+		);
+		$tags        = array(
+			'div',
+			'span',
+			'h1',
+			'h2',
+			'h3',
+			'h4',
+			'h5',
+			'h6',
+			'button',
+			'p',
+			'i',
+			'a',
+			'br',
+			'strong',
+			'ol',
+			'ul',
+			'li',
+			'img',
+			'input',
+			'select',
+			'option',
+		);
+		foreach ( $tags as $tag ) {
+			$allowed_html[ $tag ] = $common_attr;
+		}
+		$allowed_html['a']['href']      = array();
+		$allowed_html['a']['target']    = array();
+		$allowed_html['img']['src']     = array();
+		$allowed_html['img']['sizes']   = array();
+		$allowed_html['form']['method'] = array();
+		$allowed_html['form']['action'] = array();
+		$allowed_html['input']['type']  = array();
+		$allowed_html['option']         = array(
+			'value'    => true,
+			'selected' => true,
+		);
+		$allowed_html['select']         = array(
+			'id'       => true,
+			'class'    => true,
+			'name'     => true,
+			'size'     => true,
+			'multiple' => true,
+			'disabled' => true,
+			'tabindex' => true,
+			'onchange' => true,
+		);
+		return $allowed_html;
+	}
 	/**
 	 * メタボックスの中身の HTML
 	 *
@@ -56,13 +115,14 @@ class AddMetaBox {
 		);
 
 		$html .= '<h4>' . esc_html__( 'How to Add Patterns.', 'vk-block-patterns' ) . '</h4>';
+
 		$html .= '<select name="vbp-init-pattern-add-method" id="vbp-init-pattern-add-method">';
 		foreach ( $add_method_options as $key => $value ) {
 			$selected = '';
 			if ( $saved_post_type && ( empty( $saved_add_method ) || $saved_add_method === '' ) && $key === 'show' ) {
-				$selected = 'selected';
+				$selected = ' selected';
 			} elseif ( $key === $saved_add_method ) {
-				$selected = 'selected';
+				$selected = ' selected';
 			}
 			$html .= '<option value="' . esc_attr( $key ) . '"' . $selected . '>' . esc_html( $value ) . '</option>';
 		}
@@ -74,7 +134,7 @@ class AddMetaBox {
 		$html .= '<select name="vbp-init-post-type" id="vbp-init-post-type">';
 		foreach ( $post_types as $post_type ) {
 			if ( $post_type->name === $saved_post_type ) {
-				$html .= '<option value="' . $post_type->name . '" selected="selected">' . $post_type->label . '</option>';
+				$html .= '<option value="' . $post_type->name . '" selected>' . $post_type->label . '</option>';
 			} else {
 				$html .= '<option value="' . $post_type->name . '" >' . $post_type->label . '</option>';
 			}
@@ -83,7 +143,8 @@ class AddMetaBox {
 		$html .= '<p>' . esc_html__( 'If there are multiple patterns with "Auto Add" selected for one post type, only the oldest pattern will be inserted.', 'vk-block-patterns' ) . '</p>';
 
 		$html .= '</div>';
-		echo $html;
+
+		echo wp_kses( $html, self::allowed_html() );
 	}
 
 	/**
