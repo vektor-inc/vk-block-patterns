@@ -130,6 +130,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => false,
                 ),
+                'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
@@ -152,6 +153,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => true,
                 ),
+                'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
@@ -171,6 +173,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => false,
                 ),
+                'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
@@ -190,6 +193,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => true,
                 ),
+                'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
@@ -209,6 +213,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => '',
                     'disableXT9Pattern' => false,
                 ),
+                'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
@@ -225,6 +230,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => '',
                     'disableXT9Pattern' => false,
                 ),
+                'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
