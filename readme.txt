@@ -12,10 +12,11 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 You can make and register your original custom block patterns.
 
 == Description ==
-When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen. 
+When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen.
 
 == Changelog ==
 
+[ Add ] Add functions to automatically insert a registered pattern as the template for a post type
 [ Specification Change ] Change pattern category constitution and Update Block Patterns
 
 = 1.26.1 =
@@ -23,7 +24,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 = 1.26.0 =
 [ Add ] Add functions to insert a registered pattern as the initial pattern for a post type
-[ Specification Change ] When editor screen opend, pattern cache will be deleted. 
+[ Specification Change ] When editor screen opend, pattern cache will be deleted.
 [ Specification Change ] Change to disable WordPress Default pattern on default setting
 [ Specification Change ] Add uninstall.
 
@@ -65,14 +66,14 @@ When you activate this plugin that create new custom post type for custom block 
 [ Other ] Add Pattern Lib notice
 
 = 1.22.0 =
-[ Fix ] Setting screen 
+[ Fix ] Setting screen
 [ Update ] Update CTA Pattern
 
 = 1.21.0 =
 [ Update ] Update CTA Pattern
 
 = 1.20.6 =
-[ Fix ] Setting screen 
+[ Fix ] Setting screen
 
 = 1.20.1 =
 [ Fix ][ Japanese ] Fix API URL.
@@ -85,7 +86,7 @@ When you activate this plugin that create new custom post type for custom block 
 = 1.19.0 =
 [ Design tuning ] .vk-cols--fit can now be used in free version
 [ Design tuning ] .vk-fit-map can now be used in group blocks
-[ Delete ] Delete some deprecated patterns 
+[ Delete ] Delete some deprecated patterns
 
 = 1.18.0 =
 [ Specification Change ] Cope with WordPress 6.0 CSS
@@ -98,7 +99,7 @@ When you activate this plugin that create new custom post type for custom block 
 [ Bug fix ] reregister grid col card pattern
 
 = 1.17.2 =
-[ Add style ] Add Table th bg class 
+[ Add style ] Add Table th bg class
 
 = 1.16.5 =
 [ Bug fix ] Admin transration

@@ -116,11 +116,16 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				$the_query->the_post();
 				$post_data = get_post();
 				$terms     = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
-				$registered_post_type = get_post_meta( get_the_ID(), 'vbp-init-post-type', true);
+				$registered_pattern_add_method = get_post_meta( get_the_ID(), 'vbp-init-pattern-add-method', true );
+				$registered_post_type = get_post_meta(get_the_ID(), 'vbp-init-post-type', true);
 
-				if ( ! empty( $terms ) ) {
+				if ( $registered_post_type && ( empty($registered_pattern_add_method) || $registered_pattern_add_method === '' ) ){
+					$registered_pattern_add_method = 'show';
+				}
+
+				if (!empty($terms)) {
 					$pattern_categories = array();
-					foreach( $terms as $term ) {
+					foreach ($terms as $term) {
 						// Register Block Pattern Category.
 						register_block_pattern_category(
 							'vk-block-pattern-' . $term->term_id,
@@ -132,28 +137,40 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					}
 
 					// Register Block Pattern.
-					if ( $registered_post_type ) {
-						register_block_pattern(
-							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+					if ( $registered_pattern_add_method === 'add' && $registered_post_type ) {
+						// 対象の投稿タイプを指定
+						$post_type_object           = get_post_type_object($registered_post_type);
+						// パターンをテンプレートに挿入
+						$post_type_object->template = array(
 							array(
-								'title'      => esc_html( get_the_title() ),
+								'core/pattern',
+								array(
+									'slug'       => 'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
+								),
+							),
+						);
+					}
+					if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
+						register_block_pattern(
+							'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
+							array(
+								'title'      => esc_html(get_the_title()),
 								'content'    => $post_data->post_content,
 								'categories' => $pattern_categories,
-								'blockTypes' => array( 'core/post-content' ),
-								'postTypes'  => array( $registered_post_type ),
+								'blockTypes' => array('core/post-content'),
+								'postTypes'  => array($registered_post_type),
 							)
 						);
 					} else {
 						register_block_pattern(
-							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+							'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
 							array(
-								'title'      => esc_html( get_the_title() ),
+								'title'      => esc_html(get_the_title()),
 								'content'    => $post_data->post_content,
 								'categories' => $pattern_categories,
 							)
 						);
 					}
-
 				} else {
 
 					// Register Block Pattern Category.
@@ -165,34 +182,45 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					);
 
 					// Register Block Pattern.
-					if ( $registered_post_type ) {
-						register_block_pattern(
-							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+					if ( $registered_pattern_add_method === 'add' && $registered_post_type ) {
+						// 対象の投稿タイプを指定
+						$post_type_object           = get_post_type_object($registered_post_type);
+						// パターンをテンプレートに挿入
+						$post_type_object->template = array(
 							array(
-								'title'      => esc_html( get_the_title() ),
+								'core/pattern',
+								array(
+									'slug'       => 'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
+								),
+							),
+						);
+					}
+					if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
+						register_block_pattern(
+							'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
+							array(
+								'title'      => esc_html(get_the_title()),
 								'content'    => $post_data->post_content,
-								'categories' => array( 'vk-block-patterns' ),
-								'blockTypes' => array( 'core/post-content' ),
-								'postTypes'  => array( $registered_post_type ),
+								'categories' => array('vk-block-patterns'),
+								'blockTypes' => array('core/post-content'),
+								'postTypes'  => array($registered_post_type),
 							)
 						);
 					} else {
 						register_block_pattern(
-							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+							'vk-block-patterns/pattern-' . esc_attr(get_the_ID()),
 							array(
-								'title'      => esc_html( get_the_title() ),
+								'title'      => esc_html(get_the_title()),
 								'content'    => $post_data->post_content,
-								'categories' => array( 'vk-block-patterns' ),
+								'categories' => array('vk-block-patterns'),
 							)
 						);
 					}
-
 				}
 			}
 
 			wp_reset_postdata();
 		}
-
 	}
 	new VK_Block_Patterns();
 }
