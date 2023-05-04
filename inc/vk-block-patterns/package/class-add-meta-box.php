@@ -90,6 +90,27 @@ class AddMetaBox {
 		);
 		return $allowed_html;
 	}
+
+	/**
+	 *  1.26 までは投稿タイプのみ保存し、投稿タイプの保存があれば、候補（show）に表示していた（自動挿入機能なし）。
+	 *  1.27 で自動挿入が選べるようになったので、1.26以前で保存されている場合は、投稿タイプのみ保存してあって、
+	 *  法事方式の指定がない状態なので、その場合は自動的に show にする処理が必要があるため、
+	 *  このメソッドでその処理を行っている。
+	 *
+	 * @param string $saved_post_type 保存されている投稿タイプ.
+	 * @param string $saved_add_method 保存されている追加方法.
+	 */
+	public static function is_method_selected( $saved_post_type, $saved_add_method ) {
+		$return = '';
+		// 投稿タイプのみ保存されている場合は、自動的に show にする処理.
+		if ( $saved_post_type && ( empty( $saved_add_method ) || '' === $saved_add_method ) ) {
+			$return = 'show';
+		} elseif ( $saved_add_method ) {
+			$return = $saved_add_method;
+		}
+		return $return;
+	}
+
 	/**
 	 * メタボックスの中身の HTML
 	 *
@@ -118,11 +139,10 @@ class AddMetaBox {
 
 		$html .= '<select name="vbp-init-pattern-add-method" id="vbp-init-pattern-add-method">';
 		foreach ( $add_method_options as $key => $value ) {
-			$selected = '';
-			if ( $saved_post_type && ( empty( $saved_add_method ) || $saved_add_method === '' ) && $key === 'show' ) {
+			if ( self::is_method_selected( $saved_post_type, $saved_add_method ) === $key ) {
 				$selected = ' selected';
-			} elseif ( $key === $saved_add_method ) {
-				$selected = ' selected';
+			} else {
+				$selected = '';
 			}
 			$html .= '<option value="' . esc_attr( $key ) . '"' . $selected . '>' . esc_html( $value ) . '</option>';
 		}
