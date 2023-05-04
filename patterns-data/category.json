@@ -1,5 +1,15 @@
 [
     {
+        "name": "Staff / Profile",
+        "slug": "staff",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
         "name": "Text",
         "slug": "text",
         "term_group": 0,
@@ -50,8 +60,8 @@
         "term_order": "0"
     },
     {
-        "name": "PR Content",
-        "slug": "pr_content",
+        "name": "PR Contents",
+        "slug": "pr-contents",
         "term_group": 0,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
@@ -82,16 +92,6 @@
     {
         "name": "Featured",
         "slug": "featured",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "Staff / Profile",
-        "slug": "staff",
         "term_group": 0,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
