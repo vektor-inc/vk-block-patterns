@@ -2,7 +2,7 @@
 Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki,doshimaf
 Donate link:
 Tags: Guternberg, Block Pattern
-Requires at least: 5.8
+Requires at least: 6.0
 Tested up to: 6.1
 Stable tag: 1.26.1
 Requires PHP: 7.2
@@ -16,8 +16,10 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
-[ Add ] Add functions to automatically insert a registered pattern as the template for a post type
+= 1.27.0
+[ Add Function ] Add functions to automatically insert a registered pattern as the template for a post type
 [ Specification Change ] Change pattern category constitution and Update Block Patterns
+[ Specification Change ] Requires at least: 6.0
 
 = 1.26.1 =
 [ Bug fix ] Fix php error
