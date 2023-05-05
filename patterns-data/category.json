@@ -1,45 +1,5 @@
 [
     {
-        "name": "Call to Action",
-        "slug": "call-to-action",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "Featured",
-        "slug": "featured",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "Staff / Profile",
-        "slug": "staff",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "Text",
-        "slug": "text",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
         "name": "ページ全体",
         "slug": "whole-page",
         "term_group": 0,
@@ -92,6 +52,46 @@
     {
         "name": "Layout",
         "slug": "layout",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "name": "Call to Action",
+        "slug": "call-to-action",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "name": "Featured",
+        "slug": "featured",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "name": "Staff / Profile",
+        "slug": "staff",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "name": "Text",
+        "slug": "text",
         "term_group": 0,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
