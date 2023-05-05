@@ -24,7 +24,7 @@ class AddMetaBox {
 	public static function add_meta_box() {
 		add_meta_box(
 			'vk-block-patterns-init-pattern',
-			'Use in initial pattern',
+			__( 'Initial pattern setting', 'vk-block-patterns' ),
 			array( __CLASS__, 'meta_box_html' ),
 			'vk-block-patterns',
 			'side'
@@ -126,13 +126,26 @@ class AddMetaBox {
 		// 追加されている投稿タイプを取得.
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
 
-		$html = '<div class="vk-block-patterns-input-wrap">';
+		$html  = '<div class="vk-block-patterns-input-wrap">';
+		$html .= '<p>' . __( 'You can set this pattern as the default pattern for a specific post type.', 'vk-block-patterns' ) . '</p>';
+
+		// 対象の投稿タイプを選択.
+		$html .= '<h4>' . esc_html__( 'Target Post Type.', 'vk-block-patterns' ) . '</h4>';
+		$html .= '<select name="vbp-init-post-type" id="vbp-init-post-type">';
+		foreach ( $post_types as $post_type ) {
+			if ( $post_type->name === $saved_post_type ) {
+				$html .= '<option value="' . $post_type->name . '" selected>' . $post_type->label . '</option>';
+			} else {
+				$html .= '<option value="' . $post_type->name . '" >' . $post_type->label . '</option>';
+			}
+		};
+		$html .= '</select>';
 
 		// 投稿の新規作成時、候補に表示or自動追加.
 		$add_method_options = array(
-			''     => __( 'Do not use', 'vk-block-patterns' ),
-			'show' => __( 'Show in Candidate', 'vk-block-patterns' ),
+			''     => __( 'Unspecified', 'vk-block-patterns' ),
 			'add'  => __( 'Auto add', 'vk-block-patterns' ),
+			'show' => __( 'Show in Candidate', 'vk-block-patterns' ),
 		);
 
 		$html .= '<h4>' . esc_html__( 'How to Add Patterns.', 'vk-block-patterns' ) . '</h4>';
@@ -148,18 +161,6 @@ class AddMetaBox {
 		}
 		$html .= '</select>';
 
-		// 対象の投稿タイプを選択.
-		$html .= '<h4>' . esc_html__( 'Target Post Type.', 'vk-block-patterns' ) . '</h4>';
-		$html .= '<p>' . esc_html__( 'If you want to use this pattern as the initial pattern for the specific post type, please specify the target post type.', 'vk-block-patterns' ) . '</p>';
-		$html .= '<select name="vbp-init-post-type" id="vbp-init-post-type">';
-		foreach ( $post_types as $post_type ) {
-			if ( $post_type->name === $saved_post_type ) {
-				$html .= '<option value="' . $post_type->name . '" selected>' . $post_type->label . '</option>';
-			} else {
-				$html .= '<option value="' . $post_type->name . '" >' . $post_type->label . '</option>';
-			}
-		};
-		$html .= '</select>';
 		$html .= '<p>' . esc_html__( 'If there are multiple patterns with "Auto Add" selected for one post type, only the oldest pattern will be inserted.', 'vk-block-patterns' ) . '</p>';
 
 		$html .= '</div>';
