@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Specification Change ] Change post type label
+
 = 1.27.3 =
 [ Update ] Fix title Media column pattern
 
