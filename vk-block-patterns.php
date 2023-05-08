@@ -3,7 +3,7 @@
  * Plugin Name: VK Block Patterns
  * Plugin URI: https://github.com/vektor-inc/vk-block-patterns
  * Description: You can make and register your original custom block patterns.
- * Version: 1.27.2
+ * Version: 1.27.3
  * Requires at least: 6.0
  * Author:  Vektor,Inc.
  * Author URI: https://vektor-inc.co.jp
@@ -57,7 +57,7 @@ function vbp_get_options() {
 			'disable-free-notice'    => false,
 		),
 		'last-pattern-cached'  => null,
-		'savePluginData'  => false,
+		'savePluginData'       => false,
 	);
 	$options = get_option( 'vk_block_patterns_options' );
 	// 後から追加される項目もあるので、option値に保存されてない時にデフォルトとマージする
@@ -80,7 +80,7 @@ function vbp_plugin_loaded() {
 	require_once VBP_PATH . 'inc/edit-post/vk-edit-post-config.php';
 	// Load Admin Options.
 	require_once VBP_PATH . 'admin/admin.php';
-	
+
 	require VBP_PATH . '/favorite-patterns/favorite-patterns.php';
 }
 add_action( 'plugins_loaded', 'vbp_plugin_loaded' );
@@ -134,7 +134,7 @@ function vbp_uninstall() {
 	}
 
 	// オプションを削除
-	unregister_setting( 'vbp_setting', 'vk_block_patterns_options' );	
+	unregister_setting( 'vbp_setting', 'vk_block_patterns_options' );
 	delete_option( 'vk_block_patterns_options' );
 	delete_site_option( 'vk_block_patterns_options' );
 
