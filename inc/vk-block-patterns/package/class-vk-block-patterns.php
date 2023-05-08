@@ -29,11 +29,10 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		 * Register Post Type for Block Patterns
 		 */
 		public static function register_post_type() {
-			global $vbp_prefix;
 			register_post_type(
 				'vk-block-patterns',
 				array(
-					'label'        => $vbp_prefix . __( 'Block Patterns', 'vk-block-patterns' ),
+					'label'        => _x( 'VK Block Patterns', 'Post Type Menu', 'vk-block-patterns' ),
 					'public'       => false,
 					'show_ui'      => true,
 					'show_in_menu' => true,
