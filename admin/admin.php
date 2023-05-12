@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use VektorInc\VK_Admin\VkAdmin;
+new VkAdmin();
+
 if ( ! function_exists( 'vbp_setting' ) ) {
 	/**
 	 * Admin Page Setting.
@@ -22,7 +25,7 @@ if ( ! function_exists( 'vbp_setting' ) ) {
 }
 
 $admin_pages = array( 'settings_page_vk_block_patterns_options' );
-Vk_Admin::admin_scripts( $admin_pages );
+VkAdmin::admin_scripts( $admin_pages );
 
 /**
  * Setting Menu
@@ -60,7 +63,7 @@ function vbp_setting_page() {
 		$get_menu_html .= '<li><a href="#cache-setting">' . __( 'Patterns data cache setting', 'vk-block-patterns' ) . '</a></li>';
 	}
 
-	Vk_Admin::admin_page_frame( $get_page_title, 'vbp_setting', $get_logo_html, $get_menu_html );
+	VkAdmin::admin_page_frame( $get_page_title, 'vbp_setting', $get_logo_html, $get_menu_html );
 }
 
 /**

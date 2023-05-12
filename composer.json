@@ -11,5 +11,8 @@
 		"wp-phpunit/wp-phpunit": "^5.4",
         "yoast/phpunit-polyfills": "^1.0",
         "doctrine/instantiator": "^1.5"
-	}
+	},
+    "require": {
+        "vektor-inc/vk-admin": "^0.2.0"
+    }
 }

@@ -11,7 +11,7 @@ jobs:
     strategy:
         matrix:
             php-versions: ['7.4', '8.0', '8.1']
-            wp-versions: ['6.1.1', '6.0.3', '5.9.5']
+            wp-versions: ['6.0.3', '6.1.1', '6.2']
     name: PHP Unit test ${{ matrix.php-versions }} / WP ${{ matrix.wp-versions }} Test on ${{ matrix.operating-system }}
     services:
       mysql:
@@ -60,9 +60,8 @@ jobs:
     - name: Check WordPress Version
       run: npm run wp-env run cli wp core version 
     # dist の中で build は実行している
-    - name: Build and Dist
-      run: npm run dist
-
+    - name: Build
+      run: npm run build
     # PHPUnit
     - name: PHP Unit Test
       run: npm run phpunit
@@ -75,16 +74,25 @@ jobs:
     needs: [php_unit]
     steps:
     - uses: actions/checkout@master
-    - name: Build
+    - name: install npm scripts
+      run: npm install
+    - name: install Composer Package
+      run: composer install --no-dev
+    - name: Install WP-CLI
       run: |
-        npm install
-        npm run build
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        mv wp-cli.phar /usr/local/bin/wp
+    - name: Build
+      run: npm run build
+    - name: deploy 
+      run: bash bin/deploy.sh
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
       env:
-        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-        SLUG: vk-block-patterns
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SLUG: vk-block-patterns
   release:
     name: release
     runs-on: ubuntu-latest
@@ -94,11 +102,19 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 14.x
-    - name: Build
+    - name: install npm scripts
+      run: npm install
+    - name: install Composer Package
+      run: composer install --no-dev
+    - name: Install WP-CLI
       run: |
-        npm install
-        npm run dist
-    - run: bash bin/dist.sh
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        mv wp-cli.phar /usr/local/bin/wp
+    - name: Build
+      run: npm run build
+    - name: Make Distribution
+      run: bash bin/dist.sh
     - run: echo "DIST_VERSION=$(echo ${{ github.ref }} | sed -E 's/^refs\/tags\/v?(.*)$/\1/')" >> $GITHUB_ENV
     - run: test -e dist/${{ env.plugin_name }}_v${{ env.DIST_VERSION }}.zip
     - name: Create Release
