@@ -13,6 +13,6 @@
         "doctrine/instantiator": "^1.5"
 	},
     "require": {
-        "vektor-inc/vk-admin": "^0.2.0"
+        "vektor-inc/vk-admin": "^0.3.2"
     }
 }

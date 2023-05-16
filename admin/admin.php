@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use VektorInc\VK_Admin\VkAdmin;
-new VkAdmin();
+VkAdmin::init();
 
 if ( ! function_exists( 'vbp_setting' ) ) {
 	/**
