@@ -24,18 +24,13 @@ jobs:
           MYSQL_USER: wordpress
           MYSQL_PASSWORD: wordpress
     steps:
-    - uses: actions/checkout@v2
-
-    # get the node version from the .node-version file
-    - name: Read .node-version
-      run: echo "{NODEVERSION}={$(cat .node-version)}" >> $GITHUB_OUTPUT
-      id: nodenv
+    - uses: actions/checkout@v3
 
     # setup node based on the version from the .node-version file, fetched in the previous step
     - name: Setup Node.js (.node-version)
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
-        node-version: "${{ steps.nodenv.outputs.NODEVERSION }}"
+        node-version: 18
 
     - name: Cache multiple paths
       uses: actions/cache@v2
