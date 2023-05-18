@@ -2,9 +2,6 @@
  * Table class
  * @since 1.17.0 
  */
- :root {
-	--vk-color-th-bg-bright: rgba( 0, 0, 0, 0.05 );
- }
 .vk-table{
 	&--th {
 		&--width25 :where(tr > *:first-child){
@@ -21,7 +18,7 @@
 		}
 		&--bg-bright {
 			:where( tr > *:first-child ) {
-				background-color: var(--vk-color-th-bg-bright);
+				background-color: var(--wp--preset--color--bg-secondary, rgba( 0, 0, 0, 0.05 ) );
 			}
 		}
 	}
@@ -30,6 +27,8 @@
 			:is(th,td) {
 				width:100%;
 				display: block;
+			}
+			&.wp-block-table table :is(th,td) {
 				border-top:none;
 			}
 		}

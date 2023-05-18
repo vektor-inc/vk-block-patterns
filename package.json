@@ -8,7 +8,7 @@
 		"update": "ncu -u && rm -rf node_modules package-lock.json && npm install",
 		"watch": "wp-scripts start",
 		"build": "wp-scripts build && npm run build:sass",
-		"dist": "npm run build && npx gulp dist",
+		"dist": "npm run build && composer install --no-dev && gulp dist && composer install",
 		"build:sass": "sass --style=compressed --no-source-map patterns-data/_scss:patterns-data && sass --style=compressed --no-source-map inc/vk-block-patterns/package:inc/vk-block-patterns/package",
 		"sass": "sass --watch patterns-data/_scss:patterns-data",
 		"lint": "wp-scripts format src/ && wp-scripts lint-js src/ --fix",
