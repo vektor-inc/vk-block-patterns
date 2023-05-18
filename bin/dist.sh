@@ -10,6 +10,7 @@ src_dir="${dist_dir}/${PLUGIN_NAME}"
 ZIPBALL="${dist_dir}/${PLUGIN_NAME}.zip"
 
 [[ -e "${dist_dir}" ]] || mkdir "${dist_dir}"
+[[ -e "${src_dir}" ]] || mkdir "${src_dir}"
 [[ -e "${ZIPBALL}" ]] && rm -r "${ZIPBALL}"
 
 cd "${dist_dir}"

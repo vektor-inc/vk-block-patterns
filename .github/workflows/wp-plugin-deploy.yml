@@ -68,12 +68,12 @@ jobs:
   tag:
     name: deploy to plugin directory
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     needs: [php_unit]
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
+      with:
+        node-version: latest
     - name: install npm scripts
       run: npm install
     - name: install Composer Package
@@ -101,7 +101,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: 14.x
+        node-version: latest
     - name: install npm scripts
       run: npm install
     - name: install Composer Package
