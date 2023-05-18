@@ -8,6 +8,7 @@ node_modules/
 tests/
 .distignore
 .gitignore
+.phpcs.xml
 .phpunit.xml
 .svnignore
 .wp-env.json
