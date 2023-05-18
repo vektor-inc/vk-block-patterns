@@ -1,13 +1,21 @@
 # .distignore があればこのファイル不要では？
+.git/
 .github/
+.wordpress-org/
+bin/
+dist/
+node_modules/
+tests/
+.distignore
 .gitignore
+.phpunit.xml
 .svnignore
-.vscode/
+.wp-env.json
+composer.json
+composer.lock
 gulpfile.js
 LICENSE
-package.json
 package-lock.json
+package.json
 README.md
-vk-block-patterns.code-workspace
-src/
-node_modules/
+webpack.config.js
