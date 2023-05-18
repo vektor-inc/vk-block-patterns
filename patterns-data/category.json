@@ -1,5 +1,55 @@
 [
     {
+        "name": "Text",
+        "slug": "text",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "name": "ページ全体",
+        "slug": "whole-page",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "name": "Post List Section",
+        "slug": "post-list-section",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "name": "流れ",
+        "slug": "%e6%b5%81%e3%82%8c",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "name": "Query",
+        "slug": "query",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
         "name": "Banner",
         "slug": "banner",
         "term_group": 0,
@@ -52,46 +102,6 @@
     {
         "name": "Staff / Profile",
         "slug": "staff",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "Text",
-        "slug": "text",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "ページ全体",
-        "slug": "whole-page",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "投稿リスト",
-        "slug": "%e6%8a%95%e7%a8%bf%e3%83%aa%e3%82%b9%e3%83%88",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "流れ",
-        "slug": "%e6%b5%81%e3%82%8c",
         "term_group": 0,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
