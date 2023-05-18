@@ -18,6 +18,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 [ Add Patterns ] X-T9 Post List Pattern
 [ Bug fix ] Fix mobile Table style 
+[ Other ] Update VK Admin to composer version
 
 = 1.28.0 =
 [ Specification Change ] Change post type label
