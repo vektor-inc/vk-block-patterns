@@ -13,7 +13,7 @@ jobs:
             matrix:
                 php-versions: ['7.4', '8.0', '8.1']
                 wp-versions: ['6.1.1', '6.0.3', '5.9.5']
-        name: PHP Unit test ${{ matrix.php-versions }} / WP ${{ matrix.wp-versions }} Test on ${{ matrix.operating-system }}
+        name: PHP Unit test ${{ matrix.php-versions }} / WP ${{ matrix.wp-versions }} Test
         services:
             mysql:
                 image: mysql:5.7
