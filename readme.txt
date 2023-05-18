@@ -17,6 +17,7 @@ When you activate this plugin that create new custom post type for custom block 
 == Changelog ==
 
 [ Add Patterns ] X-T9 Post List Pattern
+[ Bug fix ] Fix mobile Table style 
 
 = 1.28.0 =
 [ Specification Change ] Change post type label
