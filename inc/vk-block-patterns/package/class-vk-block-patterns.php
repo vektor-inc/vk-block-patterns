@@ -118,7 +118,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				$registered_pattern_add_method = get_post_meta( get_the_ID(), 'vbp-init-pattern-add-method', true );
 				$registered_post_type          = get_post_meta( get_the_ID(), 'vbp-init-post-type', true );
 
-				if ( $registered_post_type && ( empty( $registered_pattern_add_method ) || $registered_pattern_add_method === '' ) ) {
+				if ( $registered_post_type && empty( $registered_pattern_add_method ) ) {
 					$registered_pattern_add_method = 'show';
 				}
 
