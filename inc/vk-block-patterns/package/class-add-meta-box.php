@@ -103,7 +103,7 @@ class AddMetaBox {
 	public static function is_method_selected( $saved_post_type, $saved_add_method ) {
 		$return = '';
 		// 投稿タイプのみ保存されている場合は、自動的に show にする処理.
-		if ( $saved_post_type && ( empty( $saved_add_method ) || '' === $saved_add_method ) ) {
+		if ( $saved_post_type && empty( $saved_add_method )) {
 			$return = 'show';
 		} elseif ( $saved_add_method ) {
 			$return = $saved_add_method;
@@ -120,7 +120,7 @@ class AddMetaBox {
 		$saved_add_method = get_post_meta( $post->ID, 'vbp-init-pattern-add-method', true );
 		$saved_post_type  = get_post_meta( $post->ID, 'vbp-init-post-type', true );
 
-		$saved_add_method = ! empty( $saved_add_method ) ? $saved_add_method : '';
+		$saved_add_method = ! empty( $saved_add_method ) ? $saved_add_method : 'unspecified';
 		$saved_post_type  = ! empty( $saved_post_type ) ? $saved_post_type : '';
 
 		// 追加されている投稿タイプを取得.
@@ -143,7 +143,7 @@ class AddMetaBox {
 
 		// 投稿の新規作成時、候補に表示or自動追加.
 		$add_method_options = array(
-			''     => __( 'Unspecified', 'vk-block-patterns' ),
+			'unspecified'     => __( 'Unspecified', 'vk-block-patterns' ),
 			'add'  => __( 'Auto add', 'vk-block-patterns' ),
 			'show' => __( 'Show in Candidate', 'vk-block-patterns' ),
 		);
