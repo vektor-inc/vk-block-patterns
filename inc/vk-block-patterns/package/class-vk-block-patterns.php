@@ -181,7 +181,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					);
 
 					// Register Block Pattern.
-					if ( $registered_pattern_add_method === 'add' && $registered_post_type ) {
+					if ( 'add' === $registered_pattern_add_method && $registered_post_type ) {
 						// 対象の投稿タイプを指定.
 						$post_type_object = get_post_type_object( $registered_post_type );
 						// パターンをテンプレートに挿入.
