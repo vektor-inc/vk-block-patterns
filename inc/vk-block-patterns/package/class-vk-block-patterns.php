@@ -137,9 +137,9 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 
 					// Register Block Pattern.
 					if ( $registered_pattern_add_method === 'add' && $registered_post_type ) {
-						// 対象の投稿タイプを指定
+						// 対象の投稿タイプを指定.
 						$post_type_object = get_post_type_object( $registered_post_type );
-						// パターンをテンプレートに挿入
+						// パターンをテンプレートに挿入.
 						$post_type_object->template = array(
 							array(
 								'core/pattern',
@@ -149,7 +149,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 							),
 						);
 					}
-					if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
+					if ( 'show' === $registered_pattern_add_method && $registered_post_type ) {
 						register_block_pattern(
 							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
 							array(
@@ -182,9 +182,9 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 
 					// Register Block Pattern.
 					if ( $registered_pattern_add_method === 'add' && $registered_post_type ) {
-						// 対象の投稿タイプを指定
+						// 対象の投稿タイプを指定.
 						$post_type_object = get_post_type_object( $registered_post_type );
-						// パターンをテンプレートに挿入
+						// パターンをテンプレートに挿入.
 						$post_type_object->template = array(
 							array(
 								'core/pattern',
@@ -194,7 +194,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 							),
 						);
 					}
-					if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
+					if ( 'show' === $registered_pattern_add_method && $registered_post_type ) {
 						register_block_pattern(
 							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
 							array(
