@@ -26,6 +26,15 @@ class AddMetaBoxTest extends WP_UnitTestCase {
 				'saved_add_method' => '',
 				'expected'         => 'show',
 			),
+			'before_1_26_post' => array(
+				'saved_post_type' => 'post',
+				'expected'        => 'show',
+			),
+			'before_1_26_post' => array(
+				'saved_post_type'  => 'post',
+				'saved_add_method' => null,
+				'expected'         => 'show',
+			),
 			'after_1_26_post'  => array(
 				'saved_post_type'  => 'page',
 				'saved_add_method' => 'add',
