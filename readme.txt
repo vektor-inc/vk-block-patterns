@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Bug fix ] Fix how to register block pattens.
 [ Bug fix ] Fix where selecting 'Unspecified' for 'How to Add Patterns.' would return to 'Show in Candidate'.
 
 = 1.30.0 =
