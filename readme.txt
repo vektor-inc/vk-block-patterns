@@ -16,6 +16,10 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.30.2 =
+[ Bug fix ] Fix in case of specify default post type ,can't use on the other post type
+[ Bug fix ] Fix where selecting 'Unspecified' for 'How to Add Patterns.' would return to 'Show in Candidate'.
+
 = 1.30.0 =
 [ Update ] Fill width slider Pattern
 
@@ -27,7 +31,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 = 1.29.0 =
 [ Add Patterns ] X-T9 Post List Pattern
-[ Bug fix ] Fix mobile Table style 
+[ Bug fix ] Fix mobile Table style
 [ Other ] Update VK Admin to composer version
 
 = 1.28.0 =
