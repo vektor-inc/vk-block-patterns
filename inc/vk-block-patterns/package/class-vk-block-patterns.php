@@ -114,8 +114,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			// Sub loop.
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
-				$post_data                     = get_post();
-				$terms                         = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
+				$post_data = get_post();
+				$terms     = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
 
 				if ( ! empty( $terms ) ) {
 					$pattern_categories = array();
@@ -184,7 +184,9 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					$registered_pattern_add_method = 'show';
 				}
 
-				if ( $registered_pattern_add_method === 'add' && $registered_post_type ) {
+				// 新規投稿時の自動挿入の場合.
+				// For automatic insertion on new post.
+				if ( 'add' === $registered_pattern_add_method && $registered_post_type ) {
 					// 対象の投稿タイプを指定.
 					$post_type_object = get_post_type_object( $registered_post_type );
 					// パターンをテンプレートに挿入.
@@ -198,7 +200,9 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					);
 				}
 
-				if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
+				// 新規投稿時の候補の表示.
+				// Show suggestion when new post.
+				if ( 'show' === $registered_pattern_add_method && $registered_post_type ) {
 					register_block_pattern(
 						// 通常ののパターン登録と同じ title の場合、通常のパターン挿入候補に出てこなくなってしまうので -show を付けている.
 						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ) . '-show',
