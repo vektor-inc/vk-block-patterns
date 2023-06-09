@@ -116,12 +116,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				$the_query->the_post();
 				$post_data                     = get_post();
 				$terms                         = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
-				$registered_pattern_add_method = get_post_meta( get_the_ID(), 'vbp-init-pattern-add-method', true );
-				$registered_post_type          = get_post_meta( get_the_ID(), 'vbp-init-post-type', true );
-
-				if ( $registered_post_type && empty( $registered_pattern_add_method ) ) {
-					$registered_pattern_add_method = 'show';
-				}
 
 				if ( ! empty( $terms ) ) {
 					$pattern_categories = array();
@@ -135,27 +129,14 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 						);
 						$pattern_categories[] = 'vk-block-pattern-' . $term->term_id;
 					}
-					if ( $registered_pattern_add_method === 'show' &&  $registered_post_type ) {
-						register_block_pattern(
-							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
-							array(
-								'title'      => esc_html( get_the_title() ),
-								'content'    => $post_data->post_content,
-								'categories' => $pattern_categories,
-								'blockTypes' => array( 'core/post-content' ),
-								'postTypes'  => array( $registered_post_type ),
-							)
-						);
-					} else {
-						register_block_pattern(
-							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
-							array(
-								'title'      => esc_html( get_the_title() ),
-								'content'    => $post_data->post_content,
-								'categories' => $pattern_categories,
-							)
-						);
-					}
+					register_block_pattern(
+						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+						array(
+							'title'      => esc_html( get_the_title() ),
+							'content'    => $post_data->post_content,
+							'categories' => $pattern_categories,
+						)
+					);
 				} else {
 					// Register Block Pattern Category.
 					register_block_pattern_category(
@@ -164,33 +145,19 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 							'label' => $vbp_prefix . 'Block Patterns',
 						)
 					);
-					if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
-						register_block_pattern(
-							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
-							array(
-								'title'      => esc_html( get_the_title() ),
-								'content'    => $post_data->post_content,
-								'categories' => array( 'vk-block-patterns' ),
-								'blockTypes' => array( 'core/post-content' ),
-								'postTypes'  => array( $registered_post_type ),
-							)
-						);
-					} else {
-						register_block_pattern(
-							'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
-							array(
-								'title'      => esc_html( get_the_title() ),
-								'content'    => $post_data->post_content,
-								'categories' => array( 'vk-block-patterns' ),
-							)
-						);
-					}
+					register_block_pattern(
+						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+						array(
+							'title'      => esc_html( get_the_title() ),
+							'content'    => $post_data->post_content,
+							'categories' => array( 'vk-block-patterns' ),
+						)
+					);
 				}
 			}
 
 			wp_reset_postdata();
 		}
-
 
 		/**
 		 * Automatic　Insert Block Patterns
@@ -209,6 +176,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			// Sub loop.
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
+				$post_data                     = get_post();
 				$registered_pattern_add_method = get_post_meta( get_the_ID(), 'vbp-init-pattern-add-method', true );
 				$registered_post_type          = get_post_meta( get_the_ID(), 'vbp-init-post-type', true );
 
@@ -227,6 +195,19 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 								'slug' => 'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
 							),
 						),
+					);
+				}
+
+				if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
+					register_block_pattern(
+						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+						array(
+							'title'      => esc_html( get_the_title() ),
+							'content'    => $post_data->post_content,
+							'categories' => array( 'vk-block-patterns' ),
+							'blockTypes' => array( 'core/post-content' ),
+							'postTypes'  => array( $registered_post_type ),
+						)
 					);
 				}
 			}
