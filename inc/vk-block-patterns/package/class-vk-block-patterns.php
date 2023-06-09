@@ -200,11 +200,11 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 
 				if ( $registered_pattern_add_method === 'show' && $registered_post_type ) {
 					register_block_pattern(
-						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+						// 通常ののパターン登録と同じ title の場合、通常のパターン挿入候補に出てこなくなってしまうので -show を付けている.
+						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ) . '-show',
 						array(
 							'title'      => esc_html( get_the_title() ),
 							'content'    => $post_data->post_content,
-							'categories' => array( 'vk-block-patterns' ),
 							'blockTypes' => array( 'core/post-content' ),
 							'postTypes'  => array( $registered_post_type ),
 						)
