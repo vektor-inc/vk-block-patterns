@@ -204,7 +204,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				// Show suggestion when new post.
 				if ( 'show' === $registered_pattern_add_method && $registered_post_type ) {
 					register_block_pattern(
-						// 通常ののパターン登録と同じ title の場合、通常のパターン挿入候補に出てこなくなってしまうので -show を付けている.
+						// 通常のパターン登録と同じ title の場合、通常のパターン挿入候補に出てこなくなってしまうので -show を付けている.
 						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ) . '-show',
 						array(
 							'title'      => esc_html( get_the_title() ),
