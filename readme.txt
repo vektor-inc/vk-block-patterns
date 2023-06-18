@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Bug fix ] Cope with failer of get_post_type_object() ( For example, when a post type is deleted )
+
 = 1.30.2 =
 [ Bug fix ] Fix in case of specify default post type ,can't use on the other post type
 [ Bug fix ] Fix where selecting 'Unspecified' for 'How to Add Patterns.' would return to 'Show in Candidate'.

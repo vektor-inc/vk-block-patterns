@@ -187,17 +187,22 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				// 新規投稿時の自動挿入の場合.
 				// For automatic insertion on new post.
 				if ( 'add' === $registered_pattern_add_method && $registered_post_type ) {
-					// 対象の投稿タイプを指定.
+
 					$post_type_object = get_post_type_object( $registered_post_type );
-					// パターンをテンプレートに挿入.
-					$post_type_object->template = array(
-						array(
-							'core/pattern',
+
+					// Cope with failer of get_post_type_object().
+					// * For example, if the post type is later deleted.
+					if ( ! empty( $post_type_object ) ) {
+						// Insert Block Pattern.
+						$post_type_object->template = array(
 							array(
-								'slug' => 'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+								'core/pattern',
+								array(
+									'slug' => 'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+								),
 							),
-						),
-					);
+						);
+					}
 				}
 
 				// 新規投稿時の候補の表示.
