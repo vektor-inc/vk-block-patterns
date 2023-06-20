@@ -1,7 +1,7 @@
 [
     {
-        "name": "日本語",
-        "slug": "ja",
+        "name": "English (United States)",
+        "slug": "en_us",
         "term_group": 0,
         "taxonomy": "vk-managing-patterns-language",
         "description": "",
@@ -10,8 +10,8 @@
         "term_order": "0"
     },
     {
-        "name": "English (United States)",
-        "slug": "en_us",
+        "name": "日本語",
+        "slug": "ja",
         "term_group": 0,
         "taxonomy": "vk-managing-patterns-language",
         "description": "",

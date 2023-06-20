@@ -1,5 +1,15 @@
 [
     {
+        "name": "Banner",
+        "slug": "banner",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
         "name": "Call to Action",
         "slug": "call-to-action",
         "term_group": 0,
@@ -30,8 +40,28 @@
         "term_order": "0"
     },
     {
+        "name": "Post List Section",
+        "slug": "post-list-section",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
         "name": "PR Contents",
         "slug": "pr-contents",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "name": "Query",
+        "slug": "query",
         "term_group": 0,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
@@ -70,38 +100,8 @@
         "term_order": "0"
     },
     {
-        "name": "Post List Section",
-        "slug": "post-list-section",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
         "name": "流れ",
         "slug": "%e6%b5%81%e3%82%8c",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "Query",
-        "slug": "query",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "Banner",
-        "slug": "banner",
         "term_group": 0,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
