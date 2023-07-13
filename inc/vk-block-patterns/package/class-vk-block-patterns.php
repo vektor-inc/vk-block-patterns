@@ -171,7 +171,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			);
 
 			// New sub query.
-			// ここで WP_Query を使うと投稿タイプ メディア から画像をアップした時に保存作ディレクトリがアップ月にならない
+			// ここで WP_Query を使うと投稿タイプ メディア から画像をアップした時に保存作ディレクトリが、
+			// パターンの投稿月になってしまうので get_posts() を使っている.
 			$posts = get_posts( $args );
 			// Sub loop.
 			foreach ( $posts as $post ) {
