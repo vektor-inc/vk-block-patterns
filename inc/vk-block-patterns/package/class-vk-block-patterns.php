@@ -108,16 +108,19 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				'posts_per_page' => -1,
 			);
 
-			// // New sub query.
-			$posts = get_posts( $args );
+			// New sub query.
+			$the_query = new \WP_Query( $args );
+
 			// Sub loop.
-			foreach ( $posts as $post ) {
-				$terms = get_the_terms( $post->ID, 'vk-block-patterns-category' );
+			while ( $the_query->have_posts() ) {
+				$the_query->the_post();
+				$post_data = get_post();
+				$terms     = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
 
 				if ( ! empty( $terms ) ) {
 					$pattern_categories = array();
 					foreach ( $terms as $term ) {
-						// Register Block Pattern Category .
+						// Register Block Pattern Category.
 						register_block_pattern_category(
 							'vk-block-pattern-' . $term->term_id,
 							array(
@@ -127,15 +130,15 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 						$pattern_categories[] = 'vk-block-pattern-' . $term->term_id;
 					}
 					register_block_pattern(
-						'vk-block-patterns/pattern-' . esc_attr( $post->ID ),
+						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
 						array(
-							'title'      => esc_html( $post->post_title ),
-							'content'    => $post->post_content,
+							'title'      => esc_html( get_the_title() ),
+							'content'    => $post_data->post_content,
 							'categories' => $pattern_categories,
 						)
 					);
 				} else {
-					// Register Block Pattern Category .
+					// Register Block Pattern Category.
 					register_block_pattern_category(
 						'vk-block-patterns',
 						array(
@@ -145,8 +148,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					register_block_pattern(
 						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
 						array(
-							'title'      => esc_html( $post->post_title ),
-							'content'    => $post->post_content,
+							'title'      => esc_html( get_the_title() ),
+							'content'    => $post_data->post_content,
 							'categories' => array( 'vk-block-patterns' ),
 						)
 					);
@@ -168,7 +171,8 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				'posts_per_page' => -1,
 			);
 
-			// // New sub query.
+			// New sub query.
+			// ここで WP_Query を使うと投稿タイプ メディア から画像をアップした時に保存作ディレクトリがアップ月にならない
 			$posts = get_posts( $args );
 			// Sub loop.
 			foreach ( $posts as $post ) {
