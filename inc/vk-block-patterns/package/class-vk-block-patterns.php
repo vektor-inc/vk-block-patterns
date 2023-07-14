@@ -101,24 +101,25 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 
 			global $vbp_prefix;
 
-			// New sub query.
-			$the_query = new \WP_Query(
-				array(
-					'post_type'      => 'vk-block-patterns',
-					'post_status'    => 'publish',
-					'no_found_rows'  => true,
-					'posts_per_page' => -1,
-				)
+			$args = array(
+				'post_type'      => 'vk-block-patterns',
+				'post_status'    => 'publish',
+				'no_found_rows'  => true,
+				'posts_per_page' => -1,
 			);
 
-			// Sub loop.
-			while ( $the_query->have_posts() ) {
-				$the_query->the_post();
-				$post_data = get_post();
-				$terms     = get_the_terms( get_the_ID(), 'vk-block-patterns-category' );
+			// New sub query.
+			$posts = get_posts( $args );
 
+			// Sub loop.
+			foreach ( $posts as $post ) {
+
+				// Register pattern category ///////////////////////.
+
+				$terms = get_the_terms( $post->ID, 'vk-block-patterns-category' );
+
+				$pattern_categories = array();
 				if ( ! empty( $terms ) ) {
-					$pattern_categories = array();
 					foreach ( $terms as $term ) {
 						// Register Block Pattern Category.
 						register_block_pattern_category(
@@ -129,14 +130,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 						);
 						$pattern_categories[] = 'vk-block-pattern-' . $term->term_id;
 					}
-					register_block_pattern(
-						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
-						array(
-							'title'      => esc_html( get_the_title() ),
-							'content'    => $post_data->post_content,
-							'categories' => $pattern_categories,
-						)
-					);
 				} else {
 					// Register Block Pattern Category.
 					register_block_pattern_category(
@@ -145,15 +138,19 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 							'label' => $vbp_prefix . 'Block Patterns',
 						)
 					);
-					register_block_pattern(
-						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
-						array(
-							'title'      => esc_html( get_the_title() ),
-							'content'    => $post_data->post_content,
-							'categories' => array( 'vk-block-patterns' ),
-						)
-					);
+					$pattern_categories[] = 'vk-block-patterns';
 				}
+
+				// Register pattern ///////////////////////.
+
+				register_block_pattern(
+					'vk-block-patterns/pattern-' . esc_attr( $post->ID ),
+					array(
+						'title'      => esc_html( $post->post_title ),
+						'content'    => $post->post_content,
+						'categories' => $pattern_categories,
+					)
+				);
 			}
 
 			wp_reset_postdata();
@@ -164,21 +161,21 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		 */
 		public static function automatic_insert_block_patterns() {
 
-			$the_query = new \WP_Query(
-				array(
-					'post_type'      => 'vk-block-patterns',
-					'post_status'    => 'publish',
-					'no_found_rows'  => true,
-					'posts_per_page' => -1,
-				)
+			$args = array(
+				'post_type'      => 'vk-block-patterns',
+				'post_status'    => 'publish',
+				'no_found_rows'  => true,
+				'posts_per_page' => -1,
 			);
 
+			// New sub query.
+			// ここで WP_Query を使うと投稿タイプ メディア から画像をアップした時に保存作ディレクトリが、
+			// パターンの投稿月になってしまうので get_posts() を使っている.
+			$posts = get_posts( $args );
 			// Sub loop.
-			while ( $the_query->have_posts() ) {
-				$the_query->the_post();
-				$post_data                     = get_post();
-				$registered_pattern_add_method = get_post_meta( get_the_ID(), 'vbp-init-pattern-add-method', true );
-				$registered_post_type          = get_post_meta( get_the_ID(), 'vbp-init-post-type', true );
+			foreach ( $posts as $post ) {
+				$registered_pattern_add_method = get_post_meta( $post->ID, 'vbp-init-pattern-add-method', true );
+				$registered_post_type          = get_post_meta( $post->ID, 'vbp-init-post-type', true );
 
 				if ( $registered_post_type && empty( $registered_pattern_add_method ) ) {
 					$registered_pattern_add_method = 'show';
@@ -198,7 +195,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 							array(
 								'core/pattern',
 								array(
-									'slug' => 'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ),
+									'slug' => 'vk-block-patterns/pattern-' . esc_attr( $post->ID ),
 								),
 							),
 						);
@@ -210,10 +207,10 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 				if ( 'show' === $registered_pattern_add_method && $registered_post_type ) {
 					register_block_pattern(
 						// 通常のパターン登録と同じ title の場合、通常のパターン挿入候補に出てこなくなってしまうので -show を付けている.
-						'vk-block-patterns/pattern-' . esc_attr( get_the_ID() ) . '-show',
+						'vk-block-patterns/pattern-' . esc_attr( $post->ID ) . '-show',
 						array(
-							'title'      => esc_html( get_the_title() ),
-							'content'    => $post_data->post_content,
+							'title'      => esc_html( $post->post_title ),
+							'content'    => $post->post_content,
 							'blockTypes' => array( 'core/post-content' ),
 							'postTypes'  => array( $registered_post_type ),
 						)
