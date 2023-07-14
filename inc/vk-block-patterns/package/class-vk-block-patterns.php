@@ -114,10 +114,12 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 			// Sub loop.
 			foreach ( $posts as $post ) {
 
+				// Register pattern category ///////////////////////.
+
 				$terms = get_the_terms( $post->ID, 'vk-block-patterns-category' );
 
+				$pattern_categories = array();
 				if ( ! empty( $terms ) ) {
-					$pattern_categories = array();
 					foreach ( $terms as $term ) {
 						// Register Block Pattern Category.
 						register_block_pattern_category(
@@ -128,14 +130,6 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 						);
 						$pattern_categories[] = 'vk-block-pattern-' . $term->term_id;
 					}
-					register_block_pattern(
-						'vk-block-patterns/pattern-' . esc_attr( $post->ID ),
-						array(
-							'title'      => esc_html( $post->post_title ),
-							'content'    => $post->post_content,
-							'categories' => $pattern_categories,
-						)
-					);
 				} else {
 					// Register Block Pattern Category.
 					register_block_pattern_category(
@@ -144,15 +138,19 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 							'label' => $vbp_prefix . 'Block Patterns',
 						)
 					);
-					register_block_pattern(
-						'vk-block-patterns/pattern-' . esc_attr( $post->ID ),
-						array(
-							'title'      => esc_html( $post->post_title ),
-							'content'    => $post->post_content,
-							'categories' => array( 'vk-block-patterns' ),
-						)
-					);
+					$pattern_categories[] = 'vk-block-patterns';
 				}
+
+				// Register pattern ///////////////////////.
+
+				register_block_pattern(
+					'vk-block-patterns/pattern-' . esc_attr( $post->ID ),
+					array(
+						'title'      => esc_html( $post->post_title ),
+						'content'    => $post->post_content,
+						'categories' => $pattern_categories,
+					)
+				);
 			}
 
 			wp_reset_postdata();
