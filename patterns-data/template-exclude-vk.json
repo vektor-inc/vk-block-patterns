@@ -1,19 +1,5 @@
 [
     {
-        "title": "全幅地図",
-        "post_status": "publish",
-        "post_name": "%e5%85%a8%e5%b9%85%e5%9c%b0%e5%9b%b3",
-        "description": "",
-        "content": "<!-- wp:group {\\\"align\\\":\\\"full\\\",\\\"className\\\":\\\"vk-fit-map\\\"} -->\n<div class=\\\"wp-block-group alignfull vk-fit-map\\\"><!-- wp:html -->\n<iframe style=\\\"border: 0;\\\" src=\\\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d26091.476183777333!2d136.881666!3d35.170721!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376e794d78b89%3A0x81f7204bf8261663!2z5ZCN5Y-k5bGL6aeF!5e0!3m2!1sja!2sjp!4v1445077914032\\\" width=\\\"750\\\" height=\\\"400\\\" frameborder=\\\"0\\\" allowfullscreen=\\\"allowfullscreen\\\"></iframe>\n<!-- /wp:html --></div>\n<!-- /wp:group -->",
-        "categories": [
-            "featured"
-        ],
-        "languages": [
-            "ja"
-        ],
-        "blockTypes": false
-    },
-    {
         "title": "Column Menu Fit",
         "post_status": "publish",
         "post_name": "2319-2-2",
@@ -149,5 +135,19 @@
             "core/buttons",
             "core/button"
         ]
+    },
+    {
+        "title": "全幅地図",
+        "post_status": "publish",
+        "post_name": "%e5%85%a8%e5%b9%85%e5%9c%b0%e5%9b%b3",
+        "description": "",
+        "content": "<!-- wp:group {\\\"align\\\":\\\"full\\\",\\\"className\\\":\\\"vk-fit-map\\\"} -->\n<div class=\\\"wp-block-group alignfull vk-fit-map\\\"><!-- wp:html -->\n<iframe style=\\\"border: 0;\\\" src=\\\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d26091.476183777333!2d136.881666!3d35.170721!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376e794d78b89%3A0x81f7204bf8261663!2z5ZCN5Y-k5bGL6aeF!5e0!3m2!1sja!2sjp!4v1445077914032\\\" width=\\\"750\\\" height=\\\"400\\\" frameborder=\\\"0\\\" allowfullscreen=\\\"allowfullscreen\\\"></iframe>\n<!-- /wp:html --></div>\n<!-- /wp:group -->",
+        "categories": [
+            "featured"
+        ],
+        "languages": [
+            "ja"
+        ],
+        "blockTypes": false
     }
 ]
