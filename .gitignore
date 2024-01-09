@@ -106,5 +106,5 @@ dist
 .wp-env.override.json
 vendor/
 build/
-
+.phpunit.result.cache
 *.map

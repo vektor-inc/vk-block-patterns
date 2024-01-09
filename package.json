@@ -5,7 +5,7 @@
 	"main": "gulpfile.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"update": "ncu -u && rm -rf node_modules package-lock.json && npm install",
+		"update": "ncu -u -x '@wordpress/env' && rm -rf node_modules package-lock.json && npm install",
 		"watch": "wp-scripts start",
 		"build": "wp-scripts build && npm run build:sass",
 		"dist": "npm run build && composer install --no-dev && gulp dist && composer install",
@@ -26,10 +26,10 @@
 	},
 	"homepage": "https://github.com/vektor-inc/vk-block-patterns#readme",
 	"devDependencies": {
-		"@wordpress/env": "^5.12.0",
-		"@wordpress/scripts": "^25.4.0",
+		"@wordpress/env": "^5.16.0",
+		"@wordpress/scripts": "^26.19.0",
 		"gulp": "^4.0.2",
-		"npm-check-updates": "^16.7.9",
-		"sass": "^1.58.3"
+		"npm-check-updates": "^16.14.12",
+		"sass": "^1.69.7"
 	}
 }
