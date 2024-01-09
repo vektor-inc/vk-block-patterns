@@ -292,8 +292,14 @@ add_action( 'admin_init', 'vbp_admin_control' );
   * Delete Cache Pattern Data from API
   */
 function vbp_clear_patterns_cache() {
-	delete_transient( 'vk_patterns_api_data' );
-	die();
+	// オプションを変更できるユーザーのみがアクセスできるように制限
+	if ( is_user_logged_in() && current_user_can( 'edit_options' ) ) {		
+		delete_transient( 'vk_patterns_api_data' );
+		die();
+	} else {
+		// アクセスが拒否された場合の処理
+		wp_die( 'Unauthorized', 'Unauthorized', array( 'response' => 401 ) );
+	}
 }
 // 'clear_patterns_cache' の部分は src/admin/js/index.js　で定義している.
 add_action( 'wp_ajax_clear_patterns_cache', 'vbp_clear_patterns_cache' );
