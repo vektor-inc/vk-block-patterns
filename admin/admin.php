@@ -291,12 +291,14 @@ add_action( 'admin_init', 'vbp_admin_control' );
   * API連携で取得したパターンデータのキャッシュを削除
   * Delete Cache Pattern Data from API
   */
-function vbp_clear_patterns_cache() {
+function vbp_clear_patterns_cache( $test_mode = false ) {
 	// オプションを変更できるユーザーのみがアクセスできるように制限
 	if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {		
 		delete_transient( 'vk_patterns_api_data' );
-		die();
-	} else {
+		if ( false === $test_mode ) {
+			die();
+		}		
+	} elseif ( false === $test_mode ) {
 		// アクセスが拒否された場合の処理
 		wp_die( 'Unauthorized', 'Unauthorized', array( 'response' => 401 ) );
 	}

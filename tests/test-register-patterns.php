@@ -7,7 +7,7 @@
 
 class RegisterPatternsTest extends WP_UnitTestCase {
 
-	public function test_register_patterns() {
+	public function get_test_data() {
 
         $favorite_patterns = '[
             {
@@ -243,6 +243,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 )
 			),
         );
+
+        return $test_data;
+    }
+
+    public function test_register_patterns() {
+
+        $test_data = self::get_test_data();
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 		print 'Register Patterns' . PHP_EOL;
@@ -269,5 +276,64 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			delete_transient( 'vk_patterns_api_data' );
 		}
         delete_option( 'vk_block_patterns_options' );
-	}
+	}    
+
+    public function test_vbp_clear_patterns_cache(){
+        $transients = 'aaaa';
+
+        // ユーザーを作成
+        $user['administrator'] = $this->factory->user->create( array( 'role' => 'administrator' ) );
+        $user['editor']        = $this->factory->user->create( array( 'role' => 'editor' ) );
+        $user['author']        = $this->factory->user->create( array( 'role' => 'author' ) );
+        $user['contributor']   = $this->factory->user->create( array( 'role' => 'contributor' ) );
+        $user['subscriber']    = $this->factory->user->create( array( 'role' => 'subscriber' ) );
+
+        // テストの配列
+        $test_data = array(
+            // 管理者
+            array(
+                'user_id' => $user['administrator'],
+                'correct' => false,
+            ),
+            // 編集者
+            array(
+                'user_id' => $user['editor'],
+                'correct' => 'aaaa',
+            ),
+            // 投稿者
+            array(
+                'user_id' => $user['author'],
+                'correct' => 'aaaa',
+            ),
+            // 寄稿者
+            array(
+                'user_id' => $user['contributor'],
+                'correct' => 'aaaa',
+            ),
+            // 購読者
+            array(
+                'user_id' => $user['subscriber'],
+                'correct' => 'aaaa',
+            ),
+        );
+
+		print PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+		print 'Delete Cache' . PHP_EOL;
+		print '------------------------------------' . PHP_EOL;
+
+        foreach ( $test_data as $test_value ) {
+            wp_set_current_user( $test_value['user_id'] );
+            set_transient( 'vk_patterns_api_data', $transients, 60 * 60 * 24 );
+            vbp_clear_patterns_cache( true );
+            $return  = get_transient( 'vk_patterns_api_data' );
+            $correct = $test_value['correct'];
+
+            print 'return:' . PHP_EOL;
+            var_dump( $return );
+            print 'correct:' . PHP_EOL;
+            var_dump( $correct );
+            $this->assertEquals( $correct, $return );
+        }
+    }
 }
