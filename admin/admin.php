@@ -293,7 +293,7 @@ add_action( 'admin_init', 'vbp_admin_control' );
   */
 function vbp_clear_patterns_cache() {
 	// オプションを変更できるユーザーのみがアクセスできるように制限
-	if ( is_user_logged_in() && current_user_can( 'edit_options' ) ) {		
+	if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {		
 		delete_transient( 'vk_patterns_api_data' );
 		die();
 	} else {
