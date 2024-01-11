@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.31.1 =
 [ Bug fix] Fix Broken Access Control vulnerability.
 
 = 1.31.0 =

@@ -3,7 +3,7 @@
  * Plugin Name: VK Block Patterns
  * Plugin URI: https://github.com/vektor-inc/vk-block-patterns
  * Description: You can make and register your original custom block patterns.
- * Version: 1.31.0
+ * Version: 1.31.1.0
  * Requires at least: 6.0
  * Author:  Vektor,Inc.
  * Author URI: https://vektor-inc.co.jp
@@ -21,7 +21,7 @@ if ( ! function_exists( 'register_block_pattern' ) ) {
 	return;
 }
 
-require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 // Define plugin version.
 $plugin_data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
@@ -90,7 +90,7 @@ if ( ! empty( $options['disableCorePattern'] ) ) {
 	remove_theme_support( 'core-block-patterns' );
 }
 
-require dirname( __FILE__ ) . '/patterns-data/class-register-patterns-from-json.php';
+require __DIR__ . '/patterns-data/class-register-patterns-from-json.php';
 if ( ! empty( $options['disablePluginPattern'] ) ) {
 	remove_action( 'init', array( 'wp_content\plugins\vk_block_patterns\patterns_data\Register_Patterns_From_Json', 'register_template' ) );
 }
@@ -137,6 +137,5 @@ function vbp_uninstall() {
 	unregister_setting( 'vbp_setting', 'vk_block_patterns_options' );
 	delete_option( 'vk_block_patterns_options' );
 	delete_site_option( 'vk_block_patterns_options' );
-
 }
 register_uninstall_hook( __FILE__, 'vbp_uninstall' );
