@@ -162,6 +162,7 @@ function vbp_admin_enqueue_scripts( $hook_suffix ) {
 	$vbp_options['adminUrl'] = admin_url();
 	$vbp_options['template'] = get_template();
 	$vbp_options['ajaxUrl']  = admin_url( 'admin-ajax.php' );
+	$vbp_options['nonce']    = wp_create_nonce( 'vbp_clear_patterns_cache_action' );
 	wp_localize_script( 'vk-patterns-admin-js', 'vkpOptions', $vbp_options );
 }
 add_action( 'admin_enqueue_scripts', 'vbp_admin_enqueue_scripts' );
@@ -292,6 +293,12 @@ add_action( 'admin_init', 'vbp_admin_control' );
   * Delete Cache Pattern Data from API
   */
 function vbp_clear_patterns_cache( $test_mode = false ) {
+	// nonce を検証する
+	if ( false === $test_mode ) {
+		if ( ! isset( $_POST['vbp_clear_patterns_cache_nonce'] ) || ! wp_verify_nonce( $_POST['vbp_clear_patterns_cache_nonce'], 'vbp_clear_patterns_cache_action' ) ) {
+			die( 'Nonce Verification Failed' );
+		}
+	}
 	// オプションを変更できるユーザーのみがアクセスできるように制限
 	if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {		
 		delete_transient( 'vk_patterns_api_data' );
