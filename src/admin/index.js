@@ -54,7 +54,7 @@ const Admin = () => {
 		req.open('POST', ajaxUrl, true);
 		req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
 		// アクションフックのポイント（PHP側でキャッシュをクリアする処理が走る）
-		req.send(`action=clear_patterns_cache`);
+		req.send(`action=clear_patterns_cache&vbp_clear_patterns_cache_nonce=${vkpOptions.nonce}`);
 
 		setIsClearing( false );
 		setIsCleared( true );
