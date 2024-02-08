@@ -3,7 +3,7 @@
  * Plugin Name: VK Block Patterns
  * Plugin URI: https://github.com/vektor-inc/vk-block-patterns
  * Description: You can make and register your original custom block patterns.
- * Version: 1.31.2.1
+ * Version: 1.32.0.0
  * Requires at least: 6.0
  * Author:  Vektor,Inc.
  * Author URI: https://vektor-inc.co.jp
