@@ -20,7 +20,11 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
-			add_action( 'init', array( __CLASS__, 'automatic_insert_block_patterns' ), 9 );
+
+			// 9 以下にすると Custom Post Type UI で作成した投稿タイプに挿入されないため 10 にしている.
+			// I set it to 10 because if it's under 9, the post type created by Custom Post Type UI won't be inserted.
+			add_action( 'init', array( __CLASS__, 'automatic_insert_block_patterns' ), 10 );
+
 			add_action( 'init', array( __CLASS__, 'register_block_patterns' ), 8 );
 			add_action( 'init', array( __CLASS__, 'register_post_type' ), 7 );
 			add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );

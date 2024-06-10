@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 6.0
 Tested up to: 6.2
-Stable tag: 1.32.0.0
+Stable tag: 1.32.1.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,9 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen.
 
 == Changelog ==
+
+= 1.32.1 =
+[ Bug fix ]　The auto insert supports the post type created by Custom Post Type UI.
 
 = 1.32.0 =
 [ Update ] Adjust all patterns
