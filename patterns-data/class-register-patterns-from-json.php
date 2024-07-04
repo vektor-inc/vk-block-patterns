@@ -2,7 +2,8 @@
 /**
  * 生成先のテーマ・プラグインでブロックパターン情報を読み込んで登録
  *
- * @package VK Block Pattern Plugin Generator
+ * @package vektor-inc/vk-block-pattern-plugin-generator
+ * @version 0.8.8
  */
 
 namespace wp_content\plugins\vk_block_patterns\patterns_data;
@@ -28,7 +29,7 @@ class Register_Patterns_From_Json {
 	 * @return string 最小化したCSSファイル
 	 */
 	public static function load_inline_css( $filename = 'style.css' ) {
-		$style_path  = wp_normalize_path( dirname( __FILE__ ) . '/' . $filename );
+		$style_path  = wp_normalize_path( __DIR__ . '/' . $filename );
 		$style_url   = str_replace( wp_normalize_path( ABSPATH ), site_url() . '/', $style_path );
 		$dynamic_css = '';
 		if ( file_exists( $style_path ) ) {
@@ -77,7 +78,7 @@ class Register_Patterns_From_Json {
 	public static function register_template() {
 
 		// これは読み込み側では存在しないクラスなので要対応.
-		$json_dir_path = wp_normalize_path( dirname( __FILE__ ) . '/' );
+		$json_dir_path = wp_normalize_path( __DIR__ . '/' );
 
 		if ( function_exists( 'register_block_pattern_category' ) && function_exists( 'register_block_pattern' ) ) {
 
@@ -168,14 +169,17 @@ class Register_Patterns_From_Json {
 						if ( in_array( $site_lang, (array) $val['languages'], true ) ) {
 							// 本来 $val['post_status'] は必ず必ず入ってくる。リリース前のデータ対応なので2021年3月以降削除可.
 							if ( ! isset( $val['post_status'] ) || 'publish' === $val['post_status'] ) {
+								$pattern_properties = array(
+									'title'      => $val['title'],
+									'categories' => $val['categories'],
+									'content'    => $val['content'],
+								);
+								if ( ! empty( $val['blockTypes'] ) ) {
+									$pattern_properties['blockTypes'] = $val['blockTypes'];
+								}
 								register_block_pattern(
 									$val['post_name'],
-									array(
-										'title'      => $val['title'],
-										'categories' => $val['categories'],
-										'content'    => $val['content'],
-										'blockTypes' => $val['blockTypes'],
-									)
+									$pattern_properties
 								);
 							}
 						}
@@ -183,14 +187,17 @@ class Register_Patterns_From_Json {
 						// 英語のパターンのみ登録するモード.
 						if ( in_array( mb_strtolower( 'en_US' ), (array) $val['languages'], true ) ) {
 							if ( ! isset( $val['post_status'] ) || 'publish' === $val['post_status'] ) {
+								$pattern_properties = array(
+									'title'      => $val['title'],
+									'categories' => $val['categories'],
+									'content'    => $val['content'],
+								);
+								if ( ! empty( $val['blockTypes'] ) ) {
+									$pattern_properties['blockTypes'] = $val['blockTypes'];
+								}
 								register_block_pattern(
 									$val['post_name'],
-									array(
-										'title'      => $val['title'],
-										'categories' => $val['categories'],
-										'content'    => $val['content'],
-										'blockTypes' => $val['blockTypes'],
-									)
+									$pattern_properties
 								);
 							}
 						}

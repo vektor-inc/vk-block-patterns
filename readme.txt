@@ -4,8 +4,8 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 6.0
 Tested up to: 6.2
-Stable tag: 1.32.1.0
-Requires PHP: 7.2
+Stable tag: 1.32.2.0
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,8 +16,11 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.32.2 =
+[ Bug fix ] Fixed errors that occur on the site editor.
+
 = 1.32.1 =
-[ Bug fix ]　The auto insert supports the post type created by Custom Post Type UI.
+[ Bug fix ] The auto insert supports the post type created by Custom Post Type UI.
 
 = 1.32.0 =
 [ Update ] Adjust all patterns
