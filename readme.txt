@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Bug fix ] Handling the issue where the admin screen does not display on 1.32.2
+
 = 1.32.2 =
 [ Bug fix ] Fixed errors that occur on the site editor.
 
