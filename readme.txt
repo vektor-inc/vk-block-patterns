@@ -4,7 +4,7 @@ Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 6.2
 Tested up to: 6.6
-Stable tag: 1.32.3.0
+Stable tag: 1.32.4.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,9 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen.
 
 == Changelog ==
+
+= 1.32.4 =
+[ Design tuning ] Fixed "Fit columns alignfull" so that "Outer" also has full width.
 
 = 1.32.3 =
 [ Bug fix ] Handling the issue where the admin screen does not display on 1.32.2

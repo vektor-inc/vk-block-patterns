@@ -3,6 +3,7 @@
 }
 
 .vk-cols--hasbtn{ // 結局汎用ブロックではボタンの処理が完全に制御できないので基本的に非推奨
+    margin-bottom:0;
     & > .row > .vk_gridColumn_item,
     & > .wp-block-column {
         position: relative;
@@ -15,7 +16,6 @@
 			width:100%; // カラムに padding つけられると absolute なのでpadding引いた幅を検出できずにはみ出すが、まぁしゃーないと思う。
         }
     }
-    margin-bottom:0;
 }
 
 /*
@@ -91,7 +91,8 @@
     // 画像部分全幅
     &.vk-cols--grid--alignfull {
         &  > .wp-block-column:nth-child(2){
-            & > .wp-block-cover {
+            & > .wp-block-cover,
+            & > .vk_outer {
                 @media (max-width: 599px){
                     width:100vw;
                     margin-right:calc( ( 100% - 100vw ) / 2 );
@@ -111,7 +112,8 @@
                     margin-right:0;
                 }
                 &  > .wp-block-column:nth-child(2){
-                    & > .wp-block-cover {
+                    & > .wp-block-cover,
+                    & > .vk_outer {
                         margin-left:calc( 100% - 50vw );
                     }            
                 }
