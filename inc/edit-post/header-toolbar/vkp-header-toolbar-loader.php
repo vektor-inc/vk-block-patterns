@@ -26,7 +26,7 @@ function vbp_edit_post_enqueue_scripts() {
 
 	wp_enqueue_style(
 		'vk-patterns-header-toolbar-css',
-		VBP_URL . 'inc/edit-post/header-toolbar/style-index.css'
+		VBP_URL . 'build/style-edit-post/header-toolbar/index.css'
 	);
 }
 add_action( 'enqueue_block_editor_assets', 'vbp_edit_post_enqueue_scripts' );
