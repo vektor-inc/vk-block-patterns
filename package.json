@@ -26,8 +26,8 @@
 	},
 	"homepage": "https://github.com/vektor-inc/vk-block-patterns#readme",
 	"devDependencies": {
-		"@wordpress/env": "^10.2.0",
-		"@wordpress/scripts": "^19.2.4",
+		"@wordpress/env": "10.4.0",
+		"@wordpress/scripts": "^30.3.0",
 		"gulp": "^5.0.0",
 		"npm-check-updates": "^16.14.12",
 		"sass": "^1.69.7"
