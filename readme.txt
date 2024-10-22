@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Bug fix ] Fix an issue with the CSS not loading correctly in the admin toolbar.
+
 = 1.32.4 =
 [ Design tuning ] Fixed "Fit columns alignfull" so that "Outer" also has full width.
 
