@@ -1,6 +1,6 @@
 import { __, _x, getLocaleData } from '@wordpress/i18n';
 import { useState, useEffect } from '@wordpress/element';
-import { createRoot } from '@wordpress/element';
+import { createRoot } from 'react-dom/client';
 import {
 	ToggleControl,
 	Button,
