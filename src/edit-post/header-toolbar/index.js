@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import domReady from '@wordpress/dom-ready';
-import { render } from '@wordpress/element';
+import { createRoot } from '@wordpress/element';
 import { subscribe } from '@wordpress/data';
 import { getLocaleData } from '@wordpress/i18n';
 import { ExternalLink } from '@wordpress/components';
@@ -49,7 +49,8 @@ domReady( () => {
 		// .vk-patterns-header-toolbar がまだ存在しなかったら
 		if ( ! headerToolbar.querySelector( '.vk-patterns-header-toolbar' ) ) {
 			// .vk-patterns-header-toolbar 内にリンク追加
-			render( <PatternsLink />, patternsLinkArea );
+			const root = createRoot(patternsLinkArea);
+			root.render( <PatternsLink />);
 			// ツールバーの子要素の最後にパターンへのリンクを追加
 			headerToolbar.appendChild( patternsLinkArea );
 		}
