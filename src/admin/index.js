@@ -1,5 +1,6 @@
 import { __, _x, getLocaleData } from '@wordpress/i18n';
-import { render, useState, useEffect } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
+import { createRoot } from 'react-dom/client';
 import {
 	ToggleControl,
 	Button,
@@ -374,4 +375,5 @@ const Admin = () => {
 		</>
 	);
 };
-render( <Admin />, document.getElementById( 'vk_block_patterns_admin' ) );
+const root = createRoot(document.getElementById( 'vk_block_patterns_admin' ) );
+root.render( <Admin /> );
