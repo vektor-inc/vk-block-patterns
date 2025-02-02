@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.33.0 =
 [ Other ] Pattern update
 [ Bug fix ] Fix console error of pattern library button.
 [ Bug fix ] Fix an issue with the CSS not loading correctly in the admin toolbar.
