@@ -16,6 +16,9 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.33.1 =
+[ Bug fix ][ 6.8 ] Adapt to the Cover block specification changes in WordPress 6.8
+
 = 1.33.0 =
 [ Other ] Pattern update
 [ Bug fix ] Fix console error of pattern library button.
