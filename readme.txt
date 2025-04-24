@@ -3,8 +3,8 @@ Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki,do
 Donate link:
 Tags: Guternberg, Block Pattern
 Requires at least: 6.2
-Tested up to: 6.6
-Stable tag: 1.33.0.1
+Tested up to: 6.8
+Stable tag: 1.33.1.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
