@@ -205,16 +205,17 @@ function vbp_vws_alert_list() {
 	$free_notice .= '</div>';
 
 	// メールアドレスが入力されていない場合.
-	$empty_notice  = '<div class="notice notice-warning">';
-	$empty_notice .= '<p>';
-	$empty_notice .= 'VK Pattern Library のアカウント連携が設定されていません。';
-	$empty_notice .= '</p>';
-	$empty_notice .= '<div style="margin-bottom:10px;">';
-	$empty_notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
-	$empty_notice .= ' ';
-	$empty_notice .= '<a href="' . $current_url . $url_next . 'disable-empty-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
-	$empty_notice .= '</div>';
-	$empty_notice .= '</div>';
+	$empty_notice  = '';
+	// $empty_notice .= '<div class="notice notice-warning">';
+	// $empty_notice .= '<p>';
+	// $empty_notice .= 'VK Pattern Library のアカウント連携が設定されていません。';
+	// $empty_notice .= '</p>';
+	// $empty_notice .= '<div style="margin-bottom:10px;">';
+	// $empty_notice .= '<a href="' . $setting_link . '" class="button button-primary">' . __( 'Go to VK Block Patterns Setting', 'vk-block-patterns' ) . '</a>';
+	// $empty_notice .= ' ';
+	// $empty_notice .= '<a href="' . $current_url . $url_next . 'disable-empty-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
+	// $empty_notice .= '</div>';
+	// $empty_notice .= '</div>';
 
 	// 配列に整えて返す.
 	$alert = array(
