@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.33.2 =
 [ Specification Change ] Temporarily hide the alert about the unregistered email in the pattern library.
 
 = 1.33.1 =
