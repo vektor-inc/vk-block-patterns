@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Other ] Changed the pattern library submenu link to open in a new tab.
+
 = 1.33.2 =
 [ Specification Change ] Temporarily hide the alert about the unregistered email in the pattern library.
 
