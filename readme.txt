@@ -17,6 +17,7 @@ When you activate this plugin that create new custom post type for custom block 
 == Changelog ==
 
 [ Other ] Changed the pattern library submenu link to open in a new tab.
+[ Bug fix ] Fixed an issue where color settings in some blocks of the post list pattern were not applied from the editor.
 
 = 1.33.2 =
 [ Specification Change ] Temporarily hide the alert about the unregistered email in the pattern library.
