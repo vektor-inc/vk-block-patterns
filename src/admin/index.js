@@ -210,7 +210,7 @@ const Admin = () => {
 							<>
 								<ToggleControl
 									label={ __(
-										'Disable X-T9 patterns',
+										'Disable X-T9 patterns in VK Pattern Library',
 										'vk-block-patterns'
 									) }
 									checked={ vkpOption.disableXT9Pattern }
