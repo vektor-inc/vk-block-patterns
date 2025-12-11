@@ -15,6 +15,8 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen.
 
 == Changelog ==
+
+[ Other ] Update license notice
 [ Other ] Fix label text of the “Disable X-T9 patterns in VK Pattern Library” control.
 [ Other ] Changed the pattern library submenu link to open in a new tab.
 [ Bug fix ] Fixed an issue where color settings in some blocks of the post list pattern were not applied from the editor.
