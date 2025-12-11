@@ -198,7 +198,9 @@ function vbp_vws_alert_list() {
 	$free_notice .= '設定されたメールアドレスと連携している <a href="https://vws.vektor-inc.co.jp/my-account/license" target="_blank" rel="noopener noreferrer">VWSアカウント</a> はライセンスの期限が切れているためお気に入り機能などがご利用できなくなっています。ライセンスの再購入をご検討ください。';
 	$free_notice .= '</p>';
 	$free_notice .= '<p>';
-	$free_notice .= '<a href="https://vws.vektor-inc.co.jp/product/lightning-g3-pro-pack" class="button button-primary" target="_blank" rel="noopener noreferrer">Lightning G3 Pro Pack</a>';
+	$free_notice .= '<a href="https://vws.vektor-inc.co.jp/product/vektor-passport-1y" class="button button-primary" target="_blank" rel="noopener noreferrer">Vektor Passport</a>';
+	$free_notice .= ' ';
+	$free_notice .= '<a href="' . admin_url('options-general.php?page=vk_block_patterns_options' ) . '" class="button button-primary" rel="noopener noreferrer">連携メールアドレスの確認</a>';
 	$free_notice .= ' ';
 	$free_notice .= '<a href="' . $current_url . $url_next . 'disable-free-notice" class="button button-secondary">' . __( 'Dismiss', 'vk-block-patterns' ) . '</a>';
 	$free_notice .= '</p>';
