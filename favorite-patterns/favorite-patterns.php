@@ -55,7 +55,9 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 50 ) {
 					),
 				)
 			);
-			if ( ! empty( $result ) && ! is_wp_error( $result ) ) {
+			if ( is_wp_error( $result ) ) {
+				error_log( 'VK Block Patterns API error: ' . $result->get_error_message() );
+			} elseif ( ! empty( $result ) ) {
 				$return = json_decode( $result['body'], true );
 				// APIで取得したパターンデータをキャッシュに登録. 1日 に設定.
 				set_transient( $transient_key, $return, 60 * 60 * 24 );
@@ -93,7 +95,7 @@ function vbp_reload_pattern_api_data() {
 	// フラグがなければパターンのデータのキャッシュをパージ.
 	if ( $diff > $cache_time ) {
 		// パターンのデータのキャッシュをパージ.
-		$cached_keys = get_option( 'vk_patterns_api_cached_keys', array( 'vk_patterns_api_data_1_50' ) );
+		$cached_keys = get_option( 'vk_patterns_api_cached_keys', array() );
 		if ( is_array( $cached_keys ) ) {
 			foreach ( $cached_keys as $cached_key ) {
 				delete_transient( $cached_key );
@@ -137,7 +139,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 		$per_page         = apply_filters( 'vbp_patterns_api_per_page', 50 );
 		$page             = 1;
 		$has_more         = true;
-		$max_pages        = 100; // 安全策として最大ページ数を設定.
+		$max_pages        = apply_filters( 'vbp_patterns_max_pages', 100 ); // 安全策として最大ページ数を設定.
 		$favorite_category_registered = false;
 		$xt9_category_registered      = false;
 
