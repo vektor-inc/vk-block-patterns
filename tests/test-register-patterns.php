@@ -260,7 +260,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			// テストデータにキャシュの指定がある場合.
 			if ( ! empty( $test_value['transients']) ) {
 				// キャッシュをセット.
-				set_transient( 'vk_patterns_api_data', $test_value['transients'], 60 * 60 * 24 ); 
+				set_transient( 'vk_patterns_api_data_1_50', $test_value['transients'], 60 * 60 * 24 );
 			}
 
 			$return  = vbp_register_patterns( $test_value['api'], $test_value['template'] );
@@ -273,7 +273,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			$this->assertEquals( $correct, $return );
 
 			// キャッシュ削除.
-			delete_transient( 'vk_patterns_api_data' );
+			delete_transient( 'vk_patterns_api_data_1_50' );
 		}
         delete_option( 'vk_block_patterns_options' );
 	}    
@@ -336,4 +336,155 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             $this->assertEquals( $correct, $return );
         }
     }
+
+	public function test_vbp_get_pattern_api_data_caches_response_with_page_and_per_page() {
+		update_option(
+			'vk_block_patterns_options',
+			array(
+				'VWSMail' => 'cache-test@example.com',
+			)
+		);
+
+		$page          = 2;
+		$per_page      = 25;
+		$transient_key = 'vk_patterns_api_data_' . $page . '_' . $per_page;
+		$response_body = array(
+			'patterns'            => '[]',
+			'x-t9'                => '[]',
+			'has_more_favorites'  => false,
+			'has_more_x_t9'       => false,
+			'page'                => $page,
+			'per_page'            => $per_page,
+			'total_favorites'     => 0,
+			'total_x_t9'          => 0,
+		);
+
+		delete_transient( $transient_key );
+		delete_option( 'vk_patterns_api_cached_keys' );
+
+		$pre_http_called = false;
+		$http_filter = function( $preempt, $args, $url ) use ( &$pre_http_called, $response_body ) {
+			$pre_http_called = true;
+			return array(
+				'body'     => wp_json_encode( $response_body ),
+				'response' => array(
+					'code' => 200,
+				),
+			);
+		};
+
+		add_filter(
+			'pre_http_request',
+			$http_filter,
+			10,
+			3
+		);
+
+		$return        = vbp_get_pattern_api_data( $page, $per_page );
+		$cached_keys   = get_option( 'vk_patterns_api_cached_keys', array() );
+		$cached_return = get_transient( $transient_key );
+
+		remove_filter( 'pre_http_request', $http_filter, 10 );
+		delete_transient( $transient_key );
+		delete_option( 'vk_block_patterns_options' );
+		delete_option( 'vk_patterns_api_cached_keys' );
+
+		$this->assertTrue( $pre_http_called );
+		$this->assertEquals( $response_body, $return );
+		$this->assertEquals( $response_body, $cached_return );
+		$this->assertContains( $transient_key, $cached_keys );
+	}
+
+	public function test_vbp_get_pattern_api_data_uses_cached_data_when_available() {
+		update_option(
+			'vk_block_patterns_options',
+			array(
+				'VWSMail' => 'cache-test@example.com',
+			)
+		);
+
+		$transient_key   = 'vk_patterns_api_data_1_50';
+		$transient_value = array(
+			'patterns' => '[]',
+		);
+		$pre_http_called = false;
+
+		set_transient( $transient_key, $transient_value, 60 * 60 );
+
+		$http_filter = function() use ( &$pre_http_called ) {
+			$pre_http_called = true;
+			return array(
+				'body'     => wp_json_encode( array() ),
+				'response' => array( 'code' => 200 ),
+			);
+		};
+
+		add_filter(
+			'pre_http_request',
+			$http_filter,
+			10,
+			3
+		);
+
+		$return = vbp_get_pattern_api_data();
+
+		remove_filter( 'pre_http_request', $http_filter, 10 );
+		delete_transient( $transient_key );
+		delete_option( 'vk_block_patterns_options' );
+
+		$this->assertFalse( $pre_http_called );
+		$this->assertEquals( $transient_value, $return );
+	}
+
+	public function test_vbp_reload_pattern_api_data_purges_expired_cache() {
+		$old_time     = date( 'Y-m-d H:i:s', strtotime( '-2 hours' ) );
+		$cached_keys  = array( 'vk_patterns_api_data_1_50', 'vk_patterns_api_data_2_25' );
+		$options      = array(
+			'VWSMail'             => 'reload-test@example.com',
+			'last-pattern-cached' => $old_time,
+		);
+		$transient_value = array( 'patterns' => '[]' );
+
+		update_option( 'vk_block_patterns_options', $options );
+		update_option( 'vk_patterns_api_cached_keys', $cached_keys );
+		foreach ( $cached_keys as $key ) {
+			set_transient( $key, $transient_value, 60 * 60 );
+		}
+
+		vbp_reload_pattern_api_data();
+
+		$updated_options = get_option( 'vk_block_patterns_options' );
+
+		foreach ( $cached_keys as $key ) {
+			$this->assertFalse( get_transient( $key ) );
+		}
+		$this->assertSame( array(), get_option( 'vk_patterns_api_cached_keys' ) );
+		$this->assertGreaterThan( strtotime( $old_time ), strtotime( $updated_options['last-pattern-cached'] ) );
+
+		delete_option( 'vk_block_patterns_options' );
+		delete_option( 'vk_patterns_api_cached_keys' );
+	}
+
+	public function test_vbp_reload_pattern_api_data_keeps_recent_cache() {
+		$current_time = date( 'Y-m-d H:i:s' );
+		$options      = array(
+			'VWSMail'             => 'reload-test@example.com',
+			'last-pattern-cached' => $current_time,
+		);
+		$cached_keys = array( 'vk_patterns_api_data_1_50' );
+
+		update_option( 'vk_block_patterns_options', $options );
+		update_option( 'vk_patterns_api_cached_keys', $cached_keys );
+		set_transient( $cached_keys[0], array( 'patterns' => '[]' ), 60 * 60 );
+
+		vbp_reload_pattern_api_data();
+
+		$this->assertNotFalse( get_transient( $cached_keys[0] ) );
+		$this->assertEquals( $cached_keys, get_option( 'vk_patterns_api_cached_keys' ) );
+		$this->assertEquals( $current_time, get_option( 'vk_block_patterns_options' )['last-pattern-cached'] );
+
+		delete_transient( $cached_keys[0] );
+		delete_option( 'vk_block_patterns_options' );
+		delete_option( 'vk_patterns_api_cached_keys' );
+	}
 }

@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+ [ Other ] Add page-based caching and tests for favorite patterns API.
+
 = 1.33.4 =
 [ Other ] Update license notice
 [ Other ] Fix label text of the “Disable X-T9 patterns in VK Pattern Library” control.
