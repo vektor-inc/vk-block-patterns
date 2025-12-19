@@ -16,7 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
- [ Other ] Handle paginated pattern fetch to avoid missing registrations.
+[ Other ] Handle paginated pattern fetch to avoid missing registrations.
 
 = 1.33.4 =
 [ Other ] Update license notice
