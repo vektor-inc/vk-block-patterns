@@ -363,7 +363,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		delete_option( 'vk_patterns_api_cached_keys' );
 
 		$pre_http_called = false;
-		$http_filter = function( $preempt, $args, $url ) use ( &$pre_http_called, $response_body ) {
+		$http_filter = function( $_preempt, $_args, $_url ) use ( &$pre_http_called, $response_body ) {
 			$pre_http_called = true;
 			return array(
 				'body'     => wp_json_encode( $response_body ),
