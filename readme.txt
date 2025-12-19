@@ -16,7 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
- [ Other ] Add page-based caching and tests for favorite patterns API.
+ [ Other ] Handle paginated pattern fetch to avoid missing registrations.
 
 = 1.33.4 =
 [ Other ] Update license notice
