@@ -67,7 +67,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 50 ) {
 				$return = json_decode( $result['body'], true );
 				if ( null === $return && json_last_error() !== JSON_ERROR_NONE ) {
 					error_log( 'VK Block Patterns API error: Invalid JSON response' );
-					return $return;
+					return array();
 				}
 				// APIで取得したパターンデータをキャッシュに登録. 1日 に設定.
 				set_transient( $transient_key, $return, 60 * 60 * 24 );
