@@ -36,7 +36,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 50 ) {
 	// パターン情報をキャッシュデータから読み込み.
 	$transients = get_transient( $transient_key );
 	// デフォルトの返り値.
-	$return = '';
+	$return = array();
 
 	if ( ! empty( $user_email ) ) {
 		// パターンのキャッシュがあればキャッシュを読み込み.
