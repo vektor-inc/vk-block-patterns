@@ -436,6 +436,56 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		$this->assertEquals( $transient_value, $return );
 	}
 
+	public function test_vbp_register_patterns_stops_paging_when_xt9_disabled() {
+		update_option(
+			'vk_block_patterns_options',
+			array(
+				'VWSMail'           => 'paging-test@example.com',
+				'disableXT9Pattern' => true,
+			)
+		);
+
+		$api_call_count = 0;
+
+		$http_filter = function( $_preempt, $args ) use ( &$api_call_count ) {
+			$api_call_count++;
+			$page = ! empty( $args['body']['page'] ) ? (int) $args['body']['page'] : 1;
+
+			return array(
+				'body'     => wp_json_encode(
+					array(
+						'patterns'           => '[]',
+						'x-t9'               => '[]',
+						'has_more_favorites' => false,
+						'has_more_x_t9'      => true,
+						'page'               => $page,
+						'per_page'           => $args['body']['per_page'],
+					)
+				),
+				'response' => array( 'code' => 200 ),
+			);
+		};
+
+		$max_pages_filter = function() {
+			return 2;
+		};
+
+		add_filter( 'pre_http_request', $http_filter, 10, 2 );
+		add_filter( 'vbp_patterns_max_pages', $max_pages_filter );
+
+		vbp_register_patterns( null, 'lightning' );
+
+		remove_filter( 'pre_http_request', $http_filter, 10 );
+		remove_filter( 'vbp_patterns_max_pages', $max_pages_filter );
+
+		delete_transient( 'vk_patterns_api_data_1_50' );
+		delete_transient( 'vk_patterns_api_data_2_50' );
+		delete_option( 'vk_patterns_api_cached_keys' );
+		delete_option( 'vk_block_patterns_options' );
+
+		$this->assertSame( 1, $api_call_count );
+	}
+
 	public function test_vbp_reload_pattern_api_data_purges_expired_cache() {
 		$old_time     = date( 'Y-m-d H:i:s', strtotime( '-2 hours' ) );
 		$cached_keys  = array( 'vk_patterns_api_data_1_50', 'vk_patterns_api_data_2_25' );

@@ -137,6 +137,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 	if ( ! empty( $options['VWSMail'] ) ) {
 		$current_template = ! empty( $template ) ? $template : get_template();
 		$per_page         = apply_filters( 'vbp_patterns_api_per_page', 50 );
+		$xt9_enabled      = ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) );
 		$page             = 1;
 		$has_more         = true;
 		$max_pages        = apply_filters( 'vbp_patterns_max_pages', 100 ); // 安全策として最大ページ数を設定.
@@ -181,7 +182,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 				}
 			}
 
-			if ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) ) {
+			if ( $xt9_enabled ) {
 				if ( ! empty( $pattern_api_data['x-t9'] ) ) {
 					$patterns_data = $pattern_api_data['x-t9'];
 
@@ -215,7 +216,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 			}
 
 			$has_more_favorites = ! empty( $pattern_api_data['has_more_favorites'] );
-			$has_more_xt9       = ! empty( $pattern_api_data['has_more_x_t9'] );
+			$has_more_xt9       = $xt9_enabled ? ! empty( $pattern_api_data['has_more_x_t9'] ) : false;
 			$has_more           = ( $per_page > 0 ) && ( $has_more_favorites || $has_more_xt9 );
 
 			$page++;
