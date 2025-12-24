@@ -279,7 +279,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 	}    
 
     public function test_vbp_clear_patterns_cache(){
-        $transients = 'aaaa';
+        $transients   = 'aaaa';
+        $cached_keys  = array( 'vk_patterns_api_data_1_50', 'vk_patterns_api_data_2_25' );
+        $legacy_cache = 'vk_patterns_api_data';
 
         // ユーザーを作成
         $user['administrator'] = $this->factory->user->create( array( 'role' => 'administrator' ) );
@@ -324,16 +326,38 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
         foreach ( $test_data as $test_value ) {
             wp_set_current_user( $test_value['user_id'] );
-            set_transient( 'vk_patterns_api_data', $transients, 60 * 60 * 24 );
+            update_option( 'vk_patterns_api_cached_keys', $cached_keys );
+            foreach ( $cached_keys as $cached_key ) {
+                set_transient( $cached_key, $transients, 60 * 60 * 24 );
+            }
+            set_transient( $legacy_cache, $transients, 60 * 60 * 24 );
             vbp_clear_patterns_cache( true );
-            $return  = get_transient( 'vk_patterns_api_data' );
-            $correct = $test_value['correct'];
+            $return = array(
+                'new_keys' => array(
+                    get_transient( $cached_keys[0] ),
+                    get_transient( $cached_keys[1] ),
+                ),
+                'legacy_key' => get_transient( $legacy_cache ),
+                'cached_keys_option' => get_option( 'vk_patterns_api_cached_keys' ),
+            );
+            $correct = array(
+                'new_keys' => array( $test_value['correct'], $test_value['correct'] ),
+                'legacy_key' => $test_value['correct'],
+                'cached_keys_option' => ( false === $test_value['correct'] ) ? array() : $cached_keys,
+            );
 
             print 'return:' . PHP_EOL;
             var_dump( $return );
             print 'correct:' . PHP_EOL;
             var_dump( $correct );
             $this->assertEquals( $correct, $return );
+
+            // クリーンアップ.
+            foreach ( $cached_keys as $cached_key ) {
+                delete_transient( $cached_key );
+            }
+            delete_transient( $legacy_cache );
+            delete_option( 'vk_patterns_api_cached_keys' );
         }
     }
 
