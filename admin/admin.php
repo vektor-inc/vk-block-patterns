@@ -294,7 +294,7 @@ add_action( 'admin_init', 'vbp_admin_control' );
  /**
   * API連携で取得したパターンデータのキャッシュを削除
   * Delete Cache Pattern Data from API
-  */
+ */
 function vbp_clear_patterns_cache( $test_mode = false ) {
 	// nonce を検証する
 	if ( false === $test_mode ) {
@@ -303,11 +303,22 @@ function vbp_clear_patterns_cache( $test_mode = false ) {
 		}
 	}
 	// オプションを変更できるユーザーのみがアクセスできるように制限
-	if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {		
+	if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {
+		$cached_keys = get_option( 'vk_patterns_api_cached_keys', array() );
+
+		if ( is_array( $cached_keys ) ) {
+			foreach ( $cached_keys as $cached_key ) {
+				delete_transient( $cached_key );
+			}
+		}
+
+		// 互換性のため旧キーも削除.
 		delete_transient( 'vk_patterns_api_data' );
+		update_option( 'vk_patterns_api_cached_keys', array() );
+
 		if ( false === $test_mode ) {
 			die();
-		}		
+		}
 	} elseif ( false === $test_mode ) {
 		// アクセスが拒否された場合の処理
 		wp_die( 'Unauthorized', 'Unauthorized', array( 'response' => 401 ) );

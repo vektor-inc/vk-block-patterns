@@ -8,24 +8,35 @@
 /**
  * API のデータをキャッシュに格納
  *
+ * @param int $page     API ページ番号.
+ * @param int $per_page 1 ページ当たりの取得件数.
+ *
  * @return array{
  *      array {
  *      role: string,
  *      title: string,
  *      categories: array,
  *      content: string,
+ *      page: int,
+ *      per_page: int,
+ *      has_more_favorites: bool,
+ *      has_more_x_t9: bool,
+ *      total_favorites: int,
+ *      total_x_t9: int
  *  }
  * } $return
  */
-function vbp_get_pattern_api_data() {
+function vbp_get_pattern_api_data( $page = 1, $per_page = 50 ) {
 	// オプション地を取得.
 	$options = vbp_get_options();
 	// メールアドレスを取得.
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
-	// パターン情報をキャッシュデータから読み込み読み込み.
-	$transients = get_transient( 'vk_patterns_api_data' );
+	// ページング付きのキャッシュキー.
+	$transient_key = 'vk_patterns_api_data_' . absint( $page ) . '_' . absint( $per_page );
+	// パターン情報をキャッシュデータから読み込み.
+	$transients = get_transient( $transient_key );
 	// デフォルトの返り値.
-	$return = '';
+	$return = array();
 
 	if ( ! empty( $user_email ) ) {
 		// パターンのキャッシュがあればキャッシュを読み込み.
@@ -39,13 +50,32 @@ function vbp_get_pattern_api_data() {
 					'timeout' => 10,
 					'body'    => array(
 						'login_id' => $user_email,
+						'page'     => absint( $page ),
+						'per_page' => absint( $per_page ),
 					),
 				)
 			);
-			if ( ! empty( $result ) && ! is_wp_error( $result ) ) {
+			if ( is_wp_error( $result ) ) {
+				error_log( 'VK Block Patterns API error: ' . $result->get_error_message() );
+				return $return;
+			} elseif ( ! empty( $result ) ) {
+				$response_code = wp_remote_retrieve_response_code( $result );
+				if ( $response_code < 200 || $response_code >= 300 ) {
+					error_log( 'VK Block Patterns API error: HTTP ' . $response_code );
+					return $return;
+				}
 				$return = json_decode( $result['body'], true );
+				if ( null === $return && json_last_error() !== JSON_ERROR_NONE ) {
+					error_log( 'VK Block Patterns API error: Invalid JSON response' );
+					return array();
+				}
 				// APIで取得したパターンデータをキャッシュに登録. 1日 に設定.
-				set_transient( 'vk_patterns_api_data', $return, 60 * 60 * 24 );
+				set_transient( $transient_key, $return, 60 * 60 * 24 );
+				$cached_keys   = get_option( 'vk_patterns_api_cached_keys', array() );
+				if ( ! in_array( $transient_key, $cached_keys, true ) ) {
+					$cached_keys[] = $transient_key;
+					update_option( 'vk_patterns_api_cached_keys', $cached_keys );
+				}
 			}
 		}
 	}
@@ -67,7 +97,7 @@ function vbp_reload_pattern_api_data() {
 	$last_cached = $options['last-pattern-cached'];
 
 	// 現在の時刻を取得.
-	$current_time = date( 'Y-m-d H:i:s' );
+	$current_time = wp_date( 'Y-m-d H:i:s' );
 
 	// 差分を取得・キャッシュが初めてならキャッシュの有効時間が経過したものとみなす.
 	$diff = ! empty( $last_cached ) ? strtotime( $current_time ) - strtotime( $last_cached ) : $cache_time + 1;
@@ -75,7 +105,13 @@ function vbp_reload_pattern_api_data() {
 	// フラグがなければパターンのデータのキャッシュをパージ.
 	if ( $diff > $cache_time ) {
 		// パターンのデータのキャッシュをパージ.
-		delete_transient( 'vk_patterns_api_data' );
+		$cached_keys = get_option( 'vk_patterns_api_cached_keys', array() );
+		if ( is_array( $cached_keys ) ) {
+			foreach ( $cached_keys as $cached_key ) {
+				delete_transient( $cached_key );
+			}
+		}
+		update_option( 'vk_patterns_api_cached_keys', array() );
 		// 最後にキャッシュされた時間を更新.
 		$options['last-pattern-cached'] = $current_time;
 		// 最低１時間はキャッシュを保持.
@@ -109,10 +145,22 @@ function vbp_register_patterns( $api = null, $template = null ) {
 	);
 
 	if ( ! empty( $options['VWSMail'] ) ) {
-		$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data();
 		$current_template = ! empty( $template ) ? $template : get_template();
+		$per_page         = apply_filters( 'vbp_patterns_api_per_page', 50 );
+		$xt9_enabled      = ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) );
+		$page             = 1;
+		$has_more         = true;
+		$max_pages        = apply_filters( 'vbp_patterns_max_pages', 100 ); // 安全策として最大ページ数を設定.
+		$favorite_category_registered = false;
+		$xt9_category_registered      = false;
 
-		if ( ! empty( $pattern_api_data ) && is_array( $pattern_api_data ) ) {
+		while ( $has_more && $page <= $max_pages ) {
+			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page );
+
+			if ( empty( $pattern_api_data ) || ! is_array( $pattern_api_data ) ) {
+				break;
+			}
+
 			if ( ! empty( $pattern_api_data['patterns'] ) ) {
 				$patterns_data = $pattern_api_data['patterns'];
 
@@ -121,12 +169,15 @@ function vbp_register_patterns( $api = null, $template = null ) {
 				}
 
 				$patterns = json_decode( $patterns_data, true );
-				register_block_pattern_category(
-					'vk-pattern-favorites',
-					array(
-						'label' => __( 'Favorites of VK Pattern Library', 'vk-block-patterns' ),
-					)
-				);
+				if ( ! $favorite_category_registered ) {
+					register_block_pattern_category(
+						'vk-pattern-favorites',
+						array(
+							'label' => __( 'Favorites of VK Pattern Library', 'vk-block-patterns' ),
+						)
+					);
+					$favorite_category_registered = true;
+				}
 				if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 					foreach ( $patterns as $pattern ) {
 						$result['favorite'][] = register_block_pattern(
@@ -141,7 +192,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 				}
 			}
 
-			if ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) ) {
+			if ( $xt9_enabled ) {
 				if ( ! empty( $pattern_api_data['x-t9'] ) ) {
 					$patterns_data = $pattern_api_data['x-t9'];
 
@@ -150,12 +201,15 @@ function vbp_register_patterns( $api = null, $template = null ) {
 					}
 
 					$patterns = json_decode( $patterns_data, true );
-					register_block_pattern_category(
-						'x-t9',
-						array(
-							'label' => __( 'X-T9', 'vk-block-patterns' ),
-						)
-					);
+					if ( ! $xt9_category_registered ) {
+						register_block_pattern_category(
+							'x-t9',
+							array(
+								'label' => __( 'X-T9', 'vk-block-patterns' ),
+							)
+						);
+						$xt9_category_registered = true;
+					}
 					if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 						foreach ( $patterns as $pattern ) {
 							$result['x-t9'][] = register_block_pattern(
@@ -169,6 +223,16 @@ function vbp_register_patterns( $api = null, $template = null ) {
 						}
 					}
 				}
+			}
+
+			$has_more_favorites = ! empty( $pattern_api_data['has_more_favorites'] );
+			$has_more_xt9       = $xt9_enabled ? ! empty( $pattern_api_data['has_more_x_t9'] ) : false;
+			$has_more           = ( $per_page > 0 ) && ( $has_more_favorites || $has_more_xt9 );
+
+			$page++;
+			// テスト時に単一の配列を渡された場合は無限ループ防止で抜ける.
+			if ( ! empty( $api ) ) {
+				break;
 			}
 		}
 	}
