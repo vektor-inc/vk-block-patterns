@@ -57,16 +57,17 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 50 ) {
 			);
 			if ( is_wp_error( $result ) ) {
 				error_log( 'VK Block Patterns API error: ' . $result->get_error_message() );
+				return $return;
 			} elseif ( ! empty( $result ) ) {
 				$response_code = wp_remote_retrieve_response_code( $result );
 				if ( $response_code < 200 || $response_code >= 300 ) {
 					error_log( 'VK Block Patterns API error: HTTP ' . $response_code );
 					return $return;
 				}
- 				$return = json_decode( $result['body'], true );
+				$return = json_decode( $result['body'], true );
 				if ( null === $return && json_last_error() !== JSON_ERROR_NONE ) {
 					error_log( 'VK Block Patterns API error: Invalid JSON response' );
-					return array();
+					return $return;
 				}
 				// APIで取得したパターンデータをキャッシュに登録. 1日 に設定.
 				set_transient( $transient_key, $return, 60 * 60 * 24 );
@@ -96,7 +97,7 @@ function vbp_reload_pattern_api_data() {
 	$last_cached = $options['last-pattern-cached'];
 
 	// 現在の時刻を取得.
-	$current_time = date( 'Y-m-d H:i:s' );
+	$current_time = wp_date( 'Y-m-d H:i:s' );
 
 	// 差分を取得・キャッシュが初めてならキャッシュの有効時間が経過したものとみなす.
 	$diff = ! empty( $last_cached ) ? strtotime( $current_time ) - strtotime( $last_cached ) : $cache_time + 1;
