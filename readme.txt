@@ -2,7 +2,7 @@
 Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki,doshimaf
 Donate link:
 Tags: Guternberg, Block Pattern
-Requires at least: 6.5
+Requires at least: 6.2
 Tested up to: 6.9
 Stable tag: 1.33.5.0
 Requires PHP: 7.4
@@ -17,7 +17,7 @@ When you activate this plugin that create new custom post type for custom block 
 == Changelog ==
 
 = 1.33.5 =
-[ Other ] Update Slider Patterns
+[ Other ] The slider pattern has been updated due to a recovery issue occurring with the slider in the latest version of VK Blocks.
 
 = 1.33.4 =
 [ Other ] Update license notice
