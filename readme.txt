@@ -2,7 +2,7 @@
 Contributors: vektor-inc,kurudrive,rickaddison7634,kaorock72,una9,shimotomoki,doshimaf
 Donate link:
 Tags: Guternberg, Block Pattern
-Requires at least: 6.2
+Requires at least: 6.5
 Tested up to: 6.9
 Stable tag: 1.33.5.0
 Requires PHP: 7.4
