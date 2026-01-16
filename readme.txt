@@ -16,7 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
-[ Other ] Handle paginated pattern fetch to avoid missing registrations.
+= 1.34.0 =
+[ Other ] It is now possible to obtain X-T9 patterns from the pattern library.
 
 = 1.33.5 =
 [ Other ] The slider pattern has been updated due to a recovery issue occurring with the slider in the latest version of VK Blocks.
