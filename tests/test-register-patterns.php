@@ -7,6 +7,19 @@
 
 class RegisterPatternsTest extends WP_UnitTestCase {
 
+	private function build_expected_results( $favorite_patterns, $xt9_patterns, $xt9_enabled ) {
+		$favorites = json_decode( $favorite_patterns, true );
+		$xt9       = json_decode( $xt9_patterns, true );
+
+		$favorite_count = is_array( $favorites ) ? count( $favorites ) : 0;
+		$xt9_count      = ( $xt9_enabled && is_array( $xt9 ) ) ? count( $xt9 ) : 0;
+
+		return array(
+			'favorite' => array_fill( 0, $favorite_count, true ),
+			'x-t9'     => array_fill( 0, $xt9_count, true ),
+		);
+	}
+
 	public function get_test_data() {
 
         $favorite_patterns = '[
@@ -62,16 +75,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
-                'correct'  => array(
-                    'favorite' => array(
-                        true,
-                        true,
-                    ),
-                    'x-t9'    => array(
-                        true,
-                        true,
-                    )
-                )
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
 			),
             // API がなくてキャッシュがある場合
             array(
@@ -86,16 +90,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
-                'correct'  => array(
-                    'favorite' => array(
-                        true,
-                        true,
-                    ),
-                    'x-t9'    => array(
-                        true,
-                        true,
-                    )
-                )
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
 			),
              // API もキャッシュもある場合
             array(
@@ -114,16 +109,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
-                'correct'  => array(
-                    'favorite' => array(
-                        true,
-                        true,
-                    ),
-                    'x-t9'    => array(
-                        true,
-                        true,
-                    )
-                )
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
 			),
 			array(
 				'options'  => array(
@@ -137,16 +123,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
-                'correct'  => array(
-                    'favorite' => array(
-                        true,
-                        true,
-                    ),
-                    'x-t9'    => array(
-                        true,
-                        true,
-                    )
-                )
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
 			),
             array(
 				'options'  => array(
@@ -160,13 +137,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
-                'correct'  => array(
-                    'favorite' => array(
-                        true,
-                        true,
-                    ),
-                    'x-t9'    => array(),
-                ),
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
 			),
             array(
                 'options'  => array(
@@ -180,13 +151,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'lightning',
-                'correct'  => array(
-                    'favorite' => array(
-                        true,
-                        true,
-                    ),
-                    'x-t9'    => array()
-                )
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
             ),
             array(
                 'options'  => array(
@@ -200,13 +165,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'lightning',
-                'correct'  => array(
-                    'favorite' => array(
-                        true,
-                        true,
-                    ),
-                    'x-t9'    => array()
-                )
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
             ),
             array(
 				'options'  => array(
@@ -222,8 +181,8 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'template' => 'x-t9',
                 'correct'  => array(
                     'favorite' => array(),
-                    'x-t9'    => array()
-                )
+                    'x-t9'     => array(),
+                ),
 			),
             array(
 				'options'  => array(
@@ -239,8 +198,8 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'template' => 'lightning',
                 'correct'  => array(
                     'favorite' => array(),
-                    'x-t9'    => array()
-                )
+                    'x-t9'     => array(),
+                ),
 			),
         );
 
@@ -427,7 +386,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			)
 		);
 
-		$transient_key   = 'vk_patterns_api_data_1_50';
+		$transient_key   = 'vk_patterns_api_data_1_20';
 		$transient_value = array(
 			'patterns' => '[]',
 		);
