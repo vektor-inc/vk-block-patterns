@@ -15,6 +15,7 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen.
 
 == Changelog ==
+[ Other ] Add a version to the information sent to the VK Patterns API
 
 = 1.34.0 =
 [ Other ] It is now possible to obtain X-T9 patterns from the pattern library.

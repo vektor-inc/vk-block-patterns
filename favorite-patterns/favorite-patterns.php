@@ -26,7 +26,7 @@
  *  }
  * } $return
  */
-function vbp_get_pattern_api_data( $page = 1, $per_page = 50 ) {
+function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 	// オプション地を取得.
 	$options = vbp_get_options();
 	// メールアドレスを取得.
@@ -52,6 +52,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 50 ) {
 						'login_id' => $user_email,
 						'page'     => absint( $page ),
 						'per_page' => absint( $per_page ),
+						'plugin_version' => defined( 'VBP_VERSION' ) ? VBP_VERSION : '',
 					),
 				)
 			);
@@ -146,7 +147,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 
 	if ( ! empty( $options['VWSMail'] ) ) {
 		$current_template = ! empty( $template ) ? $template : get_template();
-		$per_page         = apply_filters( 'vbp_patterns_api_per_page', 50 );
+		$per_page         = apply_filters( 'vbp_patterns_api_per_page', 20 );
 		$xt9_enabled      = ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) );
 		$page             = 1;
 		$has_more         = true;
