@@ -182,7 +182,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 				if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 					foreach ( $patterns as $pattern ) {
 						$result['favorite'][] = register_block_pattern(
-							'vkp-favorite-' . $pattern['post_name'],
+							$pattern['post_name'],
 							array(
 								'title'      => $pattern['title'],
 								'categories' => $pattern['categories'],
@@ -214,7 +214,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 					if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 						foreach ( $patterns as $pattern ) {
 							$result['x-t9'][] = register_block_pattern(
-								'vkp-theme-' . $pattern['post_name'],
+								$pattern['post_name'],
 								array(
 									'title'      => $pattern['title'],
 									'categories' => $pattern['categories'],
