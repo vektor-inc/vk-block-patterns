@@ -101,9 +101,6 @@ const Admin = () => {
 	// パターン管理画面URL
 	const patternPostTypeUrl =
 		vkpOptions.adminUrl + 'edit.php?post_type=vk-block-patterns';
-	const template = vkpOptions.template;
-
-	
 
 	// snackbar更新する
 	useEffect(() => {

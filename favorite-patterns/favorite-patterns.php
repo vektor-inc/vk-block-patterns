@@ -54,7 +54,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template 
 						'page'           => absint( $page ),
 						'per_page'       => absint( $per_page ),
 						'plugin_version' => defined( 'VBP_VERSION' ) ? VBP_VERSION : '',
-						'current_theme'  => get_template(),
+						'current_theme'  => $current_template,
 					),
 				)
 			);

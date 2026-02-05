@@ -112,7 +112,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => true,
-          			'disableThemePattern'    => false,
+					'disableThemePattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
