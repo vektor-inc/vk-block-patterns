@@ -27,7 +27,7 @@
  * } $return
  */
 function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template = '' ) {
-	// オプション地を取得.
+	// オプション値を取得.
 	$options = vbp_get_options();
 	// メールアドレスを取得.
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
@@ -154,7 +154,7 @@ add_action( 'load-site-editor.php', 'vbp_reload_pattern_api_data' );
 function vbp_register_patterns( $api = null, $template = null ) {
 	// オプション値を読み込み.
 	$options = vbp_get_options();
-	// テスト用の結果を返す配列.
+	// register_block_pattern の戻り値を保持する配列（テスト用）.
 	$result = array(
 		'favorite' => array(),
 		'theme'    => array(),
