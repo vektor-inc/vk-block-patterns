@@ -46,7 +46,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template 
 		} else {
 			// キャッシュがない場合 API を呼び出しキャッシュに登録.
 			$result = wp_remote_post(
-				'https://dev.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 				array(
 					'timeout' => 10,
 					'body'    => array(
