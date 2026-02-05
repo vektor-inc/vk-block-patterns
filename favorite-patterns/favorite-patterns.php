@@ -20,9 +20,9 @@
  *      page: int,
  *      per_page: int,
  *      has_more_favorites: bool,
- *      has_more_x_t9: bool,
+ *      has_more_theme: bool,
  *      total_favorites: int,
- *      total_x_t9: int
+ *      total_theme: int
  *  }
  * } $return
  */
@@ -46,7 +46,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template 
 		} else {
 			// キャッシュがない場合 API を呼び出しキャッシュに登録.
 			$result = wp_remote_post(
-				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+				'https://dev.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 				array(
 					'timeout' => 10,
 					'body'    => array(

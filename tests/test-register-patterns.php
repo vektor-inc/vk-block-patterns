@@ -44,7 +44,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		return ! empty( $categories[ $category_name ] );
 	}
 
-	private function remove_test_theme( $theme_slug, $theme_dir ) {
+	private function remove_test_theme( $theme_dir ) {
 		$style_path = $theme_dir . '/style.css';
 		$index_path = $theme_dir . '/index.php';
 
@@ -59,7 +59,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		}
 	}
 
-	private function build_expected_results( $favorite_patterns, $xt9_patterns, $xt9_enabled ) {
+	private function build_expected_results( $favorite_patterns ) {
 		$favorites = json_decode( $favorite_patterns, true );
 
 		$favorite_count = is_array( $favorites ) ? count( $favorites ) : 0;
@@ -138,7 +138,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -147,13 +147,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
-                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
+                'correct'  => $this->build_expected_results( $favorite_patterns ),
 			),
             // API がなくてキャッシュがある場合
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -162,13 +162,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
-                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
+                'correct'  => $this->build_expected_results( $favorite_patterns ),
             ),
             // X-T9 テーマでも favorites が登録されること（x-t9 が空の場合）
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -177,13 +177,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
-                'correct'  => $this->build_expected_results( $favorite_patterns, '[]', true ),
+                'correct'  => $this->build_expected_results( $favorite_patterns ),
             ),
             // X-T9 テーマでも favorites が登録されること（favorites のみ）
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -191,13 +191,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
-                'correct'  => $this->build_expected_results( $favorite_patterns, '[]', true ),
+                'correct'  => $this->build_expected_results( $favorite_patterns ),
             ),
             // favorites と x-t9 の post_name が衝突しても両方登録できること
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -206,13 +206,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
-                'correct'  => $this->build_expected_results( $favorite_patterns_collision, $xt9_patterns_collision, true ),
+                'correct'  => $this->build_expected_results( $favorite_patterns_collision ),
             ),
              // API もキャッシュもある場合
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -225,12 +225,12 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
-                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
+                'correct'  => $this->build_expected_results( $favorite_patterns ),
 			),
 			array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -239,12 +239,12 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
-                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
+                'correct'  => $this->build_expected_results( $favorite_patterns ),
 			),
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => true,
+                    'disableThemePattern' => true,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -253,12 +253,12 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
-                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
+                'correct'  => $this->build_expected_results( $favorite_patterns ),
 			),
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -267,12 +267,12 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'lightning',
-                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
+                'correct'  => $this->build_expected_results( $favorite_patterns ),
             ),
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => true,
+                    'disableThemePattern' => true,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -281,12 +281,12 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'lightning',
-                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
+                'correct'  => $this->build_expected_results( $favorite_patterns ),
             ),
             array(
 				'options'  => array(
                     'VWSMail'           => '',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -303,7 +303,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => '',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -608,7 +608,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			'vk_block_patterns_options',
 			array(
 				'VWSMail'           => 'paging-test@example.com',
-				'disableXT9Pattern' => true,
+				'disableThemePattern' => true,
 			)
 		);
 
@@ -770,7 +770,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			unregister_block_pattern_category( 'vk-pattern-theme' );
 		}
 
-		$this->remove_test_theme( $theme_slug, $theme_dir );
+		$this->remove_test_theme( $theme_dir );
 
 		$this->assertSame(
 			'Patterns for Theme in VK Pattern Library',
@@ -843,7 +843,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			unregister_block_pattern_category( 'vk-pattern-theme' );
 		}
 
-		$this->remove_test_theme( $theme_slug, $theme_dir );
+		$this->remove_test_theme( $theme_dir );
 
 		$this->assertSame(
 			'Patterns for VBP Named Theme in VK Pattern Library',
