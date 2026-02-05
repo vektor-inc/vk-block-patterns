@@ -26,13 +26,14 @@
  *  }
  * } $return
  */
-function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
+function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template = '' ) {
 	// オプション地を取得.
 	$options = vbp_get_options();
 	// メールアドレスを取得.
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
 	// ページング付きのキャッシュキー.
-	$transient_key = 'vk_patterns_api_data_' . absint( $page ) . '_' . absint( $per_page );
+	$theme_key     = ! empty( $current_template ) ? sanitize_key( $current_template ) : 'no-theme';
+	$transient_key = 'vk_patterns_api_data_' . $theme_key . '_' . absint( $page ) . '_' . absint( $per_page );
 	// パターン情報をキャッシュデータから読み込み.
 	$transients = get_transient( $transient_key );
 	// デフォルトの返り値.
@@ -45,14 +46,15 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 		} else {
 			// キャッシュがない場合 API を呼び出しキャッシュに登録.
 			$result = wp_remote_post(
-				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+				'https://dev.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 				array(
 					'timeout' => 10,
 					'body'    => array(
-						'login_id' => $user_email,
-						'page'     => absint( $page ),
-						'per_page' => absint( $per_page ),
+						'login_id'       => $user_email,
+						'page'           => absint( $page ),
+						'per_page'       => absint( $per_page ),
 						'plugin_version' => defined( 'VBP_VERSION' ) ? VBP_VERSION : '',
+						'current_theme'  => get_template(),
 					),
 				)
 			);
@@ -133,7 +135,7 @@ add_action( 'load-site-editor.php', 'vbp_reload_pattern_api_data' );
  *
  * @return array{
  *  'favorite' => array(),
- *  'x-t9'    => array()
+ *  'theme'    => array()
  * } $returnx : 成功したらそれぞれの配列に true が入ってくる.
  */
 function vbp_register_patterns( $api = null, $template = null ) {
@@ -142,21 +144,22 @@ function vbp_register_patterns( $api = null, $template = null ) {
 	// テスト用の結果を返す配列.
 	$result = array(
 		'favorite' => array(),
-		'x-t9'     => array(),
+		'theme'    => array(),
 	);
+
 
 	if ( ! empty( $options['VWSMail'] ) ) {
 		$current_template = ! empty( $template ) ? $template : get_template();
 		$per_page         = apply_filters( 'vbp_patterns_api_per_page', 20 );
-		$xt9_enabled      = ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) );
+		$theme_enabled      = ( '' !== $current_template && empty( $options['disableThemePattern'] ) );
 		$page             = 1;
 		$has_more         = true;
 		$max_pages        = apply_filters( 'vbp_patterns_max_pages', 100 ); // 安全策として最大ページ数を設定.
 		$favorite_category_registered = false;
-		$xt9_category_registered      = false;
+		$theme_category_registered      = false;
 
 		while ( $has_more && $page <= $max_pages ) {
-			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page );
+			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page, $current_template );
 
 			if ( empty( $pattern_api_data ) || ! is_array( $pattern_api_data ) ) {
 				break;
@@ -182,7 +185,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 				if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 					foreach ( $patterns as $pattern ) {
 						$result['favorite'][] = register_block_pattern(
-							$pattern['post_name'],
+							'vkp-favorite-' . $pattern['post_name'],
 							array(
 								'title'      => $pattern['title'],
 								'categories' => $pattern['categories'],
@@ -193,28 +196,28 @@ function vbp_register_patterns( $api = null, $template = null ) {
 				}
 			}
 
-			if ( $xt9_enabled ) {
-				if ( ! empty( $pattern_api_data['x-t9'] ) ) {
-					$patterns_data = $pattern_api_data['x-t9'];
+			if ( $theme_enabled ) {
+				if ( ! empty( $pattern_api_data['theme'] ) ) {
+					$patterns_data = $pattern_api_data['theme'];
 
 					if ( function_exists( 'mb_convert_encoding' ) ) {
 						$patterns_data = mb_convert_encoding( $patterns_data, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
 					}
 
 					$patterns = json_decode( $patterns_data, true );
-					if ( ! $xt9_category_registered ) {
+					if ( ! $theme_category_registered ) {
 						register_block_pattern_category(
-							'x-t9',
+							'vk-pattern-theme',
 							array(
-								'label' => __( 'X-T9', 'vk-block-patterns' ),
+								'label' => __( 'Theme Patterns of VK Pattern Library', 'vk-block-patterns' ),
 							)
 						);
-						$xt9_category_registered = true;
+						$theme_category_registered = true;
 					}
 					if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 						foreach ( $patterns as $pattern ) {
-							$result['x-t9'][] = register_block_pattern(
-								$pattern['post_name'],
+							$result['theme'][] = register_block_pattern(
+								'vkp-theme-' . $pattern['post_name'],
 								array(
 									'title'      => $pattern['title'],
 									'categories' => $pattern['categories'],
@@ -227,8 +230,8 @@ function vbp_register_patterns( $api = null, $template = null ) {
 			}
 
 			$has_more_favorites = ! empty( $pattern_api_data['has_more_favorites'] );
-			$has_more_xt9       = $xt9_enabled ? ! empty( $pattern_api_data['has_more_x_t9'] ) : false;
-			$has_more           = ( $per_page > 0 ) && ( $has_more_favorites || $has_more_xt9 );
+			$has_more_theme       = $theme_enabled ? ! empty( $pattern_api_data['has_more_theme'] ) : false;
+			$has_more           = ( $per_page > 0 ) && ( $has_more_favorites || $has_more_theme );
 
 			$page++;
 			// テスト時に単一の配列を渡された場合は無限ループ防止で抜ける.
