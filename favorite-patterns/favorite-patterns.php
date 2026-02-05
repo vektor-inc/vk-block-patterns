@@ -44,9 +44,22 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template 
 		if ( ! empty( $transients ) ) {
 			$return = $transients;
 		} else {
+			/**
+			 * フェッチ先エンドポイントを変更できるフィルター.
+			 *
+			 * 開発環境などでエンドポイントを差し替える場合に使用します.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @param string $endpoint エンドポイントURL.
+			 */
+			$endpoint = apply_filters(
+				'vbp_status_endpoint',
+				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status'
+			);
 			// キャッシュがない場合 API を呼び出しキャッシュに登録.
 			$result = wp_remote_post(
-				'https://dev.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+				$endpoint,
 				array(
 					'timeout' => 10,
 					'body'    => array(
