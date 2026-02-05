@@ -143,7 +143,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'api' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
@@ -159,7 +159,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
                 'correct'  => $this->build_expected_results( $favorite_patterns ),
@@ -173,7 +173,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'api' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => '[]',
+                    'theme'    => '[]',
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
@@ -202,7 +202,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'api' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns_collision,
-                    'x-t9'     => $xt9_patterns_collision,
+                    'theme'    => $xt9_patterns_collision,
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
@@ -217,12 +217,12 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'api' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
                 'correct'  => $this->build_expected_results( $favorite_patterns ),
@@ -236,7 +236,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
                 'correct'  => $this->build_expected_results( $favorite_patterns ),
@@ -250,7 +250,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
                 'correct'  => $this->build_expected_results( $favorite_patterns ),
@@ -264,7 +264,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'lightning',
                 'correct'  => $this->build_expected_results( $favorite_patterns ),
@@ -278,7 +278,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'lightning',
                 'correct'  => $this->build_expected_results( $favorite_patterns ),
@@ -292,7 +292,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
                 'correct'  => array(
@@ -309,7 +309,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'lightning',
                 'correct'  => array(
@@ -452,13 +452,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		$transient_key = 'vk_patterns_api_data_no-theme_' . $page . '_' . $per_page;
 		$response_body = array(
 			'patterns'            => '[]',
-			'x-t9'                => '[]',
+			'theme'               => '[]',
 			'has_more_favorites'  => false,
-			'has_more_x_t9'       => false,
+			'has_more_theme'      => false,
 			'page'                => $page,
 			'per_page'            => $per_page,
 			'total_favorites'     => 0,
-			'total_x_t9'          => 0,
+			'total_theme'         => 0,
 		);
 
 		delete_transient( $transient_key );
@@ -622,9 +622,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 				'body'     => wp_json_encode(
 					array(
 						'patterns'           => '[]',
-						'x-t9'               => '[]',
+						'theme'              => '[]',
 						'has_more_favorites' => false,
-						'has_more_x_t9'      => true,
+						'has_more_theme'     => true,
 						'page'               => $page,
 						'per_page'           => $args['body']['per_page'],
 					)
