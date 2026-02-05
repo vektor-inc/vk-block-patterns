@@ -20,7 +20,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		);
 	}
 
-	public function get_test_data() {
+    public function get_test_data() {
 
         $favorite_patterns = '[
             {
@@ -60,6 +60,28 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             }
         ]';
 
+        $favorite_patterns_collision = '[
+            {
+                "post_name": "collision-pattern",
+                "title": "Collision Favorite",
+                "categories": [
+                    "vk-pattern-favorites"
+                ],
+                "content": "<!-- wp:paragraph --><p>favorite</p><!-- /wp:paragraph -->"
+            }
+        ]';
+
+        $xt9_patterns_collision = '[
+            {
+                "post_name": "collision-pattern",
+                "title": "Collision X-T9",
+                "categories": [
+                    "x-t9"
+                ],
+                "content": "<!-- wp:paragraph --><p>x-t9</p><!-- /wp:paragraph -->"
+            }
+        ]';
+
 		// オプション値の追加などがあった場合は $test_data の配列の中のデータを追加してテストを追加してください.
 		$test_data = array(
             // API があってキャッシュがない場合
@@ -79,7 +101,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			),
             // API がなくてキャッシュがある場合
             array(
-				'options'  => array(
+                'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => false,
                 ),
@@ -91,7 +113,51 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 ),
                 'template' => 'x-t9',
                 'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
-			),
+            ),
+            // X-T9 テーマでも favorites が登録されること（x-t9 が空の場合）
+            array(
+                'options'  => array(
+                    'VWSMail'           => 'vk-support@vektor-inc.co.jp',
+                    'disableXT9Pattern' => false,
+                ),
+                'api' => array(
+                    'role'     => 'pro-user',
+                    'patterns' => $favorite_patterns,
+                    'x-t9'     => '[]',
+                ),
+                'transients' => array(),
+                'template' => 'x-t9',
+                'correct'  => $this->build_expected_results( $favorite_patterns, '[]', true ),
+            ),
+            // X-T9 テーマでも favorites が登録されること（favorites のみ）
+            array(
+                'options'  => array(
+                    'VWSMail'           => 'vk-support@vektor-inc.co.jp',
+                    'disableXT9Pattern' => false,
+                ),
+                'api' => array(
+                    'role'     => 'pro-user',
+                    'patterns' => $favorite_patterns,
+                ),
+                'transients' => array(),
+                'template' => 'x-t9',
+                'correct'  => $this->build_expected_results( $favorite_patterns, '[]', true ),
+            ),
+            // favorites と x-t9 の post_name が衝突しても両方登録できること
+            array(
+                'options'  => array(
+                    'VWSMail'           => 'vk-support@vektor-inc.co.jp',
+                    'disableXT9Pattern' => false,
+                ),
+                'api' => array(
+                    'role'     => 'pro-user',
+                    'patterns' => $favorite_patterns_collision,
+                    'x-t9'     => $xt9_patterns_collision,
+                ),
+                'transients' => array(),
+                'template' => 'x-t9',
+                'correct'  => $this->build_expected_results( $favorite_patterns_collision, $xt9_patterns_collision, true ),
+            ),
              // API もキャッシュもある場合
             array(
 				'options'  => array(
