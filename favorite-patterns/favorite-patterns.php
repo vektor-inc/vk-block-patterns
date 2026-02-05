@@ -177,7 +177,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 					register_block_pattern_category(
 						'vk-pattern-favorites',
 						array(
-							'label' => __( 'Favorites of VK Pattern Library', 'vk-block-patterns' ),
+							'label' => __( 'Favorite patterns in VK Pattern Library', 'vk-block-patterns' ),
 						)
 					);
 					$favorite_category_registered = true;
@@ -206,10 +206,17 @@ function vbp_register_patterns( $api = null, $template = null ) {
 
 					$patterns = json_decode( $patterns_data, true );
 					if ( ! $theme_category_registered ) {
+						$theme_name = wp_get_theme()->get( 'Name' );
+						if ( empty( $theme_name ) ) {
+							$theme_name = __( 'Theme', 'vk-block-patterns' );
+						}
 						register_block_pattern_category(
 							'vk-pattern-theme',
 							array(
-								'label' => __( 'Theme Patterns of VK Pattern Library', 'vk-block-patterns' ),
+								'label' => sprintf(
+									__( 'Patterns for %s in VK Pattern Library', 'vk-block-patterns' ),
+									$theme_name
+								),
 							)
 						);
 						$theme_category_registered = true;
