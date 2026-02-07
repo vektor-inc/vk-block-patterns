@@ -336,8 +336,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 			// テストデータにキャシュの指定がある場合.
 			if ( ! empty( $test_value['transients']) ) {
-				$theme_key = ! empty( $test_value['template'] ) ? sanitize_key( $test_value['template'] ) : 'no-theme';
-				$transient_key = 'vk_patterns_api_data_' . $theme_key . '_1_20';
+				$current_template = ! empty( $test_value['template'] ) ? $test_value['template'] : get_template();
+				$theme_key        = ! empty( $current_template ) ? sanitize_key( $current_template ) : 'no-theme';
+				$transient_key    = 'vk_patterns_api_data_' . $theme_key . '_1_20';
 				// キャッシュをセット.
 				set_transient( $transient_key, $test_value['transients'], 60 * 60 * 24 );
 			}
@@ -352,7 +353,8 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			$this->assertEquals( $correct, $return );
 
 			// キャッシュ削除.
-			$theme_key = ! empty( $test_value['template'] ) ? sanitize_key( $test_value['template'] ) : 'no-theme';
+			$current_template = ! empty( $test_value['template'] ) ? $test_value['template'] : get_template();
+			$theme_key        = ! empty( $current_template ) ? sanitize_key( $current_template ) : 'no-theme';
 			delete_transient( 'vk_patterns_api_data_' . $theme_key . '_1_20' );
 		}
         delete_option( 'vk_block_patterns_options' );
@@ -451,7 +453,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 		$page          = 2;
 		$per_page      = 25;
-		$transient_key = 'vk_patterns_api_data_no-theme_' . $page . '_' . $per_page;
+		$current_template = get_template();
+		$theme_key        = ! empty( $current_template ) ? sanitize_key( $current_template ) : 'no-theme';
+		$transient_key    = 'vk_patterns_api_data_' . $theme_key . '_' . $page . '_' . $per_page;
 		$response_body = array(
 			'patterns'            => '[]',
 			'theme'               => '[]',
@@ -572,7 +576,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			)
 		);
 
-		$transient_key   = 'vk_patterns_api_data_no-theme_1_20';
+		$current_template = get_template();
+		$theme_key        = ! empty( $current_template ) ? sanitize_key( $current_template ) : 'no-theme';
+		$transient_key    = 'vk_patterns_api_data_' . $theme_key . '_1_20';
 		$transient_value = array(
 			'patterns' => '[]',
 		);
