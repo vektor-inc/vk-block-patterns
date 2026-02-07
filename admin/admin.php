@@ -93,7 +93,7 @@ function vkp_show_patterns_register_settings() {
 			'type'    => 'boolean',
 			'default' => false,
 		),
-		'disableXT9Pattern'    => array(
+		'disableThemePattern'    => array(
 			'type'    => 'boolean',
 			'default' => false,
 		),

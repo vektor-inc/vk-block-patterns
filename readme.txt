@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Specification Change ] Patterns are received based on the currently active theme.
+
 = 1.34.3 =
 [ Other ] Reduce the load on the VK Pattern Libraries API
 

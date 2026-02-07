@@ -23,6 +23,8 @@ const Admin = () => {
 		vkpOptions.disableCorePattern === '1' ? true : false;
 	const defaultDisablePluginPattern =
 		vkpOptions.disablePluginPattern === '1' ? true : false;
+	const defaultDisableThemePattern =
+		vkpOptions.disableThemePattern === '1' ? true : false;
 	const savePluginData =
 		vkpOptions.savePluginData === '1' ? true : false;
 
@@ -32,6 +34,7 @@ const Admin = () => {
 		VWSMail: vkpOptions.VWSMail,
 		disableCorePattern: defaultDisableCorePattern,
 		disablePluginPattern: defaultDisablePluginPattern,
+		disableThemePattern: defaultDisableThemePattern,
 		savePluginData: savePluginData
 	} );
 	const ajaxUrl  =  vkpOptions.ajaxUrl;
@@ -98,9 +101,6 @@ const Admin = () => {
 	// パターン管理画面URL
 	const patternPostTypeUrl =
 		vkpOptions.adminUrl + 'edit.php?post_type=vk-block-patterns';
-	const template = vkpOptions.template;
-
-	
 
 	// snackbar更新する
 	useEffect(() => {
@@ -125,11 +125,11 @@ const Admin = () => {
 			<div>
 				<section>
 					<h3 id="role-setting">
-						{ __( 'Role Setting', 'vk-block-patterns' ) }
+						{ __( 'Role Settings', 'vk-block-patterns' ) }
 					</h3>
 					<p>
 						{ __(
-							'User permission to register patterns in VK Block Patterns',
+							'Who can register patterns in VK Block Patterns',
 							'vk-block-patterns'
 						) }{ ' ' }
 						[ <a href={ patternPostTypeUrl }>VK Block Patterns</a> ]
@@ -176,11 +176,11 @@ const Admin = () => {
 				</section>
 				<section>
 					<h3 id="default-patterns-setting">
-						{ __( 'Default Pattern Setting', 'vk-block-patterns' ) }
+						{ __( 'Default Pattern Settings', 'vk-block-patterns' ) }
 					</h3>
 					<ToggleControl
 						label={ __(
-							'Disable WordPress Core Patterns',
+							'Disable WordPress core patterns',
 							'vk-block-patterns'
 						) }
 						checked={ vkpOption.disableCorePattern }
@@ -193,7 +193,7 @@ const Admin = () => {
 					/>
 					<ToggleControl
 						label={ __(
-							'Disable default patterns of this plugin',
+							"Disable this plugin's default patterns",
 							'vk-block-patterns'
 						) }
 						checked={ vkpOption.disablePluginPattern }
@@ -205,19 +205,18 @@ const Admin = () => {
 						} }
 					/>
 					{ lang === 'ja_JP' &&
-						vkpOption.VWSMail !== '' &&
-						template === 'x-t9' && (
+						vkpOption.VWSMail !== '' && (
 							<>
 								<ToggleControl
 									label={ __(
-										'Disable X-T9 patterns in VK Pattern Library',
+										'Disable patterns for the current theme in VK Pattern Library',
 										'vk-block-patterns'
 									) }
-									checked={ vkpOption.disableXT9Pattern }
+									checked={ vkpOption.disableThemePattern }
 									onChange={ ( newValue ) => {
 										updateOptionValue( {
 											...vkpOption,
-											disableXT9Pattern: newValue,
+											disableThemePattern: newValue,
 										} );
 									} }
 								/>
@@ -228,7 +227,7 @@ const Admin = () => {
 					<>
 						<h3 id="pattern-library-setting">
 							{ __(
-								'VK Pattern Library Setting',
+								'VK Pattern Library Settings',
 								'vk-block-patterns'
 							) }
 						</h3>
@@ -290,11 +289,11 @@ const Admin = () => {
 
 						<section>
 							<h4>
-								{ __( 'Editor Setting', 'vk-block-patterns' ) }
+								{ __( 'Editor Settings', 'vk-block-patterns' ) }
 							</h4>
 							<ToggleControl
 								label={ __(
-									'Show VK Pattern Library link in editor toolbar',
+									'Show VK Pattern Library link in the editor toolbar',
 									'vk-block-patterns'
 								) }
 								checked={ vkpOption.showPatternsLink }
@@ -309,11 +308,11 @@ const Admin = () => {
 
 						<section>
 							<h4>
-								{ __( 'Uninstall Setting', 'vk-block-patterns' ) }
+								{ __( 'Uninstall Settings', 'vk-block-patterns' ) }
 							</h4>
 							<ToggleControl
 								label={ __(
-									'When Uninstall This Plugin, Save Data of This Plugin',
+									"Keep this plugin's data on uninstall",
 									'vk-block-patterns'
 								) }
 								checked={ vkpOption.savePluginData }
@@ -328,9 +327,9 @@ const Admin = () => {
 
 						<section>
 							<h3 id="cache-setting">
-								{ __( 'Patterns data cache setting', 'vk-block-patterns' ) }
+								{ __( 'Pattern data cache settings', 'vk-block-patterns' ) }
 							</h3>
-							<p>{ __( 'If the VK Pattern Library data is old, please try clearing the cache.', 'vk-block-patterns' ) }</p>
+							<p>{ __( 'If VK Pattern Library data looks outdated, try clearing the cache.', 'vk-block-patterns' ) }</p>
 							<Button
 								isSecondary
 								onClick={ clearPatternsCache }
@@ -360,14 +359,14 @@ const Admin = () => {
 				{ isSaveSuccess === true && (
 					<div>
 						<Snackbar>
-							{ __( 'Save Success', 'vk-block-patterns'  ) }{ ' ' }
+							{ __( 'Settings saved', 'vk-block-patterns'  ) }{ ' ' }
 						</Snackbar>
 					</div>
 				) }
 				{ isSaveSuccess === false && (
 					<div>
 						<Snackbar>
-							{ __( 'Failed to save.', 'vk-block-patterns'  ) }{ ' ' }
+							{ __( 'Failed to save settings.', 'vk-block-patterns'  ) }{ ' ' }
 						</Snackbar>
 					</div>
 				) }

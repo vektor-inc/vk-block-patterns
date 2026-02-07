@@ -6,17 +6,69 @@
  */
 
 class RegisterPatternsTest extends WP_UnitTestCase {
+	private function get_pattern_category_label( $category_name ) {
+		if ( ! class_exists( 'WP_Block_Pattern_Categories_Registry' ) ) {
+			return null;
+		}
 
-	private function build_expected_results( $favorite_patterns, $xt9_patterns, $xt9_enabled ) {
+		$registry = WP_Block_Pattern_Categories_Registry::get_instance();
+		if ( method_exists( $registry, 'get_registered' ) ) {
+			$category = $registry->get_registered( $category_name );
+			if ( empty( $category['label'] ) ) {
+				return null;
+			}
+			return $category['label'];
+		} else {
+			$categories = $registry->get_all_registered();
+		}
+
+		if ( empty( $categories[ $category_name ]['label'] ) ) {
+			return null;
+		}
+
+		return $categories[ $category_name ]['label'];
+	}
+
+	private function is_pattern_category_registered( $category_name ) {
+		if ( ! class_exists( 'WP_Block_Pattern_Categories_Registry' ) ) {
+			return false;
+		}
+
+		$registry = WP_Block_Pattern_Categories_Registry::get_instance();
+		if ( method_exists( $registry, 'get_registered' ) ) {
+			$category = $registry->get_registered( $category_name );
+			return ! empty( $category );
+		}
+
+		$categories = $registry->get_all_registered();
+		return ! empty( $categories[ $category_name ] );
+	}
+
+	private function remove_test_theme( $theme_dir ) {
+		$style_path = $theme_dir . '/style.css';
+		$index_path = $theme_dir . '/index.php';
+
+		if ( file_exists( $style_path ) ) {
+			unlink( $style_path );
+		}
+		if ( file_exists( $index_path ) ) {
+			unlink( $index_path );
+		}
+		if ( is_dir( $theme_dir ) ) {
+			rmdir( $theme_dir );
+		}
+	}
+
+	private function build_expected_results( $favorite_patterns, $theme_patterns = '[]', $theme_enabled = false ) {
 		$favorites = json_decode( $favorite_patterns, true );
-		$xt9       = json_decode( $xt9_patterns, true );
+		$themes    = json_decode( $theme_patterns, true );
 
 		$favorite_count = is_array( $favorites ) ? count( $favorites ) : 0;
-		$xt9_count      = ( $xt9_enabled && is_array( $xt9 ) ) ? count( $xt9 ) : 0;
+		$theme_count    = ( $theme_enabled && is_array( $themes ) ) ? count( $themes ) : 0;
 
 		return array(
 			'favorite' => array_fill( 0, $favorite_count, true ),
-			'x-t9'     => array_fill( 0, $xt9_count, true ),
+			'theme'    => array_fill( 0, $theme_count, true ),
 		);
 	}
 
@@ -88,12 +140,12 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
@@ -103,13 +155,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
                 'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
@@ -118,12 +170,12 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => '[]',
+                    'theme'    => '[]',
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
@@ -133,7 +185,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -147,12 +199,12 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns_collision,
-                    'x-t9'     => $xt9_patterns_collision,
+                    'theme'    => $xt9_patterns_collision,
                 ),
                 'transients' => array(),
                 'template' => 'x-t9',
@@ -162,17 +214,17 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
                 'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
@@ -180,13 +232,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
                 'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
@@ -194,13 +246,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => true,
+                    'disableThemePattern' => true,
                 ),
                 'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
                 'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
@@ -208,27 +260,27 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'lightning',
-                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
             ),
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => true,
+                    'disableThemePattern' => true,
                 ),
                 'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'lightning',
                 'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
@@ -236,35 +288,35 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => '',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'x-t9',
                 'correct'  => array(
                     'favorite' => array(),
-                    'x-t9'     => array(),
+					'theme'    => array(),
                 ),
 			),
             array(
 				'options'  => array(
                     'VWSMail'           => '',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
                     'role'     => 'pro-user',
                     'patterns' => $favorite_patterns,
-                    'x-t9'     => $xt9_patterns,
+                    'theme'    => $xt9_patterns,
                 ),
                 'template' => 'lightning',
                 'correct'  => array(
                     'favorite' => array(),
-                    'x-t9'     => array(),
+					'theme'    => array(),
                 ),
 			),
         );
@@ -284,8 +336,11 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 			// テストデータにキャシュの指定がある場合.
 			if ( ! empty( $test_value['transients']) ) {
+				$current_template = ! empty( $test_value['template'] ) ? $test_value['template'] : get_template();
+				$theme_key        = ! empty( $current_template ) ? sanitize_key( $current_template ) : 'no-theme';
+				$transient_key    = 'vk_patterns_api_data_' . $theme_key . '_1_20';
 				// キャッシュをセット.
-				set_transient( 'vk_patterns_api_data_1_20', $test_value['transients'], 60 * 60 * 24 );
+				set_transient( $transient_key, $test_value['transients'], 60 * 60 * 24 );
 			}
 
 			$return  = vbp_register_patterns( $test_value['api'], $test_value['template'] );
@@ -298,7 +353,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			$this->assertEquals( $correct, $return );
 
 			// キャッシュ削除.
-			delete_transient( 'vk_patterns_api_data_1_20' );
+			$current_template = ! empty( $test_value['template'] ) ? $test_value['template'] : get_template();
+			$theme_key        = ! empty( $current_template ) ? sanitize_key( $current_template ) : 'no-theme';
+			delete_transient( 'vk_patterns_api_data_' . $theme_key . '_1_20' );
 		}
         delete_option( 'vk_block_patterns_options' );
 	}    
@@ -396,16 +453,18 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 		$page          = 2;
 		$per_page      = 25;
-		$transient_key = 'vk_patterns_api_data_' . $page . '_' . $per_page;
+		$current_template = get_template();
+		$theme_key        = ! empty( $current_template ) ? sanitize_key( $current_template ) : 'no-theme';
+		$transient_key    = 'vk_patterns_api_data_' . $theme_key . '_' . $page . '_' . $per_page;
 		$response_body = array(
 			'patterns'            => '[]',
-			'x-t9'                => '[]',
+			'theme'               => '[]',
 			'has_more_favorites'  => false,
-			'has_more_x_t9'       => false,
+			'has_more_theme'      => false,
 			'page'                => $page,
 			'per_page'            => $per_page,
 			'total_favorites'     => 0,
-			'total_x_t9'          => 0,
+			'total_theme'         => 0,
 		);
 
 		delete_transient( $transient_key );
@@ -444,6 +503,71 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		$this->assertContains( $transient_key, $cached_keys );
 	}
 
+	public function test_vbp_get_pattern_api_data_caches_response_with_theme() {
+		update_option(
+			'vk_block_patterns_options',
+			array(
+				'VWSMail' => 'cache-test@example.com',
+			)
+		);
+
+		$page     = 1;
+		$per_page = 20;
+
+		$theme_one      = 'lightning-g3-theme-json';
+		$theme_two      = 'x-t9';
+		$theme_one_key  = 'vk_patterns_api_data_' . sanitize_key( $theme_one ) . '_' . $page . '_' . $per_page;
+		$theme_two_key  = 'vk_patterns_api_data_' . sanitize_key( $theme_two ) . '_' . $page . '_' . $per_page;
+		$response_body  = array(
+			'patterns'           => '[]',
+			'theme'              => '[]',
+			'has_more_favorites' => false,
+			'has_more_theme'     => false,
+			'page'               => $page,
+			'per_page'           => $per_page,
+			'total_favorites'    => 0,
+			'total_theme'        => 0,
+		);
+
+		delete_transient( $theme_one_key );
+		delete_transient( $theme_two_key );
+		delete_option( 'vk_patterns_api_cached_keys' );
+
+		$pre_http_called = 0;
+		$http_filter = function( $_preempt, $_args, $_url ) use ( &$pre_http_called, $response_body ) {
+			$pre_http_called++;
+			return array(
+				'body'     => wp_json_encode( $response_body ),
+				'response' => array(
+					'code' => 200,
+				),
+			);
+		};
+
+		add_filter( 'pre_http_request', $http_filter, 10, 3 );
+
+		$return_one = vbp_get_pattern_api_data( $page, $per_page, $theme_one );
+		$return_two = vbp_get_pattern_api_data( $page, $per_page, $theme_two );
+
+		$cached_one = get_transient( $theme_one_key );
+		$cached_two = get_transient( $theme_two_key );
+		$cached_keys = get_option( 'vk_patterns_api_cached_keys', array() );
+
+		remove_filter( 'pre_http_request', $http_filter, 10 );
+		delete_transient( $theme_one_key );
+		delete_transient( $theme_two_key );
+		delete_option( 'vk_block_patterns_options' );
+		delete_option( 'vk_patterns_api_cached_keys' );
+
+		$this->assertEquals( 2, $pre_http_called );
+		$this->assertEquals( $response_body, $return_one );
+		$this->assertEquals( $response_body, $return_two );
+		$this->assertEquals( $response_body, $cached_one );
+		$this->assertEquals( $response_body, $cached_two );
+		$this->assertContains( $theme_one_key, $cached_keys );
+		$this->assertContains( $theme_two_key, $cached_keys );
+	}
+
 	public function test_vbp_get_pattern_api_data_uses_cached_data_when_available() {
 		update_option(
 			'vk_block_patterns_options',
@@ -452,7 +576,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			)
 		);
 
-		$transient_key   = 'vk_patterns_api_data_1_20';
+		$current_template = get_template();
+		$theme_key        = ! empty( $current_template ) ? sanitize_key( $current_template ) : 'no-theme';
+		$transient_key    = 'vk_patterns_api_data_' . $theme_key . '_1_20';
 		$transient_value = array(
 			'patterns' => '[]',
 		);
@@ -490,7 +616,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			'vk_block_patterns_options',
 			array(
 				'VWSMail'           => 'paging-test@example.com',
-				'disableXT9Pattern' => true,
+				'disableThemePattern' => true,
 			)
 		);
 
@@ -504,9 +630,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 				'body'     => wp_json_encode(
 					array(
 						'patterns'           => '[]',
-						'x-t9'               => '[]',
+						'theme'              => '[]',
 						'has_more_favorites' => false,
-						'has_more_x_t9'      => true,
+						'has_more_theme'     => true,
 						'page'               => $page,
 						'per_page'           => $args['body']['per_page'],
 					)
@@ -527,8 +653,8 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		remove_filter( 'pre_http_request', $http_filter, 10 );
 		remove_filter( 'vbp_patterns_max_pages', $max_pages_filter );
 
-		delete_transient( 'vk_patterns_api_data_1_20' );
-		delete_transient( 'vk_patterns_api_data_2_20' );
+		delete_transient( 'vk_patterns_api_data_lightning_1_20' );
+		delete_transient( 'vk_patterns_api_data_lightning_2_20' );
 		delete_option( 'vk_patterns_api_cached_keys' );
 		delete_option( 'vk_block_patterns_options' );
 
@@ -585,5 +711,151 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		delete_transient( $cached_keys[0] );
 		delete_option( 'vk_block_patterns_options' );
 		delete_option( 'vk_patterns_api_cached_keys' );
+	}
+
+	public function test_theme_pattern_category_label_falls_back_to_theme_when_name_missing() {
+		$theme_slug = 'vbp-empty-name';
+		$theme_dir  = WP_CONTENT_DIR . '/themes/' . $theme_slug;
+
+		if ( ! is_dir( $theme_dir ) ) {
+			wp_mkdir_p( $theme_dir );
+		}
+
+		file_put_contents(
+			$theme_dir . '/style.css',
+			"/*\nTheme Name:\n*/\n"
+		);
+		file_put_contents(
+			$theme_dir . '/index.php',
+			"<?php\n// Silence is golden.\n"
+		);
+
+		$filter_stylesheet = function() use ( $theme_slug ) {
+			return $theme_slug;
+		};
+		$filter_template = function() use ( $theme_slug ) {
+			return $theme_slug;
+		};
+
+		add_filter( 'pre_option_stylesheet', $filter_stylesheet );
+		add_filter( 'pre_option_template', $filter_template );
+
+		update_option(
+			'vk_block_patterns_options',
+			array(
+				'VWSMail' => 'theme-test@example.com',
+			)
+		);
+
+		$api = array(
+			'theme' => wp_json_encode(
+				array(
+					array(
+						'post_name'  => 'sample-theme-pattern',
+						'title'      => 'Sample Theme Pattern',
+						'categories' => array( 'vk-pattern-theme' ),
+						'content'    => '<!-- wp:paragraph --><p>Test</p><!-- /wp:paragraph -->',
+					),
+				)
+			),
+		);
+
+		if ( function_exists( 'unregister_block_pattern_category' ) && $this->is_pattern_category_registered( 'vk-pattern-theme' ) ) {
+			unregister_block_pattern_category( 'vk-pattern-theme' );
+		}
+
+		$this->assertEmpty( wp_get_theme()->get( 'Name' ) );
+
+		vbp_register_patterns( $api, 'dummy-theme' );
+
+		$label = $this->get_pattern_category_label( 'vk-pattern-theme' );
+
+		remove_filter( 'pre_option_stylesheet', $filter_stylesheet );
+		remove_filter( 'pre_option_template', $filter_template );
+		delete_option( 'vk_block_patterns_options' );
+
+		if ( function_exists( 'unregister_block_pattern_category' ) && $this->is_pattern_category_registered( 'vk-pattern-theme' ) ) {
+			unregister_block_pattern_category( 'vk-pattern-theme' );
+		}
+
+		$this->remove_test_theme( $theme_dir );
+
+		$this->assertSame(
+			'Patterns for Theme in VK Pattern Library',
+			$label
+		);
+	}
+
+	public function test_theme_pattern_category_label_uses_theme_name_when_available() {
+		$theme_slug = 'vbp-named-theme';
+		$theme_dir  = WP_CONTENT_DIR . '/themes/' . $theme_slug;
+
+		if ( ! is_dir( $theme_dir ) ) {
+			wp_mkdir_p( $theme_dir );
+		}
+
+		file_put_contents(
+			$theme_dir . '/style.css',
+			"/*\nTheme Name: VBP Named Theme\n*/\n"
+		);
+		file_put_contents(
+			$theme_dir . '/index.php',
+			"<?php\n// Silence is golden.\n"
+		);
+
+		$filter_stylesheet = function() use ( $theme_slug ) {
+			return $theme_slug;
+		};
+		$filter_template = function() use ( $theme_slug ) {
+			return $theme_slug;
+		};
+
+		add_filter( 'pre_option_stylesheet', $filter_stylesheet );
+		add_filter( 'pre_option_template', $filter_template );
+
+		update_option(
+			'vk_block_patterns_options',
+			array(
+				'VWSMail' => 'theme-test@example.com',
+			)
+		);
+
+		$api = array(
+			'theme' => wp_json_encode(
+				array(
+					array(
+						'post_name'  => 'sample-theme-pattern',
+						'title'      => 'Sample Theme Pattern',
+						'categories' => array( 'vk-pattern-theme' ),
+						'content'    => '<!-- wp:paragraph --><p>Test</p><!-- /wp:paragraph -->',
+					),
+				)
+			),
+		);
+
+		if ( function_exists( 'unregister_block_pattern_category' ) && $this->is_pattern_category_registered( 'vk-pattern-theme' ) ) {
+			unregister_block_pattern_category( 'vk-pattern-theme' );
+		}
+
+		$this->assertSame( 'VBP Named Theme', wp_get_theme()->get( 'Name' ) );
+
+		vbp_register_patterns( $api, 'dummy-theme' );
+
+		$label = $this->get_pattern_category_label( 'vk-pattern-theme' );
+
+		remove_filter( 'pre_option_stylesheet', $filter_stylesheet );
+		remove_filter( 'pre_option_template', $filter_template );
+		delete_option( 'vk_block_patterns_options' );
+
+		if ( function_exists( 'unregister_block_pattern_category' ) && $this->is_pattern_category_registered( 'vk-pattern-theme' ) ) {
+			unregister_block_pattern_category( 'vk-pattern-theme' );
+		}
+
+		$this->remove_test_theme( $theme_dir );
+
+		$this->assertSame(
+			'Patterns for VBP Named Theme in VK Pattern Library',
+			$label
+		);
 	}
 }
