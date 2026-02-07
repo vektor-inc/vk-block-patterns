@@ -29,6 +29,8 @@
 function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template = '' ) {
 	// オプション値を取得.
 	$options = vbp_get_options();
+	// 現在のテーマを取得.
+	$current_template = ! empty( $current_template ) ? $current_template : get_template();
 	// メールアドレスを取得.
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
 	// ページング付きのキャッシュキー.
