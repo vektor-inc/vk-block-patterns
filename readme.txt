@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Other ] Reduce the load on the VK Pattern Libraries API
+
 = 1.34.2 =
 [ Bug fix ] Fix an issue where X-T9 theme patterns were not added to Favorites.
 
