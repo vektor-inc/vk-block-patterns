@@ -119,7 +119,7 @@ function vbp_reload_pattern_api_data() {
 		update_option( 'vk_block_patterns_options', $options );
 	}
 }
-add_action( 'init', 'vbp_reload_pattern_api_data', 5 ); 
+add_action( 'admin_init', 'vbp_reload_pattern_api_data', 5 );
 
 
 
