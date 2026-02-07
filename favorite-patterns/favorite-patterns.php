@@ -134,9 +134,13 @@ function vbp_reload_pattern_api_data() {
 		update_option( 'vk_block_patterns_options', $options );
 	}
 }
-add_action( 'load-post.php', 'vbp_reload_pattern_api_data' );
-add_action( 'load-post-new.php', 'vbp_reload_pattern_api_data' );
-add_action( 'load-site-editor.php', 'vbp_reload_pattern_api_data' );
+
+function vbp_maybe_reload_pattern_api_data() {
+    if ( is_admin() ) {
+        vbp_reload_pattern_api_data();
+    }
+}
+add_action( 'init', 'vbp_maybe_reload_pattern_api_data', 5 );
 
 
 
