@@ -287,6 +287,14 @@ const Admin = () => {
 									setIsReload( true );
 								} }
 							/>
+							{ isReload && (
+								<p className="description">
+									{ __(
+										'After saving, the page will reload to apply the email change.',
+										'vk-block-patterns'
+									) }
+								</p>
+							) }
 						</section>
 
 						<section>
