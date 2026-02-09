@@ -536,7 +536,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 	}
 
 	public function test_vbp_reload_pattern_api_data_purges_expired_cache() {
-		$old_time     = date( 'Y-m-d H:i:s', strtotime( '-2 days' ) );
+		$old_time     = date( 'Y-m-d H:i:s', strtotime( '-31 days' ) );
 		$cached_keys  = array( 'vk_patterns_api_data_1_50', 'vk_patterns_api_data_2_25' );
 		$options      = array(
 			'VWSMail'             => 'reload-test@example.com',
