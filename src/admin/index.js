@@ -32,6 +32,7 @@ const Admin = () => {
 		VWSMail: vkpOptions.VWSMail,
 		disableCorePattern: defaultDisableCorePattern,
 		disablePluginPattern: defaultDisablePluginPattern,
+		patternsPerPage: vkpOptions.patternsPerPage ?? 20,
 		savePluginData: savePluginData
 	} );
 	const ajaxUrl  =  vkpOptions.ajaxUrl;
@@ -330,6 +331,29 @@ const Admin = () => {
 							<h3 id="cache-setting">
 								{ __( 'Patterns data cache setting', 'vk-block-patterns' ) }
 							</h3>
+							<SelectControl
+								label={ __( 'Patterns per page', 'vk-block-patterns' ) }
+								value={ vkpOption.patternsPerPage }
+								onChange={ ( newValue ) => {
+									updateOptionValue( {
+										...vkpOption,
+										patternsPerPage: newValue,
+									} );
+								} }
+								options={ [
+									{ label: '20', value: 20 },
+									{ label: '40', value: 40 },
+									{ label: '60', value: 60 },
+									{ label: '80', value: 80 },
+									{ label: '100', value: 100 },
+									{ label: '120', value: 120 },
+									{ label: '140', value: 140 },
+									{ label: '160', value: 160 },
+									{ label: '180', value: 180 },
+									{ label: '200', value: 200 },
+								] }
+								help={ __( 'Higher values may cause editor instability on low-spec environments.', 'vk-block-patterns' ) }
+							/>
 							<p>{ __( 'If the VK Pattern Library data is old, please try clearing the cache.', 'vk-block-patterns' ) }</p>
 							<Button
 								isSecondary

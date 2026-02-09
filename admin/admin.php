@@ -97,6 +97,10 @@ function vkp_show_patterns_register_settings() {
 			'type'    => 'boolean',
 			'default' => false,
 		),
+		'patternsPerPage'      => array(
+			'type'    => 'integer',
+			'default' => 20,
+		),
 		'savePluginData'    => array(
 			'type'    => 'boolean',
 			'default' => false,
