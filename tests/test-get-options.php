@@ -19,6 +19,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => false,
 					'disableXT9Pattern'    => false,
+					'patternsPerPage'      => 20,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
@@ -40,6 +41,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => false,
 					'disableXT9Pattern'    => false,
+					'patternsPerPage'      => 20,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
@@ -62,6 +64,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => false,
 					'disableXT9Pattern'    => false,
+					'patternsPerPage'      => 20,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
@@ -95,6 +98,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => true,
 					'disableXT9Pattern'    => false,
+					'patternsPerPage'      => 20,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
@@ -129,6 +133,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => true,
 					'disableXT9Pattern'    => false,
+					'patternsPerPage'      => 20,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,

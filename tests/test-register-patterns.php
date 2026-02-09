@@ -546,20 +546,19 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 		update_option( 'vk_block_patterns_options', $options );
 		update_option( 'vk_patterns_api_cached_keys', $cached_keys );
-		foreach ( $cached_keys as $key ) {
-			set_transient( $key, $transient_value, 60 * 60 );
-		}
+		// 1つ目は有効、2つ目は期限切れ（transient未設定）の想定.
+		set_transient( $cached_keys[0], $transient_value, 60 * 60 );
 
 		vbp_reload_pattern_api_data();
 
 		$updated_options = get_option( 'vk_block_patterns_options' );
 
-		foreach ( $cached_keys as $key ) {
-			$this->assertFalse( get_transient( $key ) );
-		}
-		$this->assertSame( array(), get_option( 'vk_patterns_api_cached_keys' ) );
+		$this->assertNotFalse( get_transient( $cached_keys[0] ) );
+		$this->assertFalse( get_transient( $cached_keys[1] ) );
+		$this->assertSame( array( $cached_keys[0] ), get_option( 'vk_patterns_api_cached_keys' ) );
 		$this->assertGreaterThan( strtotime( $old_time ), strtotime( $updated_options['last-pattern-cached'] ) );
 
+		delete_transient( $cached_keys[0] );
 		delete_option( 'vk_block_patterns_options' );
 		delete_option( 'vk_patterns_api_cached_keys' );
 	}
