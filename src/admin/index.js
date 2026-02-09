@@ -341,15 +341,25 @@ const Admin = () => {
 									} );
 								} }
 								options={ [
+									{ label: '10', value: 10 },
 									{ label: '20', value: 20 },
+									{ label: '30', value: 30 },
 									{ label: '40', value: 40 },
+									{ label: '50', value: 50 },
 									{ label: '60', value: 60 },
+									{ label: '70', value: 70 },
 									{ label: '80', value: 80 },
+									{ label: '90', value: 90 },
 									{ label: '100', value: 100 },
+									{ label: '110', value: 110 },
 									{ label: '120', value: 120 },
+									{ label: '130', value: 130 },
 									{ label: '140', value: 140 },
+									{ label: '150', value: 150 },
 									{ label: '160', value: 160 },
+									{ label: '170', value: 170 },
 									{ label: '180', value: 180 },
+									{ label: '190', value: 190 },
 									{ label: '200', value: 200 },
 								] }
 								help={ __( 'Higher values may cause editor instability on low-spec environments.', 'vk-block-patterns' ) }
