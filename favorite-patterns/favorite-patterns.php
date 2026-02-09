@@ -122,7 +122,7 @@ function vbp_reload_pattern_api_data() {
 		}
 		// 最後にキャッシュされた時間を更新.
 		$options['last-pattern-cached'] = $current_time;
-		// 最低１時間はキャッシュを保持.
+		// 最低30日時間はキャッシュを保持.
 		update_option( 'vk_block_patterns_options', $options );
 	}
 }
