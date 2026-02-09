@@ -27,7 +27,7 @@
  * } $return
  */
 function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
-	// オプション地を取得.
+	// オプション値を取得.
 	$options = vbp_get_options();
 	// メールアドレスを取得.
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
@@ -62,6 +62,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 			} elseif ( ! empty( $result ) ) {
 				$response_code = wp_remote_retrieve_response_code( $result );
 				if ( $response_code < 200 || $response_code >= 300 ) {
+					// HTTPステータスコードが「成功（2xx）」じゃない時にエラー扱い
 					error_log( 'VK Block Patterns API error: HTTP ' . $response_code );
 					return $return;
 				}
