@@ -155,7 +155,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 	if ( ! empty( $options['VWSMail'] ) ) {
 		$current_template = ! empty( $template ) ? $template : get_template();
 		$per_page = ! empty( $options['patternsPerPage'] ) ? absint( $options['patternsPerPage'] ) : 20;
-		$per_page = max( 20, min( $per_page, 200 ) ); // 20〜200の範囲に制限.
+		$per_page = max( 20, min( $per_page, 50 ) ); // 20〜50の範囲に制限.
 		$per_page = apply_filters( 'vbp_patterns_api_per_page', $per_page );
 		$xt9_enabled      = ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) );
 		$page             = 1;
