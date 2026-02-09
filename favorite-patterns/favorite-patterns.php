@@ -27,7 +27,7 @@
  * } $return
  */
 function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
-	// オプション地を取得.
+	// オプション値を取得.
 	$options = vbp_get_options();
 	// メールアドレスを取得.
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
@@ -62,6 +62,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 			} elseif ( ! empty( $result ) ) {
 				$response_code = wp_remote_retrieve_response_code( $result );
 				if ( $response_code < 200 || $response_code >= 300 ) {
+					// HTTPステータスコードが「成功（2xx）」じゃない時にエラー扱い
 					error_log( 'VK Block Patterns API error: HTTP ' . $response_code );
 					return $return;
 				}
@@ -70,8 +71,8 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 					error_log( 'VK Block Patterns API error: Invalid JSON response' );
 					return array();
 				}
-				// APIで取得したパターンデータをキャッシュに登録. 1日 に設定.
-				set_transient( $transient_key, $return, 60 * 60 * 24 );
+				// APIで取得したパターンデータをキャッシュに登録. 30日 に設定.
+				set_transient( $transient_key, $return, 60 * 60 * 24 * 30 ); // 30日間キャッシュ.
 				$cached_keys   = get_option( 'vk_patterns_api_cached_keys', array() );
 				if ( ! in_array( $transient_key, $cached_keys, true ) ) {
 					$cached_keys[] = $transient_key;
@@ -92,7 +93,7 @@ function vbp_reload_pattern_api_data() {
 	$options = vbp_get_options();
 
 	// キャッシュの有効時間（秒）.
-	$cache_time = 60 * 60;
+	$cache_time = 60 * 60 * 24 * 30; // 30日.
 
 	// 最後にキャッシュされた時間を取得.
 	$last_cached = $options['last-pattern-cached'];
@@ -105,28 +106,29 @@ function vbp_reload_pattern_api_data() {
 
 	// フラグがなければパターンのデータのキャッシュをパージ.
 	if ( $diff > $cache_time ) {
-		// パターンのデータのキャッシュをパージ.
+		// 期限切れのキャッシュのみをパージ.
 		$cached_keys = get_option( 'vk_patterns_api_cached_keys', array() );
 		if ( is_array( $cached_keys ) ) {
+			$remaining_keys = array();
 			foreach ( $cached_keys as $cached_key ) {
-				delete_transient( $cached_key );
+				// get_transient が false の場合は期限切れと判断.
+				if ( false === get_transient( $cached_key ) ) {
+					delete_transient( $cached_key );
+				} else {
+					$remaining_keys[] = $cached_key;
+				}
 			}
+			update_option( 'vk_patterns_api_cached_keys', $remaining_keys );
 		}
-		update_option( 'vk_patterns_api_cached_keys', array() );
 		// 最後にキャッシュされた時間を更新.
 		$options['last-pattern-cached'] = $current_time;
-		// 最低１時間はキャッシュを保持.
+		// 最低30日時間はキャッシュを保持.
 		update_option( 'vk_block_patterns_options', $options );
 	}
 }
-
-function vbp_maybe_reload_pattern_api_data() {
-    if ( is_admin() ) {
-        vbp_reload_pattern_api_data();
-    }
-}
-add_action( 'init', 'vbp_maybe_reload_pattern_api_data', 5 );
-
+add_action( 'load-post.php', 'vbp_reload_pattern_api_data' );
+add_action( 'load-post-new.php', 'vbp_reload_pattern_api_data' );
+add_action( 'load-site-editor.php', 'vbp_reload_pattern_api_data' );
 
 
 /**
@@ -141,6 +143,7 @@ add_action( 'init', 'vbp_maybe_reload_pattern_api_data', 5 );
  * } $returnx : 成功したらそれぞれの配列に true が入ってくる.
  */
 function vbp_register_patterns( $api = null, $template = null ) {
+
 	// オプション値を読み込み.
 	$options = vbp_get_options();
 	// テスト用の結果を返す配列.
@@ -151,7 +154,9 @@ function vbp_register_patterns( $api = null, $template = null ) {
 
 	if ( ! empty( $options['VWSMail'] ) ) {
 		$current_template = ! empty( $template ) ? $template : get_template();
-		$per_page         = apply_filters( 'vbp_patterns_api_per_page', 20 );
+		$per_page = ! empty( $options['patternsPerPage'] ) ? absint( $options['patternsPerPage'] ) : 20;
+		$per_page = max( 20, min( $per_page, 50 ) ); // 20〜50の範囲に制限.
+		$per_page = apply_filters( 'vbp_patterns_api_per_page', $per_page );
 		$xt9_enabled      = ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) );
 		$page             = 1;
 		$has_more         = true;
