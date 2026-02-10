@@ -26,6 +26,19 @@
  *  }
  * } $return
  */
+if ( ! defined( 'VBP_CACHE_TTL' ) ) {
+	define( 'VBP_CACHE_TTL', 60 * 60 * 24 * 30 ); // 30日
+}
+if ( ! defined( 'VBP_LOCK_TTL' ) ) {
+	define( 'VBP_LOCK_TTL', 30 ); // 30秒
+}
+if ( ! defined( 'VBP_LOCK_WAIT_INTERVAL' ) ) {
+	define( 'VBP_LOCK_WAIT_INTERVAL', 0.5 ); // 0.5秒
+}
+if ( ! defined( 'VBP_LOCK_MAX_WAITS' ) ) {
+	define( 'VBP_LOCK_MAX_WAITS', 20 ); // 最大10秒
+}
+
 function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 	// オプション値を取得.
 	$options = vbp_get_options();
@@ -46,12 +59,12 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 	if ( ! empty( $user_email ) ) {
 		// キャッシュがない場合 API を呼び出しキャッシュに登録.
 		// 先にロックを取得して同時アクセス時のAPI連打を防止.
-		$lock_ttl = 30;
+		$lock_ttl = VBP_LOCK_TTL;
 		if ( false !== get_transient( $lock_key ) ) {
 			// ロック中なら少し待ってキャッシュ再確認.
-			$max_waits = (int) ( $lock_ttl / 0.5 );
+			$max_waits = VBP_LOCK_MAX_WAITS;
 			for ( $i = 0; $i < $max_waits; $i++ ) {
-				usleep( 500 * 1000 ); // 0.5秒待つ.
+				usleep( (int) ( VBP_LOCK_WAIT_INTERVAL * 1000 * 1000 ) );
 				$file_cached = vbp_read_file_cache( $transient_key );
 				if ( null !== $file_cached ) {
 					return $file_cached;
@@ -61,43 +74,44 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 				}
 			}
 			// まだキャッシュがなければ空で返す.
+			error_log( 'VK Block Patterns: Cache lock timeout for key: ' . $transient_key );
 			return $return;
 		}
 		// ロック取得（30秒）.
 		set_transient( $lock_key, 1, $lock_ttl );
 
-		$result = wp_remote_post(
-			'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
-			array(
-				'timeout' => 10,
-				'body'    => array(
-					'login_id' => $user_email,
-					'page'     => absint( $page ),
-					'per_page' => absint( $per_page ),
-					'plugin_version' => defined( 'VBP_VERSION' ) ? VBP_VERSION : '',
-				),
-			)
-		);
-		if ( is_wp_error( $result ) ) {
-			error_log( 'VK Block Patterns API error: ' . $result->get_error_message() );
-			delete_transient( $lock_key );
-			return $return;
-		} elseif ( ! empty( $result ) ) {
-			$response_code = wp_remote_retrieve_response_code( $result );
-			if ( $response_code < 200 || $response_code >= 300 ) {
-				// HTTPステータスコードが「成功（2xx）」じゃない時にエラー扱い
-				error_log( 'VK Block Patterns API error: HTTP ' . $response_code );
-				delete_transient( $lock_key );
+		try {
+			$result = wp_remote_post(
+				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+				array(
+					'timeout' => 10,
+					'body'    => array(
+						'login_id' => $user_email,
+						'page'     => absint( $page ),
+						'per_page' => absint( $per_page ),
+						'plugin_version' => defined( 'VBP_VERSION' ) ? VBP_VERSION : '',
+					),
+				)
+			);
+			if ( is_wp_error( $result ) ) {
+				error_log( 'VK Block Patterns API error: ' . $result->get_error_message() );
 				return $return;
+			} elseif ( ! empty( $result ) ) {
+				$response_code = wp_remote_retrieve_response_code( $result );
+				if ( $response_code < 200 || $response_code >= 300 ) {
+					// HTTPステータスコードが「成功（2xx）」じゃない時にエラー扱い
+					error_log( 'VK Block Patterns API error: HTTP ' . $response_code );
+					return $return;
+				}
+				$return = json_decode( $result['body'], true );
+				if ( null === $return && json_last_error() !== JSON_ERROR_NONE ) {
+					error_log( 'VK Block Patterns API error: Invalid JSON response' );
+					return array();
+				}
+				// APIで取得したパターンデータをファイルキャッシュに登録. 30日 に設定.
+				vbp_write_file_cache( $transient_key, $return, VBP_CACHE_TTL );
 			}
-			$return = json_decode( $result['body'], true );
-			if ( null === $return && json_last_error() !== JSON_ERROR_NONE ) {
-				error_log( 'VK Block Patterns API error: Invalid JSON response' );
-				delete_transient( $lock_key );
-				return array();
-			}
-			// APIで取得したパターンデータをファイルキャッシュに登録. 30日 に設定.
-			vbp_write_file_cache( $transient_key, $return, 60 * 60 * 24 * 30 );
+		} finally {
 			delete_transient( $lock_key );
 		}
 	}
@@ -117,6 +131,7 @@ function vbp_get_cache_dir() {
 	if ( defined( 'WP_CONTENT_DIR' ) && is_dir( WP_CONTENT_DIR ) && is_writable( WP_CONTENT_DIR ) ) {
 		return trailingslashit( WP_CONTENT_DIR . '/vk-block-patterns-cache' );
 	}
+	error_log( 'VK Block Patterns: Using temporary directory for cache. Cache may be cleared on server restart.' );
 	return trailingslashit( sys_get_temp_dir() . '/vk-block-patterns-cache' );
 }
 
@@ -168,9 +183,13 @@ function vbp_read_file_cache( $key ) {
 function vbp_write_file_cache( $key, $payload, $ttl ) {
 	$dir = vbp_get_cache_dir();
 	if ( ! is_dir( $dir ) ) {
-		wp_mkdir_p( $dir );
+		if ( ! wp_mkdir_p( $dir ) ) {
+			error_log( 'VK Block Patterns: Failed to create cache directory: ' . $dir );
+			return;
+		}
 	}
 	if ( ! is_dir( $dir ) || ! is_writable( $dir ) ) {
+		error_log( 'VK Block Patterns: Cache directory is not writable: ' . $dir );
 		return;
 	}
 	// Prevent direct access to cache directory.
@@ -189,6 +208,7 @@ function vbp_write_file_cache( $key, $payload, $ttl ) {
 	$file_path = vbp_get_cache_file_path( $key );
 	$tmp_path  = $file_path . '.tmp';
 	if ( false !== @file_put_contents( $tmp_path, wp_json_encode( $body ), LOCK_EX ) ) {
+		@chmod( $tmp_path, 0644 );
 		@rename( $tmp_path, $file_path );
 	}
 }
@@ -203,12 +223,19 @@ function vbp_purge_expired_file_cache() {
 	if ( ! is_dir( $dir ) ) {
 		return;
 	}
-	$files = glob( $dir . '*.json' );
-	if ( empty( $files ) ) {
+	$handle = opendir( $dir );
+	if ( false === $handle ) {
 		return;
 	}
-	foreach ( $files as $file ) {
-		$raw = file_get_contents( $file );
+	while ( false !== ( $file = readdir( $handle ) ) ) {
+		if ( '.' === $file || '..' === $file ) {
+			continue;
+		}
+		if ( '.json' !== substr( $file, -5 ) ) {
+			continue;
+		}
+		$path = $dir . $file;
+		$raw  = file_get_contents( $path );
 		if ( false === $raw ) {
 			continue;
 		}
@@ -217,9 +244,10 @@ function vbp_purge_expired_file_cache() {
 			continue;
 		}
 		if ( time() >= (int) $data['expires'] ) {
-			@unlink( $file );
+			@unlink( $path );
 		}
 	}
+	closedir( $handle );
 }
 
 /**
@@ -232,13 +260,20 @@ function vbp_clear_file_cache_all() {
 	if ( ! is_dir( $dir ) ) {
 		return;
 	}
-	$files = glob( $dir . '*.json' );
-	if ( empty( $files ) ) {
+	$handle = opendir( $dir );
+	if ( false === $handle ) {
 		return;
 	}
-	foreach ( $files as $file ) {
-		@unlink( $file );
+	while ( false !== ( $file = readdir( $handle ) ) ) {
+		if ( '.' === $file || '..' === $file ) {
+			continue;
+		}
+		if ( '.json' !== substr( $file, -5 ) ) {
+			continue;
+		}
+		@unlink( $dir . $file );
 	}
+	closedir( $handle );
 }
 
 /**

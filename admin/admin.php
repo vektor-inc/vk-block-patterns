@@ -319,7 +319,7 @@ function vbp_clear_patterns_cache( $test_mode = false ) {
 				$like_lock_timeout
 			)
 		);
-		if ( ! empty( $lock_rows ) ) {
+		if ( is_array( $lock_rows ) && ! empty( $lock_rows ) ) {
 			foreach ( $lock_rows as $option_name ) {
 				$lock_key = preg_replace( '/^_transient_(timeout_)?/', '', $option_name );
 				if ( is_string( $lock_key ) && '' !== $lock_key ) {
