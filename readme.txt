@@ -16,12 +16,17 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Bug fix ] Prevent stampede API calls with a lock mechanism.
+[ Specification Change ] Migrate pattern API caching to file-based cache (drop transient payloads).
+[ Improvement ] Cache clear button now removes file cache as well.
+[ Maintenance ] Automatically clean up legacy transient cache data/options.
+
 = 1.34.4 =
-[ Other ] Reduce the load on the VK Pattern Libraries API
-[ Other ] Allow configuring the number of patterns received in a single batch
+[ Bug fix ] Reduce the load on the VK Pattern Libraries API
+[ Bug fix ] Allow configuring the number of patterns received in a single batch
 
 = 1.34.3 =
-[ Other ] Reduce the load on the VK Pattern Libraries API
+[ Bug fix ] Reduce the load on the VK Pattern Libraries API
 
 = 1.34.2 =
 [ Bug fix ] Fix an issue where X-T9 theme patterns were not added to Favorites.

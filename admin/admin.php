@@ -308,17 +308,22 @@ function vbp_clear_patterns_cache( $test_mode = false ) {
 	}
 	// オプションを変更できるユーザーのみがアクセスできるように制限
 	if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {
-		$cached_keys = get_option( 'vk_patterns_api_cached_keys', array() );
+		// ロック用トランジェントのみ削除（キャッシュ本体はファイル）。
+		global $wpdb;
+		$like_lock = $wpdb->esc_like( '_transient_vk_patterns_api_data_' ) . '%_lock';
+		$like_lock_timeout = $wpdb->esc_like( '_transient_timeout_vk_patterns_api_data_' ) . '%_lock';
+		$wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
+				$like_lock,
+				$like_lock_timeout
+			)
+		);
 
-		if ( is_array( $cached_keys ) ) {
-			foreach ( $cached_keys as $cached_key ) {
-				delete_transient( $cached_key );
-			}
+		// ファイルキャッシュを全削除.
+		if ( function_exists( 'vbp_clear_file_cache_all' ) ) {
+			vbp_clear_file_cache_all();
 		}
-
-		// 互換性のため旧キーも削除.
-		delete_transient( 'vk_patterns_api_data' );
-		update_option( 'vk_patterns_api_cached_keys', array() );
 
 		if ( false === $test_mode ) {
 			die();
