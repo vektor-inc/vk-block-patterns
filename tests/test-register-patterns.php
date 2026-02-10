@@ -579,7 +579,8 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 		update_option( 'vk_block_patterns_options', $options );
 		set_transient( $cache_key_valid, array( 'patterns' => '[]' ), 3600 );
-		set_transient( $cache_key_expired, array( 'patterns' => '[]' ), 1 );
+		set_transient( $cache_key_expired, array( 'patterns' => '[]' ), 3600 );
+		update_option( '_transient_timeout_' . $cache_key_expired, time() - 10 );
 
 		vbp_reload_pattern_api_data();
 

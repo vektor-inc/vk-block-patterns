@@ -116,22 +116,40 @@ function vbp_reload_pattern_api_data() {
 
 	// フラグがなければパターンのデータのキャッシュをパージ.
 	if ( $diff > $cache_time ) {
-		global $wpdb;
-		$like_value   = $wpdb->esc_like( '_transient_vk_patterns_api_data_' ) . '%';
-		$like_timeout = $wpdb->esc_like( '_transient_timeout_vk_patterns_api_data_' ) . '%';
-		$delete_result = $wpdb->query(
-			$wpdb->prepare(
-				"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
-				$like_value,
-				$like_timeout
-			)
-		);
-		if ( false === $delete_result ) {
-			error_log(
-				'VK Block Patterns: vbp_reload_pattern_api_data failed. ' .
-				'last_error=' . $wpdb->last_error
+		if ( wp_using_ext_object_cache() ) {
+			// External object cache: expire logic is handled by cache backend.
+			// Force a sweep of all expired transients to align with DB behavior.
+			if ( function_exists( 'delete_expired_transients' ) ) {
+				delete_expired_transients();
+			}
+		} else {
+			global $wpdb;
+			$like_timeout = $wpdb->esc_like( '_transient_timeout_vk_patterns_api_data_' ) . '%';
+			$timeout_rows = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE %s",
+					$like_timeout
+				)
 			);
-			return;
+			if ( false === $timeout_rows ) {
+				error_log(
+					'VK Block Patterns: vbp_reload_pattern_api_data failed. ' .
+					'last_error=' . $wpdb->last_error
+				);
+				return;
+			}
+			foreach ( $timeout_rows as $row ) {
+				if ( ! isset( $row->option_name, $row->option_value ) ) {
+					continue;
+				}
+				if ( (int) $row->option_value >= time() ) {
+					continue;
+				}
+				$cache_key = preg_replace( '/^_transient_timeout_/', '', $row->option_name );
+				if ( is_string( $cache_key ) && '' !== $cache_key ) {
+					delete_transient( $cache_key );
+				}
+			}
 		}
 
 		// 最後にキャッシュされた時間を更新.
