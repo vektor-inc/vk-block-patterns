@@ -33,6 +33,8 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
 	// ページング付きのキャッシュキー.
 	$transient_key = 'vk_patterns_api_data_' . absint( $page ) . '_' . absint( $per_page );
+	// スタンピード対策のロックキー.
+	$lock_key      = $transient_key . '_lock';
 	// パターン情報をキャッシュデータから読み込み.
 	$transients = get_transient( $transient_key );
 	// デフォルトの返り値.
@@ -44,8 +46,25 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 			$return = $transients;
 		} else {
 			// キャッシュがない場合 API を呼び出しキャッシュに登録.
+			// 先にロックを取得して同時アクセス時のAPI連打を防止.
+			if ( false !== get_transient( $lock_key ) ) {
+				// ロック中なら少し待ってキャッシュ再確認.
+				$max_waits = 2;
+				for ( $i = 0; $i < $max_waits; $i++ ) {
+					usleep( 500 * 1000 ); // 0.5秒待つ.
+					$transients = get_transient( $transient_key );
+					if ( ! empty( $transients ) ) {
+						return $transients;
+					}
+				}
+				// まだキャッシュがなければ空で返す.
+				return $return;
+			}
+			// ロック取得（30秒）.
+			set_transient( $lock_key, 1, 30 );
+
 			$result = wp_remote_post(
-				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+				'https://test.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 				array(
 					'timeout' => 10,
 					'body'    => array(
@@ -58,17 +77,20 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 			);
 			if ( is_wp_error( $result ) ) {
 				error_log( 'VK Block Patterns API error: ' . $result->get_error_message() );
+				delete_transient( $lock_key );
 				return $return;
 			} elseif ( ! empty( $result ) ) {
 				$response_code = wp_remote_retrieve_response_code( $result );
 				if ( $response_code < 200 || $response_code >= 300 ) {
 					// HTTPステータスコードが「成功（2xx）」じゃない時にエラー扱い
 					error_log( 'VK Block Patterns API error: HTTP ' . $response_code );
+					delete_transient( $lock_key );
 					return $return;
 				}
 				$return = json_decode( $result['body'], true );
 				if ( null === $return && json_last_error() !== JSON_ERROR_NONE ) {
 					error_log( 'VK Block Patterns API error: Invalid JSON response' );
+					delete_transient( $lock_key );
 					return array();
 				}
 				// APIで取得したパターンデータをキャッシュに登録. 30日 に設定.
@@ -78,6 +100,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 					$cached_keys[] = $transient_key;
 					update_option( 'vk_patterns_api_cached_keys', $cached_keys );
 				}
+				delete_transient( $lock_key );
 			}
 		}
 	}
