@@ -171,15 +171,20 @@ function vbp_register_patterns( $api = null, $template = null ) {
 		// API呼び出しの最小間隔を確認（ページネーション開始前に1回だけチェック）.
 		$last_api_call = (int) get_option( 'vk_patterns_api_last_call', 0 );
 		$current_time  = time();
-		if ( ( $current_time - $last_api_call ) < VBP_API_THROTTLE_SECONDS ) {
-			// 最小間隔未満なので API を呼ばずに結果を返す.
-			return $result;
+		$cache_only    = ( $current_time - $last_api_call ) < VBP_API_THROTTLE_SECONDS;
+		if ( ! $cache_only ) {
+			// API 呼び出し時刻を記録（呼び出し前に記録することで、同時リクエストも防ぐ）.
+			update_option( 'vk_patterns_api_last_call', $current_time, false );
 		}
-		// API 呼び出し時刻を記録（呼び出し前に記録することで、同時リクエストも防ぐ）.
-		update_option( 'vk_patterns_api_last_call', $current_time, false );
 
 		while ( $has_more && $page <= $max_pages ) {
-			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page );
+			if ( $cache_only && empty( $api ) ) {
+				// スロットル時間内の場合はキャッシュのみ使用.
+				$transient_key    = 'vk_patterns_api_data_' . absint( $page ) . '_' . absint( $per_page );
+				$pattern_api_data = get_transient( $transient_key );
+			} else {
+				$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page );
+			}
 
 			if ( empty( $pattern_api_data ) || ! is_array( $pattern_api_data ) ) {
 				break;

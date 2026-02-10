@@ -767,8 +767,6 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 		remove_filter( 'pre_http_request', $http_filter, 10 );
 
-		$last_call_after = get_option( 'vk_patterns_api_last_call' );
-
 		delete_option( 'vk_block_patterns_options' );
 		delete_option( 'vk_patterns_api_last_call' );
 
