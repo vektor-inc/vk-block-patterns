@@ -30,7 +30,7 @@ if ( ! defined( 'VBP_CACHE_TTL' ) ) {
 	define( 'VBP_CACHE_TTL', 60 * 60 * 24 * 30 ); // 30日
 }
 if ( ! defined( 'VBP_API_THROTTLE_SECONDS' ) ) {
-	define( 'VBP_API_THROTTLE_SECONDS', 120 ); // 120秒
+	define( 'VBP_API_THROTTLE_SECONDS', 60 ); // 60秒
 }
 
 function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
@@ -49,6 +49,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 	$return = array();
 
 	if ( ! empty( $user_email ) ) {
+
 		$result = wp_remote_post(
 			'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 			array(
