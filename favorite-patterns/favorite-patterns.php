@@ -124,15 +124,14 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
  * @return string
  */
 function vbp_get_cache_dir() {
-	$upload_dir = wp_upload_dir();
-	if ( ! empty( $upload_dir['basedir'] ) && is_dir( $upload_dir['basedir'] ) && is_writable( $upload_dir['basedir'] ) ) {
-		return trailingslashit( $upload_dir['basedir'] . '/vk-block-patterns-cache' );
+	if ( defined( 'WP_CONTENT_DIR' ) ) {
+		$cache_root = WP_CONTENT_DIR . '/cache';
+		if ( is_dir( $cache_root ) && is_writable( $cache_root ) ) {
+			return trailingslashit( $cache_root . '/vk-block-patterns' );
+		}
 	}
-	if ( defined( 'WP_CONTENT_DIR' ) && is_dir( WP_CONTENT_DIR ) && is_writable( WP_CONTENT_DIR ) ) {
-		return trailingslashit( WP_CONTENT_DIR . '/vk-block-patterns-cache' );
-	}
-	error_log( 'VK Block Patterns: Using temporary directory for cache. Cache may be cleared on server restart.' );
-	return trailingslashit( sys_get_temp_dir() . '/vk-block-patterns-cache' );
+	error_log( 'VK Block Patterns: Cache directory unavailable. Expected wp-content/cache/vk-block-patterns.' );
+	return '';
 }
 
 /**
