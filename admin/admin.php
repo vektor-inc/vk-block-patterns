@@ -326,13 +326,6 @@ function vbp_clear_patterns_cache( $test_mode = false ) {
 				}
 			}
 		}
-		$wpdb->query(
-			$wpdb->prepare(
-				"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
-				$like_lock,
-				$like_lock_timeout
-			)
-		);
 
 		// ファイルキャッシュを全削除.
 		if ( function_exists( 'vbp_clear_file_cache_all' ) ) {

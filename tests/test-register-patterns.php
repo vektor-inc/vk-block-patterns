@@ -7,7 +7,7 @@
 
 class RegisterPatternsTest extends WP_UnitTestCase {
 
-	private function write_file_cache( $key, $payload, $expires ) {
+	private function write_file_cache( $key, $payload, $expires_at ) {
 		$dir = vbp_get_cache_dir();
 		if ( ! is_dir( $dir ) ) {
 			wp_mkdir_p( $dir );
@@ -21,7 +21,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			file_put_contents( $htaccess, "Deny from all\n" );
 		}
 		$body = array(
-			'expires' => (int) $expires,
+			'expires' => (int) $expires_at, // Absolute timestamp, not TTL.
 			'payload' => $payload,
 		);
 		file_put_contents( vbp_get_cache_file_path( $key ), wp_json_encode( $body ) );

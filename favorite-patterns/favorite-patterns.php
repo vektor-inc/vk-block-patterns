@@ -107,8 +107,13 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
  */
 function vbp_get_cache_dir() {
 	$upload_dir = wp_upload_dir();
-	$base_dir   = ! empty( $upload_dir['basedir'] ) ? $upload_dir['basedir'] : VBP_PATH;
-	return trailingslashit( $base_dir . '/vk-block-patterns-cache' );
+	if ( ! empty( $upload_dir['basedir'] ) && is_dir( $upload_dir['basedir'] ) && is_writable( $upload_dir['basedir'] ) ) {
+		return trailingslashit( $upload_dir['basedir'] . '/vk-block-patterns-cache' );
+	}
+	if ( defined( 'WP_CONTENT_DIR' ) && is_dir( WP_CONTENT_DIR ) && is_writable( WP_CONTENT_DIR ) ) {
+		return trailingslashit( WP_CONTENT_DIR . '/vk-block-patterns-cache' );
+	}
+	return trailingslashit( sys_get_temp_dir() . '/vk-block-patterns-cache' );
 }
 
 /**
