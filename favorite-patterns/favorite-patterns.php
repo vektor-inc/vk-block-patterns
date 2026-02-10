@@ -30,7 +30,7 @@ if ( ! defined( 'VBP_CACHE_TTL' ) ) {
 	define( 'VBP_CACHE_TTL', 60 * 60 * 24 * 30 ); // 30日
 }
 if ( ! defined( 'VBP_API_THROTTLE_SECONDS' ) ) {
-	define( 'VBP_API_THROTTLE_SECONDS', 10 ); // 60秒
+	define( 'VBP_API_THROTTLE_SECONDS', 10 ); // 10秒
 }
 
 function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
