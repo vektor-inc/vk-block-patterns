@@ -7,6 +7,40 @@
 
 class RegisterPatternsTest extends WP_UnitTestCase {
 
+	private function write_file_cache( $key, $payload, $expires ) {
+		$dir = vbp_get_cache_dir();
+		if ( ! is_dir( $dir ) ) {
+			wp_mkdir_p( $dir );
+		}
+		$index_file = $dir . 'index.php';
+		if ( ! file_exists( $index_file ) ) {
+			file_put_contents( $index_file, "<?php\n// Silence is golden.\n" );
+		}
+		$htaccess = $dir . '.htaccess';
+		if ( ! file_exists( $htaccess ) ) {
+			file_put_contents( $htaccess, "Deny from all\n" );
+		}
+		$body = array(
+			'expires' => (int) $expires,
+			'payload' => $payload,
+		);
+		file_put_contents( vbp_get_cache_file_path( $key ), wp_json_encode( $body ) );
+	}
+
+	private function clear_file_cache_dir() {
+		if ( function_exists( 'vbp_clear_file_cache_all' ) ) {
+			vbp_clear_file_cache_all();
+			return;
+		}
+		$dir = vbp_get_cache_dir();
+		if ( ! is_dir( $dir ) ) {
+			return;
+		}
+		foreach ( glob( $dir . '*.json' ) as $file ) {
+			@unlink( $file );
+		}
+	}
+
 	private function build_expected_results( $favorite_patterns, $xt9_patterns, $xt9_enabled ) {
 		$favorites = json_decode( $favorite_patterns, true );
 		$xt9       = json_decode( $xt9_patterns, true );
@@ -272,7 +306,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
         return $test_data;
     }
 
-    public function test_register_patterns() {
+	public function test_register_patterns() {
 
         $test_data = self::get_test_data();
 		print PHP_EOL;
@@ -281,11 +315,10 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		print '------------------------------------' . PHP_EOL;
 		foreach ( $test_data as $test_value ) {
             update_option( 'vk_block_patterns_options', $test_value['options'] );
-
-			// テストデータにキャシュの指定がある場合.
-			if ( ! empty( $test_value['transients']) ) {
-				// キャッシュをセット.
-				set_transient( 'vk_patterns_api_data_1_20', $test_value['transients'], 60 * 60 * 24 );
+			$this->clear_file_cache_dir();
+			// テストデータにキャッシュ指定がある場合はファイルキャッシュをセット.
+			if ( ! empty( $test_value['transients'] ) ) {
+				$this->write_file_cache( 'vk_patterns_api_data_1_20', $test_value['transients'], time() + 3600 );
 			}
 
 			$return  = vbp_register_patterns( $test_value['api'], $test_value['template'] );
@@ -296,17 +329,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             print 'correct:' . PHP_EOL;
 			var_dump( $correct );
 			$this->assertEquals( $correct, $return );
-
-			// キャッシュ削除.
-			delete_transient( 'vk_patterns_api_data_1_20' );
 		}
         delete_option( 'vk_block_patterns_options' );
 	}    
 
     public function test_vbp_clear_patterns_cache(){
-        $transients   = 'aaaa';
-        $cached_keys  = array( 'vk_patterns_api_data_1_50', 'vk_patterns_api_data_2_25' );
-        $legacy_cache = 'vk_patterns_api_data';
+        $lock_key = 'vk_patterns_api_data_1_50_lock';
+        $cache_key = 'vk_patterns_api_data_1_50';
 
         // ユーザーを作成
         $user['administrator'] = $this->factory->user->create( array( 'role' => 'administrator' ) );
@@ -351,24 +380,16 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
         foreach ( $test_data as $test_value ) {
             wp_set_current_user( $test_value['user_id'] );
-            update_option( 'vk_patterns_api_cached_keys', $cached_keys );
-            foreach ( $cached_keys as $cached_key ) {
-                set_transient( $cached_key, $transients, 60 * 60 * 24 );
-            }
-            set_transient( $legacy_cache, $transients, 60 * 60 * 24 );
+			set_transient( $lock_key, 1, 60 );
+			$this->write_file_cache( $cache_key, array( 'patterns' => '[]' ), time() + 3600 );
             vbp_clear_patterns_cache( true );
             $return = array(
-                'new_keys' => array(
-                    get_transient( $cached_keys[0] ),
-                    get_transient( $cached_keys[1] ),
-                ),
-                'legacy_key' => get_transient( $legacy_cache ),
-                'cached_keys_option' => get_option( 'vk_patterns_api_cached_keys' ),
+				'lock_key' => get_transient( $lock_key ),
+				'file_cache_exists' => file_exists( vbp_get_cache_file_path( $cache_key ) ),
             );
             $correct = array(
-                'new_keys' => array( $test_value['correct'], $test_value['correct'] ),
-                'legacy_key' => $test_value['correct'],
-                'cached_keys_option' => ( false === $test_value['correct'] ) ? array() : $cached_keys,
+				'lock_key' => ( false === $test_value['correct'] ) ? false : 1,
+				'file_cache_exists' => ( false === $test_value['correct'] ) ? false : true,
             );
 
             print 'return:' . PHP_EOL;
@@ -378,11 +399,8 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             $this->assertEquals( $correct, $return );
 
             // クリーンアップ.
-            foreach ( $cached_keys as $cached_key ) {
-                delete_transient( $cached_key );
-            }
-            delete_transient( $legacy_cache );
-            delete_option( 'vk_patterns_api_cached_keys' );
+			delete_transient( $lock_key );
+			$this->clear_file_cache_dir();
         }
     }
 
@@ -396,7 +414,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 		$page          = 2;
 		$per_page      = 25;
-		$transient_key = 'vk_patterns_api_data_' . $page . '_' . $per_page;
+		$cache_key = 'vk_patterns_api_data_' . $page . '_' . $per_page;
 		$response_body = array(
 			'patterns'            => '[]',
 			'x-t9'                => '[]',
@@ -408,8 +426,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			'total_x_t9'          => 0,
 		);
 
-		delete_transient( $transient_key );
-		delete_option( 'vk_patterns_api_cached_keys' );
+		$this->clear_file_cache_dir();
 
 		$pre_http_called = false;
 		$http_filter = function( $_preempt, $_args, $_url ) use ( &$pre_http_called, $response_body ) {
@@ -430,18 +447,17 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		);
 
 		$return        = vbp_get_pattern_api_data( $page, $per_page );
-		$cached_keys   = get_option( 'vk_patterns_api_cached_keys', array() );
-		$cached_return = get_transient( $transient_key );
+		$file_path     = vbp_get_cache_file_path( $cache_key );
+		$cached_return = vbp_read_file_cache( $cache_key );
 
 		remove_filter( 'pre_http_request', $http_filter, 10 );
-		delete_transient( $transient_key );
 		delete_option( 'vk_block_patterns_options' );
-		delete_option( 'vk_patterns_api_cached_keys' );
 
 		$this->assertTrue( $pre_http_called );
 		$this->assertEquals( $response_body, $return );
 		$this->assertEquals( $response_body, $cached_return );
-		$this->assertContains( $transient_key, $cached_keys );
+		$this->assertFileExists( $file_path );
+		@unlink( $file_path );
 	}
 
 	public function test_vbp_get_pattern_api_data_uses_cached_data_when_available() {
@@ -452,13 +468,13 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			)
 		);
 
-		$transient_key   = 'vk_patterns_api_data_1_20';
-		$transient_value = array(
+		$cache_key   = 'vk_patterns_api_data_1_20';
+		$cache_value = array(
 			'patterns' => '[]',
 		);
 		$pre_http_called = false;
 
-		set_transient( $transient_key, $transient_value, 60 * 60 );
+		$this->write_file_cache( $cache_key, $cache_value, time() + 3600 );
 
 		$http_filter = function() use ( &$pre_http_called ) {
 			$pre_http_called = true;
@@ -478,11 +494,11 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		$return = vbp_get_pattern_api_data();
 
 		remove_filter( 'pre_http_request', $http_filter, 10 );
-		delete_transient( $transient_key );
+		@unlink( vbp_get_cache_file_path( $cache_key ) );
 		delete_option( 'vk_block_patterns_options' );
 
 		$this->assertFalse( $pre_http_called );
-		$this->assertEquals( $transient_value, $return );
+		$this->assertEquals( $cache_value, $return );
 	}
 
 	public function test_vbp_register_patterns_stops_paging_when_xt9_disabled() {
@@ -527,9 +543,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		remove_filter( 'pre_http_request', $http_filter, 10 );
 		remove_filter( 'vbp_patterns_max_pages', $max_pages_filter );
 
-		delete_transient( 'vk_patterns_api_data_1_20' );
-		delete_transient( 'vk_patterns_api_data_2_20' );
-		delete_option( 'vk_patterns_api_cached_keys' );
+		$this->clear_file_cache_dir();
 		delete_option( 'vk_block_patterns_options' );
 
 		$this->assertSame( 1, $api_call_count );
@@ -537,30 +551,27 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 	public function test_vbp_reload_pattern_api_data_purges_expired_cache() {
 		$old_time     = date( 'Y-m-d H:i:s', strtotime( '-31 days' ) );
-		$cached_keys  = array( 'vk_patterns_api_data_1_50', 'vk_patterns_api_data_2_25' );
 		$options      = array(
 			'VWSMail'             => 'reload-test@example.com',
 			'last-pattern-cached' => $old_time,
 		);
-		$transient_value = array( 'patterns' => '[]' );
+		$cache_key_valid   = 'vk_patterns_api_data_1_50';
+		$cache_key_expired = 'vk_patterns_api_data_2_25';
 
 		update_option( 'vk_block_patterns_options', $options );
-		update_option( 'vk_patterns_api_cached_keys', $cached_keys );
-		// 1つ目は有効、2つ目は期限切れ（transient未設定）の想定.
-		set_transient( $cached_keys[0], $transient_value, 60 * 60 );
+		$this->write_file_cache( $cache_key_valid, array( 'patterns' => '[]' ), time() + 3600 );
+		$this->write_file_cache( $cache_key_expired, array( 'patterns' => '[]' ), time() - 10 );
 
 		vbp_reload_pattern_api_data();
 
 		$updated_options = get_option( 'vk_block_patterns_options' );
 
-		$this->assertNotFalse( get_transient( $cached_keys[0] ) );
-		$this->assertFalse( get_transient( $cached_keys[1] ) );
-		$this->assertSame( array( $cached_keys[0] ), get_option( 'vk_patterns_api_cached_keys' ) );
+		$this->assertFileExists( vbp_get_cache_file_path( $cache_key_valid ) );
+		$this->assertFileDoesNotExist( vbp_get_cache_file_path( $cache_key_expired ) );
 		$this->assertGreaterThan( strtotime( $old_time ), strtotime( $updated_options['last-pattern-cached'] ) );
 
-		delete_transient( $cached_keys[0] );
 		delete_option( 'vk_block_patterns_options' );
-		delete_option( 'vk_patterns_api_cached_keys' );
+		$this->clear_file_cache_dir();
 	}
 
 	public function test_vbp_reload_pattern_api_data_keeps_recent_cache() {
@@ -569,20 +580,17 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			'VWSMail'             => 'reload-test@example.com',
 			'last-pattern-cached' => $current_time,
 		);
-		$cached_keys = array( 'vk_patterns_api_data_1_50' );
+		$cache_key = 'vk_patterns_api_data_1_50';
 
 		update_option( 'vk_block_patterns_options', $options );
-		update_option( 'vk_patterns_api_cached_keys', $cached_keys );
-		set_transient( $cached_keys[0], array( 'patterns' => '[]' ), 60 * 60 );
+		$this->write_file_cache( $cache_key, array( 'patterns' => '[]' ), time() + 3600 );
 
 		vbp_reload_pattern_api_data();
 
-		$this->assertNotFalse( get_transient( $cached_keys[0] ) );
-		$this->assertEquals( $cached_keys, get_option( 'vk_patterns_api_cached_keys' ) );
+		$this->assertFileExists( vbp_get_cache_file_path( $cache_key ) );
 		$this->assertEquals( $current_time, get_option( 'vk_block_patterns_options' )['last-pattern-cached'] );
 
-		delete_transient( $cached_keys[0] );
 		delete_option( 'vk_block_patterns_options' );
-		delete_option( 'vk_patterns_api_cached_keys' );
+		$this->clear_file_cache_dir();
 	}
 }

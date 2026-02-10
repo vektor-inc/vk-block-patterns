@@ -312,6 +312,20 @@ function vbp_clear_patterns_cache( $test_mode = false ) {
 		global $wpdb;
 		$like_lock = $wpdb->esc_like( '_transient_vk_patterns_api_data_' ) . '%_lock';
 		$like_lock_timeout = $wpdb->esc_like( '_transient_timeout_vk_patterns_api_data_' ) . '%_lock';
+		$lock_rows = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+				$like_lock
+			)
+		);
+		if ( ! empty( $lock_rows ) ) {
+			foreach ( $lock_rows as $option_name ) {
+				$lock_key = preg_replace( '/^_transient_/', '', $option_name );
+				if ( is_string( $lock_key ) && '' !== $lock_key ) {
+					delete_transient( $lock_key );
+				}
+			}
+		}
 		$wpdb->query(
 			$wpdb->prepare(
 				"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",

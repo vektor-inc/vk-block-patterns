@@ -106,7 +106,9 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
  * @return string
  */
 function vbp_get_cache_dir() {
-	return trailingslashit( VBP_PATH . 'cache' );
+	$upload_dir = wp_upload_dir();
+	$base_dir   = ! empty( $upload_dir['basedir'] ) ? $upload_dir['basedir'] : VBP_PATH;
+	return trailingslashit( $base_dir . '/vk-block-patterns-cache' );
 }
 
 /**
@@ -161,6 +163,15 @@ function vbp_write_file_cache( $key, $payload, $ttl ) {
 	}
 	if ( ! is_dir( $dir ) || ! is_writable( $dir ) ) {
 		return;
+	}
+	// Prevent direct access to cache directory.
+	$index_file = $dir . 'index.php';
+	if ( ! file_exists( $index_file ) ) {
+		@file_put_contents( $index_file, "<?php\n// Silence is golden.\n" );
+	}
+	$htaccess = $dir . '.htaccess';
+	if ( ! file_exists( $htaccess ) ) {
+		@file_put_contents( $htaccess, "Deny from all\n" );
 	}
 	$body = array(
 		'expires' => time() + (int) $ttl,
