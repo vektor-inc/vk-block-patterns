@@ -366,7 +366,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			delete_transient( 'vk_patterns_api_data_1_50' );
         }
     }
-	public function test_vbp_get_pattern_api_data_throttles_requests() {
+	public function test_vbp_register_patterns_throttles_requests() {
 		update_option(
 			'vk_block_patterns_options',
 			array(
@@ -385,17 +385,17 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		};
 		add_filter( 'pre_http_request', $http_filter, 10, 1 );
 
-		$return = vbp_get_pattern_api_data();
+		$return = vbp_register_patterns();
 
 		remove_filter( 'pre_http_request', $http_filter, 10 );
 		delete_option( 'vk_block_patterns_options' );
 		delete_option( 'vk_patterns_api_last_call' );
 
 		$this->assertFalse( $pre_http_called );
-		$this->assertEquals( array(), $return );
+		$this->assertEquals( array( 'favorite' => array(), 'x-t9' => array() ), $return );
 	}
 
-	public function test_vbp_get_pattern_api_data_updates_last_call() {
+	public function test_vbp_register_patterns_updates_last_call() {
 		update_option(
 			'vk_block_patterns_options',
 			array(
@@ -413,7 +413,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		};
 		add_filter( 'pre_http_request', $http_filter, 10, 1 );
 
-		vbp_get_pattern_api_data();
+		vbp_register_patterns();
 
 		remove_filter( 'pre_http_request', $http_filter, 10 );
 
