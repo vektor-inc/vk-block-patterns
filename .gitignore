@@ -108,4 +108,3 @@ vendor/
 build/
 .phpunit.result.cache
 *.map
-cache/

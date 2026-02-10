@@ -57,7 +57,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 			return $return;
 		}
 		// API 呼び出し時刻を記録（呼び出し前に記録することで、同時リクエストも防ぐ）.
-		update_option( 'vk_patterns_api_last_call', $current_time );
+		update_option( 'vk_patterns_api_last_call', $current_time, false );
 
 		$result = wp_remote_post(
 			'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
