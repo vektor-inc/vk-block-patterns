@@ -23,10 +23,6 @@ Notes:
 
 == Changelog ==
 
-[ Bug fix ] Reduce API call frequency with a throttle.
-[ Improvement ] Cache clear button now removes transient cache entries as well.
-[ Maintenance ] Automatically clean up legacy transient cache data/options.
-
 = 1.34.4 =
 [ Bug fix ] Reduce the load on the VK Pattern Libraries API
 [ Bug fix ] Allow configuring the number of patterns received in a single batch

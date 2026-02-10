@@ -343,14 +343,16 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             wp_set_current_user( $test_value['user_id'] );
 			update_option( 'vk_patterns_api_last_call', time() );
 			set_transient( 'vk_patterns_api_data_1_50', array( 'patterns' => '[]' ), 60 );
+			$initial_last_call = get_option( 'vk_patterns_api_last_call', false );
+			$initial_cached    = get_transient( 'vk_patterns_api_data_1_50' );
             vbp_clear_patterns_cache( true );
             $return = array(
 				'last_call' => get_option( 'vk_patterns_api_last_call', false ),
 				'cached' => get_transient( 'vk_patterns_api_data_1_50' ),
             );
             $correct = array(
-				'last_call' => $test_value['can_clear'] ? false : get_option( 'vk_patterns_api_last_call', false ),
-				'cached' => $test_value['can_clear'] ? false : get_transient( 'vk_patterns_api_data_1_50' ),
+				'last_call' => $test_value['can_clear'] ? false : $initial_last_call,
+				'cached' => $test_value['can_clear'] ? false : $initial_cached,
             );
 
             print 'return:' . PHP_EOL;

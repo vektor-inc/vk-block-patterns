@@ -103,7 +103,7 @@ function vbp_reload_pattern_api_data() {
 	$options = vbp_get_options();
 
 	// キャッシュの有効時間（秒）.
-	$cache_time = 60 * 60 * 24 * 30; // 30日.
+	$cache_time = VBP_CACHE_TTL;
 
 	// 最後にキャッシュされた時間を取得.
 	$last_cached = $options['last-pattern-cached'];
