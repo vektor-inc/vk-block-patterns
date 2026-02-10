@@ -207,9 +207,24 @@ function vbp_write_file_cache( $key, $payload, $ttl ) {
 	);
 	$file_path = vbp_get_cache_file_path( $key );
 	$tmp_path  = $file_path . '.tmp';
-	if ( false !== @file_put_contents( $tmp_path, wp_json_encode( $body ), LOCK_EX ) ) {
-		@chmod( $tmp_path, 0644 );
-		@rename( $tmp_path, $file_path );
+	$write_result = file_put_contents( $tmp_path, wp_json_encode( $body ), LOCK_EX );
+	if ( false === $write_result ) {
+		error_log( 'VK Block Patterns: Failed to write cache file. key=' . $key . ' tmp=' . $tmp_path . ' target=' . $file_path );
+		return;
+	}
+	$chmod_result = chmod( $tmp_path, 0644 );
+	if ( false === $chmod_result ) {
+		error_log( 'VK Block Patterns: Failed to chmod cache file. key=' . $key . ' tmp=' . $tmp_path . ' target=' . $file_path );
+	}
+	$rename_result = rename( $tmp_path, $file_path );
+	if ( false === $rename_result ) {
+		error_log( 'VK Block Patterns: Failed to rename cache file. key=' . $key . ' tmp=' . $tmp_path . ' target=' . $file_path . ' write_result=' . $write_result );
+		if ( file_exists( $tmp_path ) ) {
+			$cleanup_result = @unlink( $tmp_path );
+			if ( false === $cleanup_result ) {
+				error_log( 'VK Block Patterns: Failed to cleanup tmp cache file. key=' . $key . ' tmp=' . $tmp_path . ' target=' . $file_path );
+			}
+		}
 	}
 }
 
