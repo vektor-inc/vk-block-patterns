@@ -126,6 +126,9 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 function vbp_get_cache_dir() {
 	if ( defined( 'WP_CONTENT_DIR' ) ) {
 		$cache_root = WP_CONTENT_DIR . '/cache';
+		if ( ! is_dir( $cache_root ) ) {
+			wp_mkdir_p( $cache_root );
+		}
 		if ( is_dir( $cache_root ) && is_writable( $cache_root ) ) {
 			return trailingslashit( $cache_root . '/vk-block-patterns' );
 		}

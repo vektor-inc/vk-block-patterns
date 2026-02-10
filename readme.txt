@@ -14,6 +14,18 @@ You can make and register your original custom block patterns.
 == Description ==
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen.
 
+== Cache ==
+This plugin caches VK Pattern Library data under `wp-content/cache/vk-block-patterns/`.
+
+Requirements:
+- `wp-content/cache/` exists and is writable.
+- If the directory does not exist, the plugin will attempt to create it on first use.
+
+Troubleshooting:
+1. Ensure `wp-content/cache/` exists.
+2. Ensure it is writable (recommended permission: 0755).
+3. Check the error log for cache-related messages.
+
 == Changelog ==
 
 [ Bug fix ] Prevent stampede API calls with a lock mechanism.
