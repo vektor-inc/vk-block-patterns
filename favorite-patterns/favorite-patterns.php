@@ -46,21 +46,25 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 	if ( ! empty( $user_email ) ) {
 		// キャッシュがない場合 API を呼び出しキャッシュに登録.
 		// 先にロックを取得して同時アクセス時のAPI連打を防止.
+		$lock_ttl = 30;
 		if ( false !== get_transient( $lock_key ) ) {
 			// ロック中なら少し待ってキャッシュ再確認.
-			$max_waits = 2;
+			$max_waits = (int) ( $lock_ttl / 0.5 );
 			for ( $i = 0; $i < $max_waits; $i++ ) {
 				usleep( 500 * 1000 ); // 0.5秒待つ.
 				$file_cached = vbp_read_file_cache( $transient_key );
 				if ( null !== $file_cached ) {
 					return $file_cached;
 				}
+				if ( false === get_transient( $lock_key ) ) {
+					break;
+				}
 			}
 			// まだキャッシュがなければ空で返す.
 			return $return;
 		}
 		// ロック取得（30秒）.
-		set_transient( $lock_key, 1, 30 );
+		set_transient( $lock_key, 1, $lock_ttl );
 
 		$result = wp_remote_post(
 			'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
@@ -182,7 +186,11 @@ function vbp_write_file_cache( $key, $payload, $ttl ) {
 		'expires' => time() + (int) $ttl,
 		'payload' => $payload,
 	);
-	@file_put_contents( vbp_get_cache_file_path( $key ), wp_json_encode( $body ) );
+	$file_path = vbp_get_cache_file_path( $key );
+	$tmp_path  = $file_path . '.tmp';
+	if ( false !== @file_put_contents( $tmp_path, wp_json_encode( $body ), LOCK_EX ) ) {
+		@rename( $tmp_path, $file_path );
+	}
 }
 
 /**
