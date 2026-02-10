@@ -95,37 +95,6 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 }
 
 /**
- * 旧トランジェント/オプションを一度だけ削除
- */
-function vbp_cleanup_legacy_transients() {
-	$done = get_option( 'vbp_legacy_transients_purged' );
-	if ( $done ) {
-		return;
-	}
-	global $wpdb;
-	$like_value   = $wpdb->esc_like( '_transient_vk_patterns_api_data_' ) . '%';
-	$like_timeout = $wpdb->esc_like( '_transient_timeout_vk_patterns_api_data_' ) . '%';
-	$delete_result = $wpdb->query(
-		$wpdb->prepare(
-			"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
-			$like_value,
-			$like_timeout
-		)
-	);
-	if ( false === $delete_result ) {
-		error_log(
-			'VK Block Patterns: vbp_cleanup_legacy_transients failed. ' .
-			'last_error=' . $wpdb->last_error
-		);
-		return;
-	}
-	delete_transient( 'vk_patterns_api_data' );
-	delete_option( 'vk_patterns_api_cached_keys' );
-	update_option( 'vbp_legacy_transients_purged', 1 );
-}
-add_action( 'plugins_loaded', 'vbp_cleanup_legacy_transients', 20 );
-
-/**
  * 編集画面を開いた時点で条件付きでキャッシュをクリア
  */
 function vbp_reload_pattern_api_data() {
