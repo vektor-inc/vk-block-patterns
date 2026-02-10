@@ -15,22 +15,16 @@ You can make and register your original custom block patterns.
 When you activate this plugin that create new custom post type for custom block patterns. If you register custom patterns that you can select registered block patterns on edit screen.
 
 == Cache ==
-This plugin caches VK Pattern Library data under `wp-content/cache/vk-block-patterns/`.
+This plugin caches VK Pattern Library data using WordPress transients.
 
-Requirements:
-- `wp-content/cache/` exists and is writable.
-- If the directory does not exist, the plugin will attempt to create it on first use.
-
-Troubleshooting:
-1. Ensure `wp-content/cache/` exists.
-2. Ensure it is writable (recommended permission: 0755).
-3. Check the error log for cache-related messages.
+Notes:
+- Transients are stored in the database by default.
+- If a persistent object cache is configured, transients may be stored there instead.
 
 == Changelog ==
 
-[ Bug fix ] Prevent stampede API calls with a lock mechanism.
-[ Specification Change ] Migrate pattern API caching to file-based cache (drop transient payloads).
-[ Improvement ] Cache clear button now removes file cache as well.
+[ Bug fix ] Reduce API call frequency with a throttle.
+[ Improvement ] Cache clear button now removes transient cache entries as well.
 [ Maintenance ] Automatically clean up legacy transient cache data/options.
 
 = 1.34.4 =

@@ -308,30 +308,28 @@ function vbp_clear_patterns_cache( $test_mode = false ) {
 	}
 	// オプションを変更できるユーザーのみがアクセスできるように制限
 	if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {
-		// ロック用トランジェントのみ削除（キャッシュ本体はファイル）。
+		// トランジェントキャッシュを削除.
 		global $wpdb;
-		$like_lock = $wpdb->esc_like( '_transient_vk_patterns_api_data_' ) . '%_lock';
-		$like_lock_timeout = $wpdb->esc_like( '_transient_timeout_vk_patterns_api_data_' ) . '%_lock';
-		$lock_rows = $wpdb->get_col(
+		$like_value   = $wpdb->esc_like( '_transient_vk_patterns_api_data_' ) . '%';
+		$like_timeout = $wpdb->esc_like( '_transient_timeout_vk_patterns_api_data_' ) . '%';
+		$cache_rows = $wpdb->get_col(
 			$wpdb->prepare(
 				"SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
-				$like_lock,
-				$like_lock_timeout
+				$like_value,
+				$like_timeout
 			)
 		);
-		if ( is_array( $lock_rows ) && ! empty( $lock_rows ) ) {
-			foreach ( $lock_rows as $option_name ) {
-				$lock_key = preg_replace( '/^_transient_(timeout_)?/', '', $option_name );
-				if ( is_string( $lock_key ) && '' !== $lock_key ) {
-					delete_transient( $lock_key );
+		if ( is_array( $cache_rows ) && ! empty( $cache_rows ) ) {
+			foreach ( $cache_rows as $option_name ) {
+				$cache_key = preg_replace( '/^_transient_(timeout_)?/', '', $option_name );
+				if ( is_string( $cache_key ) && '' !== $cache_key ) {
+					delete_transient( $cache_key );
 				}
 			}
 		}
 
-		// ファイルキャッシュを全削除.
-		if ( function_exists( 'vbp_clear_file_cache_all' ) ) {
-			vbp_clear_file_cache_all();
-		}
+		// API呼び出しスロットルを解除.
+		delete_option( 'vk_patterns_api_last_call' );
 
 		if ( false === $test_mode ) {
 			die();

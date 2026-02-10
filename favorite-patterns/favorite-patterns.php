@@ -29,14 +29,8 @@
 if ( ! defined( 'VBP_CACHE_TTL' ) ) {
 	define( 'VBP_CACHE_TTL', 60 * 60 * 24 * 30 ); // 30日
 }
-if ( ! defined( 'VBP_LOCK_TTL' ) ) {
-	define( 'VBP_LOCK_TTL', 30 ); // 30秒
-}
-if ( ! defined( 'VBP_LOCK_WAIT_INTERVAL' ) ) {
-	define( 'VBP_LOCK_WAIT_INTERVAL', 0.5 ); // 0.5秒
-}
-if ( ! defined( 'VBP_LOCK_MAX_WAITS' ) ) {
-	define( 'VBP_LOCK_MAX_WAITS', 20 ); // 最大10秒
+if ( ! defined( 'VBP_API_THROTTLE_SECONDS' ) ) {
+	define( 'VBP_API_THROTTLE_SECONDS', 10 ); // 60秒
 }
 
 function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
@@ -46,300 +40,59 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
 	// ページング付きのキャッシュキー.
 	$transient_key = 'vk_patterns_api_data_' . absint( $page ) . '_' . absint( $per_page );
-	// スタンピード対策のロックキー.
-	$lock_key      = $transient_key . '_lock';
-	// ファイルキャッシュを先に確認.
-	$file_cached = vbp_read_file_cache( $transient_key );
-	if ( null !== $file_cached ) {
-		return $file_cached;
+	// キャッシュを先に確認.
+	$cached = get_transient( $transient_key );
+	if ( is_array( $cached ) ) {
+		return $cached;
 	}
 	// デフォルトの返り値.
 	$return = array();
 
 	if ( ! empty( $user_email ) ) {
-		// キャッシュがない場合 API を呼び出しキャッシュに登録.
-		// 先にロックを取得して同時アクセス時のAPI連打を防止.
-		$lock_ttl = VBP_LOCK_TTL;
-		if ( false !== get_transient( $lock_key ) ) {
-			// ロック中なら少し待ってキャッシュ再確認.
-			$max_waits = VBP_LOCK_MAX_WAITS;
-			for ( $i = 0; $i < $max_waits; $i++ ) {
-				usleep( (int) ( VBP_LOCK_WAIT_INTERVAL * 1000 * 1000 ) );
-				$file_cached = vbp_read_file_cache( $transient_key );
-				if ( null !== $file_cached ) {
-					return $file_cached;
-				}
-				if ( false === get_transient( $lock_key ) ) {
-					break;
-				}
-			}
-			// まだキャッシュがなければ空で返す.
-			error_log( 'VK Block Patterns: Cache lock timeout for key: ' . $transient_key );
+		// API呼び出しの最小間隔を確認.
+		$last_api_call = (int) get_option( 'vk_patterns_api_last_call', 0 );
+		$current_time  = time();
+		if ( ( $current_time - $last_api_call ) < VBP_API_THROTTLE_SECONDS ) {
+			// 最小間隔未満なので API を呼ばずに空の結果を返す.
 			return $return;
 		}
-		// ロック取得（30秒）.
-		set_transient( $lock_key, 1, $lock_ttl );
+		// API 呼び出し時刻を記録（呼び出し前に記録することで、同時リクエストも防ぐ）.
+		update_option( 'vk_patterns_api_last_call', $current_time );
 
-		try {
-			$result = wp_remote_post(
-				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
-				array(
-					'timeout' => 10,
-					'body'    => array(
-						'login_id' => $user_email,
-						'page'     => absint( $page ),
-						'per_page' => absint( $per_page ),
-						'plugin_version' => defined( 'VBP_VERSION' ) ? VBP_VERSION : '',
-					),
-				)
-			);
-			if ( is_wp_error( $result ) ) {
-				error_log( 'VK Block Patterns API error: ' . $result->get_error_message() );
+		$result = wp_remote_post(
+			'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+			array(
+				'timeout' => 10,
+				'body'    => array(
+					'login_id' => $user_email,
+					'page'     => absint( $page ),
+					'per_page' => absint( $per_page ),
+					'plugin_version' => defined( 'VBP_VERSION' ) ? VBP_VERSION : '',
+				),
+			)
+		);
+		if ( is_wp_error( $result ) ) {
+			error_log( 'VK Block Patterns API error: ' . $result->get_error_message() );
+			return $return;
+		} elseif ( ! empty( $result ) ) {
+			$response_code = wp_remote_retrieve_response_code( $result );
+			if ( $response_code < 200 || $response_code >= 300 ) {
+				// HTTPステータスコードが「成功（2xx）」じゃない時にエラー扱い
+				error_log( 'VK Block Patterns API error: HTTP ' . $response_code );
 				return $return;
-			} elseif ( ! empty( $result ) ) {
-				$response_code = wp_remote_retrieve_response_code( $result );
-				if ( $response_code < 200 || $response_code >= 300 ) {
-					// HTTPステータスコードが「成功（2xx）」じゃない時にエラー扱い
-					error_log( 'VK Block Patterns API error: HTTP ' . $response_code );
-					return $return;
-				}
-				$return = json_decode( $result['body'], true );
-				if ( null === $return && json_last_error() !== JSON_ERROR_NONE ) {
-					error_log( 'VK Block Patterns API error: Invalid JSON response' );
-					return array();
-				}
-				// APIで取得したパターンデータをファイルキャッシュに登録. 30日 に設定.
-				vbp_write_file_cache( $transient_key, $return, VBP_CACHE_TTL );
 			}
-		} finally {
-			delete_transient( $lock_key );
+			$return = json_decode( $result['body'], true );
+			if ( null === $return && json_last_error() !== JSON_ERROR_NONE ) {
+				error_log( 'VK Block Patterns API error: Invalid JSON response' );
+				return array();
+			}
+			if ( is_array( $return ) ) {
+				set_transient( $transient_key, $return, VBP_CACHE_TTL );
+			}
 		}
 	}
 	return $return;
 }
-
-/**
- * ファイルキャッシュの保存先を取得
- *
- * @return string
- */
-function vbp_get_cache_dir() {
-	if ( defined( 'WP_CONTENT_DIR' ) ) {
-		$cache_root = WP_CONTENT_DIR . '/cache';
-		if ( ! is_dir( $cache_root ) ) {
-			wp_mkdir_p( $cache_root );
-		}
-		if ( is_dir( $cache_root ) && is_writable( $cache_root ) ) {
-			return trailingslashit( $cache_root . '/vk-block-patterns' );
-		}
-	}
-	error_log( 'VK Block Patterns: Cache directory unavailable. Expected wp-content/cache/vk-block-patterns.' );
-	return '';
-}
-
-/**
- * ファイルキャッシュのパスを取得
- *
- * @param string $key Cache key.
- * @return string
- */
-function vbp_get_cache_file_path( $key ) {
-	$dir = vbp_get_cache_dir();
-	if ( empty( $dir ) ) {
-		return '';
-	}
-	if ( '/' !== substr( $dir, -1 ) ) {
-		$dir = trailingslashit( $dir );
-	}
-	$safe_key = preg_replace( '/[^a-zA-Z0-9_\-]/', '_', (string) $key );
-	return $dir . $safe_key . '.json';
-}
-
-/**
- * ファイルキャッシュを読み込み
- *
- * @param string $key Cache key.
- * @return array|null
- */
-function vbp_read_file_cache( $key ) {
-	$file = vbp_get_cache_file_path( $key );
-	if ( '' === $file ) {
-		return null;
-	}
-	if ( ! file_exists( $file ) ) {
-		return null;
-	}
-	$raw = file_get_contents( $file );
-	if ( false === $raw ) {
-		return null;
-	}
-	$data = json_decode( $raw, true );
-	if ( ! is_array( $data ) || ! isset( $data['expires'], $data['payload'] ) ) {
-		return null;
-	}
-	if ( time() >= (int) $data['expires'] ) {
-		@unlink( $file );
-		return null;
-	}
-	return $data['payload'];
-}
-
-/**
- * ファイルキャッシュを保存
- *
- * @param string $key Cache key.
- * @param mixed  $payload Cache payload.
- * @param int    $ttl TTL in seconds.
- * @return void
- */
-function vbp_write_file_cache( $key, $payload, $ttl ) {
-	$dir = vbp_get_cache_dir();
-	if ( ! is_dir( $dir ) ) {
-		if ( ! wp_mkdir_p( $dir ) ) {
-			error_log( 'VK Block Patterns: Failed to create cache directory: ' . $dir );
-			return;
-		}
-	}
-	if ( ! is_dir( $dir ) || ! is_writable( $dir ) ) {
-		error_log( 'VK Block Patterns: Cache directory is not writable: ' . $dir );
-		return;
-	}
-	// Prevent direct access to cache directory.
-	$index_file = $dir . 'index.php';
-	if ( ! file_exists( $index_file ) ) {
-		@file_put_contents( $index_file, "<?php\n// Silence is golden.\n" );
-	}
-	$htaccess = $dir . '.htaccess';
-	if ( ! file_exists( $htaccess ) ) {
-		@file_put_contents( $htaccess, "Deny from all\n" );
-	}
-	$body = array(
-		'expires' => time() + (int) $ttl,
-		'payload' => $payload,
-	);
-	$file_path = vbp_get_cache_file_path( $key );
-	if ( '' === $file_path ) {
-		error_log( 'VK Block Patterns: Cache file path unavailable. key=' . $key );
-		return;
-	}
-	$tmp_path  = $file_path . '.tmp';
-	$write_result = file_put_contents( $tmp_path, wp_json_encode( $body ), LOCK_EX );
-	if ( false === $write_result ) {
-		error_log( 'VK Block Patterns: Failed to write cache file. key=' . $key . ' tmp=' . $tmp_path . ' target=' . $file_path );
-		return;
-	}
-	$chmod_result = chmod( $tmp_path, 0644 );
-	if ( false === $chmod_result ) {
-		error_log( 'VK Block Patterns: Failed to chmod cache file. key=' . $key . ' tmp=' . $tmp_path . ' target=' . $file_path );
-	}
-	$rename_result = rename( $tmp_path, $file_path );
-	if ( false === $rename_result ) {
-		error_log( 'VK Block Patterns: Failed to rename cache file. key=' . $key . ' tmp=' . $tmp_path . ' target=' . $file_path . ' write_result=' . $write_result );
-		if ( file_exists( $tmp_path ) ) {
-			$cleanup_result = @unlink( $tmp_path );
-			if ( false === $cleanup_result ) {
-				error_log( 'VK Block Patterns: Failed to cleanup tmp cache file. key=' . $key . ' tmp=' . $tmp_path . ' target=' . $file_path );
-			}
-		}
-	}
-}
-
-/**
- * 期限切れのファイルキャッシュのみ削除
- *
- * @return void
- */
-function vbp_purge_expired_file_cache() {
-	$dir = vbp_get_cache_dir();
-	if ( ! is_dir( $dir ) ) {
-		return;
-	}
-	$handle = opendir( $dir );
-	if ( false === $handle ) {
-		return;
-	}
-	while ( false !== ( $file = readdir( $handle ) ) ) {
-		if ( '.' === $file || '..' === $file ) {
-			continue;
-		}
-		if ( '.json' !== substr( $file, -5 ) ) {
-			continue;
-		}
-		$path = $dir . $file;
-		$raw  = file_get_contents( $path );
-		if ( false === $raw ) {
-			continue;
-		}
-		$data = json_decode( $raw, true );
-		if ( ! is_array( $data ) || ! isset( $data['expires'] ) ) {
-			continue;
-		}
-		if ( time() >= (int) $data['expires'] ) {
-			@unlink( $path );
-		}
-	}
-	closedir( $handle );
-}
-
-/**
- * ファイルキャッシュを全削除
- *
- * @return void
- */
-function vbp_clear_file_cache_all() {
-	$dir = vbp_get_cache_dir();
-	if ( ! is_dir( $dir ) ) {
-		return;
-	}
-	$handle = opendir( $dir );
-	if ( false === $handle ) {
-		return;
-	}
-	while ( false !== ( $file = readdir( $handle ) ) ) {
-		if ( '.' === $file || '..' === $file ) {
-			continue;
-		}
-		if ( '.json' !== substr( $file, -5 ) ) {
-			continue;
-		}
-		@unlink( $dir . $file );
-	}
-	closedir( $handle );
-}
-
-/**
- * 編集画面を開いた時点で条件付きでキャッシュをクリア
- */
-function vbp_reload_pattern_api_data() {
-
-	// オプションを取得.
-	$options = vbp_get_options();
-
-	// キャッシュの有効時間（秒）.
-	$cache_time = 60 * 60 * 24 * 30; // 30日.
-
-	// 最後にキャッシュされた時間を取得.
-	$last_cached = $options['last-pattern-cached'];
-
-	// 現在の時刻を取得.
-	$current_time = wp_date( 'Y-m-d H:i:s' );
-
-	// 差分を取得・キャッシュが初めてならキャッシュの有効時間が経過したものとみなす.
-	$diff = ! empty( $last_cached ) ? strtotime( $current_time ) - strtotime( $last_cached ) : $cache_time + 1;
-
-	// フラグがなければパターンのデータのキャッシュをパージ.
-	if ( $diff > $cache_time ) {
-		// 期限切れのファイルキャッシュのみ削除.
-		vbp_purge_expired_file_cache();
-		// 最後にキャッシュされた時間を更新.
-		$options['last-pattern-cached'] = $current_time;
-		// 最低30日時間はキャッシュを保持.
-		update_option( 'vk_block_patterns_options', $options );
-	}
-}
-add_action( 'load-post.php', 'vbp_reload_pattern_api_data' );
-add_action( 'load-post-new.php', 'vbp_reload_pattern_api_data' );
-add_action( 'load-site-editor.php', 'vbp_reload_pattern_api_data' );
 
 /**
  * 旧トランジェント/オプションを一度だけ削除
@@ -371,6 +124,56 @@ function vbp_cleanup_legacy_transients() {
 	update_option( 'vbp_legacy_transients_purged', 1 );
 }
 add_action( 'plugins_loaded', 'vbp_cleanup_legacy_transients', 20 );
+
+/**
+ * 編集画面を開いた時点で条件付きでキャッシュをクリア
+ */
+function vbp_reload_pattern_api_data() {
+
+	// オプションを取得.
+	$options = vbp_get_options();
+
+	// キャッシュの有効時間（秒）.
+	$cache_time = 60 * 60 * 24 * 30; // 30日.
+
+	// 最後にキャッシュされた時間を取得.
+	$last_cached = $options['last-pattern-cached'];
+
+	// 現在の時刻を取得.
+	$current_time = wp_date( 'Y-m-d H:i:s' );
+
+	// 差分を取得・キャッシュが初めてならキャッシュの有効時間が経過したものとみなす.
+	$diff = ! empty( $last_cached ) ? strtotime( $current_time ) - strtotime( $last_cached ) : $cache_time + 1;
+
+	// フラグがなければパターンのデータのキャッシュをパージ.
+	if ( $diff > $cache_time ) {
+		global $wpdb;
+		$like_value   = $wpdb->esc_like( '_transient_vk_patterns_api_data_' ) . '%';
+		$like_timeout = $wpdb->esc_like( '_transient_timeout_vk_patterns_api_data_' ) . '%';
+		$delete_result = $wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
+				$like_value,
+				$like_timeout
+			)
+		);
+		if ( false === $delete_result ) {
+			error_log(
+				'VK Block Patterns: vbp_reload_pattern_api_data failed. ' .
+				'last_error=' . $wpdb->last_error
+			);
+			return;
+		}
+
+		// 最後にキャッシュされた時間を更新.
+		$options['last-pattern-cached'] = $current_time;
+		// 最低30日時間はキャッシュを保持.
+		update_option( 'vk_block_patterns_options', $options );
+	}
+}
+add_action( 'load-post.php', 'vbp_reload_pattern_api_data' );
+add_action( 'load-post-new.php', 'vbp_reload_pattern_api_data' );
+add_action( 'load-site-editor.php', 'vbp_reload_pattern_api_data' );
 
 
 /**
