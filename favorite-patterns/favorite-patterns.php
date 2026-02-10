@@ -141,8 +141,15 @@ function vbp_get_cache_dir() {
  * @return string
  */
 function vbp_get_cache_file_path( $key ) {
+	$dir = vbp_get_cache_dir();
+	if ( empty( $dir ) ) {
+		return '';
+	}
+	if ( '/' !== substr( $dir, -1 ) ) {
+		$dir = trailingslashit( $dir );
+	}
 	$safe_key = preg_replace( '/[^a-zA-Z0-9_\-]/', '_', (string) $key );
-	return vbp_get_cache_dir() . $safe_key . '.json';
+	return $dir . $safe_key . '.json';
 }
 
 /**
@@ -153,6 +160,9 @@ function vbp_get_cache_file_path( $key ) {
  */
 function vbp_read_file_cache( $key ) {
 	$file = vbp_get_cache_file_path( $key );
+	if ( '' === $file ) {
+		return null;
+	}
 	if ( ! file_exists( $file ) ) {
 		return null;
 	}
@@ -205,6 +215,10 @@ function vbp_write_file_cache( $key, $payload, $ttl ) {
 		'payload' => $payload,
 	);
 	$file_path = vbp_get_cache_file_path( $key );
+	if ( '' === $file_path ) {
+		error_log( 'VK Block Patterns: Cache file path unavailable. key=' . $key );
+		return;
+	}
 	$tmp_path  = $file_path . '.tmp';
 	$write_result = file_put_contents( $tmp_path, wp_json_encode( $body ), LOCK_EX );
 	if ( false === $write_result ) {
