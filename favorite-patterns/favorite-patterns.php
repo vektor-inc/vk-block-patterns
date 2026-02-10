@@ -5,6 +5,10 @@
  * @package vektor-inc/vk-block-patterns
  */
 
+// API呼び出しの最小間隔（秒）.
+if ( ! defined( 'VBP_API_THROTTLE_SECONDS' ) ) {
+	define( 'VBP_API_THROTTLE_SECONDS', 60 );
+}
 /**
  * API のデータをキャッシュに格納
  *
@@ -163,6 +167,16 @@ function vbp_register_patterns( $api = null, $template = null ) {
 		$max_pages        = apply_filters( 'vbp_patterns_max_pages', 100 ); // 安全策として最大ページ数を設定.
 		$favorite_category_registered = false;
 		$xt9_category_registered      = false;
+
+		// API呼び出しの最小間隔を確認（ページネーション開始前に1回だけチェック）.
+		$last_api_call = (int) get_option( 'vk_patterns_api_last_call', 0 );
+		$current_time  = time();
+		if ( ( $current_time - $last_api_call ) < VBP_API_THROTTLE_SECONDS ) {
+			// 最小間隔未満なので API を呼ばずに結果を返す.
+			return $result;
+		}
+		// API 呼び出し時刻を記録（呼び出し前に記録することで、同時リクエストも防ぐ）.
+		update_option( 'vk_patterns_api_last_call', $current_time, false );
 
 		while ( $has_more && $page <= $max_pages ) {
 			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page );

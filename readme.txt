@@ -16,6 +16,9 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+
+[ Other ] Add API call throttling to prevent excessive requests (minimum 60 seconds interval)
+
 = 1.34.4 =
 [ Other ] Reduce the load on the VK Pattern Libraries API
 [ Other ] Allow configuring the number of patterns received in a single batch
