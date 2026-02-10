@@ -352,13 +352,20 @@ function vbp_cleanup_legacy_transients() {
 	global $wpdb;
 	$like_value   = $wpdb->esc_like( '_transient_vk_patterns_api_data_' ) . '%';
 	$like_timeout = $wpdb->esc_like( '_transient_timeout_vk_patterns_api_data_' ) . '%';
-	$wpdb->query(
+	$delete_result = $wpdb->query(
 		$wpdb->prepare(
 			"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
 			$like_value,
 			$like_timeout
 		)
 	);
+	if ( false === $delete_result ) {
+		error_log(
+			'VK Block Patterns: vbp_cleanup_legacy_transients failed. ' .
+			'last_error=' . $wpdb->last_error
+		);
+		return;
+	}
 	delete_transient( 'vk_patterns_api_data' );
 	delete_option( 'vk_patterns_api_cached_keys' );
 	update_option( 'vbp_legacy_transients_purged', 1 );
