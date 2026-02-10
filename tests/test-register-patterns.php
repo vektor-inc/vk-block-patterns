@@ -9,6 +9,16 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 	private function write_file_cache( $key, $payload, $expires_at ) {
 		$dir = vbp_get_cache_dir();
+		if ( '' === $dir ) {
+			// Ensure cache root exists for tests.
+			if ( defined( 'WP_CONTENT_DIR' ) ) {
+				wp_mkdir_p( WP_CONTENT_DIR . '/cache/vk-block-patterns' );
+				$dir = vbp_get_cache_dir();
+			}
+		}
+		if ( '' === $dir ) {
+			$this->fail( 'Cache directory is unavailable in tests.' );
+		}
 		if ( ! is_dir( $dir ) ) {
 			wp_mkdir_p( $dir );
 		}
@@ -33,6 +43,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			return;
 		}
 		$dir = vbp_get_cache_dir();
+		if ( '' === $dir ) {
+			return;
+		}
 		if ( ! is_dir( $dir ) ) {
 			return;
 		}
