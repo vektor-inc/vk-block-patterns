@@ -487,6 +487,87 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		$this->assertEquals( $transient_value, $return );
 	}
 
+	/**
+	 * cache_only=true の場合、キャッシュがあればそれを返すことをテスト
+	 */
+	public function test_vbp_get_pattern_api_data_cache_only_returns_cached_data() {
+		update_option(
+			'vk_block_patterns_options',
+			array(
+				'VWSMail' => 'cache-only-test@example.com',
+			)
+		);
+
+		$transient_key   = 'vk_patterns_api_data_1_20';
+		$transient_value = array(
+			'patterns' => '[{"post_name":"test","title":"Test","categories":["vk-pattern-favorites"],"content":"test"}]',
+		);
+		$pre_http_called = false;
+
+		set_transient( $transient_key, $transient_value, 60 * 60 );
+
+		$http_filter = function() use ( &$pre_http_called ) {
+			$pre_http_called = true;
+			return array(
+				'body'     => wp_json_encode( array() ),
+				'response' => array( 'code' => 200 ),
+			);
+		};
+
+		add_filter( 'pre_http_request', $http_filter, 10, 3 );
+
+		$return = vbp_get_pattern_api_data( 1, 20, true );
+
+		remove_filter( 'pre_http_request', $http_filter, 10 );
+		delete_transient( $transient_key );
+		delete_option( 'vk_block_patterns_options' );
+
+		// cache_only=true でもキャッシュがあれば返す.
+		$this->assertFalse( $pre_http_called );
+		$this->assertEquals( $transient_value, $return );
+	}
+
+	/**
+	 * cache_only=true でキャッシュがない場合、空配列を返しAPIを呼ばないことをテスト
+	 */
+	public function test_vbp_get_pattern_api_data_cache_only_returns_empty_when_no_cache() {
+		update_option(
+			'vk_block_patterns_options',
+			array(
+				'VWSMail' => 'cache-only-test@example.com',
+			)
+		);
+
+		$transient_key   = 'vk_patterns_api_data_1_20';
+		$pre_http_called = false;
+
+		// キャッシュを削除.
+		delete_transient( $transient_key );
+
+		$http_filter = function() use ( &$pre_http_called ) {
+			$pre_http_called = true;
+			return array(
+				'body'     => wp_json_encode(
+					array(
+						'patterns' => '[]',
+					)
+				),
+				'response' => array( 'code' => 200 ),
+			);
+		};
+
+		add_filter( 'pre_http_request', $http_filter, 10, 3 );
+
+		$return = vbp_get_pattern_api_data( 1, 20, true );
+
+		remove_filter( 'pre_http_request', $http_filter, 10 );
+		delete_option( 'vk_block_patterns_options' );
+
+		// cache_only=true でキャッシュがない場合はAPIを呼ばずに空配列を返す.
+		$this->assertFalse( $pre_http_called );
+		$this->assertSame( array(), $return );
+	}
+
 	public function test_vbp_register_patterns_stops_paging_when_xt9_disabled() {
 		update_option(
 			'vk_block_patterns_options',

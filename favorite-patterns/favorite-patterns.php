@@ -12,8 +12,9 @@ if ( ! defined( 'VBP_API_THROTTLE_SECONDS' ) ) {
 /**
  * API のデータをキャッシュに格納
  *
- * @param int $page     API ページ番号.
- * @param int $per_page 1 ページ当たりの取得件数.
+ * @param int  $page       API ページ番号.
+ * @param int  $per_page   1 ページ当たりの取得件数.
+ * @param bool $cache_only true の場合、キャッシュのみ参照し API 呼び出しをスキップ.
  *
  * @return array{
  *      array {
@@ -30,7 +31,7 @@ if ( ! defined( 'VBP_API_THROTTLE_SECONDS' ) ) {
  *  }
  * } $return
  */
-function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
+function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $cache_only = false ) {
 	// オプション値を取得.
 	$options = vbp_get_options();
 	// メールアドレスを取得.
@@ -46,8 +47,8 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 		// パターンのキャッシュがあればキャッシュを読み込み.
 		if ( ! empty( $transients ) ) {
 			$return = $transients;
-		} else {
-			// キャッシュがない場合 API を呼び出しキャッシュに登録.
+		} elseif ( ! $cache_only ) {
+			// キャッシュがない場合、かつキャッシュのみモードでなければ API を呼び出しキャッシュに登録.
 			$result = wp_remote_post(
 				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 				array(
@@ -178,13 +179,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 		}
 
 		while ( $has_more && $page <= $max_pages ) {
-			if ( $cache_only && empty( $api ) ) {
-				// スロットル時間内の場合はキャッシュのみ使用.
-				$transient_key    = 'vk_patterns_api_data_' . absint( $page ) . '_' . absint( $per_page );
-				$pattern_api_data = get_transient( $transient_key );
-			} else {
-				$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page );
-			}
+			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page, $cache_only );
 
 			if ( empty( $pattern_api_data ) || ! is_array( $pattern_api_data ) ) {
 				break;
