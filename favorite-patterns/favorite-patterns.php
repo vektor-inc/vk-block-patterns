@@ -253,8 +253,9 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 add_action(
 	'init',
 	function() {
-		// フロントエンドではキャッシュのみ使用（API呼び出しをスキップ）.
+		// フロントやエディタ（管理画面のURLとは限らない）など場合 => キャッシュされたパターンのみ使用（API呼び出しをスキップ）.
 		$cache_only = ! is_admin();
+		// パターンの登録自体は init フックで実行.
 		vbp_register_patterns( null, null, $cache_only );
 	}
 );
