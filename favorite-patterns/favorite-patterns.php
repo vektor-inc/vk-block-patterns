@@ -8,8 +8,9 @@
 /**
  * API のデータをキャッシュに格納
  *
- * @param int $page     API ページ番号.
- * @param int $per_page 1 ページ当たりの取得件数.
+ * @param int  $page       API ページ番号.
+ * @param int  $per_page   1 ページ当たりの取得件数.
+ * @param bool $cache_only true の場合、キャッシュのみ参照し API 呼び出しをスキップ.
  *
  * @return array{
  *      array {
@@ -26,7 +27,7 @@
  *  }
  * } $return
  */
-function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
+function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $cache_only = false ) {
 	// オプション値を取得.
 	$options = vbp_get_options();
 	// メールアドレスを取得.
@@ -42,8 +43,8 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20 ) {
 		// パターンのキャッシュがあればキャッシュを読み込み.
 		if ( ! empty( $transients ) ) {
 			$return = $transients;
-		} else {
-			// キャッシュがない場合 API を呼び出しキャッシュに登録.
+		} elseif ( ! $cache_only ) {
+			// キャッシュがない場合、かつキャッシュのみモードでなければ API を呼び出しキャッシュに登録.
 			$result = wp_remote_post(
 				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 				array(
@@ -134,15 +135,16 @@ add_action( 'load-site-editor.php', 'vbp_reload_pattern_api_data' );
 /**
  * パターンを登録
  *
- * @param array  $api テスト用に用意した API を読み込む変数（通常は空）.
- * @param string $template テスト用に用意した現在のテーマが何かを読み込む変数（通常は空）.
+ * @param array  $api        テスト用に用意した API を読み込む変数（通常は空）.
+ * @param string $template   テスト用に用意した現在のテーマが何かを読み込む変数（通常は空）.
+ * @param bool   $cache_only true の場合、キャッシュのみ参照し API 呼び出しをスキップ.
  *
  * @return array{
  *  'favorite' => array(),
  *  'x-t9'    => array()
  * } $returnx : 成功したらそれぞれの配列に true が入ってくる.
  */
-function vbp_register_patterns( $api = null, $template = null ) {
+function vbp_register_patterns( $api = null, $template = null, $cache_only = false ) {
 
 	// オプション値を読み込み.
 	$options = vbp_get_options();
@@ -165,7 +167,7 @@ function vbp_register_patterns( $api = null, $template = null ) {
 		$xt9_category_registered      = false;
 
 		while ( $has_more && $page <= $max_pages ) {
-			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page );
+			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page, $cache_only );
 
 			if ( empty( $pattern_api_data ) || ! is_array( $pattern_api_data ) ) {
 				break;
@@ -248,4 +250,11 @@ function vbp_register_patterns( $api = null, $template = null ) {
 	}
 	return $result;
 }
-add_action( 'admin_init', 'vbp_register_patterns' );
+add_action(
+	'init',
+	function() {
+		// フロントエンドではキャッシュのみ使用（API呼び出しをスキップ）.
+		$cache_only = ! is_admin();
+		vbp_register_patterns( null, null, $cache_only );
+	}
+);
