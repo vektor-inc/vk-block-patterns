@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.34.5 =
 [ Other ] Skip API calls on frontend to reduce server load
 
 = 1.34.4 =
