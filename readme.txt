@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Other ] Change pattern registration hook from init to admin_init to reduce unnecessary API calls
+
 = 1.34.4 =
 [ Other ] Reduce the load on the VK Pattern Libraries API
 [ Other ] Allow configuring the number of patterns received in a single batch

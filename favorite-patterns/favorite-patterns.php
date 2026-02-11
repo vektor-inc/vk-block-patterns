@@ -248,4 +248,4 @@ function vbp_register_patterns( $api = null, $template = null ) {
 	}
 	return $result;
 }
-add_action( 'init', 'vbp_register_patterns' );
+add_action( 'admin_init', 'vbp_register_patterns' );
