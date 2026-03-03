@@ -52,7 +52,14 @@ const Admin = () => {
 		setIsCleared( '' );
 		setClearErrorMessage( '' );
 		if ( ! restUrl || ! vkpOptions.restNonce ) {
-			setClearErrorMessage( 'missing restUrl or restNonce' );
+			// eslint-disable-next-line no-console
+			console.debug( 'Missing REST configuration for cache clear.', {
+				restUrl,
+				restNonce: vkpOptions.restNonce,
+			} );
+			setClearErrorMessage(
+				__( 'Failed to clear cache.', 'vk-block-patterns' )
+			);
 			setIsCleared( false );
 			setIsClearing( false );
 			return false;
@@ -85,7 +92,10 @@ const Admin = () => {
 
 			throw new Error(
 				result?.data?.message ||
-					`Cache clear failed: status ${ response.status }`
+					__(
+						'Cache clear failed: status %d',
+						'vk-block-patterns'
+					).replace( '%d', response.status )
 			);
 		} catch ( error ) {
 			// eslint-disable-next-line no-console
