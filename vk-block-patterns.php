@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'register_block_pattern' ) ) {
+if ( ! function_exists( 'register_block_pattern' ) && ! wp_doing_ajax() ) {
 	return;
 }
 

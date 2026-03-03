@@ -23,8 +23,7 @@ const Admin = () => {
 		vkpOptions.disableCorePattern === '1' ? true : false;
 	const defaultDisablePluginPattern =
 		vkpOptions.disablePluginPattern === '1' ? true : false;
-	const savePluginData =
-		vkpOptions.savePluginData === '1' ? true : false;
+	const savePluginData = vkpOptions.savePluginData === '1' ? true : false;
 
 	const [ vkpOption, setVkpOption ] = useState( {
 		role: vkpOptions.role,
@@ -33,9 +32,9 @@ const Admin = () => {
 		disableCorePattern: defaultDisableCorePattern,
 		disablePluginPattern: defaultDisablePluginPattern,
 		patternsPerPage: vkpOptions.patternsPerPage ?? 20,
-		savePluginData: savePluginData
+		savePluginData,
 	} );
-	const ajaxUrl  =  vkpOptions.ajaxUrl;
+	const restUrl = vkpOptions.restUrl;
 	const updateOptionValue = ( newValue ) => {
 		setVkpOption( newValue );
 	};
@@ -44,35 +43,61 @@ const Admin = () => {
 	const [ isSaveSuccess, setIsSaveSuccess ] = useState( '' );
 	const [ isClearing, setIsClearing ] = useState( false );
 	const [ isCleared, setIsCleared ] = useState( '' );
+	const [ clearErrorMessage, setClearErrorMessage ] = useState( '' );
 	const [ isReload, setIsReload ] = useState( false );
 
 	// パターンのキャッシュをクリア
-	const clearPatternsCache = () => {
+	const clearPatternsCache = async () => {
 		setIsClearing( true );
+		setIsCleared( '' );
+		setClearErrorMessage( '' );
 
-		// ajax を使う時の定型文的な...
-		const req = new XMLHttpRequest();
-		// ajax で POST して PHPにわたす
-		req.open('POST', ajaxUrl, true);
-		req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-		// アクションフックのポイント（PHP側でキャッシュをクリアする処理が走る）
-		req.send(`action=clear_patterns_cache&vbp_clear_patterns_cache_nonce=${vkpOptions.nonce}`);
+		try {
+			const response = await window.fetch( restUrl, {
+				method: 'POST',
+				headers: {
+					'X-WP-Nonce': vkpOptions.restNonce,
+				},
+				credentials: 'same-origin',
+			} );
+			const raw = await response.text();
+			let result = null;
+			try {
+				result = JSON.parse( raw );
+			} catch ( e ) {
+				throw new Error( `Invalid JSON response: ${ raw }` );
+			}
 
-		setIsClearing( false );
-		setIsCleared( true );
-	}
+			if ( response.ok && result?.success ) {
+				setIsCleared( true );
+				return;
+			}
+
+			throw new Error(
+				result?.data?.message ||
+					`Cache clear failed: ${ response.status } (${ raw })`
+			);
+		} catch ( error ) {
+			// eslint-disable-next-line no-console
+			console.error( error );
+			setClearErrorMessage( __( 'Failed to clear cache.', 'vk-block-patterns' ) );
+			setIsCleared( false );
+		} finally {
+			setIsClearing( false );
+		}
+	};
 
 	// オプション値を保存
 	const onClickUpdate = () => {
 		setIsLoading( true );
-		api.loadPromise.then( (/*response*/) => {
+		api.loadPromise.then( ( /*response*/ ) => {
 			// console.log( response );
 			const model = new api.models.Settings( {
 				vk_block_patterns_options: vkpOption,
 			} );
 			const save = model.save();
 
-			save.success( (/* response, status */) => {
+			save.success( ( /* response, status */ ) => {
 				// console.log( response );
 				// console.log( status );
 				setTimeout( () => {
@@ -101,25 +126,23 @@ const Admin = () => {
 		vkpOptions.adminUrl + 'edit.php?post_type=vk-block-patterns';
 	const template = vkpOptions.template;
 
-	
-
 	// snackbar更新する
-	useEffect(() => {
-		if (isSaveSuccess) {
-			setTimeout(() => {
+	useEffect( () => {
+		if ( isSaveSuccess ) {
+			setTimeout( () => {
 				setIsSaveSuccess();
-			}, 3000);
+			}, 3000 );
 		}
-	}, [isSaveSuccess]);
+	}, [ isSaveSuccess ] );
 
 	// snackbar更新する
-	useEffect(() => {
-		if (isCleared) {
-			setTimeout(() => {
+	useEffect( () => {
+		if ( isCleared ) {
+			setTimeout( () => {
 				setIsCleared();
-			}, 3000);
+			}, 3000 );
 		}
-	}, [isCleared]);
+	}, [ isCleared ] );
 
 	return (
 		<>
@@ -245,7 +268,8 @@ const Admin = () => {
 								>
 									Vektor Passport
 								</a>{ ' ' }
-								あるいは Lightning G3 Pro Pack のライセンスをお持ちのユーザーは{ ' ' }
+								あるいは Lightning G3 Pro Pack
+								のライセンスをお持ちのユーザーは{ ' ' }
 								<a
 									href="https://patterns.vektor-inc.co.jp/"
 									target="_blank"
@@ -318,7 +342,10 @@ const Admin = () => {
 
 						<section>
 							<h4>
-								{ __( 'Uninstall Setting', 'vk-block-patterns' ) }
+								{ __(
+									'Uninstall Setting',
+									'vk-block-patterns'
+								) }
 							</h4>
 							<ToggleControl
 								label={ __(
@@ -337,10 +364,16 @@ const Admin = () => {
 
 						<section>
 							<h3 id="cache-setting">
-								{ __( 'Patterns data cache setting', 'vk-block-patterns' ) }
+								{ __(
+									'Patterns data cache setting',
+									'vk-block-patterns'
+								) }
 							</h3>
 							<SelectControl
-								label={ __( 'Patterns per page', 'vk-block-patterns' ) }
+								label={ __(
+									'Patterns per page',
+									'vk-block-patterns'
+								) }
 								value={ vkpOption.patternsPerPage }
 								onChange={ ( newValue ) => {
 									updateOptionValue( {
@@ -354,12 +387,23 @@ const Admin = () => {
 									{ label: '40', value: 40 },
 									{ label: '50', value: 50 },
 								] }
-								help={ __( 'Higher values may cause editor instability on low-spec environments.', 'vk-block-patterns' ) }
+								help={ __(
+									'Higher values may cause editor instability on low-spec environments.',
+									'vk-block-patterns'
+								) }
 							/>
-							<p>{ __( 'If the VK Pattern Library data is old, please try clearing the cache.', 'vk-block-patterns' ) }</p>
+							<p>
+								{ __(
+									'If the VK Pattern Library data is old, please try clearing the cache.',
+									'vk-block-patterns'
+								) }
+							</p>
 							<Button
 								isSecondary
-								onClick={ clearPatternsCache }
+								onClick={ ( event ) => {
+									event.preventDefault();
+									clearPatternsCache();
+								} }
 								isBusy={ isClearing }
 							>
 								{ __( 'Clear Cache', 'vk-block-patterns' ) }
@@ -368,7 +412,21 @@ const Admin = () => {
 							{ isCleared === true && (
 								<div>
 									<Snackbar>
-										{ __( 'Cache cleared', 'vk-block-patterns'  ) }{ ' ' }
+										{ __(
+											'Cache cleared',
+											'vk-block-patterns'
+										) }{ ' ' }
+									</Snackbar>
+								</div>
+							) }
+							{ isCleared === false && (
+								<div>
+									<Snackbar>
+										{ clearErrorMessage ||
+											__(
+												'Failed to clear cache.',
+												'vk-block-patterns'
+											) }{ ' ' }
 									</Snackbar>
 								</div>
 							) }
@@ -386,14 +444,14 @@ const Admin = () => {
 				{ isSaveSuccess === true && (
 					<div>
 						<Snackbar>
-							{ __( 'Save Success', 'vk-block-patterns'  ) }{ ' ' }
+							{ __( 'Save Success', 'vk-block-patterns' ) }{ ' ' }
 						</Snackbar>
 					</div>
 				) }
 				{ isSaveSuccess === false && (
 					<div>
 						<Snackbar>
-							{ __( 'Failed to save.', 'vk-block-patterns'  ) }{ ' ' }
+							{ __( 'Failed to save.', 'vk-block-patterns' ) }{ ' ' }
 						</Snackbar>
 					</div>
 				) }
@@ -401,5 +459,5 @@ const Admin = () => {
 		</>
 	);
 };
-const root = createRoot(document.getElementById( 'vk_block_patterns_admin' ) );
+const root = createRoot( document.getElementById( 'vk_block_patterns_admin' ) );
 root.render( <Admin /> );
