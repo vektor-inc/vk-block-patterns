@@ -317,15 +317,13 @@ function vbp_clear_patterns_cache( $test_mode = false ) {
 		}
 	} elseif ( false === $test_mode ) {
 		// アクセスが拒否された場合の処理.
-		wp_send_json_error( array( 'message' => 'Unauthorized.' ), 401 );
+		wp_send_json_error( array( 'message' => 'Unauthorized.' ), 403 );
 	}
 }
 // Ajax action.
 add_action( 'wp_ajax_vbp_clear_patterns_cache', 'vbp_clear_patterns_cache' );
 // Backward compatibility.
 add_action( 'wp_ajax_clear_patterns_cache', 'vbp_clear_patterns_cache' );
-add_action( 'wp_ajax_nopriv_vbp_clear_patterns_cache', 'vbp_clear_patterns_cache' );
-add_action( 'wp_ajax_nopriv_clear_patterns_cache', 'vbp_clear_patterns_cache' );
 
 /**
  * Delete cached pattern data.

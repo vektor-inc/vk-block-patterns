@@ -97,7 +97,7 @@ const Admin = () => {
 			} );
 			const save = model.save();
 
-			save.success( ( /* response, status */ ) => {
+			save.success( async ( /* response, status */ ) => {
 				// console.log( response );
 				// console.log( status );
 				setTimeout( () => {
@@ -105,7 +105,7 @@ const Admin = () => {
 					setIsSaveSuccess( true );
 				}, 600 );
 				if ( isReload === true ) {
-					clearPatternsCache();
+					await clearPatternsCache();
 					location.reload();
 				}
 			} );
