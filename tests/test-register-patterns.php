@@ -386,6 +386,44 @@ class RegisterPatternsTest extends WP_UnitTestCase {
         }
     }
 
+	public function test_vbp_clear_patterns_cache_rest_route_as_admin() {
+		$cached_keys  = array( 'vk_patterns_api_data_1_50', 'vk_patterns_api_data_2_25' );
+		$legacy_cache = 'vk_patterns_api_data';
+		$transients   = 'aaaa';
+
+		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $admin_id );
+
+		update_option( 'vk_patterns_api_cached_keys', $cached_keys );
+		foreach ( $cached_keys as $cached_key ) {
+			set_transient( $cached_key, $transients, 60 * 60 * 24 );
+		}
+		set_transient( $legacy_cache, $transients, 60 * 60 * 24 );
+
+		$request  = new WP_REST_Request( 'POST', '/vbp/v1/clear-patterns-cache' );
+		$response = rest_do_request( $request );
+		$data     = $response->get_data();
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertTrue( ! empty( $data['success'] ) );
+		$this->assertFalse( get_transient( $cached_keys[0] ) );
+		$this->assertFalse( get_transient( $cached_keys[1] ) );
+		$this->assertFalse( get_transient( $legacy_cache ) );
+		$this->assertSame( array(), get_option( 'vk_patterns_api_cached_keys' ) );
+
+		delete_option( 'vk_patterns_api_cached_keys' );
+	}
+
+	public function test_vbp_clear_patterns_cache_rest_route_forbidden_for_editor() {
+		$editor_id = $this->factory->user->create( array( 'role' => 'editor' ) );
+		wp_set_current_user( $editor_id );
+
+		$request  = new WP_REST_Request( 'POST', '/vbp/v1/clear-patterns-cache' );
+		$response = rest_do_request( $request );
+
+		$this->assertSame( 403, $response->get_status() );
+	}
+
 	public function test_vbp_get_pattern_api_data_caches_response_with_page_and_per_page() {
 		update_option(
 			'vk_block_patterns_options',
