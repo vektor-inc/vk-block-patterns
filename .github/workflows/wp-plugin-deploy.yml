@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
         matrix:
-            php-versions: ['8.0', '8.1', '8.2']
-            wp-versions: ['6.8', '6.7', '6.6']
+            php-versions: ['7.4', '8.2', '8.3']
+            wp-versions: ['6.9', '6.8', '6.7']
     name: PHP Unit test ${{ matrix.php-versions }} / WP ${{ matrix.wp-versions }} Test
     services:
       mysql:
@@ -28,21 +28,22 @@ jobs:
           MYSQL_USER: wordpress
           MYSQL_PASSWORD: wordpress
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
     # setup node based on the version from the .node-version file, fetched in the previous step
     - name: Setup Node.js (.node-version)
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
       with:
-        node-version: 20
+        node-version: 24.14.0
 
     - name: Cache multiple paths
-      uses: actions/cache@v3
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
       with:
         path: vendor
         key: ${{ runner.os }}-php${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
     - name: Setup PHP ${{ matrix.php-versions }}
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
       with:
         php-version: ${{ matrix.php-versions }}
     - name: install npm scripts
@@ -69,10 +70,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [php_unit]
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - name: Checkout
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+    - name: Setup Node.js 24.14.0
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
       with:
-        node-version: 18
+        node-version: 24.14.0
     - name: install npm scripts
       run: npm install
     - name: install Composer Package
@@ -87,7 +90,7 @@ jobs:
     - name: deploy 
       run: bash bin/deploy.sh
     - name: WordPress Plugin Deploy
-      uses: 10up/action-wordpress-plugin-deploy@master
+      uses: 10up/action-wordpress-plugin-deploy@e6a227995083578a04f0d9b15a6e806b7155e344 # master
       env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
@@ -97,10 +100,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [php_unit]
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - name: Checkout
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+    - name: Setup Node.js 24.14.0
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
       with:
-        node-version: 18
+        node-version: 24.14.0
     - name: install npm scripts
       run: npm install
     - name: install Composer Package
@@ -114,23 +119,12 @@ jobs:
       run: npm run build
     - name: Make Distribution
       run: bash bin/dist.sh
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create Release and Upload Asset
+      id: release
+      uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
       with:
         tag_name: ${{ github.ref_name }}
-        release_name: Release ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
         draft: false
         prerelease: false
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist/${{ env.plugin_name }}.zip
-        asset_name: ${{ env.plugin_name }}.zip
-        asset_content_type: application/zip
+        files: ./dist/${{ env.plugin_name }}.zip
