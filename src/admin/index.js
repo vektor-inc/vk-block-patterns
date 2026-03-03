@@ -65,7 +65,11 @@ const Admin = () => {
 			try {
 				result = JSON.parse( raw );
 			} catch ( e ) {
-				throw new Error( `Invalid JSON response: ${ raw }` );
+				// eslint-disable-next-line no-console
+				console.error( 'Invalid JSON response while clearing cache:', raw );
+				throw new Error(
+					__( 'Failed to clear cache.', 'vk-block-patterns' )
+				);
 			}
 
 			if ( response.ok && result?.success ) {
@@ -75,7 +79,7 @@ const Admin = () => {
 
 			throw new Error(
 				result?.data?.message ||
-					`Cache clear failed: ${ response.status } (${ raw })`
+					`Cache clear failed: status ${ response.status }`
 			);
 		} catch ( error ) {
 			// eslint-disable-next-line no-console
@@ -122,7 +126,9 @@ const Admin = () => {
 					setIsSaveSuccess( false );
 				}, 600 );
 			} );
-		} ).catch( () => {
+		} ).catch( ( e ) => {
+			// eslint-disable-next-line no-console
+			console.error( e );
 			setTimeout( () => {
 				setIsLoading( false );
 				setIsSaveSuccess( false );
@@ -391,7 +397,7 @@ const Admin = () => {
 								onChange={ ( newValue ) => {
 									updateOptionValue( {
 										...vkpOption,
-										patternsPerPage: newValue,
+										patternsPerPage: Number( newValue ),
 									} );
 								} }
 								options={ [
