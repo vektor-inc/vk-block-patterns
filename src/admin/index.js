@@ -51,6 +51,12 @@ const Admin = () => {
 		setIsClearing( true );
 		setIsCleared( '' );
 		setClearErrorMessage( '' );
+		if ( ! restUrl || ! vkpOptions.restNonce ) {
+			setClearErrorMessage( 'missing restUrl or restNonce' );
+			setIsCleared( false );
+			setIsClearing( false );
+			return false;
+		}
 
 		try {
 			const response = await window.fetch( restUrl, {
