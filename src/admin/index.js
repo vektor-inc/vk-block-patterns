@@ -1,4 +1,4 @@
-import { __, _x, getLocaleData } from '@wordpress/i18n';
+import { __, _x, getLocaleData, sprintf } from '@wordpress/i18n';
 import { useState, useEffect } from '@wordpress/element';
 import { createRoot } from 'react-dom/client';
 import {
@@ -55,7 +55,7 @@ const Admin = () => {
 			// eslint-disable-next-line no-console
 			console.debug( 'Missing REST configuration for cache clear.', {
 				restUrl,
-				restNonce: vkpOptions.restNonce,
+				hasRestNonce: Boolean( vkpOptions.restNonce ),
 			} );
 			setClearErrorMessage(
 				__( 'Failed to clear cache.', 'vk-block-patterns' )
@@ -92,10 +92,13 @@ const Admin = () => {
 
 			throw new Error(
 				result?.data?.message ||
-					__(
+					sprintf(
+						__(
 						'Cache clear failed: status %d',
 						'vk-block-patterns'
-					).replace( '%d', response.status )
+						),
+						response.status
+					)
 			);
 		} catch ( error ) {
 			// eslint-disable-next-line no-console
