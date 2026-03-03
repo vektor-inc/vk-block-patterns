@@ -122,6 +122,11 @@ const Admin = () => {
 					setIsSaveSuccess( false );
 				}, 600 );
 			} );
+		} ).catch( () => {
+			setTimeout( () => {
+				setIsLoading( false );
+				setIsSaveSuccess( false );
+			}, 600 );
 		} );
 	};
 
