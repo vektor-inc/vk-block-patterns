@@ -129,18 +129,20 @@ const Admin = () => {
 	// snackbar更新する
 	useEffect( () => {
 		if ( isSaveSuccess ) {
-			setTimeout( () => {
+			const timerId = setTimeout( () => {
 				setIsSaveSuccess();
 			}, 3000 );
+			return () => clearTimeout( timerId );
 		}
 	}, [ isSaveSuccess ] );
 
 	// snackbar更新する
 	useEffect( () => {
 		if ( isCleared ) {
-			setTimeout( () => {
+			const timerId = setTimeout( () => {
 				setIsCleared();
 			}, 3000 );
+			return () => clearTimeout( timerId );
 		}
 	}, [ isCleared ] );
 
@@ -459,5 +461,8 @@ const Admin = () => {
 		</>
 	);
 };
-const root = createRoot( document.getElementById( 'vk_block_patterns_admin' ) );
-root.render( <Admin /> );
+const adminRootElement = document.getElementById( 'vk_block_patterns_admin' );
+if ( adminRootElement ) {
+	const root = createRoot( adminRootElement );
+	root.render( <Admin /> );
+}
