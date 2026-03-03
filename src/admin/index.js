@@ -80,8 +80,12 @@ const Admin = () => {
 		} catch ( error ) {
 			// eslint-disable-next-line no-console
 			console.error( error );
-			setClearErrorMessage( __( 'Failed to clear cache.', 'vk-block-patterns' ) );
+			setClearErrorMessage(
+				error?.message ||
+					__( 'Failed to clear cache.', 'vk-block-patterns' )
+			);
 			setIsCleared( false );
+			throw error;
 		} finally {
 			setIsClearing( false );
 		}
@@ -105,8 +109,13 @@ const Admin = () => {
 					setIsSaveSuccess( true );
 				}, 600 );
 				if ( isReload === true ) {
-					await clearPatternsCache();
-					location.reload();
+					try {
+						await clearPatternsCache();
+						location.reload();
+					} catch ( error ) {
+						// eslint-disable-next-line no-console
+						console.error( error );
+					}
 				}
 			} );
 
