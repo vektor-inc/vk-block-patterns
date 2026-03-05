@@ -167,6 +167,8 @@ function vbp_admin_enqueue_scripts( $hook_suffix ) {
 	$vbp_options['template'] = get_template();
 	$vbp_options['ajaxUrl']  = admin_url( 'admin-ajax.php' );
 	$vbp_options['nonce']    = wp_create_nonce( 'vbp_clear_patterns_cache_action' );
+	$vbp_options['restUrl']  = rest_url( 'vbp/v1/clear-patterns-cache' );
+	$vbp_options['restNonce'] = wp_create_nonce( 'wp_rest' );
 	wp_localize_script( 'vk-patterns-admin-js', 'vkpOptions', $vbp_options );
 }
 add_action( 'admin_enqueue_scripts', 'vbp_admin_enqueue_scripts' );
@@ -300,34 +302,78 @@ add_action( 'admin_init', 'vbp_admin_control' );
   * Delete Cache Pattern Data from API
  */
 function vbp_clear_patterns_cache( $test_mode = false ) {
-	// nonce を検証する
+	// nonce を検証する.
 	if ( false === $test_mode ) {
 		if ( ! isset( $_POST['vbp_clear_patterns_cache_nonce'] ) || ! wp_verify_nonce( $_POST['vbp_clear_patterns_cache_nonce'], 'vbp_clear_patterns_cache_action' ) ) {
-			die( 'Nonce Verification Failed' );
+			wp_send_json_error( array( 'message' => 'Nonce verification failed.' ), 403 );
 		}
 	}
-	// オプションを変更できるユーザーのみがアクセスできるように制限
-	if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {
-		$cached_keys = get_option( 'vk_patterns_api_cached_keys', array() );
-
-		if ( is_array( $cached_keys ) ) {
-			foreach ( $cached_keys as $cached_key ) {
-				delete_transient( $cached_key );
-			}
-		}
-
-		// 互換性のため旧キーも削除.
-		delete_transient( 'vk_patterns_api_data' );
-		update_option( 'vk_patterns_api_cached_keys', array() );
+	// 設定画面と同じ権限でアクセス制限.
+	if ( is_user_logged_in() && current_user_can( 'edit_theme_options' ) ) {
+		vbp_delete_patterns_cache_data();
 
 		if ( false === $test_mode ) {
-			die();
+			wp_send_json_success( array( 'message' => 'Cache cleared.' ) );
 		}
 	} elseif ( false === $test_mode ) {
-		// アクセスが拒否された場合の処理
-		wp_die( 'Unauthorized', 'Unauthorized', array( 'response' => 401 ) );
+		// アクセスが拒否された場合の処理.
+		wp_send_json_error( array( 'message' => 'Unauthorized.' ), 403 );
 	}
 }
-// 'clear_patterns_cache' の部分は src/admin/js/index.js　で定義している.
+// Ajax action.
+add_action( 'wp_ajax_vbp_clear_patterns_cache', 'vbp_clear_patterns_cache' );
+// Backward compatibility.
 add_action( 'wp_ajax_clear_patterns_cache', 'vbp_clear_patterns_cache' );
-add_action( 'wp_ajax_nopriv_clear_patterns_cache', 'vbp_clear_patterns_cache' );
+
+/**
+ * Delete cached pattern data.
+ *
+ * @return void
+ */
+function vbp_delete_patterns_cache_data() {
+	global $wpdb;
+
+	$cached_keys = get_option( 'vk_patterns_api_cached_keys', array() );
+
+	if ( is_array( $cached_keys ) ) {
+		foreach ( $cached_keys as $cached_key ) {
+			delete_transient( $cached_key );
+		}
+	}
+	// キー一覧が壊れていても削除できるよう、プレフィックス一致でも削除.
+	$transient_key_like = $wpdb->esc_like( '_transient_vk_patterns_api_data_' ) . '%';
+	$timeout_key_like   = $wpdb->esc_like( '_transient_timeout_vk_patterns_api_data_' ) . '%';
+	$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s", $transient_key_like, $timeout_key_like ) );
+
+	// 互換性のため旧キーも削除.
+	delete_transient( 'vk_patterns_api_data' );
+	update_option( 'vk_patterns_api_cached_keys', array() );
+}
+
+/**
+ * Register REST route for cache clear.
+ *
+ * @return void
+ */
+function vbp_register_rest_routes() {
+	register_rest_route(
+		'vbp/v1',
+		'/clear-patterns-cache',
+		array(
+			'methods'             => 'POST',
+			'permission_callback' => function() {
+				return current_user_can( 'edit_theme_options' );
+			},
+			'callback'            => function() {
+				vbp_delete_patterns_cache_data();
+				return rest_ensure_response(
+					array(
+						'success' => true,
+						'message' => 'Cache cleared.',
+					)
+				);
+			},
+		)
+	);
+}
+add_action( 'rest_api_init', 'vbp_register_rest_routes' );

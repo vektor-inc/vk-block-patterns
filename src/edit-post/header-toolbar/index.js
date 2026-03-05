@@ -15,9 +15,11 @@ const PatternsLink = () => {
 		<ToolbarButton
 			label="VK Pattern Library" // Accessibility label
 			className="components-button is-secondary"
-			onClick={ () => window.open( 'https://patterns.vektor-inc.co.jp/', '_blank' ) }
+			onClick={ () =>
+				window.open( 'https://patterns.vektor-inc.co.jp/', '_blank' )
+			}
 		>
-			VK Pattern Library 
+			VK Pattern Library
 			<span className="dashicons dashicons-external"></span>
 		</ToolbarButton>
 	);
@@ -51,8 +53,8 @@ domReady( () => {
 		// .vk-patterns-header-toolbar がまだ存在しなかったら
 		if ( ! headerToolbar.querySelector( '.vk-patterns-header-toolbar' ) ) {
 			// .vk-patterns-header-toolbar 内にリンク追加
-			const root = createRoot(patternsLinkArea);
-			root.render( <PatternsLink />);
+			const root = createRoot( patternsLinkArea );
+			root.render( <PatternsLink /> );
 			// ツールバーの子要素の最後にパターンへのリンクを追加
 			headerToolbar.appendChild( patternsLinkArea );
 		}
