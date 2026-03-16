@@ -43,8 +43,8 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template 
 	$return = array();
 
 	if ( ! empty( $user_email ) && ! empty( $current_template ) ) {
-		// パターンのキャッシュがあればキャッシュを読み込み.
-		if ( ! empty( $transients ) ) {
+		// パターンのキャッシュがあればキャッシュを読み込み（空配列も有効なキャッシュとして扱う）.
+		if ( false !== $transients ) {
 			$return = $transients;
 		} elseif ( ! $cache_only ) {
 			// キャッシュがない場合、かつキャッシュのみモードでなければ API を呼び出しキャッシュに登録.

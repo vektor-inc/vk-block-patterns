@@ -557,6 +557,42 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		$this->assertEquals( $transient_value, $return );
 	}
 
+	public function test_vbp_get_pattern_api_data_treats_empty_array_cache_as_valid() {
+		update_option(
+			'vk_block_patterns_options',
+			array(
+				'VWSMail' => 'cache-test@example.com',
+			)
+		);
+
+		$transient_key   = 'vk_patterns_api_data_' . sanitize_key( get_template() ) . '_1_20';
+		$transient_value = array(
+			'favorite_patterns' => '[]',
+		);
+		$pre_http_called = false;
+
+		set_transient( $transient_key, $transient_value, 60 * 60 );
+
+		$http_filter = function() use ( &$pre_http_called ) {
+			$pre_http_called = true;
+			return array(
+				'body'     => wp_json_encode( array() ),
+				'response' => array( 'code' => 200 ),
+			);
+		};
+
+		add_filter( 'pre_http_request', $http_filter, 10, 3 );
+
+		$return = vbp_get_pattern_api_data();
+
+		remove_filter( 'pre_http_request', $http_filter, 10 );
+		delete_transient( $transient_key );
+		delete_option( 'vk_block_patterns_options' );
+
+		$this->assertFalse( $pre_http_called );
+		$this->assertEquals( $transient_value, $return );
+	}
+
 	public function test_vbp_register_patterns_stops_paging_when_xt9_disabled() {
 		update_option(
 			'vk_block_patterns_options',
