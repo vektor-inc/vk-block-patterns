@@ -315,9 +315,11 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             update_option( 'vk_block_patterns_options', $test_value['options'] );
 
 			// テストデータにキャシュの指定がある場合.
+			$template      = ! empty( $test_value['template'] ) ? $test_value['template'] : '';
+			$transient_key = 'vk_patterns_api_data_' . sanitize_key( $template ) . '_1_20';
 			if ( ! empty( $test_value['transients']) ) {
 				// キャッシュをセット.
-				set_transient( 'vk_patterns_api_data_1_20', $test_value['transients'], 60 * 60 * 24 );
+				set_transient( $transient_key, $test_value['transients'], 60 * 60 * 24 );
 			}
 
 			$return  = vbp_register_patterns( $test_value['api'], $test_value['template'] );
@@ -330,7 +332,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			$this->assertEquals( $correct, $return );
 
 			// キャッシュ削除.
-			delete_transient( 'vk_patterns_api_data_1_20' );
+			delete_transient( $transient_key );
 		}
         delete_option( 'vk_block_patterns_options' );
 	}    
@@ -466,7 +468,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 
 		$page          = 2;
 		$per_page      = 25;
-		$transient_key = 'vk_patterns_api_data_' . $page . '_' . $per_page;
+		$transient_key = 'vk_patterns_api_data_' . sanitize_key( get_template() ) . '_' . $page . '_' . $per_page;
 		$response_body = array(
 			'favorite_patterns'   => '[]',
 			'theme_patterns'      => '[]',
@@ -522,9 +524,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			)
 		);
 
-		$transient_key   = 'vk_patterns_api_data_1_20';
+		$transient_key   = 'vk_patterns_api_data_' . sanitize_key( get_template() ) . '_1_20';
 		$transient_value = array(
-			'patterns' => '[]',
+			'favorite_patterns' => '[]',
 		);
 		$pre_http_called = false;
 
@@ -597,8 +599,8 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		remove_filter( 'pre_http_request', $http_filter, 10 );
 		remove_filter( 'vbp_patterns_max_pages', $max_pages_filter );
 
-		delete_transient( 'vk_patterns_api_data_1_20' );
-		delete_transient( 'vk_patterns_api_data_2_20' );
+		delete_transient( 'vk_patterns_api_data_lightning_1_20' );
+		delete_transient( 'vk_patterns_api_data_lightning_2_20' );
 		delete_option( 'vk_patterns_api_cached_keys' );
 		delete_option( 'vk_block_patterns_options' );
 

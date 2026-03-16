@@ -35,8 +35,8 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template 
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
 	// 現在のテーマを取得.
 	$current_template = ! empty( $current_template ) ? $current_template : get_template();
-	// ページング付きのキャッシュキー.
-	$transient_key = 'vk_patterns_api_data_' . absint( $page ) . '_' . absint( $per_page );
+	// ページング・テーマ付きのキャッシュキー.
+	$transient_key = 'vk_patterns_api_data_' . sanitize_key( $current_template ) . '_' . absint( $page ) . '_' . absint( $per_page );
 	// パターン情報をキャッシュデータから読み込み.
 	$transients = get_transient( $transient_key );
 	// デフォルトの返り値.
