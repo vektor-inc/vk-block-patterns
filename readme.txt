@@ -16,6 +16,9 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= x.x.x =
+[ Other ] Rename disableXT9Pattern option to disableThemePattern with backward compatibility.
+
 = 1.34.6 =
 [ Bug fix ] Fix cache clear button.
 

@@ -51,7 +51,7 @@ function vbp_get_options() {
 		'VWSMail'              => '',
 		'disableCorePattern'   => true,
 		'disablePluginPattern' => false,
-		'disableXT9Pattern'    => false,
+		'disableThemePattern'  => false,
 		'patternsPerPage'      => 20,
 		'account-check'        => array(
 			'date'                   => null,
@@ -66,6 +66,13 @@ function vbp_get_options() {
 	// 後から追加される項目もあるので、option値に保存されてない時にデフォルトとマージする
 	// ただし wp_parse_args は1階層目の内容しかきれいにマージしてくれないので注意.
 	$options = wp_parse_args( $options, $default );
+
+	// 後方互換: 旧キー disableXT9Pattern が保存されている場合は新キーに引き継ぐ.
+	if ( ! empty( $options['disableXT9Pattern'] ) ) {
+		$options['disableThemePattern'] = $options['disableXT9Pattern'];
+	}
+	unset( $options['disableXT9Pattern'] );
+
 	return $options;
 }
 

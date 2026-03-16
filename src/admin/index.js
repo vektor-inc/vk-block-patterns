@@ -23,6 +23,8 @@ const Admin = () => {
 		vkpOptions.disableCorePattern === '1' ? true : false;
 	const defaultDisablePluginPattern =
 		vkpOptions.disablePluginPattern === '1' ? true : false;
+	const defaultDisableThemePattern =
+		vkpOptions.disableThemePattern === '1' ? true : false;
 	const savePluginData = vkpOptions.savePluginData === '1' ? true : false;
 
 	const [ vkpOption, setVkpOption ] = useState( {
@@ -31,6 +33,7 @@ const Admin = () => {
 		VWSMail: vkpOptions.VWSMail,
 		disableCorePattern: defaultDisableCorePattern,
 		disablePluginPattern: defaultDisablePluginPattern,
+		disableThemePattern: defaultDisableThemePattern,
 		patternsPerPage: vkpOptions.patternsPerPage ?? 20,
 		savePluginData,
 	} );
@@ -275,11 +278,11 @@ const Admin = () => {
 										'Disable X-T9 patterns in VK Pattern Library',
 										'vk-block-patterns'
 									) }
-									checked={ vkpOption.disableXT9Pattern }
+									checked={ vkpOption.disableThemePattern }
 									onChange={ ( newValue ) => {
 										updateOptionValue( {
 											...vkpOption,
-											disableXT9Pattern: newValue,
+											disableThemePattern: newValue,
 										} );
 									} }
 								/>

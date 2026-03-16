@@ -18,7 +18,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => false,
-					'disableXT9Pattern'    => false,
+					'disableThemePattern'    => false,
 					'patternsPerPage'      => 20,
 					'account-check'        => array(
 						'date'                   => null,
@@ -40,7 +40,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => false,
-					'disableXT9Pattern'    => false,
+					'disableThemePattern'    => false,
 					'patternsPerPage'      => 20,
 					'account-check'        => array(
 						'date'                   => null,
@@ -63,7 +63,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => false,
-					'disableXT9Pattern'    => false,
+					'disableThemePattern'    => false,
 					'patternsPerPage'      => 20,
 					'account-check'        => array(
 						'date'                   => null,
@@ -97,7 +97,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => false,
 					'disablePluginPattern' => true,
-					'disableXT9Pattern'    => false,
+					'disableThemePattern'    => false,
 					'patternsPerPage'      => 20,
 					'account-check'        => array(
 						'date'                   => null,
@@ -116,7 +116,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => true,
-          			'disableXT9Pattern'    => false,
+          			'disableThemePattern'    => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
@@ -132,7 +132,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => true,
-					'disableXT9Pattern'    => false,
+					'disableThemePattern'    => false,
 					'patternsPerPage'      => 20,
 					'account-check'        => array(
 						'date'                   => null,
@@ -145,6 +145,31 @@ class GetOptionsTest extends WP_UnitTestCase {
 				),
 			),
 		);
+
+		// 後方互換: 旧キー disableXT9Pattern が保存されている場合に disableThemePattern に引き継がれる.
+		$test_data[] = array(
+			'option'  => array(
+				'disableXT9Pattern' => true,
+			),
+			'correct' => array(
+				'role'                 => 'author',
+				'showPatternsLink'     => true,
+				'VWSMail'              => '',
+				'disableCorePattern'   => true,
+				'disablePluginPattern' => false,
+				'disableThemePattern'  => true,
+				'patternsPerPage'      => 20,
+				'account-check'        => array(
+					'date'                   => null,
+					'disable-empty-notice'   => false,
+					'disable-invalid-notice' => false,
+					'disable-free-notice'    => false,
+				),
+				'last-pattern-cached'  => null,
+				'savePluginData'       => false,
+			),
+		);
+
 		print PHP_EOL;
 		print '------------------------------------' . PHP_EOL;
 		print 'vbp_get_options()' . PHP_EOL;

@@ -88,7 +88,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -103,7 +103,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -118,7 +118,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -133,7 +133,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -147,7 +147,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -162,7 +162,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(
                     'role'     => 'pro-user',
@@ -180,7 +180,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -194,7 +194,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => true,
+                    'disableThemePattern' => true,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -208,7 +208,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -222,7 +222,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
-                    'disableXT9Pattern' => true,
+                    'disableThemePattern' => true,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -236,7 +236,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => '',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -253,7 +253,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
             array(
 				'options'  => array(
                     'VWSMail'           => '',
-                    'disableXT9Pattern' => false,
+                    'disableThemePattern' => false,
                 ),
                 'api' => array(),
                 'transients' => array(
@@ -528,7 +528,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 			'vk_block_patterns_options',
 			array(
 				'VWSMail'           => 'paging-test@example.com',
-				'disableXT9Pattern' => true,
+				'disableThemePattern' => true,
 			)
 		);
 

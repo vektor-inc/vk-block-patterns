@@ -21,17 +21,19 @@
  *      page: int,
  *      per_page: int,
  *      has_more_favorites: bool,
- *      has_more_x_t9: bool,
+ *      has_more_theme: bool,
  *      total_favorites: int,
- *      total_x_t9: int
+ *      total_theme: int
  *  }
  * } $return
  */
-function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $cache_only = false ) {
+function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template = '', $cache_only = false ) {
 	// オプション値を取得.
 	$options = vbp_get_options();
 	// メールアドレスを取得.
 	$user_email = ! empty( $options['VWSMail'] ) ? $options['VWSMail'] : '';
+	// 現在のテーマを取得.
+	$current_template = ! empty( $current_template ) ? $current_template : get_template();
 	// ページング付きのキャッシュキー.
 	$transient_key = 'vk_patterns_api_data_' . absint( $page ) . '_' . absint( $per_page );
 	// パターン情報をキャッシュデータから読み込み.
@@ -39,7 +41,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $cache_only = fals
 	// デフォルトの返り値.
 	$return = array();
 
-	if ( ! empty( $user_email ) ) {
+	if ( ! empty( $user_email ) && ! empty( $current_template ) ) {
 		// パターンのキャッシュがあればキャッシュを読み込み.
 		if ( ! empty( $transients ) ) {
 			$return = $transients;
@@ -54,6 +56,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $cache_only = fals
 						'page'     => absint( $page ),
 						'per_page' => absint( $per_page ),
 						'plugin_version' => defined( 'VBP_VERSION' ) ? VBP_VERSION : '',
+						'current_theme'  => $current_template,
 					),
 				)
 			);
@@ -155,16 +158,29 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 	);
 
 	if ( ! empty( $options['VWSMail'] ) ) {
+		// 現在のテーマを取得.
 		$current_template = ! empty( $template ) ? $template : get_template();
-		$per_page = ! empty( $options['patternsPerPage'] ) ? absint( $options['patternsPerPage'] ) : 20;
-		$per_page = max( 20, min( $per_page, 50 ) ); // 20〜50の範囲に制限.
-		$per_page = apply_filters( 'vbp_patterns_api_per_page', $per_page );
-		$xt9_enabled      = ( 'x-t9' === $current_template && empty( $options['disableXT9Pattern'] ) );
-		$page             = 1;
-		$has_more         = true;
-		$max_pages        = apply_filters( 'vbp_patterns_max_pages', 100 ); // 安全策として最大ページ数を設定.
+
+		// 1 ページ当たりの取得件数をオプションから取得し、20〜50の範囲に制限. デフォルトは 20.
+		$per_page                     = ! empty( $options['patternsPerPage'] ) ? absint( $options['patternsPerPage'] ) : 20;
+		$per_page                     = max( 20, min( $per_page, 50 ) ); // 20〜50の範囲に制限.
+		$per_page                     = apply_filters( 'vbp_patterns_api_per_page', $per_page );
+
+		// テーマのパターンも取得するかどうかのフラグ.
+		$theme_enabled                = ( '' !== $current_template && empty( $options['disableThemePattern'] ) );
+
+		// ページ数
+		$page                         = 1;
+		// まだ取得すべきパターンがあるかどうかのフラグ. APIのレスポンスに基づいてループを続けるか判断するためのもの.
+		$has_more                     = true;
+		// 最大ページ数. 無限ループ防止のため、APIのレスポンスに関わらずこのページ数を超えたらループを強制終了する. デフォルトは 100 ページ.
+		$max_pages                    = apply_filters( 'vbp_patterns_max_pages', 100 ); // 安全策として最大ページ数を設定.
+
+		// お気に入りのパターンのパターンでカテゴリ登録のフラグ
 		$favorite_category_registered = false;
-		$xt9_category_registered      = false;
+		
+		// テーマのパターンのカテゴリ登録のフラグ
+		$theme_category_registered    = false;
 
 		while ( $has_more && $page <= $max_pages ) {
 			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page, $cache_only );
@@ -185,7 +201,7 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 					register_block_pattern_category(
 						'vk-pattern-favorites',
 						array(
-							'label' => __( 'Favorites of VK Pattern Library', 'vk-block-patterns' ),
+							'label' => __( 'Favorite patterns in VK Pattern Library', 'vk-block-patterns' ),
 						)
 					);
 					$favorite_category_registered = true;
@@ -204,7 +220,7 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 				}
 			}
 
-			if ( $xt9_enabled ) {
+			if ( $theme_enabled ) {
 				if ( ! empty( $pattern_api_data['x-t9'] ) ) {
 					$patterns_data = $pattern_api_data['x-t9'];
 
@@ -213,14 +229,14 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 					}
 
 					$patterns = json_decode( $patterns_data, true );
-					if ( ! $xt9_category_registered ) {
+					if ( ! $theme_category_registered ) {
 						register_block_pattern_category(
 							'x-t9',
 							array(
 								'label' => __( 'X-T9', 'vk-block-patterns' ),
 							)
 						);
-						$xt9_category_registered = true;
+						$theme_category_registered = true;
 					}
 					if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 						foreach ( $patterns as $pattern ) {
