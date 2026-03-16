@@ -71,7 +71,8 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template 
 					error_log( 'VK Block Patterns API error: HTTP ' . $response_code );
 					return $return;
 				}
-				$return = json_decode( $result['body'], true );
+				$body   = wp_remote_retrieve_body( $result );
+				$return = json_decode( $body, true );
 				if ( null === $return && json_last_error() !== JSON_ERROR_NONE ) {
 					error_log( 'VK Block Patterns API error: Invalid JSON response' );
 					return array();
@@ -207,7 +208,10 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 				}
 				if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 					foreach ( $patterns as $pattern ) {
-						$categories = is_array( $pattern['categories'] ) ? $pattern['categories'] : array();
+						if ( ! isset( $pattern['post_name'], $pattern['title'], $pattern['content'] ) ) {
+							continue;
+						}
+						$categories = is_array( $pattern['categories'] ?? null ) ? $pattern['categories'] : array();
 						$result['favorite_patterns'][] = register_block_pattern(
 							'vkp-favorite-' . $pattern['post_name'],
 							array(
@@ -244,7 +248,10 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 					}
 					if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 						foreach ( $patterns as $pattern ) {
-							$categories = is_array( $pattern['categories'] ) ? $pattern['categories'] : array();
+							if ( ! isset( $pattern['post_name'], $pattern['title'], $pattern['content'] ) ) {
+								continue;
+							}
+							$categories = is_array( $pattern['categories'] ?? null ) ? $pattern['categories'] : array();
 							$result['theme_patterns'][] = register_block_pattern(
 								'vkp-theme-' . $pattern['post_name'],
 								array(
