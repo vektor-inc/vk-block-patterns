@@ -183,7 +183,7 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 		$theme_category_registered    = false;
 
 		while ( $has_more && $page <= $max_pages ) {
-			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page, $current_template, $cache_only );
+			$pattern_api_data = null !== $api ? $api : vbp_get_pattern_api_data( $page, $per_page, $current_template, $cache_only );
 
 			if ( empty( $pattern_api_data ) || ! is_array( $pattern_api_data ) ) {
 				break;
@@ -271,7 +271,7 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 
 			$page++;
 			// テスト時に単一の配列を渡された場合は無限ループ防止で抜ける.
-			if ( ! empty( $api ) ) {
+			if ( null !== $api ) {
 				break;
 			}
 		}

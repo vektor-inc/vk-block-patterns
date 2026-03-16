@@ -105,7 +105,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableThemePattern' => false,
                 ),
-                'api' => array(),
+                'api' => null,
                 'transients' => array(
                     'role'     => 'pro-user',
                     'favorite_patterns' => $favorite_patterns,
@@ -182,7 +182,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableThemePattern' => false,
                 ),
-                'api' => array(),
+                'api' => null,
                 'transients' => array(
                     'role'     => 'pro-user',
                     'favorite_patterns' => $favorite_patterns,
@@ -196,7 +196,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableThemePattern' => true,
                 ),
-                'api' => array(),
+                'api' => null,
                 'transients' => array(
                     'role'     => 'pro-user',
                     'favorite_patterns' => $favorite_patterns,
@@ -211,7 +211,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableThemePattern' => false,
                 ),
-                'api' => array(),
+                'api' => null,
                 'transients' => array(
                     'role'     => 'pro-user',
                     'favorite_patterns' => $favorite_patterns,
@@ -226,7 +226,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableThemePattern' => true,
                 ),
-                'api' => array(),
+                'api' => null,
                 'transients' => array(
                     'role'     => 'pro-user',
                     'favorite_patterns' => $favorite_patterns,
@@ -240,7 +240,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => '',
                     'disableThemePattern' => false,
                 ),
-                'api' => array(),
+                'api' => null,
                 'transients' => array(
                     'role'     => 'pro-user',
                     'favorite_patterns' => $favorite_patterns,
@@ -257,7 +257,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => '',
                     'disableThemePattern' => false,
                 ),
-                'api' => array(),
+                'api' => null,
                 'transients' => array(
                     'role'     => 'pro-user',
                     'favorite_patterns' => $favorite_patterns,
@@ -275,7 +275,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => false,
                 ),
-                'api' => array(),
+                'api' => null,
                 'transients' => array(
                     'role'     => 'pro-user',
                     'favorite_patterns' => $favorite_patterns,
@@ -290,7 +290,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
                     'disableXT9Pattern' => true,
                 ),
-                'api' => array(),
+                'api' => null,
                 'transients' => array(
                     'role'     => 'pro-user',
                     'favorite_patterns' => $favorite_patterns,
