@@ -154,7 +154,7 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 	// テスト用の結果を返す配列.
 	$result = array(
 		'favorite_patterns' => array(),
-		'theme_patterns'     => array(),
+		'theme_patterns'    => array(),
 	);
 
 	if ( ! empty( $options['VWSMail'] ) ) {
@@ -240,7 +240,7 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 								'label' => sprintf(
 									/* translators: %s: theme name */
 									__( 'VK Pattern Library - %s', 'vk-block-patterns' ),
-									wp_get_theme( $current_template )->get( 'Name' )
+									wp_get_theme( $current_template )->get( 'Name' ) ?: $current_template
 								),
 							)
 						);
