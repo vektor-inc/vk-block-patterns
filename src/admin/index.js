@@ -270,12 +270,11 @@ const Admin = () => {
 						} }
 					/>
 					{ lang === 'ja_JP' &&
-						vkpOption.VWSMail !== '' &&
-						template === 'x-t9' && (
+						vkpOption.VWSMail !== '' && (
 							<>
 								<ToggleControl
 									label={ __(
-										'Disable X-T9 patterns in VK Pattern Library',
+										'Disable theme patterns in VK Pattern Library',
 										'vk-block-patterns'
 									) }
 									checked={ vkpOption.disableThemePattern }

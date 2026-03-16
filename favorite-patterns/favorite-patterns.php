@@ -48,7 +48,7 @@ function vbp_get_pattern_api_data( $page = 1, $per_page = 20, $current_template 
 		} elseif ( ! $cache_only ) {
 			// キャッシュがない場合、かつキャッシュのみモードでなければ API を呼び出しキャッシュに登録.
 			$result = wp_remote_post(
-				'https://patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
+				'https://dev.patterns.vektor-inc.co.jp/wp-json/vk-patterns/v1/status',
 				array(
 					'timeout' => 10,
 					'body'    => array(
@@ -108,9 +108,8 @@ function vbp_reload_pattern_api_data() {
 	// 差分を取得・キャッシュが初めてならキャッシュの有効時間が経過したものとみなす.
 	$diff = ! empty( $last_cached ) ? strtotime( $current_time ) - strtotime( $last_cached ) : $cache_time + 1;
 
-	// フラグがなければパターンのデータのキャッシュをパージ.
+	// キャッシュの有効期間を過ぎていれば期限切れキャッシュをパージ.
 	if ( $diff > $cache_time ) {
-		// 期限切れのキャッシュのみをパージ.
 		$cached_keys = get_option( 'vk_patterns_api_cached_keys', array() );
 		if ( is_array( $cached_keys ) ) {
 			$remaining_keys = array();
@@ -126,7 +125,6 @@ function vbp_reload_pattern_api_data() {
 		}
 		// 最後にキャッシュされた時間を更新.
 		$options['last-pattern-cached'] = $current_time;
-		// 最低30日時間はキャッシュを保持.
 		update_option( 'vk_block_patterns_options', $options );
 	}
 }
@@ -143,9 +141,9 @@ add_action( 'load-site-editor.php', 'vbp_reload_pattern_api_data' );
  * @param bool   $cache_only true の場合、キャッシュのみ参照し API 呼び出しをスキップ.
  *
  * @return array{
- *  'favorite' => array(),
- *  'x-t9'    => array()
- * } $returnx : 成功したらそれぞれの配列に true が入ってくる.
+ *  'favorite_patterns' => array(),
+ *  'theme_patterns'    => array()
+ * } $return : 成功したらそれぞれの配列に true が入ってくる.
  */
 function vbp_register_patterns( $api = null, $template = null, $cache_only = false ) {
 
@@ -153,8 +151,8 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 	$options = vbp_get_options();
 	// テスト用の結果を返す配列.
 	$result = array(
-		'favorite' => array(),
-		'x-t9'     => array(),
+		'favorite_patterns' => array(),
+		'theme_patterns'     => array(),
 	);
 
 	if ( ! empty( $options['VWSMail'] ) ) {
@@ -176,7 +174,7 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 		// 最大ページ数. 無限ループ防止のため、APIのレスポンスに関わらずこのページ数を超えたらループを強制終了する. デフォルトは 100 ページ.
 		$max_pages                    = apply_filters( 'vbp_patterns_max_pages', 100 ); // 安全策として最大ページ数を設定.
 
-		// お気に入りのパターンのパターンでカテゴリ登録のフラグ
+		// お気に入りのパターンのカテゴリ登録のフラグ
 		$favorite_category_registered = false;
 		
 		// テーマのパターンのカテゴリ登録のフラグ
@@ -189,8 +187,8 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 				break;
 			}
 
-			if ( ! empty( $pattern_api_data['patterns'] ) ) {
-				$patterns_data = $pattern_api_data['patterns'];
+			if ( ! empty( $pattern_api_data['favorite_patterns'] ) ) {
+				$patterns_data = $pattern_api_data['favorite_patterns'];
 
 				if ( function_exists( 'mb_convert_encoding' ) ) {
 					$patterns_data = mb_convert_encoding( $patterns_data, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
@@ -201,18 +199,19 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 					register_block_pattern_category(
 						'vk-pattern-favorites',
 						array(
-							'label' => __( 'Favorite patterns in VK Pattern Library', 'vk-block-patterns' ),
+							'label' => __( 'VK Pattern Library - Favorites', 'vk-block-patterns' ),
 						)
 					);
 					$favorite_category_registered = true;
 				}
 				if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 					foreach ( $patterns as $pattern ) {
-						$result['favorite'][] = register_block_pattern(
+						$categories = is_array( $pattern['categories'] ) ? $pattern['categories'] : array();
+						$result['favorite_patterns'][] = register_block_pattern(
 							'vkp-favorite-' . $pattern['post_name'],
 							array(
 								'title'      => $pattern['title'],
-								'categories' => $pattern['categories'],
+								'categories' => $categories,
 								'content'    => $pattern['content'],
 							)
 						);
@@ -221,8 +220,8 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 			}
 
 			if ( $theme_enabled ) {
-				if ( ! empty( $pattern_api_data['x-t9'] ) ) {
-					$patterns_data = $pattern_api_data['x-t9'];
+				if ( ! empty( $pattern_api_data['theme_patterns'] ) ) {
+					$patterns_data = $pattern_api_data['theme_patterns'];
 
 					if ( function_exists( 'mb_convert_encoding' ) ) {
 						$patterns_data = mb_convert_encoding( $patterns_data, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN' );
@@ -231,20 +230,25 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 					$patterns = json_decode( $patterns_data, true );
 					if ( ! $theme_category_registered ) {
 						register_block_pattern_category(
-							'x-t9',
+							'vk-pattern-themes',
 							array(
-								'label' => __( 'X-T9', 'vk-block-patterns' ),
+								'label' => sprintf(
+									/* translators: %s: theme name */
+									__( 'VK Pattern Library - %s', 'vk-block-patterns' ),
+									wp_get_theme( $current_template )->get( 'Name' )
+								),
 							)
 						);
 						$theme_category_registered = true;
 					}
 					if ( ! empty( $patterns ) && is_array( $patterns ) ) {
 						foreach ( $patterns as $pattern ) {
-							$result['x-t9'][] = register_block_pattern(
+							$categories = is_array( $pattern['categories'] ) ? $pattern['categories'] : array();
+							$result['theme_patterns'][] = register_block_pattern(
 								'vkp-theme-' . $pattern['post_name'],
 								array(
 									'title'      => $pattern['title'],
-									'categories' => $pattern['categories'],
+									'categories' => $categories,
 									'content'    => $pattern['content'],
 								)
 							);
@@ -254,8 +258,8 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 			}
 
 			$has_more_favorites = ! empty( $pattern_api_data['has_more_favorites'] );
-			$has_more_xt9       = $theme_enabled ? ! empty( $pattern_api_data['has_more_x_t9'] ) : false;
-			$has_more           = ( $per_page > 0 ) && ( $has_more_favorites || $has_more_xt9 );
+			$has_more_themes       = $theme_enabled ? ! empty( $pattern_api_data['has_more_themes'] ) : false;
+			$has_more           = ( $per_page > 0 ) && ( $has_more_favorites || $has_more_themes );
 
 			$page++;
 			// テスト時に単一の配列を渡された場合は無限ループ防止で抜ける.

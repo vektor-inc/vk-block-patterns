@@ -18,6 +18,11 @@ When you activate this plugin that create new custom post type for custom block 
 
 = x.x.x =
 [ Other ] Rename disableXT9Pattern option to disableThemePattern with backward compatibility.
+[ Other ] Rename API response keys from patterns/x-t9 to favorite_patterns/theme_patterns.
+[ Other ] Rename pattern category labels to VK Pattern Library - Favorites / VK Pattern Library - {theme name}.
+[ Other ] Enable theme patterns for all themes, not only X-T9.
+[ Other ] Auto-clear pattern cache on plugin update or cache format change.
+[ Other ] Reset last-pattern-cached on cache clear to force API re-fetch.
 
 = 1.34.6 =
 [ Bug fix ] Fix cache clear button.
