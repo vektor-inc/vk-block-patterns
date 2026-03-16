@@ -8,9 +8,10 @@
 /**
  * API のデータをキャッシュに格納
  *
- * @param int  $page       API ページ番号.
- * @param int  $per_page   1 ページ当たりの取得件数.
- * @param bool $cache_only true の場合、キャッシュのみ参照し API 呼び出しをスキップ.
+ * @param int    $page             API ページ番号.
+ * @param int    $per_page         1 ページ当たりの取得件数.
+ * @param string $current_template 現在のテーマのスラッグ（get_template() の値）。空文字の場合は内部で自動取得.
+ * @param bool   $cache_only       true の場合、キャッシュのみ参照し API 呼び出しをスキップ.
  *
  * @return array{
  *      array {
@@ -21,9 +22,9 @@
  *      page: int,
  *      per_page: int,
  *      has_more_favorites: bool,
- *      has_more_theme: bool,
+ *      has_more_themes: bool,
  *      total_favorites: int,
- *      total_theme: int
+ *      total_themes: int
  *  }
  * } $return
  */
