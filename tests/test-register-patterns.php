@@ -7,16 +7,16 @@
 
 class RegisterPatternsTest extends WP_UnitTestCase {
 
-	private function build_expected_results( $favorite_patterns, $xt9_patterns, $xt9_enabled ) {
-		$favorites = json_decode( $favorite_patterns, true );
-		$xt9       = json_decode( $xt9_patterns, true );
+	private function build_expected_results( $favorite_patterns, $theme_patterns, $theme_enabled ) {
+		$favorites    = json_decode( $favorite_patterns, true );
+		$theme        = json_decode( $theme_patterns, true );
 
 		$favorite_count = is_array( $favorites ) ? count( $favorites ) : 0;
-		$xt9_count      = ( $xt9_enabled && is_array( $xt9 ) ) ? count( $xt9 ) : 0;
+		$theme_count    = ( $theme_enabled && is_array( $theme ) ) ? count( $theme ) : 0;
 
 		return array(
 			'favorite' => array_fill( 0, $favorite_count, true ),
-			'x-t9'     => array_fill( 0, $xt9_count, true ),
+			'x-t9'     => array_fill( 0, $theme_count, true ),
 		);
 	}
 
@@ -205,6 +205,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                 'template' => 'x-t9',
                 'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
 			),
+            // lightning テーマで disableThemePattern が false の場合、テーマパターンも有効.
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
@@ -217,8 +218,9 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => $xt9_patterns,
                 ),
                 'template' => 'lightning',
-                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
             ),
+            // lightning テーマで disableThemePattern が true の場合、テーマパターン無効.
             array(
                 'options'  => array(
                     'VWSMail'           => 'vk-support@vektor-inc.co.jp',
@@ -267,6 +269,36 @@ class RegisterPatternsTest extends WP_UnitTestCase {
                     'x-t9'     => array(),
                 ),
 			),
+            // 後方互換: 旧キー disableXT9Pattern が false の場合、テーマパターン有効.
+            array(
+                'options'  => array(
+                    'VWSMail'           => 'vk-support@vektor-inc.co.jp',
+                    'disableXT9Pattern' => false,
+                ),
+                'api' => array(),
+                'transients' => array(
+                    'role'     => 'pro-user',
+                    'patterns' => $favorite_patterns,
+                    'x-t9'     => $xt9_patterns,
+                ),
+                'template' => 'x-t9',
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, true ),
+            ),
+            // 後方互換: 旧キー disableXT9Pattern が true の場合、テーマパターン無効.
+            array(
+                'options'  => array(
+                    'VWSMail'           => 'vk-support@vektor-inc.co.jp',
+                    'disableXT9Pattern' => true,
+                ),
+                'api' => array(),
+                'transients' => array(
+                    'role'     => 'pro-user',
+                    'patterns' => $favorite_patterns,
+                    'x-t9'     => $xt9_patterns,
+                ),
+                'template' => 'x-t9',
+                'correct'  => $this->build_expected_results( $favorite_patterns, $xt9_patterns, false ),
+            ),
         );
 
         return $test_data;

@@ -68,10 +68,10 @@ function vbp_get_options() {
 	$options = wp_parse_args( $options, $default );
 
 	// 後方互換: 旧キー disableXT9Pattern が保存されている場合は新キーに引き継ぐ.
-	if ( ! empty( $options['disableXT9Pattern'] ) ) {
+	if ( isset( $options['disableXT9Pattern'] ) ) {
 		$options['disableThemePattern'] = $options['disableXT9Pattern'];
+		unset( $options['disableXT9Pattern'] );
 	}
-	unset( $options['disableXT9Pattern'] );
 
 	return $options;
 }

@@ -183,7 +183,7 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 		$theme_category_registered    = false;
 
 		while ( $has_more && $page <= $max_pages ) {
-			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page, $cache_only );
+			$pattern_api_data = ! empty( $api ) ? $api : vbp_get_pattern_api_data( $page, $per_page, $current_template, $cache_only );
 
 			if ( empty( $pattern_api_data ) || ! is_array( $pattern_api_data ) ) {
 				break;
@@ -254,7 +254,7 @@ function vbp_register_patterns( $api = null, $template = null, $cache_only = fal
 			}
 
 			$has_more_favorites = ! empty( $pattern_api_data['has_more_favorites'] );
-			$has_more_xt9       = $xt9_enabled ? ! empty( $pattern_api_data['has_more_x_t9'] ) : false;
+			$has_more_xt9       = $theme_enabled ? ! empty( $pattern_api_data['has_more_x_t9'] ) : false;
 			$has_more           = ( $per_page > 0 ) && ( $has_more_favorites || $has_more_xt9 );
 
 			$page++;

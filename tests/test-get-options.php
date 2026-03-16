@@ -116,7 +116,7 @@ class GetOptionsTest extends WP_UnitTestCase {
 					'VWSMail'              => '',
 					'disableCorePattern'   => true,
 					'disablePluginPattern' => true,
-          			'disableThemePattern'    => false,
+					'disableThemePattern'  => false,
 					'account-check'        => array(
 						'date'                   => null,
 						'disable-empty-notice'   => false,
@@ -146,10 +146,83 @@ class GetOptionsTest extends WP_UnitTestCase {
 			),
 		);
 
-		// 後方互換: 旧キー disableXT9Pattern が保存されている場合に disableThemePattern に引き継がれる.
+		// 後方互換: 旧キー disableXT9Pattern が true で保存されている場合に disableThemePattern に引き継がれる.
 		$test_data[] = array(
 			'option'  => array(
 				'disableXT9Pattern' => true,
+			),
+			'correct' => array(
+				'role'                 => 'author',
+				'showPatternsLink'     => true,
+				'VWSMail'              => '',
+				'disableCorePattern'   => true,
+				'disablePluginPattern' => false,
+				'disableThemePattern'  => true,
+				'patternsPerPage'      => 20,
+				'account-check'        => array(
+					'date'                   => null,
+					'disable-empty-notice'   => false,
+					'disable-invalid-notice' => false,
+					'disable-free-notice'    => false,
+				),
+				'last-pattern-cached'  => null,
+				'savePluginData'       => false,
+			),
+		);
+
+		// 後方互換: 旧キー disableXT9Pattern が false で保存されている場合も引き継がれる.
+		$test_data[] = array(
+			'option'  => array(
+				'disableXT9Pattern' => false,
+			),
+			'correct' => array(
+				'role'                 => 'author',
+				'showPatternsLink'     => true,
+				'VWSMail'              => '',
+				'disableCorePattern'   => true,
+				'disablePluginPattern' => false,
+				'disableThemePattern'  => false,
+				'patternsPerPage'      => 20,
+				'account-check'        => array(
+					'date'                   => null,
+					'disable-empty-notice'   => false,
+					'disable-invalid-notice' => false,
+					'disable-free-notice'    => false,
+				),
+				'last-pattern-cached'  => null,
+				'savePluginData'       => false,
+			),
+		);
+
+		// 後方互換: 旧キーと新キーが両方ある場合、旧キーが優先される.
+		$test_data[] = array(
+			'option'  => array(
+				'disableXT9Pattern'   => true,
+				'disableThemePattern' => false,
+			),
+			'correct' => array(
+				'role'                 => 'author',
+				'showPatternsLink'     => true,
+				'VWSMail'              => '',
+				'disableCorePattern'   => true,
+				'disablePluginPattern' => false,
+				'disableThemePattern'  => true,
+				'patternsPerPage'      => 20,
+				'account-check'        => array(
+					'date'                   => null,
+					'disable-empty-notice'   => false,
+					'disable-invalid-notice' => false,
+					'disable-free-notice'    => false,
+				),
+				'last-pattern-cached'  => null,
+				'savePluginData'       => false,
+			),
+		);
+
+		// 新キーのみの場合はそのまま使用される.
+		$test_data[] = array(
+			'option'  => array(
+				'disableThemePattern' => true,
 			),
 			'correct' => array(
 				'role'                 => 'author',
