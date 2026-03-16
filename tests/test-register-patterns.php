@@ -566,9 +566,7 @@ class RegisterPatternsTest extends WP_UnitTestCase {
 		);
 
 		$transient_key   = 'vk_patterns_api_data_' . sanitize_key( get_template() ) . '_1_20';
-		$transient_value = array(
-			'favorite_patterns' => '[]',
-		);
+		$transient_value = array();
 		$pre_http_called = false;
 
 		set_transient( $transient_key, $transient_value, 60 * 60 );
