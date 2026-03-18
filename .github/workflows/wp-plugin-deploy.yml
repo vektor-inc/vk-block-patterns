@@ -51,6 +51,7 @@ jobs:
             echo "Retrying wp-env start --update ($n)..."
             sleep 5
           done
+          [ "$n" -lt 3 ] || exit 1
           sudo chmod -R 777 ~/wp-env
       - name: Smoke Test (dist)
         uses: vektor-inc/wp-actions/smoke-test@main
@@ -65,6 +66,7 @@ jobs:
             echo "Retrying wp-env start --update ($n)..."
             sleep 5
           done
+          [ "$n" -lt 3 ] || exit 1
           sudo chmod -R 777 ~/wp-env
       - name: Run PHPUnit (source)
         run: npm run phpunit
