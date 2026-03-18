@@ -1,130 +1,133 @@
 name: Deploy to WordPress.org
 
 permissions:
-  contents: write
+  contents: read
 
 on:
   push:
     tags:
-    - "[0-9]+.[0-9]+.[0-9]+.[0-9]"
+      - '[0-9]*.[0-9]*.[0-9]*'
+
 env:
   plugin_name: vk-block-patterns
+
 jobs:
-  php_unit:
+  test:
+    name: Build & Test
     runs-on: ubuntu-latest
     strategy:
-        matrix:
-            php-versions: ['7.4', '8.2', '8.3']
-            wp-versions: ['6.9', '6.8', '6.7']
-    name: PHP Unit test ${{ matrix.php-versions }} / WP ${{ matrix.wp-versions }} Test
-    services:
-      mysql:
-        image: mysql:5.7
-        ports:
-          - 3306
-        env:
-          MYSQL_ROOT_PASSWORD: wordpress
-          MYSQL_DATABASE: wordpress
-          MYSQL_USER: wordpress
-          MYSQL_PASSWORD: wordpress
+      matrix:
+        php-versions: ['8.2', '8.3']
+        wp-versions: ['6.9']
     steps:
-    - name: Checkout
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - name: Validate tag format (x.y.z)
+        run: |
+          [[ "${GITHUB_REF_NAME}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+            echo "Invalid tag: ${GITHUB_REF_NAME} (expected x.y.z)"
+            exit 1
+          }
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.14.0
+      - name: Setup PHP ${{ matrix.php-versions }}
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+      - name: Cache vendor
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
+      - name: Install dependencies
+        run: npm install && composer install
+      - name: Create dist
+        run: npm run dist
+      - name: Create wp-env override for dist smoke test
+        run: |
+          printf '{"plugins": ["./dist/%s"]}' "${{ env.plugin_name }}" > wp-env.override.json
+      - name: Start wp-env (dist)
+        run: |
+          n=0
+          until [ "$n" -ge 3 ]
+          do
+            WP_ENV_PHP_VERSION=${{ matrix.php-versions }} WP_ENV_CORE=WordPress/WordPress#${{ matrix.wp-versions }} npm run wp-env start --update && break
+            n=$((n+1))
+            echo "Retrying wp-env start --update ($n)..."
+            sleep 5
+          done
+          [ "$n" -lt 3 ] || exit 1
+          sudo chmod -R 777 ~/wp-env
+      - name: Smoke Test (dist)
+        uses: vektor-inc/wp-actions/smoke-test@90f5a231bc956543bf235f36be4928d57af2edab # main
+      - name: Switch wp-env to source for PHPUnit
+        run: |
+          rm wp-env.override.json
+          n=0
+          until [ "$n" -ge 3 ]
+          do
+            WP_ENV_PHP_VERSION=${{ matrix.php-versions }} WP_ENV_CORE=WordPress/WordPress#${{ matrix.wp-versions }} npm run wp-env start --update && break
+            n=$((n+1))
+            echo "Retrying wp-env start --update ($n)..."
+            sleep 5
+          done
+          [ "$n" -lt 3 ] || exit 1
+          sudo chmod -R 777 ~/wp-env
+      - name: Run PHPUnit (source)
+        run: npm run phpunit
 
-    # setup node based on the version from the .node-version file, fetched in the previous step
-    - name: Setup Node.js (.node-version)
-      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
-      with:
-        node-version: 24.14.0
-
-    - name: Cache multiple paths
-      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
-    - name: Setup PHP ${{ matrix.php-versions }}
-      uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-    - name: install npm scripts
-      run: npm install
-    - name: install Composer Package
-      run: composer install
-    - name: Install WP-CLI
-      run: |
-        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-        chmod +x wp-cli.phar
-        mv wp-cli.phar /usr/local/bin/wp
-    - name: Install several WordPress version by wp-env.override.json
-      run: WP_ENV_PHP_VERSION=${{ matrix.php-versions }} WP_ENV_CORE=WordPress/WordPress#${{ matrix.wp-versions }} npm run wp-env start --update
-    - name: Check WordPress Version
-      run: npm run wp-env run cli wp core version 
-    # dist の中で build は実行している
-    - name: Build
-      run: npm run build
-    # PHPUnit
-    - name: PHP Unit Test
-      run: npm run phpunit
-  tag:
-    name: deploy to plugin directory
+  deploy:
+    name: Deploy to .org
     runs-on: ubuntu-latest
-    needs: [php_unit]
+    needs: [test]
     steps:
-    - name: Checkout
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-    - name: Setup Node.js 24.14.0
-      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
-      with:
-        node-version: 24.14.0
-    - name: install npm scripts
-      run: npm install
-    - name: install Composer Package
-      run: composer install --no-dev
-    - name: Install WP-CLI
-      run: |
-        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-        chmod +x wp-cli.phar
-        mv wp-cli.phar /usr/local/bin/wp
-    - name: Build
-      run: npm run build
-    - name: deploy 
-      run: bash bin/deploy.sh
-    - name: WordPress Plugin Deploy
-      uses: 10up/action-wordpress-plugin-deploy@e6a227995083578a04f0d9b15a6e806b7155e344 # master
-      env:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.14.0
+      - name: Setup PHP
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
+        with:
+          php-version: '8.3'
+      - name: Install dependencies
+        run: npm install
+      - name: Create dist
+        run: npm run dist
+      - name: WordPress Plugin Deploy
+        uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2 # stable
+        env:
+          BUILD_DIR: dist/vk-block-patterns
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SLUG: vk-block-patterns
+
   release:
-    name: release
+    name: Create GitHub Release
     runs-on: ubuntu-latest
-    needs: [php_unit]
+    needs: [test, deploy]
+    permissions:
+      contents: write
     steps:
-    - name: Checkout
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-    - name: Setup Node.js 24.14.0
-      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
-      with:
-        node-version: 24.14.0
-    - name: install npm scripts
-      run: npm install
-    - name: install Composer Package
-      run: composer install --no-dev
-    - name: Install WP-CLI
-      run: |
-        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-        chmod +x wp-cli.phar
-        mv wp-cli.phar /usr/local/bin/wp
-    - name: Build
-      run: npm run build
-    - name: Make Distribution
-      run: bash bin/dist.sh
-    - name: Create Release and Upload Asset
-      id: release
-      uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
-      with:
-        tag_name: ${{ github.ref_name }}
-        name: Release ${{ github.ref_name }}
-        draft: false
-        prerelease: false
-        files: ./dist/${{ env.plugin_name }}.zip
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.14.0
+      - name: Setup PHP
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
+        with:
+          php-version: '8.3'
+      - name: Install dependencies
+        run: npm install
+      - name: Create dist
+        run: npm run dist
+      - name: Create zip
+        run: |
+          cd dist/ && zip -r ${{ env.plugin_name }}.zip ${{ env.plugin_name }}/ && mv ${{ env.plugin_name }}.zip ${GITHUB_WORKSPACE}
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2
+        with:
+          files: ${{ env.plugin_name }}.zip
+          generate_release_notes: true

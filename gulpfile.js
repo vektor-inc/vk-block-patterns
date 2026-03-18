@@ -1,7 +1,7 @@
 const gulp = require('gulp')
 
-gulp.task('dist', function (done) {
-	const files = gulp.src(
+gulp.task('dist', function () {
+	return gulp.src(
 	  [
 		'./**/*.php',
 		'./**/*.txt',
@@ -12,20 +12,36 @@ gulp.task('dist', function (done) {
 		'./**/*.svg',
 		'./**/*.json',
 		'./**/*.js',
-		'./assets/**',
+		'./vendor/**',
 		'./inc/**',
 		'./build/**',
-		'./patterns-data/',
+		'./patterns-data/**',
 		"!./.vscode/**",
 		"!./bin/**",
 		"!./dist/**",
-		"!./node_modules/**/*.*",
+		"!./node_modules/**",
 		"!./tests/**",
-		"!./dist/**",
+		"!./src/**",
+		"!./.git/**",
+		"!./.github/**",
+		"!./.wordpress-org/**",
+		"!./composer.json",
+		"!./composer.lock",
+		"!./gulpfile.js",
+		"!./package.json",
+		"!./package-lock.json",
+		"!./webpack.config.js",
+		"!./README.md",
+		"!./LICENSE",
+		"!./.gitignore",
+		"!./.distignore",
+		"!./.phpcs.xml",
+		"!./.phpunit.xml",
+		"!./.svnignore",
+		"!./.wp-env.json",
 	  ], {
-		base: './'
+		base: './',
+		allowEmpty: true,
 	  }
-	)
-	files.pipe(gulp.dest("dist/vk-block-patterns"));
-	done();
+	).pipe(gulp.dest("dist/vk-block-patterns"));
   });
