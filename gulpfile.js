@@ -1,7 +1,7 @@
 const gulp = require('gulp')
 
-gulp.task('dist', function (done) {
-	const files = gulp.src(
+gulp.task('dist', function () {
+	return gulp.src(
 	  [
 		'./**/*.php',
 		'./**/*.txt',
@@ -25,7 +25,5 @@ gulp.task('dist', function (done) {
 	  ], {
 		base: './'
 	  }
-	)
-	files.pipe(gulp.dest("dist/vk-block-patterns"));
-	done();
+	).pipe(gulp.dest("dist/vk-block-patterns"));
   });
