@@ -100,7 +100,7 @@ jobs:
   release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [test, deploy]
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
