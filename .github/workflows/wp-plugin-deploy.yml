@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 24.14.0
       - name: Setup PHP ${{ matrix.php-versions }}
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
         with:
           php-version: ${{ matrix.php-versions }}
       - name: Cache vendor
@@ -54,7 +54,7 @@ jobs:
           [ "$n" -lt 3 ] || exit 1
           sudo chmod -R 777 ~/wp-env
       - name: Smoke Test (dist)
-        uses: vektor-inc/wp-actions/smoke-test@main
+        uses: vektor-inc/wp-actions/smoke-test@90f5a231bc956543bf235f36be4928d57af2edab # main
       - name: Switch wp-env to source for PHPUnit
         run: |
           rm wp-env.override.json
@@ -82,7 +82,7 @@ jobs:
         with:
           node-version: 24.14.0
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
         with:
           php-version: '8.3'
       - name: Install dependencies
@@ -90,7 +90,7 @@ jobs:
       - name: Create dist
         run: npm run dist
       - name: WordPress Plugin Deploy
-        uses: 10up/action-wordpress-plugin-deploy@stable
+        uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2 # stable
         env:
           BUILD_DIR: dist/vk-block-patterns
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
@@ -108,7 +108,7 @@ jobs:
         with:
           node-version: 24.14.0
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
         with:
           php-version: '8.3'
       - name: Install dependencies
@@ -119,7 +119,7 @@ jobs:
         run: |
           cd dist/ && zip -r ${{ env.plugin_name }}.zip ${{ env.plugin_name }}/ && mv ${{ env.plugin_name }}.zip ${GITHUB_WORKSPACE}
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2
         with:
           files: ${{ env.plugin_name }}.zip
           generate_release_notes: true
