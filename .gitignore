@@ -108,3 +108,5 @@ vendor/
 build/
 .phpunit.result.cache
 *.map
+
+.claude/settings.local.json
