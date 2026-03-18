@@ -1,7 +1,7 @@
 name: Deploy to WordPress.org
 
 permissions:
-  contents: write
+  contents: read
 
 on:
   push:
@@ -20,6 +20,12 @@ jobs:
         php-versions: ['8.2', '8.3']
         wp-versions: ['6.9']
     steps:
+      - name: Validate tag format (x.y.z)
+        run: |
+          [[ "${GITHUB_REF_NAME}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+            echo "Invalid tag: ${GITHUB_REF_NAME} (expected x.y.z)"
+            exit 1
+          }
       - uses: actions/checkout@v4
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -101,6 +107,8 @@ jobs:
     name: Create GitHub Release
     runs-on: ubuntu-latest
     needs: [test, deploy]
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
