@@ -15,6 +15,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.35.0 =
 [ Add Function ] Enable theme patterns for all themes, not only X-T9.
 
 = 1.34.6 =
