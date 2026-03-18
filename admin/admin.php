@@ -93,7 +93,7 @@ function vkp_show_patterns_register_settings() {
 			'type'    => 'boolean',
 			'default' => false,
 		),
-		'disableXT9Pattern'    => array(
+		'disableThemePattern'  => array(
 			'type'    => 'boolean',
 			'default' => false,
 		),
@@ -348,6 +348,13 @@ function vbp_delete_patterns_cache_data() {
 	// 互換性のため旧キーも削除.
 	delete_transient( 'vk_patterns_api_data' );
 	update_option( 'vk_patterns_api_cached_keys', array() );
+
+	// last-pattern-cached をリセットして次回エディタ起動時にAPIから再取得させる.
+	$options = get_option( 'vk_block_patterns_options' );
+	if ( is_array( $options ) && isset( $options['last-pattern-cached'] ) ) {
+		$options['last-pattern-cached'] = null;
+		update_option( 'vk_block_patterns_options', $options );
+	}
 }
 
 /**

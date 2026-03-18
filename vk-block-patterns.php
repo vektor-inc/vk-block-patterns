@@ -51,7 +51,7 @@ function vbp_get_options() {
 		'VWSMail'              => '',
 		'disableCorePattern'   => true,
 		'disablePluginPattern' => false,
-		'disableXT9Pattern'    => false,
+		'disableThemePattern'  => false,
 		'patternsPerPage'      => 20,
 		'account-check'        => array(
 			'date'                   => null,
@@ -66,6 +66,13 @@ function vbp_get_options() {
 	// 後から追加される項目もあるので、option値に保存されてない時にデフォルトとマージする
 	// ただし wp_parse_args は1階層目の内容しかきれいにマージしてくれないので注意.
 	$options = wp_parse_args( $options, $default );
+
+	// 後方互換: 旧キー disableXT9Pattern が保存されている場合は新キーに引き継ぐ.
+	if ( isset( $options['disableXT9Pattern'] ) ) {
+		$options['disableThemePattern'] = $options['disableXT9Pattern'];
+		unset( $options['disableXT9Pattern'] );
+	}
+
 	return $options;
 }
 
@@ -83,6 +90,19 @@ function vbp_plugin_loaded() {
 	require_once VBP_PATH . 'admin/admin.php';
 
 	require VBP_PATH . '/favorite-patterns/favorite-patterns.php';
+
+	// バージョンアップ時、またはキャッシュ形式変更時にパターンキャッシュを自動クリア.
+	// cache_version はキャッシュのデータ形式が変わった時にインクリメントする.
+	$cache_version       = 3; // v1: patterns/x-t9 → v2: favorite_patterns/theme_patterns → v3: categories に vk-pattern-themes を使用.
+	$saved_version       = get_option( 'vbp_version' );
+	$saved_cache_version = (int) get_option( 'vbp_cache_version', 0 );
+	if ( $saved_version !== VBP_VERSION || $saved_cache_version < $cache_version ) {
+		if ( function_exists( 'vbp_delete_patterns_cache_data' ) ) {
+			vbp_delete_patterns_cache_data();
+		}
+		update_option( 'vbp_version', VBP_VERSION );
+		update_option( 'vbp_cache_version', $cache_version );
+	}
 }
 add_action( 'plugins_loaded', 'vbp_plugin_loaded' );
 
