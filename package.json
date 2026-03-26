@@ -9,12 +9,13 @@
 		"upgrade": "ncu -u --target latest && rimraf node_modules/ package-lock.json && npm install",
 		"watch": "wp-scripts start",
 		"build": "wp-scripts build && npm run build:sass",
-		"dist": "npm run build && composer install --no-dev && gulp dist && composer install",
+		"dist": "npm run build && composer install --no-dev && gulp dist && composer install && npm run zip",
 		"build:sass": "sass --style=compressed --no-source-map patterns-data/_scss:patterns-data && sass --style=compressed --no-source-map inc/vk-block-patterns/package:inc/vk-block-patterns/package",
 		"sass": "sass --watch patterns-data/_scss:patterns-data",
 		"lint": "wp-scripts format src/ && wp-scripts lint-js src/ --fix",
 		"wp-env": "wp-env",
-		"phpunit": "wp-env run tests-cli --env-cwd='wp-content/plugins/vk-block-patterns' vendor/bin/phpunit -c .phpunit.xml"
+		"phpunit": "wp-env run tests-cli --env-cwd='wp-content/plugins/vk-block-patterns' vendor/bin/phpunit -c .phpunit.xml",
+		"zip": "bestzip dist/vk-block-patterns.zip dist/vk-block-patterns"
 	},
 	"repository": {
 		"type": "git",
@@ -29,6 +30,7 @@
 	"devDependencies": {
 		"@wordpress/env": "10.39.0",
 		"@wordpress/scripts": "^31.5.0",
+		"bestzip": "^2.2.3",
 		"gulp": "^5.0.1",
 		"npm-check-updates": "^19.6.3",
 		"rimraf": "^6.0.1",
