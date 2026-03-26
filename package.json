@@ -14,7 +14,8 @@
 		"sass": "sass --watch patterns-data/_scss:patterns-data",
 		"lint": "wp-scripts format src/ && wp-scripts lint-js src/ --fix",
 		"wp-env": "wp-env",
-		"phpunit": "wp-env run tests-cli --env-cwd='wp-content/plugins/vk-block-patterns' vendor/bin/phpunit -c .phpunit.xml"
+		"phpunit": "wp-env run tests-cli --env-cwd='wp-content/plugins/vk-block-patterns' vendor/bin/phpunit -c .phpunit.xml",
+		"zip": "npm run dist && cd dist && zip -r vk-block-patterns.zip vk-block-patterns && cd .."
 	},
 	"repository": {
 		"type": "git",
