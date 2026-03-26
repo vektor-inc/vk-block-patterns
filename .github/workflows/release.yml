@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     tags:
-      - '[0-9]*.[0-9]*.[0-9]*'
+      - '[0-9]+.[0-9]+.[0-9]+'
 
 env:
   plugin_name: vk-block-patterns
@@ -101,11 +101,8 @@ jobs:
         with:
           name: dist
           path: dist/
-      - name: Create zip
-        run: |
-          cd dist/ && zip -r ${{ env.plugin_name }}.zip ${{ env.plugin_name }}/ && mv ${{ env.plugin_name }}.zip ${GITHUB_WORKSPACE}
       - name: Create GitHub Release
         uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2
         with:
-          files: ${{ env.plugin_name }}.zip
+          files: dist/${{ env.plugin_name }}.zip
           generate_release_notes: true
