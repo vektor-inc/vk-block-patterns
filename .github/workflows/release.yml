@@ -42,8 +42,8 @@ jobs:
           key: ${{ runner.os }}-php${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
       - name: Install dependencies
         run: npm install && composer install
-      - name: Create dist
-        run: npm run dist
+      - name: Create dist & zip
+        run: npm run zip
       - name: Upload dist artifact
         if: matrix.php-versions == '8.3' && matrix.wp-versions == '6.9'
         uses: actions/upload-artifact@v4
