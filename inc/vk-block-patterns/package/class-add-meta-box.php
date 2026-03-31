@@ -30,8 +30,10 @@ class AddMetaBox {
 			'side',
 			'default',
 			// WordPress 7.0 RTC compatibility flag.
+			// false = no block editor replacement exists, so keep showing this meta box.
 			// WordPress 7.0 リアルタイム共同編集との互換性フラグ.
-			array( '__back_compat_meta_box' => true )
+			// false = ブロックエディタ側に代替UIがないため、このメタボックスを表示し続ける.
+			array( '__back_compat_meta_box' => false )
 		);
 	}
 
