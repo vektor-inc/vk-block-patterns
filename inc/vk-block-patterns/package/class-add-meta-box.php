@@ -27,7 +27,11 @@ class AddMetaBox {
 			__( 'Initial pattern setting', 'vk-block-patterns' ),
 			array( __CLASS__, 'meta_box_html' ),
 			'vk-block-patterns',
-			'side'
+			'side',
+			'default',
+			// WordPress 7.0 RTC compatibility flag.
+			// WordPress 7.0 リアルタイム共同編集との互換性フラグ.
+			array( '__back_compat_meta_box' => true )
 		);
 	}
 

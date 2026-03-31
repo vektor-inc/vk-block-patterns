@@ -16,6 +16,9 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.35.3 =
+[ Other ][ WordPress 7.0 ] Add back compat meta box flag for Real-Time Collaboration support
+
 = 1.35.2 =
 [ Bug Fix ] Fix dist zip structure containing incorrect dist/ prefix path
 
