@@ -18,6 +18,12 @@ import { useEntityProp } from '@wordpress/core-data';
 // PHPからwp_localize_scriptで渡された翻訳済み文字列を使用する。
 const i18n = window.vbpEditor?.i18n || {};
 
+/**
+ * Initial Pattern Setting panel component for the block editor sidebar.
+ * ブロックエディタサイドバー用の初期パターン設定パネルコンポーネント。
+ *
+ * @return {JSX.Element|null} The panel element or null if not vk-block-patterns post type.
+ */
 const VbpInitPatternPanel = () => {
 	const postType = useSelect(
 		( select ) => select( 'core/editor' ).getCurrentPostType(),
