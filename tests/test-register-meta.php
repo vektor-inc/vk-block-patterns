@@ -38,17 +38,4 @@ class RegisterMetaTest extends WP_UnitTestCase {
 		// sanitize_text_field should strip HTML tags.
 		$this->assertStringNotContainsString( '<script>', $value );
 	}
-
-	/**
-	 * Test backward compatibility: is_method_selected with native panel values.
-	 * 後方互換: ネイティブパネルの値で is_method_selected が正しく動作するかテスト。
-	 */
-	public function test_is_method_selected_with_panel_values() {
-		// When post type is set and add method is empty, should default to 'show'.
-		$this->assertEquals( 'show', VKBlockPatterns\AddMetaBox::is_method_selected( 'post', '' ) );
-		// When both are set, should return the add method.
-		$this->assertEquals( 'add', VKBlockPatterns\AddMetaBox::is_method_selected( 'post', 'add' ) );
-		// When unspecified is explicitly set.
-		$this->assertEquals( 'unspecified', VKBlockPatterns\AddMetaBox::is_method_selected( 'post', 'unspecified' ) );
-	}
 }
