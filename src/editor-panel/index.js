@@ -13,7 +13,10 @@ import { PluginDocumentSettingPanel } from '@wordpress/editor';
 import { SelectControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
+
+// Use translated strings from PHP via wp_localize_script.
+// PHPからwp_localize_scriptで渡された翻訳済み文字列を使用する。
+const i18n = window.vbpEditor?.i18n || {};
 
 const VbpInitPatternPanel = () => {
 	const postType = useSelect(
@@ -58,35 +61,23 @@ const VbpInitPatternPanel = () => {
 			: [];
 
 	const addMethodOptions = [
-		{
-			label: __( 'Unspecified', 'vk-block-patterns' ),
-			value: 'unspecified',
-		},
-		{ label: __( 'Auto add', 'vk-block-patterns' ), value: 'add' },
-		{
-			label: __( 'Show in Candidate', 'vk-block-patterns' ),
-			value: 'show',
-		},
+		{ label: i18n.unspecified || 'Unspecified', value: 'unspecified' },
+		{ label: i18n.autoAdd || 'Auto add', value: 'add' },
+		{ label: i18n.showInCandidate || 'Show in Candidate', value: 'show' },
 	];
 
 	return (
 		<PluginDocumentSettingPanel
 			name="vbp-init-pattern"
-			title={ __(
-				'Initial pattern setting',
-				'vk-block-patterns'
-			) }
+			title={ i18n.panelTitle || 'Initial pattern setting' }
 			className="vbp-init-pattern-panel"
 		>
 			<p style={ { fontSize: '12px', color: '#757575' } }>
-				{ __(
-					'You can set this pattern as the default pattern for a specific post type.',
-					'vk-block-patterns'
-				) }
+				{ i18n.description || '' }
 			</p>
 
 			<SelectControl
-				label={ __( 'Target Post Type.', 'vk-block-patterns' ) }
+				label={ i18n.targetPostType || 'Target Post Type.' }
 				value={ savedPostType }
 				options={ postTypeOptions }
 				onChange={ ( value ) =>
@@ -95,10 +86,7 @@ const VbpInitPatternPanel = () => {
 			/>
 
 			<SelectControl
-				label={ __(
-					'How to Add Patterns.',
-					'vk-block-patterns'
-				) }
+				label={ i18n.howToAddPatterns || 'How to Add Patterns.' }
 				value={ effectiveAddMethod }
 				options={ addMethodOptions }
 				onChange={ ( value ) =>
@@ -107,10 +95,7 @@ const VbpInitPatternPanel = () => {
 			/>
 
 			<p style={ { fontSize: '12px', color: '#757575' } }>
-				{ __(
-					'If there are multiple patterns with "Auto Add" selected for one post type, only the oldest pattern will be inserted.',
-					'vk-block-patterns'
-				) }
+				{ i18n.multiplePatterns || '' }
 			</p>
 		</PluginDocumentSettingPanel>
 	);

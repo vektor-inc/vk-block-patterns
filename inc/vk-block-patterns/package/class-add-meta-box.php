@@ -213,10 +213,8 @@ class AddMetaBox {
 				$asset_file['version'],
 				true
 			);
-			wp_set_script_translations( 'vbp-editor-panel', 'vk-block-patterns' );
-
-			// Pass post types to JS.
-			// 投稿タイプの情報をJSに渡す。
+			// Pass translated strings and post types to JS.
+			// 翻訳済み文字列と投稿タイプの情報をJSに渡す。
 			$post_types = get_post_types( array( 'public' => true ), 'objects' );
 			$post_type_data = array();
 			foreach ( $post_types as $pt ) {
@@ -224,6 +222,16 @@ class AddMetaBox {
 			}
 			wp_localize_script( 'vbp-editor-panel', 'vbpEditor', array(
 				'postTypes' => $post_type_data,
+				'i18n'      => array(
+					'panelTitle'        => __( 'Initial pattern setting', 'vk-block-patterns' ),
+					'description'       => __( 'You can set this pattern as the default pattern for a specific post type.', 'vk-block-patterns' ),
+					'targetPostType'    => __( 'Target Post Type.', 'vk-block-patterns' ),
+					'howToAddPatterns'  => __( 'How to Add Patterns.', 'vk-block-patterns' ),
+					'unspecified'       => __( 'Unspecified', 'vk-block-patterns' ),
+					'autoAdd'           => __( 'Auto add', 'vk-block-patterns' ),
+					'showInCandidate'   => __( 'Show in Candidate', 'vk-block-patterns' ),
+					'multiplePatterns'  => __( 'If there are multiple patterns with "Auto Add" selected for one post type, only the oldest pattern will be inserted.', 'vk-block-patterns' ),
+				),
 			) );
 		}
 	}
