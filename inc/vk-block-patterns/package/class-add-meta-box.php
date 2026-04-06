@@ -200,6 +200,32 @@ class AddMetaBox {
 			array(),
 			filemtime( plugin_dir_path( __FILE__ ) . '/editor.css' )
 		);
+
+		// Block editor native sidebar panel.
+		// ブロックエディタ用ネイティブサイドバーパネル。
+		$asset_path = plugin_dir_path( __DIR__ ) . '../../build/editor-panel/index.asset.php';
+		if ( file_exists( $asset_path ) ) {
+			$asset_file = include $asset_path;
+			wp_enqueue_script(
+				'vbp-editor-panel',
+				plugins_url( '../../build/editor-panel/index.js', __DIR__ ),
+				$asset_file['dependencies'],
+				$asset_file['version'],
+				true
+			);
+			wp_set_script_translations( 'vbp-editor-panel', 'vk-block-patterns' );
+
+			// Pass post types to JS.
+			// 投稿タイプの情報をJSに渡す。
+			$post_types = get_post_types( array( 'public' => true ), 'objects' );
+			$post_type_data = array();
+			foreach ( $post_types as $pt ) {
+				$post_type_data[ $pt->name ] = array( 'label' => $pt->label );
+			}
+			wp_localize_script( 'vbp-editor-panel', 'vbpEditor', array(
+				'postTypes' => $post_type_data,
+			) );
+		}
 	}
 }
 new AddMetaBox();
