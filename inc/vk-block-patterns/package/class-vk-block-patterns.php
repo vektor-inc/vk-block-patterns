@@ -48,7 +48,7 @@ if ( ! class_exists( 'VK_Block_Patterns' ) ) {
 					'has_archive'  => false,
 					'menu_icon'    => 'dashicons-screenoptions',
 					'show_in_rest' => true,
-					'supports'     => array( 'title', 'editor' ),
+					'supports'     => array( 'title', 'editor', 'custom-fields' ),
 				)
 			);
 
