@@ -6,6 +6,10 @@
  * @package vektor-inc/vk-block-patterns
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Register vbp meta keys for the REST API.
  * vbp メタキーをREST APIに登録する。
