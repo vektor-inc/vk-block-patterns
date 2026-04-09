@@ -5,7 +5,8 @@ let entries = {}; // ビルドするファイル群
 const srcDir = './src';
 const entryDir = [
   'admin',
-  'edit-post/header-toolbar'
+  'edit-post/header-toolbar',
+  'editor-panel'
 ];
 entryDir.forEach((key) => {
   entries[key + '/index'] = path.resolve(srcDir, key);

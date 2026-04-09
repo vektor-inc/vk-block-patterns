@@ -27,7 +27,13 @@ class AddMetaBox {
 			__( 'Initial pattern setting', 'vk-block-patterns' ),
 			array( __CLASS__, 'meta_box_html' ),
 			'vk-block-patterns',
-			'side'
+			'side',
+			'default',
+			// WordPress 7.0 RTC compatibility flag.
+			// true = this is a legacy back-compat meta box, safe for RTC.
+			// WordPress 7.0 リアルタイム共同編集との互換性フラグ.
+			// true = レガシーメタボックスとして宣言し、RTC との互換性を確保する.
+			array( '__back_compat_meta_box' => true )
 		);
 	}
 
@@ -194,6 +200,40 @@ class AddMetaBox {
 			array(),
 			filemtime( plugin_dir_path( __FILE__ ) . '/editor.css' )
 		);
+
+		// Block editor native sidebar panel.
+		// ブロックエディタ用ネイティブサイドバーパネル。
+		$asset_path = plugin_dir_path( __DIR__ ) . '../../build/editor-panel/index.asset.php';
+		if ( file_exists( $asset_path ) ) {
+			$asset_file = include $asset_path;
+			wp_enqueue_script(
+				'vbp-editor-panel',
+				plugins_url( '../../build/editor-panel/index.js', __DIR__ ),
+				$asset_file['dependencies'],
+				$asset_file['version'],
+				true
+			);
+			// Pass translated strings and post types to JS.
+			// 翻訳済み文字列と投稿タイプの情報をJSに渡す。
+			$post_types = get_post_types( array( 'public' => true ), 'objects' );
+			$post_type_data = array();
+			foreach ( $post_types as $pt ) {
+				$post_type_data[ $pt->name ] = array( 'label' => $pt->label );
+			}
+			wp_localize_script( 'vbp-editor-panel', 'vbpEditor', array(
+				'postTypes' => $post_type_data,
+				'i18n'      => array(
+					'panelTitle'        => __( 'Initial pattern setting', 'vk-block-patterns' ),
+					'description'       => __( 'You can set this pattern as the default pattern for a specific post type.', 'vk-block-patterns' ),
+					'targetPostType'    => __( 'Target Post Type.', 'vk-block-patterns' ),
+					'howToAddPatterns'  => __( 'How to Add Patterns.', 'vk-block-patterns' ),
+					'unspecified'       => __( 'Unspecified', 'vk-block-patterns' ),
+					'autoAdd'           => __( 'Auto add', 'vk-block-patterns' ),
+					'showInCandidate'   => __( 'Show in Candidate', 'vk-block-patterns' ),
+					'multiplePatterns'  => __( 'If there are multiple patterns with "Auto Add" selected for one post type, only the oldest pattern will be inserted.', 'vk-block-patterns' ),
+				),
+			) );
+		}
 	}
 }
 new AddMetaBox();
