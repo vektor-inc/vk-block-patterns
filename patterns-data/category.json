@@ -20,8 +20,28 @@
         "term_order": "0"
     },
     {
+        "name": "FAQ",
+        "slug": "faq",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
         "name": "Featured",
         "slug": "featured",
+        "term_group": 0,
+        "taxonomy": "vk-managing-patterns-category",
+        "description": "",
+        "parent": 0,
+        "filter": "raw",
+        "term_order": "0"
+    },
+    {
+        "name": "Flow",
+        "slug": "flow",
         "term_group": 0,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",
@@ -92,16 +112,6 @@
     {
         "name": "ページ全体",
         "slug": "whole-page",
-        "term_group": 0,
-        "taxonomy": "vk-managing-patterns-category",
-        "description": "",
-        "parent": 0,
-        "filter": "raw",
-        "term_order": "0"
-    },
-    {
-        "name": "流れ",
-        "slug": "%e6%b5%81%e3%82%8c",
         "term_group": 0,
         "taxonomy": "vk-managing-patterns-category",
         "description": "",

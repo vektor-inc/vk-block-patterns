@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Specification change ] Update Block Patterns
 [ Specification change ] Migrate meta box to block editor native sidebar panel for WordPress 7.0 RTC (Real-Time Collaboration) compatibility.
 
 = 1.35.2 =
