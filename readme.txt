@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Bug Fix ] Fixed the settings screen admin CSS/JS not refreshing in the browser after an update, and the left sidebar navigation being clipped when admin notices appear.
+
 = 1.36.0 =
 [ Specification change ] Update Block Patterns
 [ Specification change ] Migrate meta box to block editor native sidebar panel for WordPress 7.0 RTC (Real-Time Collaboration) compatibility.
