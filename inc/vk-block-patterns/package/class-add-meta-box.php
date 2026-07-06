@@ -193,7 +193,26 @@ class AddMetaBox {
 		return true;
 	}
 
+	/**
+	 * ブロックエディター用スクリプト・スタイルを読み込む
+	 * Load scripts and styles for the block editor.
+	 *
+	 * 投稿タイプのあるブロックエディター画面でのみ実行する。
+	 * ウィジェット編集画面（wp-edit-widgets / wp-customize-widgets）では
+	 * wp-editor ハンドルを enqueue すると PHP notice が発生するため除外する。
+	 * Only runs on block editor screens with a post type.
+	 * Skips widget editor screens to avoid the PHP notice caused by enqueuing wp-editor.
+	 *
+	 * @return void
+	 */
 	public static function enqueue_scripts() {
+		// 投稿タイプのあるブロックエディター画面以外では処理しない。
+		// Skip if not on a block editor screen that has a post type.
+		$screen = get_current_screen();
+		if ( ! $screen || ! $screen->is_block_editor || empty( $screen->post_type ) ) {
+			return;
+		}
+
 		wp_enqueue_style(
 			'vk-block-patterns-editor',
 			plugins_url( '/editor.css', __FILE__ ),
