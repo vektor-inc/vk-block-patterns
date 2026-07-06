@@ -11,6 +11,37 @@
 class AddMetaBoxTest extends WP_UnitTestCase {
 
 	/**
+	 * Saved current_screen value restored after each test.
+	 *
+	 * @var WP_Screen|null
+	 */
+	private $_original_screen;
+
+	/**
+	 * Save the original current_screen before each test.
+	 *
+	 * @return void
+	 */
+	public function setUp(): void {
+		parent::setUp();
+		$this->_original_screen = isset( $GLOBALS['current_screen'] )
+			? $GLOBALS['current_screen']
+			: null;
+	}
+
+	/**
+	 * Restore current_screen and dequeue test styles after each test.
+	 *
+	 * @return void
+	 */
+	public function tearDown(): void {
+		$GLOBALS['current_screen'] = $this->_original_screen;
+		wp_dequeue_style( 'vk-block-patterns-editor' );
+		wp_deregister_style( 'vk-block-patterns-editor' );
+		parent::tearDown();
+	}
+
+	/**
 	 * AddMetaBox::is_method_selected test.
 	 */
 	public function test_is_method_selected() {
@@ -47,6 +78,21 @@ class AddMetaBoxTest extends WP_UnitTestCase {
 			$this->assertEquals( $test['expected'], $actual );
 
 		}
+	}
+
+	/**
+	 * Is_block_editor が true かつ post_type がある時に style がエンキューされる。
+	 * Enqueues style when is_block_editor is true and post_type is set.
+	 *
+	 * @return void
+	 */
+	public function test_enqueue_scripts_happy_path() {
+		$screen                    = WP_Screen::get( 'post' );
+		$screen->is_block_editor   = true;
+		$screen->post_type         = 'post';
+		$GLOBALS['current_screen'] = $screen;
+		VKBlockPatterns\AddMetaBox::enqueue_scripts();
+		$this->assertTrue( wp_style_is( 'vk-block-patterns-editor', 'enqueued' ) );
 	}
 
 	/**
