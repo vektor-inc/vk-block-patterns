@@ -48,4 +48,46 @@ class AddMetaBoxTest extends WP_UnitTestCase {
 
 		}
 	}
+
+	/**
+	 * Current_screen が null の時は何もエンキューしない。
+	 * Does nothing when current_screen is null.
+	 *
+	 * @return void
+	 */
+	public function test_enqueue_scripts_guard_no_screen() {
+		$GLOBALS['current_screen'] = null;
+		VKBlockPatterns\AddMetaBox::enqueue_scripts();
+		$this->assertFalse( wp_style_is( 'vk-block-patterns-editor', 'enqueued' ) );
+	}
+
+	/**
+	 * Is_block_editor が false の時は何もエンキューしない。
+	 * Does nothing when is_block_editor is false.
+	 *
+	 * @return void
+	 */
+	public function test_enqueue_scripts_guard_not_block_editor() {
+		$screen                    = WP_Screen::get( 'widgets' );
+		$screen->is_block_editor   = false;
+		$GLOBALS['current_screen'] = $screen;
+		VKBlockPatterns\AddMetaBox::enqueue_scripts();
+		$this->assertFalse( wp_style_is( 'vk-block-patterns-editor', 'enqueued' ) );
+		$GLOBALS['current_screen'] = null;
+	}
+
+	/**
+	 * Post_type が空の時は何もエンキューしない。
+	 * Does nothing when post_type is empty.
+	 *
+	 * @return void
+	 */
+	public function test_enqueue_scripts_guard_empty_post_type() {
+		$screen                    = WP_Screen::get( 'widgets' );
+		$screen->is_block_editor   = true;
+		$GLOBALS['current_screen'] = $screen;
+		VKBlockPatterns\AddMetaBox::enqueue_scripts();
+		$this->assertFalse( wp_style_is( 'vk-block-patterns-editor', 'enqueued' ) );
+		$GLOBALS['current_screen'] = null;
+	}
 }
