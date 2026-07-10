@@ -52,7 +52,7 @@ jobs:
           path: dist/
       - name: Create wp-env override for dist smoke test
         run: |
-          printf '{"plugins": ["./dist/%s"]}' "${{ env.plugin_name }}" > wp-env.override.json
+          printf '{"plugins": ["./dist/%s"]}' "${{ env.plugin_name }}" > .wp-env.override.json
       - name: Start wp-env (dist)
         run: |
           n=0
