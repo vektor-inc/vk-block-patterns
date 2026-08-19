@@ -12,13 +12,9 @@ env:
   plugin_name: vk-block-patterns
 
 jobs:
-  test:
-    name: Build & Test
+  smoke_test:
+    name: Smoke Test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php-versions: ['8.2', '8.3']
-        wp-versions: ['7.0']
     steps:
       - name: Validate tag format (x.y.z)
         run: |
@@ -26,6 +22,56 @@ jobs:
             echo "Invalid tag: ${GITHUB_REF_NAME} (expected x.y.z)"
             exit 1
           }
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24.14.0
+      - name: Setup PHP
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
+        with:
+          php-version: '8.3'
+      - name: Cache vendor
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php8.3-${{ hashFiles('**/composer.lock') }}
+      - name: Install dependencies
+        run: npm install && composer install
+      - name: Create dist & zip
+        run: npm run zip
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Create wp-env override for dist smoke test
+        run: |
+          printf '{"plugins": ["./dist/%s"]}' "${{ env.plugin_name }}" > .wp-env.override.json
+      - name: Start wp-env (dist)
+        run: |
+          n=0
+          until [ "$n" -ge 3 ]
+          do
+            npm run wp-env start --update && break
+            n=$((n+1))
+            echo "Retrying wp-env start --update ($n)..."
+            sleep 5
+          done
+          [ "$n" -lt 3 ] || exit 1
+          sudo chmod -R 777 ~/wp-env
+      - name: Smoke Test (dist)
+        uses: vektor-inc/wp-actions/smoke-test@90f5a231bc956543bf235f36be4928d57af2edab # main
+
+  php_unit:
+    name: PHP Unit Test (PHP ${{ matrix.php-versions }} / WP ${{ matrix.wp-versions }})
+    runs-on: ubuntu-latest
+    needs: [smoke_test]
+    strategy:
+      matrix:
+        php-versions: ['8.2', '8.3']
+        wp-versions: ['7.0']
+    steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: Setup Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
@@ -42,15 +88,21 @@ jobs:
           key: ${{ runner.os }}-php${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
       - name: Install dependencies
         run: npm install && composer install
-      - name: Create dist & zip
-        run: npm run zip
-      - name: Upload dist artifact
-        if: matrix.php-versions == '8.3' && matrix.wp-versions == '6.9'
-        uses: actions/upload-artifact@v4
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
-      - name: Create wp-env override for dist smoke test
+      - name: Copy test dependencies into dist for phpunit
+        run: |
+          rm -rf "dist/${{ env.plugin_name }}/vendor"
+          cp -r vendor "dist/${{ env.plugin_name }}/vendor"
+          for f in .phpunit.xml phpunit.xml phpunit.xml.dist; do
+            [ -f "$f" ] && cp "$f" "dist/${{ env.plugin_name }}/$f" || true
+          done
+          [ -d tests ] && cp -r tests "dist/${{ env.plugin_name }}/tests" || true
+          ls dist/${{ env.plugin_name }}/vendor/bin/phpunit && echo "phpunit OK" || echo "phpunit NOT FOUND"
+      - name: Create wp-env override for dist phpunit
         run: |
           printf '{"plugins": ["./dist/%s"]}' "${{ env.plugin_name }}" > .wp-env.override.json
       - name: Start wp-env (dist)
@@ -65,15 +117,13 @@ jobs:
           done
           [ "$n" -lt 3 ] || exit 1
           sudo chmod -R 777 ~/wp-env
-      - name: Smoke Test (dist)
-        uses: vektor-inc/wp-actions/smoke-test@90f5a231bc956543bf235f36be4928d57af2edab # main
       - name: Run PHPUnit
         run: npm run phpunit
 
   deploy:
     name: Deploy to .org
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [smoke_test, php_unit]
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: Download dist artifact
@@ -92,7 +142,7 @@ jobs:
   release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
-    needs: [test, deploy]
+    needs: [smoke_test, php_unit, deploy]
     permissions:
       contents: write
     steps:
