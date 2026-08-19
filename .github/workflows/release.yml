@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['8.2', '8.3']
-        wp-versions: ['6.9']
+        wp-versions: ['7.0']
     steps:
       - name: Validate tag format (x.y.z)
         run: |
