@@ -1,7 +1,8 @@
+@use "variables" as vars;
 
 .editor-styles-wrapper {
     .wp-block-columns.vk-cols--reverse{
-        @media ( min-width:600px ){
+        @media ( vars.$wp-col-min <= width ){
 			flex-direction: row-reverse;
             .wp-block-column:not(.wp-block-column:last-child){
                 // margin-left:1em; // これがあると編集画面に余白が出来るけど必要？

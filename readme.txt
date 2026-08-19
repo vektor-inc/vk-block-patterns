@@ -18,9 +18,15 @@ When you activate this plugin that create new custom post type for custom block 
 
 [ Specification change ] Removed custom classes from patterns where they are no longer needed due to core and plugin updates.
 
+[ Specification change ] Unified the "Fit columns" breakpoint at 782px so columns stack the same way as core columns.
+
 [ Bug Fix ] Fixed an issue where the vbp-editor-panel script was loaded on the widget editor screen, causing a PHP notice about wp-editor being enqueued.
 
 [ Bug Fix ] Fixed the settings screen admin CSS/JS not refreshing in the browser after an update, and the left sidebar navigation being clipped when admin notices appear.
+
+[ Bug Fix ] Fixed the "half content width" column layout where spacing was unexpectedly removed between 600px and 782px, causing columns to stick together.
+
+[ Bug Fix ] Fixed the editor preview where the "Reverse columns" option was applied below 782px instead of at 782px and above, so it now matches the front-end column layout.
 
 = 1.36.0 =
 [ Specification change ] Update Block Patterns
