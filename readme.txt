@@ -26,6 +26,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 [ Bug Fix ] Fixed the "half content width" column layout where spacing was unexpectedly removed between 600px and 782px, causing columns to stick together.
 
+[ Bug Fix ] Fixed the editor preview where the "Reverse columns" option was applied below 782px instead of at 782px and above, so it now matches the front-end column layout.
+
 = 1.36.0 =
 [ Specification change ] Update Block Patterns
 [ Specification change ] Migrate meta box to block editor native sidebar panel for WordPress 7.0 RTC (Real-Time Collaboration) compatibility.
