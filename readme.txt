@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Specification change ] Removed custom classes from patterns where they are no longer needed due to core and plugin updates.
+
 [ Bug Fix ] Fixed an issue where the vbp-editor-panel script was loaded on the widget editor screen, causing a PHP notice about wp-editor being enqueued.
 
 [ Bug Fix ] Fixed the settings screen admin CSS/JS not refreshing in the browser after an update, and the left sidebar navigation being clipped when admin notices appear.
