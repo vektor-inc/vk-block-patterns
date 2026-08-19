@@ -20,7 +20,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 [ Specification change ] Unified the "Fit columns" breakpoint at 782px so columns stack the same way as core columns.
 
-[ Specification change ] Removed the "vk-cols--media" custom class from the "Column Media" pattern, as the same layout is now achievable with core blocks; the CSS itself is kept so existing users are unaffected.
+[ Specification change ] Removed the "vk-cols--media" custom class from patterns, as the same layout is now achievable with core blocks; the CSS itself is kept so existing users are unaffected.
 
 [ Bug Fix ] Fixed an issue where the vbp-editor-panel script was loaded on the widget editor screen, causing a PHP notice about wp-editor being enqueued.
 
