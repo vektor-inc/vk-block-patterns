@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Specification change ] Removed the "vk-cols--reverse" and "vk-cols--hasbtn" custom classes from patterns, using core block features instead; the CSS itself is kept so existing users are unaffected.
+
 = 1.38.0 =
 [ Specification change ] Reverted the "Fit columns" breakpoint unification introduced in 1.37.0, restoring the previous 600px/782px breakpoints.
 
