@@ -1,5 +1,3 @@
-@use "variables" as vars;
-
 .vk-cols--reverse{
     flex-direction: row-reverse;
 }
@@ -23,7 +21,6 @@
 /*
     Fit : 余白のないカラム
     2カラムだけでなく3カラムや4カラムでも使用される想定
-	※ 非推奨 / 既にノーコードで出来る & 内蔵パターンでは不使用だか旧ユーザーのために残している
 /* ----------------------------------- */
 .vk-cols--fit {
 	&.wp-block-columns {
@@ -46,7 +43,6 @@
 				// .has-background に対してコアが付与する余白を付与
 				padding: 0;
 			}
-			// 1 カラム
 			@media (max-width: 599px){
 				// アウター＆インナー両方背景指定がない場合
 				&:not(.has-background) > .wp-block-column:not(.has-background){
@@ -55,15 +51,14 @@
 					padding-right:0 !important;
 				}
 			}
-			// 2 カラム
 			// コアのカラムブロックの余白打ち消し
-			@media ( vars.$wp-col-min <= width ){
+			@media (min-width: 782px){
 				.block-editor-block-list__block.wp-block-column:not(:first-child),
 				& > .wp-block-column:not(:first-child) {
 					margin-left: 0;
 				}
 			}
-			@media ( min-width: 600px ) and ( vars.$wp-col-min <= width ){
+			@media (min-width: 600px) and (max-width: 781px){
 				.wp-block-column:nth-child(2n) {
 					margin-left: 0;
 				}
@@ -75,8 +70,7 @@
 	}
 	&--gap1.wp-block-columns {
 		gap:1px;
-		// 2 カラム
-		@media (min-width: 600px) and ( vars.$wp-col-min <= width ) {
+		@media (min-width: 600px) and (max-width: 781px) {
 			.wp-block-column:not(:only-child) {
 				flex-basis: calc(50% - 1px)!important;
 			}
@@ -86,7 +80,6 @@
 
 /*
    Grid : 50%分割カラム
-   ※ 非推奨 / 既にノーコードで出来る & 内蔵パターンでは不使用だか旧ユーザーのために残している
 /* ----------------------------------- */
 .vk-cols--fit.vk-cols--grid,
 .vk-cols--fit.vk-cols--grid:not(.is-not-stacked-on-mobile){
@@ -100,22 +93,19 @@
         &  > .wp-block-column:nth-child(2){
             & > .wp-block-cover,
             & > .vk_outer {
-				// 1 カラム
-				@media (max-width: 599px){
+                @media (max-width: 599px){
                     width:100vw;
                     margin-right:calc( ( 100% - 100vw ) / 2 );
                     margin-left:calc( ( 100% - 100vw ) / 2 );
                 }
-				// 2カラム
-				@media (min-width: 600px){
+                @media (min-width: 600px){
                     margin-right:calc( 100% - 50vw );
                     width:50vw;
                 }
             }     
         }
         &.vk-cols--reverse {
-			// 2 カラム
-			@media (min-width: 600px){
+            @media (min-width: 600px){
                 // reverse クラスが余白をつけるように追加しているのでgridの場合は打ち消し
                 &  > .wp-block-column{
                     margin-left:0;
@@ -214,7 +204,6 @@
 
 /*
     メディアカラム
-	※ 非推奨 / 既にノーコードで出来る & 内蔵パターンでは不使用だか旧ユーザーのために残している
 /* ----------------------------------- */
 .vk-cols--media.wp-block-columns{
     @media (min-width: 992px) {
