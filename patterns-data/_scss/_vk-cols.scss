@@ -1,8 +1,10 @@
+// ※ 非推奨 / 既にノーコードで出来る & 内蔵パターンでは不使用だか旧ユーザーのために残している
 .vk-cols--reverse{
     flex-direction: row-reverse;
 }
 
-.vk-cols--hasbtn{ // 結局汎用ブロックではボタンの処理が完全に制御できないので基本的に非推奨
+// ※ 非推奨 / 既にノーコードで出来る & 内蔵パターンでは不使用だか旧ユーザーのために残している
+.vk-cols--hasbtn{
     margin-bottom:0;
     & > .row > .vk_gridColumn_item,
     & > .wp-block-column {
