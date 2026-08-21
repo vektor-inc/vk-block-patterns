@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Specification change ] Reverted the "Fit columns" breakpoint unification introduced in 1.37.0, restoring the previous 600px/782px breakpoints.
+
 = 1.37.0 =
 [ Specification change ] Removed custom classes from patterns where they are no longer needed due to core and plugin updates.
 
