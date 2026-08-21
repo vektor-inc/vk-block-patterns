@@ -5,7 +5,7 @@ Tags: Guternberg, Block Pattern
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.37.0
+Stable tag: 1.38.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.38.0 =
 [ Specification change ] Reverted the "Fit columns" breakpoint unification introduced in 1.37.0, restoring the previous 600px/782px breakpoints.
 
 = 1.37.0 =
