@@ -47,7 +47,7 @@
 				padding: 0;
 			}
 			// 1 カラム
-			@media ( width < vars.$wp-col-min ){
+			@media (max-width: 599px){
 				// アウター＆インナー両方背景指定がない場合
 				&:not(.has-background) > .wp-block-column:not(.has-background){
 					// padding-top:0 !important; カラムを積んだ時に上のカラムとくっついてしまう
@@ -62,6 +62,8 @@
 				& > .wp-block-column:not(:first-child) {
 					margin-left: 0;
 				}
+			}
+			@media ( min-width: 600px ) and ( vars.$wp-col-min <= width ){
 				.wp-block-column:nth-child(2n) {
 					margin-left: 0;
 				}
@@ -74,7 +76,7 @@
 	&--gap1.wp-block-columns {
 		gap:1px;
 		// 2 カラム
-		@media ( vars.$wp-col-min <= width ){
+		@media (min-width: 600px) and ( vars.$wp-col-min <= width ) {
 			.wp-block-column:not(:only-child) {
 				flex-basis: calc(50% - 1px)!important;
 			}
@@ -99,13 +101,13 @@
             & > .wp-block-cover,
             & > .vk_outer {
 				// 1 カラム
-                @media ( width < vars.$wp-col-min ){
+				@media (max-width: 599px){
                     width:100vw;
                     margin-right:calc( ( 100% - 100vw ) / 2 );
                     margin-left:calc( ( 100% - 100vw ) / 2 );
                 }
 				// 2カラム
-                @media ( vars.$wp-col-min <= width ){
+				@media (min-width: 600px){
                     margin-right:calc( 100% - 50vw );
                     width:50vw;
                 }
@@ -113,7 +115,7 @@
         }
         &.vk-cols--reverse {
 			// 2 カラム
-            @media ( vars.$wp-col-min <= width ){
+			@media (min-width: 600px){
                 // reverse クラスが余白をつけるように追加しているのでgridの場合は打ち消し
                 &  > .wp-block-column{
                     margin-left:0;
