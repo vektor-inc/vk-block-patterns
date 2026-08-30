@@ -67,10 +67,17 @@ class RegisterMetaTest extends WP_UnitTestCase {
 
 		// $_POST を空にして、ブロックエディタの REST 保存（$_POST を伴わない
 		// 保存）を模した状態で save_post フックを発火させる.
+		// テスト後は他のテストへ影響しないよう、必ず元の $_POST を復元する.
 		// Empty $_POST to simulate a block editor REST save (a save without $_POST),
-		// then fire the save_post hook.
-		$_POST = array();
-		do_action( 'save_post', $post_id, get_post( $post_id ), true );
+		// then fire the save_post hook. Always restore the original $_POST
+		// afterwards so later tests are not affected by the emptied value.
+		$original_post = $_POST;
+		try {
+			$_POST = array();
+			do_action( 'save_post', $post_id, get_post( $post_id ), true );
+		} finally {
+			$_POST = $original_post;
+		}
 
 		$this->assertEquals( 'post', get_post_meta( $post_id, 'vbp-init-post-type', true ) );
 		$this->assertEquals( 'add', get_post_meta( $post_id, 'vbp-init-pattern-add-method', true ) );
