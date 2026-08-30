@@ -1,14 +1,14 @@
 <?php
 /**
- * Class AddMetaBoxTest
+ * Class EditorPanelAssetsTest
  *
  * @package vektor-inc/vk-block-patterns
  */
 
 /**
- * AddMetaBoxTest
+ * EditorPanelAssetsTest
  */
-class AddMetaBoxTest extends WP_UnitTestCase {
+class EditorPanelAssetsTest extends WP_UnitTestCase {
 
 	/**
 	 * Saved current_screen value restored after each test.
@@ -42,45 +42,6 @@ class AddMetaBoxTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * AddMetaBox::is_method_selected test.
-	 */
-	public function test_is_method_selected() {
-
-		$tests = array(
-			'new_post'         => array(
-				'saved_post_type'  => '',
-				'saved_add_method' => '',
-				'expected'         => '',
-			),
-			'before_1_26_post' => array(
-				'saved_post_type'  => 'post',
-				'saved_add_method' => '',
-				'expected'         => 'show',
-			),
-			'before_1_26_post' => array(
-				'saved_post_type' => 'post',
-				'expected'        => 'show',
-			),
-			'before_1_26_post' => array(
-				'saved_post_type'  => 'post',
-				'saved_add_method' => null,
-				'expected'         => 'show',
-			),
-			'after_1_26_post'  => array(
-				'saved_post_type'  => 'page',
-				'saved_add_method' => 'add',
-				'expected'         => 'add',
-			),
-		);
-
-		foreach ( $tests as $key => $test ) {
-			$actual = VKBlockPatterns\AddMetaBox::is_method_selected( $test['saved_post_type'], $test['saved_add_method'] );
-			$this->assertEquals( $test['expected'], $actual );
-
-		}
-	}
-
-	/**
 	 * Is_block_editor が true かつ post_type がある時に style がエンキューされる。
 	 * Enqueues style when is_block_editor is true and post_type is set.
 	 *
@@ -91,7 +52,7 @@ class AddMetaBoxTest extends WP_UnitTestCase {
 		$screen->is_block_editor   = true;
 		$screen->post_type         = 'post';
 		$GLOBALS['current_screen'] = $screen;
-		VKBlockPatterns\AddMetaBox::enqueue_scripts();
+		VKBlockPatterns\EditorPanelAssets::enqueue_scripts();
 		$this->assertTrue( wp_style_is( 'vk-block-patterns-editor', 'enqueued' ) );
 	}
 
@@ -103,7 +64,7 @@ class AddMetaBoxTest extends WP_UnitTestCase {
 	 */
 	public function test_enqueue_scripts_guard_no_screen() {
 		$GLOBALS['current_screen'] = null;
-		VKBlockPatterns\AddMetaBox::enqueue_scripts();
+		VKBlockPatterns\EditorPanelAssets::enqueue_scripts();
 		$this->assertFalse( wp_style_is( 'vk-block-patterns-editor', 'enqueued' ) );
 	}
 
@@ -117,7 +78,7 @@ class AddMetaBoxTest extends WP_UnitTestCase {
 		$screen                    = WP_Screen::get( 'widgets' );
 		$screen->is_block_editor   = false;
 		$GLOBALS['current_screen'] = $screen;
-		VKBlockPatterns\AddMetaBox::enqueue_scripts();
+		VKBlockPatterns\EditorPanelAssets::enqueue_scripts();
 		$this->assertFalse( wp_style_is( 'vk-block-patterns-editor', 'enqueued' ) );
 		$GLOBALS['current_screen'] = null;
 	}
@@ -132,7 +93,7 @@ class AddMetaBoxTest extends WP_UnitTestCase {
 		$screen                    = WP_Screen::get( 'widgets' );
 		$screen->is_block_editor   = true;
 		$GLOBALS['current_screen'] = $screen;
-		VKBlockPatterns\AddMetaBox::enqueue_scripts();
+		VKBlockPatterns\EditorPanelAssets::enqueue_scripts();
 		$this->assertFalse( wp_style_is( 'vk-block-patterns-editor', 'enqueued' ) );
 		$GLOBALS['current_screen'] = null;
 	}
