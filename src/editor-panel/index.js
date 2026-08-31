@@ -68,15 +68,17 @@ const VbpInitPatternPanel = () => {
 
 	// Build post type options from data passed via wp_localize_script.
 	// wp_localize_script で渡されたデータから投稿タイプの選択肢を作成する。
-	const postTypeOptions =
-		window.vbpEditor?.postTypes
+	const postTypeOptions = [
+		{ label: i18n.unspecified || 'Unspecified', value: '' },
+		...( window.vbpEditor?.postTypes
 			? Object.entries( window.vbpEditor.postTypes ).map(
 					( [ name, data ] ) => ( {
 						label: data.label || name,
 						value: name,
 					} )
 			  )
-			: [];
+			: [] ),
+	];
 
 	const addMethodOptions = [
 		{ label: i18n.unspecified || 'Unspecified', value: 'unspecified' },
