@@ -5,6 +5,7 @@
 	"main": "gulpfile.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
+		"test:unit": "wp-scripts test-unit-js",
 		"update": "ncu -u --target minor && rimraf node_modules/ package-lock.json && npm install",
 		"upgrade": "ncu -u --target latest && rimraf node_modules/ package-lock.json && npm install",
 		"watch": "wp-scripts start",
