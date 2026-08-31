@@ -16,6 +16,8 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+[ Bug Fix ] Fixed an issue where the initial pattern setting (auto add / show in candidate) was cleared every time the pattern was saved.
+
 = 1.39.0 =
 [ Specification change ] Removed the "vk-cols--reverse" and "vk-cols--hasbtn" custom classes from patterns, using core block features instead; the CSS itself is kept so existing users are unaffected.
 
