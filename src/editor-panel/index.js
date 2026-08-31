@@ -13,6 +13,7 @@ import { PluginDocumentSettingPanel } from '@wordpress/editor';
 import { SelectControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
+import { useRef } from '@wordpress/element';
 
 // Use translated strings from PHP via wp_localize_script.
 // PHPからwp_localize_scriptで渡された翻訳済み文字列を使用する。
@@ -31,6 +32,15 @@ const VbpInitPatternPanel = () => {
 	);
 
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
+
+	// Keep a ref to the latest meta so that rapid, same-render consecutive
+	// updateMeta() calls always merge onto the most recent value instead of
+	// a stale closure-captured `meta` state.
+	// 直前の meta を常に参照できるようrefで追跡する。
+	// これにより、再レンダーを挟まずに updateMeta() が連続で呼ばれても、
+	// 古いクロージャの meta を基準にした上書きが発生しなくなる。
+	const metaRef = useRef( meta );
+	metaRef.current = meta;
 
 	// Only show panel for vk-block-patterns post type.
 	// vk-block-patterns 投稿タイプでのみパネルを表示する。
@@ -51,7 +61,9 @@ const VbpInitPatternPanel = () => {
 	}
 
 	const updateMeta = ( key, value ) => {
-		setMeta( { ...meta, [ key ]: value } );
+		const nextMeta = { ...metaRef.current, [ key ]: value };
+		metaRef.current = nextMeta;
+		setMeta( nextMeta );
 	};
 
 	// Build post type options from data passed via wp_localize_script.
