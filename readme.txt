@@ -5,7 +5,7 @@ Tags: Guternberg, Block Pattern
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.39.0
+Stable tag: 1.39.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,6 +16,7 @@ When you activate this plugin that create new custom post type for custom block 
 
 == Changelog ==
 
+= 1.39.1 =
 [ Bug Fix ] Fixed an issue where the initial pattern setting (auto add / show in candidate) was cleared every time the pattern was saved.
 [ Bug Fix ] Fixed an issue where the target post type in the initial pattern setting could fail to save when changed together with the add method, preventing patterns from being auto-inserted into new posts.
 [ Bug Fix ] Fixed an issue where the target post type in the initial pattern setting appeared to be selected (showing the first option) even when nothing had been chosen.
