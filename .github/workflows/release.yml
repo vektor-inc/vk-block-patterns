@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 24.x
+          check-latest: true
       - name: Setup PHP
         uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
         with:
@@ -37,7 +38,7 @@ jobs:
           path: vendor
           key: ${{ runner.os }}-php8.3-${{ hashFiles('**/composer.lock') }}
       - name: Install dependencies
-        run: npm install && composer install
+        run: npm ci && composer install
       - name: Create dist & zip
         run: npm run zip
       - name: Upload dist artifact
@@ -77,6 +78,7 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 24.x
+          check-latest: true
       - name: Setup PHP ${{ matrix.php-versions }}
         uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
         with:
@@ -87,7 +89,7 @@ jobs:
           path: vendor
           key: ${{ runner.os }}-php${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
       - name: Install dependencies
-        run: npm install && composer install
+        run: npm ci && composer install
       - name: Download dist artifact
         uses: actions/download-artifact@v4
         with:
