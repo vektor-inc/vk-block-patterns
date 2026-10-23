@@ -34,6 +34,7 @@ gulp.task('dist', function () {
 		"!./README.md",
 		"!./LICENSE",
 		"!./.gitignore",
+		"!./.node-version",
 		"!./.distignore",
 		"!./.phpcs.xml",
 		"!./.phpunit.xml",
