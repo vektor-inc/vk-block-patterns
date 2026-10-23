@@ -30,7 +30,7 @@ jobs:
           - name: Checkout
             uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
-          # Node.js 24 系の最新版を使う（check-latest で、ランナー同梱の古い 24 系ではなく最新の 24.x を取得する。.node-version ファイルは無く、ローカルは package.json の volta.node で固定）
+          # Node.js 24 系の最新版を使う（check-latest で、ランナー同梱の古い 24 系ではなく最新の 24.x を取得する。ローカル開発用の Node のバージョンは .node-version で指定）
           - name: Setup Node.js 24.x
             uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
             with:
