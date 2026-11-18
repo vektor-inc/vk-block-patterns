@@ -30,7 +30,7 @@
 	"homepage": "https://github.com/vektor-inc/vk-block-patterns#readme",
 	"devDependencies": {
 		"@wordpress/env": "10.39.0",
-		"@wordpress/scripts": "^31.5.0",
+		"@wordpress/scripts": "^37.1.0",
 		"bestzip": "^2.2.3",
 		"gulp": "^5.0.1",
 		"npm-check-updates": "^19.6.3",
